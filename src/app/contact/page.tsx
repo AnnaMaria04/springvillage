@@ -1,115 +1,162 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, CheckCircle, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, CheckCircle, Loader2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CONTACT } from "@/lib/data";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
-    setSubmitted(true);
+    setServerError("");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      subject: (form.elements.namedItem("subject") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || "Ошибка");
+      setSubmitted(true);
+    } catch (err) {
+      setServerError(err instanceof Error ? err.message : "Ошибка при отправке. Позвоните нам.");
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const contactItems = [
+    { icon: Phone, label: "Телефон", value: CONTACT.phone, href: `tel:${CONTACT.phoneDial}` },
+    { icon: Mail, label: "Email", value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+    { icon: MapPin, label: "Адрес", value: CONTACT.address, href: null },
+    { icon: Clock, label: "Режим работы", value: CONTACT.hours, href: null },
+  ];
+
   return (
-    <div className="pt-20 min-h-screen bg-[--background]">
-      <div className="bg-[--muted] py-14 px-4 sm:px-6 lg:px-8">
+    <div className="pt-16 min-h-screen bg-[--background]">
+      <div className="bg-[--muted] border-b border-[--border] py-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[--foreground] mb-3">Контакты</h1>
-          <p className="text-[--muted-foreground] text-lg">Свяжитесь с нами любым удобным способом</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[--primary] mb-3">Контакты</p>
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-[--foreground] mb-3">
+            Свяжитесь с нами
+          </h1>
+          <p className="text-[--muted-foreground] text-lg">Ответим в течение 15 минут</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Info + Map */}
+          {/* Left: info + map */}
           <div className="space-y-8">
-            <div>
-              <h2 className="font-serif text-2xl font-bold text-[--foreground] mb-5">Как с нами связаться</h2>
-              <div className="space-y-4">
-                {[
-                  { icon: Phone, label: "Телефон", value: "+7 (495) 123-45-67", href: "tel:+74951234567" },
-                  { icon: Mail, label: "Email", value: "info@springvillage.ru", href: "mailto:info@springvillage.ru" },
-                  { icon: MapPin, label: "Адрес", value: "Московская область, 50 км от МКАД по Ярославскому шоссе", href: null },
-                  { icon: Clock, label: "Режим работы", value: "Ежедневно с 9:00 до 21:00", href: null },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  const content = (
-                    <div className="flex items-start gap-4">
-                      <div className="w-11 h-11 rounded-lg bg-[--primary]/10 flex items-center justify-center shrink-0">
-                        <Icon className="w-5 h-5 text-[--primary]" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider mb-0.5">
-                          {item.label}
-                        </div>
-                        <div className="text-[--foreground] font-medium">{item.value}</div>
-                      </div>
+            <div className="space-y-4">
+              {contactItems.map((item) => {
+                const Icon = item.icon;
+                const inner = (
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[--primary]/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-4.5 h-4.5 text-[--primary]" />
                     </div>
-                  );
-                  return item.href ? (
-                    <a key={item.label} href={item.href} className="block hover:opacity-80 transition-opacity">
-                      {content}
-                    </a>
-                  ) : (
-                    <div key={item.label}>{content}</div>
-                  );
-                })}
-              </div>
+                    <div>
+                      <div className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider mb-0.5">
+                        {item.label}
+                      </div>
+                      <div className="text-[--foreground] font-medium text-sm">{item.value}</div>
+                    </div>
+                  </div>
+                );
+                return item.href ? (
+                  <a key={item.label} href={item.href} className="block hover:opacity-80 transition-opacity">
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={item.label}>{inner}</div>
+                );
+              })}
             </div>
 
-            {/* Yandex map — real Spring Village location */}
+            {/* Quick contact buttons */}
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={`https://wa.me/${CONTACT.phoneWhatsApp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-[#25D366] text-white rounded-xl px-4 py-2.5 text-sm font-semibold hover:bg-[#1db954] transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" /> WhatsApp
+              </a>
+              <a
+                href={CONTACT.telegram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-[#229ED9] text-white rounded-xl px-4 py-2.5 text-sm font-semibold hover:bg-[#1a8fc4] transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" /> Telegram
+              </a>
+            </div>
+
+            {/* Yandex map */}
             <div className="rounded-2xl overflow-hidden border border-[--border] shadow-sm">
               <iframe
-                src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=193725846598"
+                src={`https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=${CONTACT.yandexMapOid}`}
                 width="100%"
-                height="400"
+                height="380"
                 frameBorder="0"
                 title="Spring Village на карте"
                 allowFullScreen
                 loading="lazy"
-                className="block"
               />
             </div>
           </div>
 
-          {/* Contact form */}
+          {/* Right: form */}
           <div className="bg-white rounded-2xl border border-[--border] shadow-sm p-6 sm:p-8">
             {submitted ? (
-              <div className="py-10 text-center">
-                <div className="w-16 h-16 rounded-full bg-[--primary]/10 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-[--primary]" />
+              <div className="py-12 text-center">
+                <div className="w-14 h-14 rounded-full bg-[--primary]/10 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-7 h-7 text-[--primary]" />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[--foreground] mb-2">Сообщение отправлено!</h3>
-                <p className="text-[--muted-foreground] text-sm">Мы ответим вам в течение часа.</p>
+                <h3 className="font-display text-xl font-bold text-[--foreground] mb-2">Сообщение отправлено!</h3>
+                <p className="text-[--muted-foreground] text-sm">Ответим в течение 15 минут.</p>
               </div>
             ) : (
               <>
-                <h2 className="font-serif text-xl font-bold text-[--foreground] mb-5">Написать нам</h2>
+                <h2 className="font-display text-xl font-bold text-[--foreground] mb-6">Написать нам</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-sm font-semibold text-[--foreground]">Имя *</label>
-                      <Input required placeholder="Ваше имя" className="h-11" />
+                      <label className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider">Имя *</label>
+                      <Input name="name" required placeholder="Ваше имя" className="h-11" />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-sm font-semibold text-[--foreground]">Телефон</label>
-                      <Input placeholder="+7 (000) 000-00-00" type="tel" className="h-11" />
+                      <label className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider">Телефон</label>
+                      <Input name="phone" placeholder="+7 (000) 000-00-00" type="tel" className="h-11" />
                     </div>
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-[--foreground]">Email *</label>
-                    <Input required type="email" placeholder="email@example.com" className="h-11" />
+                    <label className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider">Email *</label>
+                    <Input name="email" required type="email" placeholder="email@example.com" className="h-11" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-[--foreground]">Тема</label>
-                    <select className="flex h-11 w-full rounded-lg border border-[--input] bg-[--background] px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring]">
+                    <label className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider">Тема</label>
+                    <select
+                      name="subject"
+                      className="flex h-11 w-full rounded-xl border border-[--input] bg-[--background] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--ring]"
+                    >
                       <option>Вопрос о бронировании</option>
                       <option>Вопрос о коттедже</option>
                       <option>Корпоративные мероприятия</option>
@@ -117,20 +164,24 @@ export default function ContactPage() {
                     </select>
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-[--foreground]">Сообщение *</label>
+                    <label className="text-xs font-semibold text-[--muted-foreground] uppercase tracking-wider">Сообщение *</label>
                     <textarea
+                      name="message"
                       required
                       rows={4}
                       placeholder="Ваш вопрос или пожелание..."
-                      className="flex w-full rounded-lg border border-[--input] bg-[--background] px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] resize-none"
+                      className="flex w-full rounded-xl border border-[--input] bg-[--background] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[--ring] resize-none"
                     />
                   </div>
+
+                  {serverError && (
+                    <p className="text-xs text-red-600 bg-red-50 rounded-lg px-3 py-2">{serverError}</p>
+                  )}
+
                   <Button type="submit" size="lg" className="w-full" disabled={loading}>
                     {loading ? (
                       <><Loader2 className="w-4 h-4 animate-spin" /> Отправляем...</>
-                    ) : (
-                      "Отправить сообщение"
-                    )}
+                    ) : "Отправить сообщение"}
                   </Button>
                 </form>
               </>

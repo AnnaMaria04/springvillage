@@ -2,62 +2,81 @@
 
 import { useState } from "react";
 import { MessageCircle, X, Phone, Send } from "lucide-react";
+import { CONTACT } from "@/lib/data";
+
+const contacts = [
+  {
+    label: "WhatsApp",
+    href: `https://wa.me/${CONTACT.phoneWhatsApp}?text=${encodeURIComponent("Здравствуйте! Хочу узнать о бронировании коттеджа.")}`,
+    bg: "#25D366",
+    icon: MessageCircle,
+    external: true,
+  },
+  {
+    label: "Telegram",
+    href: CONTACT.telegram,
+    bg: "#229ED9",
+    icon: Send,
+    external: true,
+  },
+  {
+    label: CONTACT.phone,
+    href: `tel:${CONTACT.phoneDial}`,
+    bg: "var(--primary)",
+    icon: Phone,
+    external: false,
+  },
+];
 
 export function WhatsAppButton() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {/* Expanded menu */}
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2.5">
+      {/* Menu items */}
       {open && (
-        <div className="flex flex-col gap-2 mb-1 animate-in slide-in-from-bottom-4 fade-in duration-200">
-          <a
-            href="https://wa.me/74951234567?text=Здравствуйте!%20Хочу%20узнать%20о%20бронировании%20коттеджа."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-white rounded-xl shadow-lg border border-[--border] px-4 py-3 text-sm font-medium text-[--foreground] hover:bg-[--muted] transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center shrink-0">
-              <MessageCircle className="w-4 h-4 text-white" />
-            </div>
-            WhatsApp
-          </a>
-          <a
-            href="https://t.me/springvillage"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-white rounded-xl shadow-lg border border-[--border] px-4 py-3 text-sm font-medium text-[--foreground] hover:bg-[--muted] transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-[#229ED9] flex items-center justify-center shrink-0">
-              <Send className="w-4 h-4 text-white" />
-            </div>
-            Telegram
-          </a>
-          <a
-            href="tel:+74951234567"
-            className="flex items-center gap-3 bg-white rounded-xl shadow-lg border border-[--border] px-4 py-3 text-sm font-medium text-[--foreground] hover:bg-[--muted] transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-[--primary] flex items-center justify-center shrink-0">
-              <Phone className="w-4 h-4 text-white" />
-            </div>
-            Позвонить
-          </a>
+        <div className="flex flex-col gap-2 mb-1 animate-slide-up">
+          {contacts.map((c) => {
+            const Icon = c.icon;
+            return (
+              <a
+                key={c.label}
+                href={c.href}
+                target={c.external ? "_blank" : undefined}
+                rel={c.external ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-3 bg-white rounded-2xl shadow-xl border border-[--border] pr-4 pl-2 py-2.5 text-sm font-medium text-[--foreground] hover:shadow-2xl transition-all duration-150 hover:-translate-y-0.5"
+              >
+                <div
+                  className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ background: c.bg }}
+                >
+                  <Icon className="w-4 h-4 text-white" />
+                </div>
+                {c.label}
+              </a>
+            );
+          })}
         </div>
       )}
 
-      {/* Toggle button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-14 h-14 rounded-full bg-[#25D366] text-white shadow-xl hover:bg-[#1db954] transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95"
-        aria-label={open ? "Закрыть" : "Написать нам"}
-      >
-        {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-7 h-7" />}
-      </button>
-
-      {/* Pulse ring */}
-      {!open && (
-        <span className="absolute bottom-0 right-0 w-14 h-14 rounded-full bg-[#25D366] animate-ping opacity-20 pointer-events-none" />
-      )}
+      {/* Main button */}
+      <div className="relative">
+        {/* Ping ring */}
+        {!open && (
+          <span
+            className="absolute inset-0 rounded-full animate-whatsapp pointer-events-none"
+            style={{ background: "#25D366" }}
+          />
+        )}
+        <button
+          onClick={() => setOpen(!open)}
+          style={{ background: open ? "#1a1a1a" : "#25D366" }}
+          className="relative w-14 h-14 rounded-full text-white shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95"
+          aria-label={open ? "Закрыть меню связи" : "Связаться с нами"}
+        >
+          {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-6 h-6" />}
+        </button>
+      </div>
     </div>
   );
 }

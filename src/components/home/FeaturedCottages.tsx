@@ -1,154 +1,124 @@
 import Link from "next/link";
-import { Users, BedDouble, Bath, Star, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Users, Star, ArrowUpRight } from "lucide-react";
+import { COTTAGES } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 
-const cottages = [
-  {
-    slug: "sosnovaya",
-    name: "Сосновая",
-    description: "Просторный коттедж в сосновом бору с панорамными окнами и собственной баней на берегу пруда.",
-    capacity: 8,
-    bedrooms: 3,
-    bathrooms: 2,
-    price: 12000,
-    rating: 4.9,
-    reviews: 47,
-    badge: "Хит сезона",
-    badgeVariant: "default" as const,
-    image: "/images/cottages/sosnovaya.jpg",
-    amenities: ["Баня", "Барбекю", "Wi-Fi", "Парковка"],
-  },
-  {
-    slug: "lipovaya",
-    name: "Липовая",
-    description: "Уютный коттедж для двоих с романтической атмосферой, камином и видом на цветущий сад.",
-    capacity: 4,
-    bedrooms: 2,
-    bathrooms: 1,
-    price: 7500,
-    rating: 4.8,
-    reviews: 63,
-    badge: "Для пар",
-    badgeVariant: "accent" as const,
-    image: "/images/cottages/lipovaya.jpg",
-    amenities: ["Камин", "Барбекю", "Wi-Fi", "Джакузи"],
-  },
-  {
-    slug: "dubovaya",
-    name: "Дубовая",
-    description: "Большой семейный коттедж с детской площадкой, волейбольной сеткой и большой открытой террасой.",
-    capacity: 12,
-    bedrooms: 4,
-    bathrooms: 3,
-    price: 18000,
-    rating: 4.9,
-    reviews: 31,
-    badge: "Для семей",
-    badgeVariant: "secondary" as const,
-    image: "/images/cottages/dubovaya.jpg",
-    amenities: ["Детская площадка", "Баня", "Wi-Fi", "Бассейн"],
-  },
-];
+const featured = COTTAGES.filter((c) => c.featured);
 
 export function FeaturedCottages() {
   return (
-    <section className="py-20 lg:py-28 bg-[--muted]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+    <section className="section-y bg-[--muted]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Header row */}
+        <div className="flex items-end justify-between mb-10 gap-4">
           <div>
-            <p className="text-[--primary] font-semibold text-sm uppercase tracking-widest mb-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[--primary] mb-3">
               Наши коттеджи
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[--foreground]">
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-[--foreground]">
               Популярные варианты
             </h2>
           </div>
-          <Button asChild variant="outline">
-            <Link href="/cottages">
-              Все коттеджи
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
+          <Link
+            href="/cottages"
+            className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-[--primary] hover:text-[--forest] transition-colors shrink-0"
+          >
+            Все {COTTAGES.length} коттеджей
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cottages.map((cottage) => (
-            <Link
-              key={cottage.slug}
-              href={`/cottages/${cottage.slug}`}
-              className="group block bg-white rounded-2xl overflow-hidden border border-[--border] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-            >
-              {/* Image */}
-              <div className="relative h-56 bg-gradient-to-br from-[--primary] to-[#3d6b20] overflow-hidden">
-                {/* Placeholder gradient until real images */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-serif text-4xl text-white/30 font-bold">{cottage.name[0]}</span>
-                </div>
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
-                {/* Badge */}
-                <div className="absolute top-4 left-4">
-                  <Badge variant={cottage.badgeVariant}>{cottage.badge}</Badge>
-                </div>
-                {/* Rating */}
-                <div className="absolute top-4 right-4 flex items-center gap-1 bg-white/95 rounded-full px-2.5 py-1 text-xs font-semibold text-[--foreground]">
-                  <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                  {cottage.rating}
-                  <span className="text-[--muted-foreground] font-normal">({cottage.reviews})</span>
+        {/* 3-col grid with large main card + 2 stacked */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          {/* Main large card */}
+          <Link
+            href={`/cottages/${featured[0].slug}`}
+            className="lg:col-span-3 group relative rounded-2xl overflow-hidden bg-[--forest-dark] min-h-[420px] lg:min-h-[520px] flex flex-col justify-end hover-lift"
+          >
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${featured[0].color} opacity-60`}
+              aria-hidden="true"
+            />
+            <div className="absolute inset-0 img-overlay" aria-hidden="true" />
+
+            <div className="relative z-10 p-7 lg:p-9">
+              <div className="flex items-start justify-between mb-3">
+                {featured[0].badge && (
+                  <Badge className="text-xs">{featured[0].badge}</Badge>
+                )}
+                <div className="flex items-center gap-1 bg-black/30 text-white rounded-full px-2.5 py-1 text-xs ml-auto">
+                  <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                  {featured[0].rating}
                 </div>
               </div>
 
-              {/* Body */}
-              <div className="p-5">
-                <h3 className="font-serif text-xl font-bold text-[--foreground] mb-2 group-hover:text-[--primary] transition-colors">
-                  Коттедж «{cottage.name}»
-                </h3>
-                <p className="text-sm text-[--muted-foreground] leading-relaxed mb-4 line-clamp-2">
-                  {cottage.description}
-                </p>
+              <h3 className="font-display text-3xl lg:text-4xl font-bold text-white mb-1">
+                «{featured[0].name}»
+              </h3>
+              <p className="text-white/60 text-sm mb-4">{featured[0].tagline}</p>
 
-                {/* Specs */}
-                <div className="flex items-center gap-4 text-sm text-[--muted-foreground] mb-4">
-                  <span className="flex items-center gap-1">
-                    <Users className="w-3.5 h-3.5" /> {cottage.capacity} гостей
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <BedDouble className="w-3.5 h-3.5" /> {cottage.bedrooms} спальни
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Bath className="w-3.5 h-3.5" /> {cottage.bathrooms} санузла
-                  </span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-white/70 text-sm">
+                  <Users className="w-3.5 h-3.5" />
+                  до {featured[0].capacity} гостей
                 </div>
-
-                {/* Amenity tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {cottage.amenities.map((a) => (
-                    <span
-                      key={a}
-                      className="text-xs bg-[--muted] text-[--muted-foreground] rounded-full px-2.5 py-0.5"
-                    >
-                      {a}
-                    </span>
-                  ))}
+                <div className="text-right">
+                  <span className="text-white font-bold text-xl">{featured[0].priceWeekday.toLocaleString("ru-RU")} ₽</span>
+                  <span className="text-white/50 text-xs ml-1">/ ночь</span>
                 </div>
+              </div>
+            </div>
+          </Link>
 
-                {/* Price */}
-                <div className="flex items-center justify-between border-t border-[--border] pt-4">
-                  <div>
-                    <span className="text-xl font-bold text-[--foreground]">
-                      {cottage.price.toLocaleString("ru-RU")} ₽
-                    </span>
-                    <span className="text-sm text-[--muted-foreground]"> / ночь</span>
+          {/* 2 stacked smaller cards */}
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            {featured.slice(1, 3).map((cottage) => (
+              <Link
+                key={cottage.slug}
+                href={`/cottages/${cottage.slug}`}
+                className="group relative rounded-2xl overflow-hidden bg-[--forest-dark] min-h-[200px] lg:min-h-0 lg:flex-1 flex flex-col justify-end hover-lift"
+              >
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${cottage.color} opacity-60`}
+                  aria-hidden="true"
+                />
+                <div className="absolute inset-0 img-overlay" aria-hidden="true" />
+
+                <div className="relative z-10 p-5 lg:p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    {cottage.badge && (
+                      <Badge className="text-xs">{cottage.badge}</Badge>
+                    )}
+                    <div className="flex items-center gap-1 bg-black/30 text-white rounded-full px-2 py-0.5 text-xs ml-auto">
+                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                      {cottage.rating}
+                    </div>
                   </div>
-                  <span className="text-[--primary] text-sm font-medium group-hover:underline flex items-center gap-1">
-                    Подробнее <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
+                  <h3 className="font-display text-2xl font-bold text-white mb-0.5">«{cottage.name}»</h3>
+                  <p className="text-white/55 text-xs mb-3">{cottage.tagline}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/60 text-xs flex items-center gap-1">
+                      <Users className="w-3 h-3" /> до {cottage.capacity}
+                    </span>
+                    <span className="text-white font-bold">
+                      {cottage.priceWeekday.toLocaleString("ru-RU")} ₽
+                      <span className="text-white/45 font-normal text-xs ml-0.5">/ н.</span>
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile CTA */}
+        <div className="sm:hidden mt-6 text-center">
+          <Link
+            href="/cottages"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[--primary]"
+          >
+            Все {COTTAGES.length} коттеджей <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

@@ -1,76 +1,65 @@
-import { TreePine, ShieldCheck, Wifi, Flame, MapPin, Clock } from "lucide-react";
+// Editorial "why us" section — 3 large panels, no icon grids
 
-const features = [
+const panels = [
   {
-    icon: TreePine,
-    title: "Природа рядом",
-    description: "Лес, река и чистый воздух — прямо у порога вашего коттеджа",
+    number: "01",
+    title: "Природа\nу порога",
+    body: "Лес, пруд, берёзовая роща — не в 20 минутах езды, а прямо за окном. Просыпаетесь — и вы уже там.",
+    accent: "Сосновый бор, 50 км от МКАД",
   },
   {
-    icon: ShieldCheck,
-    title: "Безопасность",
-    description: "Охраняемая территория, видеонаблюдение, закрытый въезд",
+    number: "02",
+    title: "Всё\nвключено",
+    body: "Баня, мангал, дрова, постельное бельё, Wi-Fi, парковка. Приезжаете с вещами — остальное есть.",
+    accent: "Без скрытых платежей",
   },
   {
-    icon: Wifi,
-    title: "Высокоскоростной Wi-Fi",
-    description: "Быстрый интернет во всех коттеджах и на территории",
-  },
-  {
-    icon: Flame,
-    title: "Баня и барбекю",
-    description: "Собственная баня и мангальная зона у каждого коттеджа",
-  },
-  {
-    icon: MapPin,
-    title: "50 км от Москвы",
-    description: "Удобная транспортная доступность, есть трансфер",
-  },
-  {
-    icon: Clock,
-    title: "Гибкое бронирование",
-    description: "Онлайн-бронирование 24/7, быстрое подтверждение",
+    number: "03",
+    title: "Ответим\nза 15 минут",
+    body: "Телефон, WhatsApp, Telegram — выбирайте как удобно. Работаем каждый день с 9 до 21.",
+    accent: "Ежедневно, без выходных",
   },
 ];
 
 export function Features() {
   return (
-    <section id="features" className="py-20 lg:py-28 bg-[--background]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="text-center mb-14">
-          <p className="text-[--primary] font-semibold text-sm uppercase tracking-widest mb-3">
-            Почему Spring Village
-          </p>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[--foreground]">
-            Всё для вашего комфорта
-          </h2>
-          <p className="mt-4 text-[--muted-foreground] max-w-xl mx-auto text-lg">
-            Мы создали место, где хочется возвращаться снова и снова
-          </p>
-        </div>
+    <section className="section-y bg-[--background]" id="features">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Label */}
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[--primary] mb-10">
+          Почему Spring Village
+        </p>
 
-        {/* Features grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <div
-                key={feature.title}
-                className="group flex gap-4 p-6 rounded-xl bg-white border border-[--border] hover:border-[--primary]/30 hover:shadow-md transition-all duration-200"
-              >
-                <div className="shrink-0 w-11 h-11 rounded-lg bg-[--primary]/10 flex items-center justify-center group-hover:bg-[--primary] transition-colors duration-200">
-                  <Icon className="w-5 h-5 text-[--primary] group-hover:text-white transition-colors duration-200" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-[--foreground] mb-1">{feature.title}</h3>
-                  <p className="text-sm text-[--muted-foreground] leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
+        {/* 3-panel editorial grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[--border] rounded-2xl overflow-hidden">
+          {panels.map((panel) => (
+            <div
+              key={panel.number}
+              className="bg-[--background] p-8 lg:p-10 group hover:bg-[--forest-dark] transition-colors duration-300"
+            >
+              {/* Number */}
+              <div className="font-display text-7xl font-bold text-[--border] group-hover:text-[--primary-light] transition-colors duration-300 leading-none mb-6 select-none">
+                {panel.number}
               </div>
-            );
-          })}
+
+              {/* Title */}
+              <h3
+                className="font-display text-2xl lg:text-3xl font-bold text-[--foreground] group-hover:text-white transition-colors duration-300 mb-4 whitespace-pre-line"
+              >
+                {panel.title}
+              </h3>
+
+              {/* Body */}
+              <p className="text-[--muted-foreground] group-hover:text-white/65 transition-colors duration-300 leading-relaxed text-sm lg:text-base mb-6">
+                {panel.body}
+              </p>
+
+              {/* Accent chip */}
+              <span className="inline-block text-xs font-semibold uppercase tracking-widest text-[--primary] group-hover:text-emerald-400 transition-colors duration-300 border border-[--border] group-hover:border-emerald-400/30 rounded-full px-3 py-1">
+                {panel.accent}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
