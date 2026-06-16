@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
+
+export const metadata: Metadata = {
+  title: "Spring Village — Коттеджи в Подмосковье",
+  description: "Уютные коттеджи в 50 км от Москвы. Баня, мангал, природа. Онлайн-бронирование, лучшие цены напрямую.",
+};
 import { QuickSearch } from "@/components/home/QuickSearch";
 import { TrustBadges } from "@/components/home/TrustBadges";
 import { Features } from "@/components/home/Features";

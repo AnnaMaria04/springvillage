@@ -13,7 +13,7 @@ export function PromoBanner() {
       <div className="flex items-center justify-center gap-2 max-w-7xl mx-auto pr-8">
         <span className="text-yellow-300 shrink-0">✦</span>
         <span>
-          <strong>Лето 2024:</strong> скидка 15% на неделю с 1 июня по 31 августа —{" "}
+          <strong>Лето 2025:</strong> скидка 15% на неделю с 1 июня по 31 августа —{" "}
           <Link href="/booking" className="underline underline-offset-2 font-semibold hover:text-white/80 transition-colors">
             забронировать
           </Link>

@@ -30,7 +30,7 @@ export function AccordionItem({ value, trigger, children }: { value: string; tri
         <span>{trigger}</span>
         <ChevronDown className={cn("w-4 h-4 shrink-0 text-[--muted-foreground] transition-transform duration-200", open && "rotate-180")} />
       </button>
-      <div className={cn("overflow-hidden transition-all duration-200", open ? "max-h-96 pb-4" : "max-h-0")}>
+      <div className={cn("overflow-hidden transition-all duration-200", open ? "max-h-[600px] pb-4" : "max-h-0")}>
         <div className="text-sm text-[--muted-foreground] leading-relaxed">{children}</div>
       </div>
     </div>

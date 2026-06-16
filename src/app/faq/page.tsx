@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Вопросы и ответы — Spring Village",
+  description: "Ответы на частые вопросы о бронировании, проживании, правилах и условиях Spring Village.",
+};
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem } from "@/components/ui/accordion";
 import { Phone, MessageCircle } from "lucide-react";

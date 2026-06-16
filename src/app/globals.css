@@ -29,6 +29,13 @@
   --input:              var(--sand);
   --ring:               var(--primary);
 
+  /* Component tokens */
+  --primary-foreground: #ffffff;
+  --secondary:          var(--cream);
+  --secondary-foreground: var(--ink);
+  --accent:             var(--earth);
+  --accent-foreground:  #ffffff;
+
   /* Font stacks */
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-body:    var(--font-inter), system-ui, -apple-system, sans-serif;

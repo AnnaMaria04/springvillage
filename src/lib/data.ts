@@ -18,7 +18,7 @@ export const SITE = {
   name: "Spring Village",
   tagline: "Коттеджи в природе",
   description: "Уютные коттеджи в окружении леса. 50 км от Москвы.",
-  totalCottages: 12,
+  totalCottages: 6,
   totalGuests: 500,
   rating: 4.9,
   reviewCount: 185,

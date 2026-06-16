@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { CONTACT } from "@/lib/data";
 
 declare global {
   interface Window {
@@ -31,7 +32,7 @@ export function BnovoWidget() {
       if (window.BookingIframe) {
         const widget = new window.BookingIframe({
           html_id: "booking_iframe",
-          uid: "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
+          uid: CONTACT.bnovoUid,
           lang: "ru",
           width: "auto",
           height: "auto",

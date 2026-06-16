@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Коттеджи — Spring Village",
+  description: "6 коттеджей в Подмосковье: от уютных домиков для пар до больших семейных домов с бассейном и баней.",
+};
 import { Users, BedDouble, Bath, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { COTTAGES } from "@/lib/data";

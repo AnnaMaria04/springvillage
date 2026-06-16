@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { Star } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Отзывы гостей — Spring Village",
+  description: "Реальные отзывы гостей Spring Village. Рейтинг 4.9 из 5 на основе 185+ отзывов.",
+};
 import { REVIEWS, SITE } from "@/lib/data";
 
 const ratingDistribution = [

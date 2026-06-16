@@ -12,6 +12,16 @@ export function generateStaticParams() {
   return COTTAGES.map((c) => ({ slug: c.slug }));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const cottage = getCottage(slug);
+  if (!cottage) return {};
+  return {
+    title: `Коттедж «${cottage.name}» — Spring Village`,
+    description: cottage.description,
+  };
+}
+
 export default async function CottagePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const cottage = getCottage(slug);
