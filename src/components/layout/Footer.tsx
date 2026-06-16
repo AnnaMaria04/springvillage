@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TreePine, Phone, Mail, MapPin, Send, MessageCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { NewsletterForm } from "./NewsletterForm";
 
 const footerLinks = {
   Гостям: [
@@ -94,7 +95,16 @@ export function Footer() {
           ))}
         </div>
 
-        <Separator className="mt-10 mb-6 bg-white/15" />
+        {/* Newsletter strip */}
+        <div className="mt-10 border border-white/15 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex-1">
+            <p className="font-semibold text-white mb-0.5">Специальные предложения на email</p>
+            <p className="text-sm text-white/60">Скидки и новости — не чаще раза в месяц</p>
+          </div>
+          <NewsletterForm />
+        </div>
+
+        <Separator className="mt-8 mb-6 bg-white/15" />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
           <p>© {new Date().getFullYear()} Spring Village. Все права защищены.</p>

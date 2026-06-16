@@ -14,6 +14,7 @@ const allCottages = [
     rating: 4.9,
     reviews: 47,
     badge: "Хит сезона",
+    urgency: "Осталось 2 даты в июле",
     amenities: ["Баня", "Барбекю", "Wi-Fi", "Парковка"],
     color: "from-emerald-800 to-emerald-600",
   },
@@ -28,6 +29,7 @@ const allCottages = [
     rating: 4.8,
     reviews: 63,
     badge: "Для пар",
+    urgency: null,
     amenities: ["Камин", "Барбекю", "Wi-Fi", "Джакузи"],
     color: "from-amber-800 to-amber-600",
   },
@@ -42,6 +44,7 @@ const allCottages = [
     rating: 4.9,
     reviews: 31,
     badge: "Для семей",
+    urgency: "Популярен летом",
     amenities: ["Детская площадка", "Баня", "Wi-Fi", "Бассейн"],
     color: "from-green-700 to-teal-600",
   },
@@ -56,6 +59,7 @@ const allCottages = [
     rating: 4.7,
     reviews: 24,
     badge: null,
+    urgency: null,
     amenities: ["Баня", "Барбекю", "Wi-Fi"],
     color: "from-stone-600 to-stone-400",
   },
@@ -70,6 +74,7 @@ const allCottages = [
     rating: 5.0,
     reviews: 18,
     badge: "Премиум",
+    urgency: "Редкое предложение",
     amenities: ["Бассейн", "Сауна", "Кинотеатр", "Wi-Fi"],
     color: "from-slate-700 to-slate-500",
   },
@@ -84,6 +89,7 @@ const allCottages = [
     rating: 4.6,
     reviews: 42,
     badge: null,
+    urgency: null,
     amenities: ["Сад", "Барбекю", "Wi-Fi"],
     color: "from-rose-800 to-rose-600",
   },
@@ -127,6 +133,13 @@ export default function CottagesPage() {
                   {cottage.rating}
                   <span className="text-[--muted-foreground] font-normal">({cottage.reviews})</span>
                 </div>
+                {cottage.urgency && (
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <span className="text-xs font-semibold bg-white/95 text-orange-600 rounded-full px-3 py-1 inline-flex items-center gap-1">
+                      🔥 {cottage.urgency}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="p-5">

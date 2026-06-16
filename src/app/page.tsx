@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { QuickSearch } from "@/components/home/QuickSearch";
+import { TrustBadges } from "@/components/home/TrustBadges";
 import { Features } from "@/components/home/Features";
 import { FeaturedCottages } from "@/components/home/FeaturedCottages";
 import { PhotoStrip } from "@/components/home/PhotoStrip";
@@ -11,6 +12,7 @@ export default function HomePage() {
     <>
       <Hero />
       <QuickSearch />
+      <TrustBadges />
       <Features />
       <FeaturedCottages />
       <PhotoStrip />
