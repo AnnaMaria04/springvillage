@@ -13,7 +13,7 @@ export default function DomPage() {
   return (
     <div className="pt-16 min-h-screen bg-[--background]">
       {/* Hero */}
-      <div className="bg-[--forest-dark] py-20 px-6 sm:px-8 lg:px-12">
+      <div className="bg-[--pine] py-20 px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
           <Link href="/#house" className="inline-flex items-center gap-1.5 text-white/50 hover:text-white text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> На главную

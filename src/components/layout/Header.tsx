@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, TreePine } from "lucide-react";
+import { Menu, X, TreePine, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { CONTACT } from "@/content/site";
 
 const navLinks = [
-  { href: "#house",      label: "Коттедж" },
+  { href: "#services",   label: "Услуги" },
   { href: "#activities", label: "Активности" },
+  { href: "#gallery",    label: "Галерея" },
   { href: "#pricing",    label: "Цены" },
-  { href: "/dom",        label: "О доме" },
   { href: "/doroga",     label: "Как добраться" },
 ];
 
@@ -75,7 +76,17 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href={`tel:${CONTACT.phoneDial}`}
+              className={cn(
+                "flex items-center gap-2 text-sm font-medium transition-colors",
+                scrolled ? "text-[--foreground] hover:text-[--primary]" : "text-white/85 hover:text-white"
+              )}
+            >
+              <Phone className="w-4 h-4" />
+              {CONTACT.phone}
+            </a>
             <Button asChild size="sm">
               <Link href="#pricing">Забронировать</Link>
             </Button>

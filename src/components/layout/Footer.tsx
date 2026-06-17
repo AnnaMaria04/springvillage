@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TreePine, Phone, Mail, MapPin, Send, MessageCircle } from "lucide-react";
+import { TreePine, Phone, Mail, MapPin, Send, MessageCircle, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { NewsletterForm } from "./NewsletterForm";
 import { CONTACT, SITE } from "@/lib/data";
@@ -21,7 +21,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-[--forest-dark] text-white">
+    <footer className="bg-[--pine] text-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
@@ -47,6 +47,9 @@ export function Footer() {
               </a>
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {CONTACT.addressShort}
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-3.5 h-3.5 shrink-0" /> {CONTACT.hours}
               </div>
             </div>
             <div className="flex gap-2 mt-5">

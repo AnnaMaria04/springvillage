@@ -1,67 +1,81 @@
 import Link from "next/link";
+import { Phone } from "lucide-react";
 import { SITE, CONTACT } from "@/content/site";
 import { BookingModal } from "@/components/booking/BookingModal";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-[--pine]">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[--pine] via-[#1a2a1e] to-[--lake] opacity-95" />
-      {/* Noise texture */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "128px",
-        }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[--wood]/30 to-transparent" />
+    <section
+      className="relative min-h-screen flex flex-col justify-end bg-[--pine] bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/images/hero.jpg')" }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
 
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 lg:pb-24 pt-32 lg:pt-40 w-full">
-        <div className="max-w-3xl">
-          <p className="text-[--wood] text-xs font-semibold uppercase tracking-[0.25em] mb-6">
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-12 lg:pb-20 pt-32 w-full">
+        <div className="max-w-2xl">
+          {/* Label */}
+          <p className="text-white/60 text-sm font-medium mb-5 tracking-wide">
             {CONTACT.addressShort}
           </p>
+
+          {/* Headline */}
           <h1
-            className="font-display font-bold text-white leading-[1.0] mb-6"
-            style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", letterSpacing: "-0.03em" }}
+            className="font-display font-bold text-white leading-none mb-5 tracking-tight"
+            style={{ fontSize: "clamp(3.5rem, 9vw, 7.5rem)" }}
           >
-            {SITE.houseName}
+            Коттедж<br />WILD
           </h1>
-          <p className="text-white/60 text-lg sm:text-xl leading-relaxed mb-10 max-w-xl">
-            A-frame в карельском лесу у воды. Финская баня, байдарки, тишина.
-            Два часа от города — и вы уже здесь.
+
+          {/* Subheadline */}
+          <p className="text-white/70 text-lg sm:text-xl leading-relaxed mb-8 max-w-md">
+            A-frame в карельском лесу. Финская баня у воды,
+            байдарки, тишина. Два часа от города.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
+
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-3">
             <BookingModal
               source="hero"
               trigger={
-                <button className="inline-flex items-center justify-center h-12 px-8 rounded-xl bg-white text-[--pine] text-sm font-semibold hover:bg-white/90 transition-colors cursor-pointer">
+                <button className="h-13 px-8 rounded-2xl bg-white text-[--pine] text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer">
                   Забронировать
                 </button>
               }
             />
             <Link
               href="#house"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-xl border border-white/20 text-white text-sm font-medium hover:bg-white/8 transition-colors"
+              className="h-13 px-8 rounded-2xl border-2 border-white/30 text-white text-base font-medium hover:border-white/60 hover:bg-white/5 transition-all flex items-center"
             >
               Посмотреть дом →
             </Link>
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-3 gap-6 max-w-lg">
+        {/* Stat strip */}
+        <div className="mt-12 pt-8 border-t border-white/15 flex flex-wrap gap-8 sm:gap-12">
           {[
             { value: SITE.priceFromLabel, label: SITE.priceFromSub },
             { value: SITE.distanceFromSpb, label: "от Петербурга" },
-            { value: `${SITE.rating}★`, label: `${SITE.reviewCount}+ отзывов` },
+            { value: `${SITE.rating} ★`, label: `${SITE.reviewCount}+ отзывов` },
           ].map((s) => (
             <div key={s.label}>
-              <div className="font-display text-xl font-bold text-white">{s.value}</div>
-              <div className="text-xs text-white/45 mt-0.5">{s.label}</div>
+              <div className="font-display text-2xl font-bold text-white leading-none">{s.value}</div>
+              <div className="text-white/45 text-xs mt-1">{s.label}</div>
             </div>
           ))}
+
+          {/* Phone quick link */}
+          <a
+            href={`tel:${CONTACT.phoneDial}`}
+            className="ml-auto hidden sm:flex items-center gap-2.5 text-white/70 hover:text-white transition-colors group"
+          >
+            <div className="w-9 h-9 rounded-xl border border-white/20 flex items-center justify-center group-hover:border-white/40 transition-colors">
+              <Phone className="w-4 h-4" />
+            </div>
+            <span className="text-sm font-medium">{CONTACT.phone}</span>
+          </a>
         </div>
       </div>
     </section>

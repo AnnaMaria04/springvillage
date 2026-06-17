@@ -128,6 +128,13 @@
   .font-display { font-family: var(--font-display); }
   .font-body    { font-family: var(--font-body); }
 
+  /* Hide scrollbar (for horizontal nav scrollers) */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* 3.25rem control height for hero CTAs */
+  .h-13 { height: 3.25rem; }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--moss) 0%, var(--lake) 100%);
     -webkit-background-clip: text;

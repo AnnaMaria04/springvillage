@@ -26,23 +26,32 @@ export function HouseShowcase() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* Photo grid (gradient placeholders until real photos) */}
+          {/* Photo grid */}
           <div className="grid grid-cols-3 grid-rows-2 gap-3 h-[380px] sm:h-[460px]">
-            <div className={`col-span-2 row-span-2 relative rounded-2xl overflow-hidden bg-gradient-to-br ${HOUSE.color}`}>
+            <div
+              className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden bg-stone-300 bg-cover bg-center"
+              style={{ backgroundImage: "url('/images/gallery-exterior.jpg')" }}
+            >
               <div className="absolute inset-0 flex items-end p-5">
-                <span className="text-xs font-medium text-white/70 bg-black/20 rounded-full px-3 py-1 backdrop-blur-sm">
+                <span className="text-xs font-medium text-white/80 bg-black/25 rounded-full px-3 py-1 backdrop-blur-sm">
                   Коттедж WILD — вид с озера
                 </span>
               </div>
             </div>
-            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-amber-900 to-amber-700">
+            <div
+              className="relative rounded-2xl overflow-hidden bg-stone-300 bg-cover bg-center"
+              style={{ backgroundImage: "url('/images/gallery-interior.jpg')" }}
+            >
               <div className="absolute inset-0 flex items-end p-3">
-                <span className="text-[10px] text-white/70 bg-black/20 rounded-full px-2 py-0.5 backdrop-blur-sm">Гостиная</span>
+                <span className="text-[10px] text-white/80 bg-black/25 rounded-full px-2 py-0.5 backdrop-blur-sm">Гостиная</span>
               </div>
             </div>
-            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-stone-700 to-stone-500">
+            <div
+              className="relative rounded-2xl overflow-hidden bg-stone-300 bg-cover bg-center"
+              style={{ backgroundImage: "url('/images/gallery-sauna.jpg')" }}
+            >
               <div className="absolute inset-0 flex items-end p-3">
-                <span className="text-[10px] text-white/70 bg-black/20 rounded-full px-2 py-0.5 backdrop-blur-sm">Баня у воды</span>
+                <span className="text-[10px] text-white/80 bg-black/25 rounded-full px-2 py-0.5 backdrop-blur-sm">Баня у воды</span>
               </div>
             </div>
           </div>
