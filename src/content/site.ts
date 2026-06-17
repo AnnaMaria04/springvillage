@@ -1,9 +1,7 @@
-// ⚠️ RESOLVE before launch: confirm which phone number is canonical
-// Options: +7 911 110-16-52 or +7 911 233-31-99
 export const CONTACT = {
-  phone: "+7 (911) XXX-XX-XX",
-  phoneDial: "+7911XXXXXXX",
-  phoneWhatsApp: "7911XXXXXXX",
+  phone: "+7 (911) 233-31-99",
+  phoneDial: "+79112333199",
+  phoneWhatsApp: "79112333199",
   email: "springvillage@yandex.ru",
   telegram: "https://t.me/springvillage",
   instagram: "https://instagram.com/springvillage",
@@ -15,7 +13,6 @@ export const CONTACT = {
   yandexMapOid: "193725846598",
   yandexMapUrl:
     "https://yandex.ru/map-widget/v1/?oid=193725846598&lang=ru_RU&scroll=false",
-  // ⚠️ Update with actual Bnovo property UID from admin panel
   bnovoUid: "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
 } as const;
 
@@ -27,8 +24,9 @@ export const SITE = {
     "A-frame коттедж в карельском лесу. 127 км от Петербурга, тишина, озеро, своя баня.",
   rating: 4.9,
   reviewCount: 47,
-  // ⚠️ Set actual starting price once confirmed in Bnovo
-  priceFrom: 8000,
+  priceFrom: 50000,
+  priceFromLabel: "от 50 000 ₽",
+  priceFromSub: "за 3 ночи",
   distanceFromSpb: "127 км",
   yandexMetricaId: "90840167",
 } as const;

@@ -1,11 +1,16 @@
 "use client";
 
-import { CheckCircle, Gift } from "lucide-react";
+import { Gift, TrendingDown } from "lucide-react";
 import { PRICE_TIERS, GIFT_CERT } from "@/content/offers";
 import { SITE } from "@/content/site";
 import { BnovoWidget } from "@/components/booking/BnovoWidget";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { cn } from "@/lib/utils";
+
+function fmt(n: number) {
+  return n.toLocaleString("ru-RU");
+}
 
 export function Pricing() {
   return (
@@ -17,96 +22,116 @@ export function Pricing() {
               Бронирование
             </p>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-[--foreground] mb-3">
-              Цены и пакеты
+              Цены
             </h2>
             <p className="text-[--muted-foreground] max-w-md mx-auto">
-              От{" "}
-              <strong className="text-[--foreground]">
-                {SITE.priceFrom.toLocaleString("ru-RU")} ₽
-              </strong>{" "}
-              за ночь. Без скрытых платежей.
+              {SITE.priceFromLabel} · чем дольше, тем дешевле за сутки
             </p>
           </div>
         </FadeIn>
 
-        {/* Package tiers */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
-          {PRICE_TIERS.map((tier, i) => (
-            <FadeIn key={tier.label} delay={i * 0.1}>
+        {/* Pricing table */}
+        <FadeIn delay={0.05}>
+          <div className="mb-10 rounded-2xl border border-[--border] overflow-hidden">
+            {/* Header */}
+            <div className="grid grid-cols-4 bg-[--muted] px-5 py-3 text-xs font-semibold uppercase tracking-widest text-[--muted-foreground]">
+              <span>Пакет</span>
+              <span className="text-right">Ночей</span>
+              <span className="text-right">За ночь</span>
+              <span className="text-right">Итого</span>
+            </div>
+
+            {PRICE_TIERS.map((tier, i) => (
               <div
-                className={`rounded-2xl border p-6 flex flex-col h-full ${
+                key={tier.label}
+                className={cn(
+                  "grid grid-cols-4 items-center px-5 py-4 border-t border-[--border] transition-colors",
                   tier.highlighted
-                    ? "border-[--primary] bg-[--primary] text-white shadow-xl md:scale-105"
-                    : "border-[--border] bg-white"
-                }`}
+                    ? "bg-[--pine] text-white"
+                    : "bg-white hover:bg-[--muted]/40",
+                  i === PRICE_TIERS.length - 1 && "rounded-b-2xl"
+                )}
               >
-                <div className="mb-4">
-                  <div
-                    className={`text-xs font-bold uppercase tracking-widest mb-1 ${
-                      tier.highlighted ? "text-[--wood]" : "text-[--primary]"
-                    }`}
-                  >
-                    {tier.nights}
-                  </div>
-                  <h3
-                    className={`font-display text-2xl font-bold mb-1 ${
-                      tier.highlighted ? "text-white" : "text-[--foreground]"
-                    }`}
-                  >
-                    {tier.label}
-                  </h3>
-                  {tier.discount && (
+                <div className="flex items-center gap-2.5">
+                  <div className="min-w-0">
                     <div
-                      className={`text-lg font-semibold ${
-                        tier.highlighted ? "text-[--wood]" : "text-[--accent]"
-                      }`}
+                      className={cn(
+                        "font-display font-bold text-sm",
+                        tier.highlighted ? "text-white" : "text-[--foreground]"
+                      )}
                     >
-                      {tier.discount}
+                      {tier.label}
                     </div>
-                  )}
+                    {tier.discount && (
+                      <div
+                        className={cn(
+                          "text-xs font-semibold flex items-center gap-0.5",
+                          tier.highlighted ? "text-[--wood]" : "text-[--accent]"
+                        )}
+                      >
+                        <TrendingDown className="w-3 h-3" />
+                        {tier.discount}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p
-                  className={`text-sm mb-5 leading-relaxed ${
-                    tier.highlighted ? "text-white/80" : "text-[--muted-foreground]"
-                  }`}
+
+                <div
+                  className={cn(
+                    "text-right text-sm font-medium",
+                    tier.highlighted ? "text-white/70" : "text-[--muted-foreground]"
+                  )}
                 >
-                  {tier.description}
-                </p>
-                <ul className="space-y-2 mb-6 flex-1">
-                  {tier.features.map((f) => (
-                    <li
-                      key={f}
-                      className={`flex items-start gap-2 text-sm ${
-                        tier.highlighted ? "text-white/90" : "text-[--foreground]"
-                      }`}
-                    >
-                      <CheckCircle
-                        className={`w-4 h-4 mt-0.5 shrink-0 ${
-                          tier.highlighted ? "text-[--wood]" : "text-[--primary]"
-                        }`}
-                      />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#booking-widget"
-                  className={`w-full h-10 rounded-xl text-sm font-semibold transition-colors inline-flex items-center justify-center ${
-                    tier.highlighted
-                      ? "bg-white text-[--pine] hover:bg-white/90"
-                      : "bg-[--primary] text-white hover:bg-[--primary-light]"
-                  }`}
+                  {tier.nights}
+                </div>
+
+                <div
+                  className={cn(
+                    "text-right text-sm font-semibold",
+                    tier.highlighted ? "text-[--wood]" : "text-[--foreground]"
+                  )}
                 >
-                  Выбрать даты
-                </a>
+                  {fmt(tier.perNight)} ₽
+                </div>
+
+                <div className="text-right">
+                  <span
+                    className={cn(
+                      "font-display font-bold text-base",
+                      tier.highlighted ? "text-white" : "text-[--foreground]"
+                    )}
+                  >
+                    {fmt(tier.totalPrice)} ₽
+                  </span>
+                </div>
               </div>
-            </FadeIn>
-          ))}
-        </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* Book CTA + gift cert */}
+        <FadeIn delay={0.1}>
+          <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <a
+              href="#booking-widget"
+              className="flex-1 h-12 rounded-xl bg-[--primary] text-white text-sm font-semibold hover:bg-[--primary-light] transition-colors inline-flex items-center justify-center"
+            >
+              Выбрать даты в календаре
+            </a>
+            <BookingModal
+              source="pricing_modal"
+              trigger={
+                <button className="flex-1 h-12 rounded-xl border border-[--border] text-[--foreground] text-sm font-semibold hover:bg-[--muted] transition-colors cursor-pointer">
+                  Запросить бронирование
+                </button>
+              }
+            />
+          </div>
+        </FadeIn>
 
         {/* Gift certificate */}
-        <FadeIn delay={0.2}>
-          <div className="mb-10 rounded-2xl border border-[--wood]/30 bg-[--wood]/5 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+        <FadeIn delay={0.15}>
+          <div className="mb-12 rounded-2xl border border-[--wood]/30 bg-[--wood]/5 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
             <div className="w-12 h-12 rounded-xl bg-[--wood]/15 flex items-center justify-center shrink-0">
               <Gift className="w-6 h-6 text-[--wood]" />
             </div>
@@ -119,7 +144,7 @@ export function Pricing() {
             <BookingModal
               source="gift_cert"
               trigger={
-                <button className="shrink-0 h-10 px-6 rounded-xl bg-[--wood] text-white text-sm font-semibold hover:bg-[--accent]/90 transition-colors cursor-pointer">
+                <button className="shrink-0 h-10 px-6 rounded-xl bg-[--wood] text-white text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer">
                   {GIFT_CERT.cta}
                 </button>
               }

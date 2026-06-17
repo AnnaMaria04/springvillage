@@ -1,51 +1,52 @@
 export type PriceTier = {
   label: string;
   nights: string;
-  description: string;
+  totalPrice: number;
+  perNight: number;
   discount: string | null;
-  features: string[];
   highlighted: boolean;
 };
 
+// All prices in ₽, totals confirmed from Bnovo promo
 export const PRICE_TIERS: PriceTier[] = [
   {
-    label: "Выходные",
-    nights: "2 ночи",
-    description: "Пятница–воскресенье. Перезагрузка без длительного отпуска.",
+    label: "Мини-отдых",
+    nights: "3 ночи",
+    totalPrice: 50_000,
+    perNight: 16_667,
     discount: null,
-    features: [
-      "Заезд пятница с 14:00",
-      "Выезд воскресенье до 12:00",
-      "Байдарки и велосипеды",
-      "Мангал и дрова",
-    ],
+    highlighted: false,
+  },
+  {
+    label: "Длинные выходные",
+    nights: "4 ночи",
+    totalPrice: 60_000,
+    perNight: 15_000,
+    discount: "−10%",
     highlighted: false,
   },
   {
     label: "Неделя",
     nights: "7 ночей",
-    description: "Настоящий отпуск у воды по специальной цене.",
-    discount: "−15%",
-    features: [
-      "7 ночей по сниженной цене",
-      "Неограниченное пользование баней",
-      "Поздний выезд до 15:00",
-      "Корзина с продуктами при заезде",
-      "Байдарки и велосипеды",
-    ],
+    totalPrice: 85_000,
+    perNight: 12_143,
+    discount: "−27%",
     highlighted: true,
   },
   {
+    label: "9 дней",
+    nights: "9 ночей",
+    totalPrice: 100_000,
+    perNight: 11_111,
+    discount: "−33%",
+    highlighted: false,
+  },
+  {
     label: "Длительно",
-    nights: "30+ ночей",
-    description: "Переехать за город на месяц — реальный вариант.",
-    discount: "−30%",
-    features: [
-      "Аренда по договору",
-      "Все коммунальные услуги включены",
-      "Уборка 2 раза в неделю",
-      "Персональный менеджер",
-    ],
+    nights: "30 ночей",
+    totalPrice: 250_000,
+    perNight: 8_333,
+    discount: "−50%",
     highlighted: false,
   },
 ];

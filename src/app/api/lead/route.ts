@@ -9,6 +9,17 @@ const schema = z.object({
   source: z.string().max(50).optional(),
 });
 
+async function notifyTelegram(text: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+  }).catch(() => {});
+}
+
 export async function POST(req: NextRequest) {
   let body: unknown;
   try {
@@ -25,16 +36,15 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const { name, phone, message, source } = parsed.data;
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) {
-    console.error("Supabase env vars missing");
     return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
   }
 
   const supabase = createClient(url, key);
-  const { name, phone, message, source } = parsed.data;
-
   const { error } = await supabase.from("leads").insert({
     name,
     phone,
@@ -46,6 +56,14 @@ export async function POST(req: NextRequest) {
     console.error("Supabase lead insert error:", error.message);
     return NextResponse.json({ error: "Failed to save lead" }, { status: 500 });
   }
+
+  await notifyTelegram(
+    `🏠 <b>Новая заявка на бронирование</b>\n\n` +
+    `👤 ${name}\n` +
+    `📞 ${phone}\n` +
+    (message ? `💬 ${message}\n` : "") +
+    `\n📍 Источник: ${source ?? "website"}`,
+  );
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }

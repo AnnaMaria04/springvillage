@@ -1,7 +1,6 @@
 export const HOUSE = {
   name: "Коттедж WILD",
   type: "A-frame, 2 этажа",
-  // ⚠️ Confirm exact max capacity with owner
   capacity: 5,
   bedrooms: 2,
   bathrooms: 1,

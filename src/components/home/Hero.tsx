@@ -53,7 +53,7 @@ export function Hero() {
 
         <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-3 gap-6 max-w-lg">
           {[
-            { value: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽`, label: "за ночь" },
+            { value: SITE.priceFromLabel, label: SITE.priceFromSub },
             { value: SITE.distanceFromSpb, label: "от Петербурга" },
             { value: `${SITE.rating}★`, label: `${SITE.reviewCount}+ отзывов` },
           ].map((s) => (
