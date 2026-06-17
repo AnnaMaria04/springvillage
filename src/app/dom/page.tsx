@@ -156,7 +156,7 @@ export default function DomPage() {
       </section>
 
       {/* Heritage — horizontal timeline */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-0 pb-20 lg:pb-28">
         <div className="text-center mb-12">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
             {HERITAGE.sectionLabel}
@@ -172,8 +172,8 @@ export default function DomPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
             {HERITAGE.items.map((item, i) => (
               <div key={item.title} className="relative flex flex-col sm:pr-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-2.5 h-2.5 rounded-full bg-wood shrink-0 relative z-10" />
+                <div className="flex items-center gap-3 mb-4 relative z-10">
+                  <div className="w-2.5 h-2.5 rounded-full bg-wood shrink-0" />
                   <p className="text-xs font-semibold text-wood uppercase tracking-wider">{item.period}</p>
                 </div>
                 <p className="font-semibold text-foreground mb-2">{item.title}</p>

@@ -99,13 +99,13 @@ export function Contacts() {
                   name="name"
                   required
                   placeholder="Имя"
-                  className="h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-white"
+                  className="h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-background"
                 />
                 <input
                   name="phone"
                   type="tel"
                   placeholder="Телефон"
-                  className="h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-white"
+                  className="h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-background"
                 />
               </div>
               <input
@@ -113,14 +113,14 @@ export function Contacts() {
                 type="email"
                 required
                 placeholder="Email"
-                className="w-full h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-white"
+                className="w-full h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-background"
               />
               <textarea
                 name="message"
                 rows={5}
                 required
                 placeholder="Сообщение"
-                className="w-full rounded-2xl border border-border px-4 py-3 text-sm focus:outline-none focus:border-primary bg-white resize-none"
+                className="w-full rounded-2xl border border-border px-4 py-3 text-sm focus:outline-none focus:border-primary bg-background resize-none"
               />
               {status === "error" && <p className="text-xs text-red-500">{err}</p>}
               <Button type="submit" size="lg" className="w-full" disabled={status === "loading"}>

@@ -20,6 +20,10 @@ export function Deals() {
         <div className="absolute inset-0 bg-pine/80" />
         <div className="relative max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-amber-400/15 border border-amber-300/25 rounded-full px-4 py-1.5 mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-300 shrink-0" />
+              <span className="text-amber-200 text-[11px] font-semibold uppercase tracking-[0.2em]">Лето 2025</span>
+            </div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/50 mb-4">
               Специальные предложения
             </p>
