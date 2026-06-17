@@ -151,8 +151,8 @@ export function ExperiencePreview() {
                         className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
                         style={{ backgroundImage: `url('${a.photo}')` }}
                       />
-                      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)]" />
-                      <div className="absolute bottom-5 left-5 right-5">
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)]" />
+                      <div className="absolute bottom-5 left-5 right-5 z-20">
                         <p className="font-display text-xl font-bold text-white leading-tight">{a.title}</p>
                       </div>
                     </div>
