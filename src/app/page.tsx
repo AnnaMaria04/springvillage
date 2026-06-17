@@ -5,7 +5,7 @@ import { Deals } from "@/components/home/Deals";
 import { ExperiencePreview } from "@/components/home/ExperiencePreview";
 import { TerritoryPreview } from "@/components/home/TerritoryPreview";
 import { Reviews } from "@/components/home/Reviews";
-import { GalleryPreview } from "@/components/home/GalleryPreview";
+import { LocationPreview } from "@/components/home/LocationPreview";
 import { BookingCTA } from "@/components/home/BookingCTA";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function HomePage() {
       <ExperiencePreview />
       <TerritoryPreview />
       <Reviews />
-      <GalleryPreview />
+      <LocationPreview />
       <BookingCTA />
     </>
   );

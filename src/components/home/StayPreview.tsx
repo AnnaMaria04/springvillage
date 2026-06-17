@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Users, ArrowRight } from "lucide-react";
 import { HOUSE } from "@/content/house";
-import { SITE } from "@/content/site";
 import { BnovoModal } from "@/components/booking/BnovoModal";
 
 const features = [
@@ -31,16 +30,12 @@ export function StayPreview() {
               {HOUSE.name} — A-frame у озера
             </h2>
 
-            {/* Pager chip */}
             <Link
-              href="/galereya"
-              className="inline-flex items-center self-start rounded-lg overflow-hidden mb-8 text-sm group/chip"
+              href="/dom"
+              className="inline-flex items-center self-start gap-2 mb-8 text-sm font-semibold text-moss hover:text-pine transition-colors group/more"
             >
-              <span className="bg-moss/20 text-moss font-semibold px-3 py-2">1 / 5</span>
-              <span className="bg-moss text-white px-4 py-2 inline-flex items-center gap-2 font-medium transition-colors group-hover/chip:bg-pine">
-                Смотреть галерею
-                <ArrowRight className="w-4 h-4 transition-transform group-hover/chip:translate-x-0.5" />
-              </span>
+              Подробнее о коттедже
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/more:translate-x-0.5" />
             </Link>
 
             {/* Capacity */}
@@ -63,7 +58,7 @@ export function StayPreview() {
 
             {/* Price */}
             <p className="font-display text-2xl font-bold text-pine mb-7">
-              Стоимость {SITE.priceFromLabel.toLowerCase()} / 3 суток
+              от 20 000 ₽ / ночь
             </p>
 
             {/* Booking button */}

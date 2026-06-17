@@ -84,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </noscript>
         <Header />
-        <main className="flex-1 pb-[58px] lg:pb-[64px]">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
         <MobileBookBar />

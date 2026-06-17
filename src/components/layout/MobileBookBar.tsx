@@ -11,7 +11,7 @@ export function MobileBookBar() {
   return (
     <>
       {/* Desktop: full booking bar — hidden on small screens */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 hidden lg:block border-t border-white/10 bg-pine/95 backdrop-blur-sm">
+      <div className="fixed top-20 left-0 right-0 z-40 hidden lg:block border-b border-white/10 bg-pine/95 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-3 flex items-center gap-3">
           <div className="hidden xl:block shrink-0 mr-4">
             <p className="text-white text-xs font-semibold uppercase tracking-wider">Бронирование</p>
@@ -59,7 +59,7 @@ export function MobileBookBar() {
       </div>
 
       {/* Mobile: simplified — phone + book */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-pine/95 backdrop-blur-sm">
+      <div className="fixed top-16 left-0 right-0 z-40 lg:hidden border-b border-white/10 bg-pine/95 backdrop-blur-sm">
         <div className="flex">
           <a
             href={`tel:${CONTACT.phoneDial}`}

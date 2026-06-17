@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { REVIEWS } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
@@ -20,16 +20,23 @@ function Stars({ n }: { n: number }) {
 
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [idx, setIdx] = useState(0);
+  const total = REVIEWS.length;
 
-  const scroll = (dir: "left" | "right") => {
-    scrollRef.current?.scrollBy({
-      left: dir === "right" ? 400 : -400,
-      behavior: "smooth",
-    });
+  const go = (dir: "prev" | "next") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const newIdx = dir === "next" ? Math.min(total - 1, idx + 1) : Math.max(0, idx - 1);
+    setIdx(newIdx);
+    // Get the card at newIdx and scroll it into view
+    const card = el.children[newIdx] as HTMLElement | undefined;
+    if (card) {
+      el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+    }
   };
 
   return (
-    <section className="bg-cream py-20 lg:py-28 overflow-hidden">
+    <section className="bg-cream py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>
@@ -51,16 +58,18 @@ export function Reviews() {
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => scroll("left")}
+              onClick={() => go("prev")}
+              disabled={idx === 0}
               aria-label="Предыдущий отзыв"
-              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors"
+              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-5 h-5 text-foreground" />
             </button>
             <button
-              onClick={() => scroll("right")}
+              onClick={() => go("next")}
+              disabled={idx === total - 1}
               aria-label="Следующий отзыв"
-              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors"
+              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronRight className="w-5 h-5 text-foreground" />
             </button>
@@ -76,15 +85,15 @@ export function Reviews() {
         </div>
       </div>
 
-      {/* Scrollable row — bleeds to edges for peek effect */}
+      {/* Carousel: shows 3 cards on lg desktop, 1 on mobile */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pl-6 sm:pl-8 lg:pl-12 pr-6 pb-2"
+        className="flex gap-5 overflow-x-hidden px-6 sm:px-8 lg:px-12 pb-2"
       >
         {REVIEWS.map((r) => (
           <div
             key={r.author}
-            className="flex-none w-[320px] sm:w-[380px] snap-start flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
+            className="flex-none w-full lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
           >
             <Stars n={r.rating} />
             <p className="font-display text-xl text-foreground leading-snug mt-5 flex-1">
@@ -101,21 +110,6 @@ export function Reviews() {
             </div>
           </div>
         ))}
-
-        {/* Ghost card — link to all reviews */}
-        <a
-          href={CONTACT.yandexOrgUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-none w-[220px] snap-start flex flex-col items-center justify-center bg-pine/5 border border-dashed border-pine/25 rounded-3xl p-8 text-center hover:bg-pine/10 transition-colors group"
-        >
-          <Star className="w-8 h-8 fill-wood text-wood mb-4" />
-          <p className="font-display text-lg font-bold text-pine leading-tight mb-2">
-            {SITE.reviewCount - REVIEWS.length}+ отзывов
-          </p>
-          <p className="text-xs text-muted-foreground">на Яндекс Картах</p>
-          <ArrowRight className="w-4 h-4 text-pine mt-4 transition-transform group-hover:translate-x-1" />
-        </a>
       </div>
     </section>
   );
