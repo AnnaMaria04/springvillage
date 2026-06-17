@@ -48,7 +48,7 @@ export default async function ActivityPage({
         style={{ backgroundImage: `url('${activity.photo}')` }}
       >
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,22,0.75),rgba(20,28,22,0.2))]" />
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14">
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 text-center">
           {/* Breadcrumb */}
           <Link
             href="/aktivnosti"

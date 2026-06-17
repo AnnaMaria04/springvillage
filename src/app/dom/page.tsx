@@ -3,6 +3,7 @@ import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
+import { StickyBookingBar } from "@/components/home/StickyBookingBar";
 
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
@@ -33,6 +34,7 @@ export default function DomPage() {
         subtitle={HOUSE.longDescription}
         image="/images/stay.jpg"
       />
+      <StickyBookingBar />
 
       {/* Specs */}
       <div className="border-b border-border bg-background">
