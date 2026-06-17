@@ -24,12 +24,19 @@ export function ExperiencePreview() {
   const [pos, setPos] = useState(CLONES);
   const [animated, setAnimated] = useState(true);
   const lockedRef = useRef(false);
+  const firstMeasureRef = useRef(true);
   const dragStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setContainerW(e.contentRect.width));
+    const ro = new ResizeObserver(([e]) => {
+      setContainerW(e.contentRect.width);
+      if (firstMeasureRef.current) {
+        firstMeasureRef.current = false;
+        setAnimated(false); // snap to correct position on first measurement, no slide-in animation
+      }
+    });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);

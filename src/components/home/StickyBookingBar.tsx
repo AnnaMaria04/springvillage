@@ -38,7 +38,7 @@ export function StickyBookingBar() {
   }
 
   return (
-    <div className="relative z-10 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
+    <div className="sticky top-[68px] lg:top-[84px] z-40 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
       {/* Mobile: single button */}
       <div className="md:hidden px-4 py-3 flex items-center justify-between gap-3">
         <div>
