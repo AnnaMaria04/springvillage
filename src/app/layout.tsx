@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { lodgingBusinessSchema } from "@/lib/schema";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/global/WhatsAppButton";
-import { PromoBanner } from "@/components/global/PromoBanner";
+import { MobileBookBar } from "@/components/layout/MobileBookBar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,30 +20,44 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Спринг Вилладж — Аренда коттеджей",
-  description:
-    "Уютные коттеджи и виллы для отдыха в Спринг Вилладж. Бронируйте онлайн — лучшие цены гарантированы.",
-  keywords: ["аренда коттеджей", "отдых на природе", "Спринг Вилладж", "загородный отдых"],
-  openGraph: {
-    title: "Спринг Вилладж — Аренда коттеджей",
-    description: "Уютные коттеджи и виллы для отдыха в природе",
-    type: "website",
+  title: {
+    default: "Spring Village — Коттедж WILD у Михалёвского озера",
+    template: "%s — Spring Village",
   },
+  description:
+    "A-frame коттедж в карельском лесу на берегу Михалёвского озера. 90 км от Петербурга. Финская баня, байдарки, тишина.",
+  keywords: [
+    "коттедж Михалёво",
+    "аренда коттеджа Выборгский район",
+    "A-frame аренда Ленобласть",
+    "отдых на Михалёвском озере",
+    "дом у озера Выборгский район",
+    "коттедж с баней у озера Ленобласть",
+    "Spring Village",
+  ],
+  openGraph: {
+    title: "Коттедж WILD — Spring Village у Михалёвского озера",
+    description: "A-frame в карельском лесу. Баня, байдарки, озеро. 90 км от СПб.",
+    type: "website",
+    locale: "ru_RU",
+    siteName: "Spring Village",
+  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={`${inter.variable} ${playfair.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
-        <PromoBanner />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessSchema()) }}
+        />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <MobileBookBar />
       </body>
     </html>
   );

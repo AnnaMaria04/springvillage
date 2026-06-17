@@ -5,18 +5,17 @@ import { NewsletterForm } from "./NewsletterForm";
 import { CONTACT, SITE } from "@/lib/data";
 
 const footerLinks = {
-  Гостям: [
-    { href: "/cottages", label: "Коттеджи" },
-    { href: "/pricing", label: "Цены и пакеты" },
-    { href: "/booking", label: "Бронирование" },
-    { href: "/gallery", label: "Галерея" },
-    { href: "/reviews", label: "Отзывы" },
+  "Коттедж": [
+    { href: "/dom",         label: "О доме" },
+    { href: "/#house",      label: "Коттедж WILD" },
+    { href: "/#activities", label: "Активности" },
+    { href: "/#pricing",    label: "Цены и бронирование" },
   ],
-  Информация: [
-    { href: "/about", label: "О нас" },
-    { href: "/contact", label: "Контакты" },
-    { href: "/faq", label: "Вопросы и ответы" },
-    { href: "/rules", label: "Правила проживания" },
+  "Информация": [
+    { href: "/doroga",  label: "Как добраться" },
+    { href: "/#faq",    label: "Вопросы и ответы" },
+    { href: "/privacy", label: "Конфиденциальность" },
+    { href: "/rules",   label: "Правила проживания" },
   ],
 };
 
@@ -31,10 +30,13 @@ export function Footer() {
               <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
                 <TreePine className="w-4 h-4 text-white" />
               </div>
-              <span className="font-display text-lg font-bold">{SITE.name}</span>
+              <div>
+              <span className="font-display text-base font-bold block leading-none">{SITE.name}</span>
+              <span className="text-[10px] text-white/45 block mt-0.5">{SITE.houseName}</span>
+            </div>
             </Link>
             <p className="text-white/55 text-sm leading-relaxed max-w-xs mb-6">
-              {SITE.description} Баня, мангал, тишина — всё для настоящего отдыха.
+              {SITE.description}
             </p>
             <div className="flex flex-col gap-2.5 text-sm text-white/55">
               <a href={`tel:${CONTACT.phoneDial}`} className="flex items-center gap-2 hover:text-white transition-colors">
@@ -103,7 +105,7 @@ export function Footer() {
           <p>© {new Date().getFullYear()} {SITE.name}. Все права защищены.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-white/60 transition-colors">Конфиденциальность</Link>
-            <Link href="/terms" className="hover:text-white/60 transition-colors">Условия</Link>
+            <Link href="/rules" className="hover:text-white/60 transition-colors">Правила</Link>
           </div>
         </div>
       </div>

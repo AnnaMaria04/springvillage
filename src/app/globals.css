@@ -9,6 +9,10 @@
   --primary:       #2d5016;
   --primary-light: #3d6b20;
 
+  --lake:          #2d6b7a;
+  --lake-light:    #4a8a9a;
+  --lake-dark:     #1a4d58;
+
   --cream-warm: #faf8f4;
   --cream:      #f0ead8;
   --sand:       #e2d9c5;
@@ -103,6 +107,9 @@
   --color-cream:            var(--cream);
   --color-forest:           var(--forest);
   --color-forest-dark:      var(--forest-dark);
+  --color-lake:             var(--lake);
+  --color-lake-light:       var(--lake-light);
+  --color-lake-dark:        var(--lake-dark);
 
   --font-sans:    var(--font-body);
   --font-serif:   var(--font-display);

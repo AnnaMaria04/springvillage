@@ -7,7 +7,7 @@ import { CONTACT } from "@/lib/data";
 const contacts = [
   {
     label: "WhatsApp",
-    href: `https://wa.me/${CONTACT.phoneWhatsApp}?text=${encodeURIComponent("Здравствуйте! Хочу узнать о бронировании коттеджа.")}`,
+    href: `https://wa.me/${CONTACT.phoneWhatsApp}?text=${encodeURIComponent("Здравствуйте! Интересует бронирование Коттеджа WILD. Можете рассказать о свободных датах?")}`,
     bg: "#25D366",
     icon: MessageCircle,
     external: true,

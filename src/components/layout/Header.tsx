@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/cottages", label: "Коттеджи" },
-  { href: "/pricing", label: "Цены" },
-  { href: "/gallery", label: "Галерея" },
-  { href: "/reviews", label: "Отзывы" },
-  { href: "/about", label: "О нас" },
-  { href: "/contact", label: "Контакты" },
+  { href: "#house",      label: "Коттедж" },
+  { href: "#activities", label: "Активности" },
+  { href: "#pricing",    label: "Цены" },
+  { href: "/dom",        label: "О доме" },
+  { href: "/doroga",     label: "Как добраться" },
 ];
 
 export function Header() {
@@ -20,7 +19,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -36,27 +35,29 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div
-              className={cn(
-                "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-                scrolled ? "bg-[--primary]" : "bg-white/15"
-              )}
-            >
+            <div className={cn(
+              "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+              scrolled ? "bg-[--primary]" : "bg-white/15"
+            )}>
               <TreePine className="w-4 h-4 text-white" />
             </div>
-            <span
-              className={cn(
-                "font-display text-lg font-bold transition-colors",
+            <div>
+              <span className={cn(
+                "font-display text-base font-bold transition-colors leading-none block",
                 scrolled ? "text-[--foreground]" : "text-white"
-              )}
-            >
-              Spring Village
-            </span>
+              )}>
+                Spring Village
+              </span>
+              <span className={cn(
+                "text-[10px] font-medium tracking-wide transition-colors leading-none block mt-0.5",
+                scrolled ? "text-[--muted-foreground]" : "text-white/55"
+              )}>
+                Коттедж WILD
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
@@ -74,21 +75,17 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Button asChild size="sm">
-              <Link href="/booking">Забронировать</Link>
+              <Link href="#pricing">Забронировать</Link>
             </Button>
           </div>
 
-          {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
             className={cn(
               "lg:hidden p-2 rounded-lg transition-colors",
-              scrolled
-                ? "text-[--foreground] hover:bg-[--muted]"
-                : "text-white hover:bg-white/10"
+              scrolled ? "text-[--foreground] hover:bg-[--muted]" : "text-white hover:bg-white/10"
             )}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
           >
@@ -97,7 +94,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {open && (
         <div className="lg:hidden bg-white border-t border-[--border]">
           <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
@@ -111,9 +107,9 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <div className="pt-4">
+            <div className="pt-4 pb-2">
               <Button asChild className="w-full" size="lg">
-                <Link href="/booking" onClick={() => setOpen(false)}>Забронировать</Link>
+                <Link href="#pricing" onClick={() => setOpen(false)}>Забронировать</Link>
               </Button>
             </div>
           </nav>
