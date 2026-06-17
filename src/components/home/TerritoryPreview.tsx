@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const GAP = 16;
+const CLONES = 3;
 
 const tiles = [
   { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/territory-spring.jpg" },
@@ -11,33 +14,70 @@ const tiles = [
   { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/territory-forest.jpg" },
 ];
 
-function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
-  const offset = el.scrollLeft + card.getBoundingClientRect().left - el.getBoundingClientRect().left;
-  if (smooth) {
-    el.scrollTo({ left: offset, behavior: "smooth" });
-  } else {
-    el.scrollLeft = offset;
-  }
+function getCardsPerView(w: number): number {
+  if (w >= 1024) return 3;
+  if (w >= 640) return 2;
+  return 1;
 }
 
 export function TerritoryPreview() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [idx, setIdx] = useState(0);
+  const N = tiles.length;
+  const extended = [...tiles.slice(-CLONES), ...tiles, ...tiles.slice(0, CLONES)];
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerW, setContainerW] = useState(0);
+  const [pos, setPos] = useState(CLONES);
+  const [animated, setAnimated] = useState(true);
+  const dragStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => setContainerW(e.contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const cpv = getCardsPerView(containerW);
+  const cardW = containerW > 0 ? (containerW - (cpv - 1) * GAP) / cpv : 0;
+  const step = cardW + GAP;
+  const trackX = containerW > 0 ? (containerW - cardW) / 2 - pos * step : 0;
 
   const go = useCallback((dir: "prev" | "next") => {
-    const el = scrollRef.current;
-    if (!el) return;
+    setAnimated(true);
+    setPos(p => p + (dir === "next" ? 1 : -1));
+  }, []);
 
-    const isWrap = (dir === "next" && idx === tiles.length - 1) ||
-                   (dir === "prev" && idx === 0);
-    const newIdx = dir === "next"
-      ? (idx + 1) % tiles.length
-      : (idx - 1 + tiles.length) % tiles.length;
+  function onTransitionEnd() {
+    if (pos >= N + CLONES) {
+      setAnimated(false);
+      setPos(p => p - N);
+    } else if (pos < CLONES) {
+      setAnimated(false);
+      setPos(p => p + N);
+    }
+  }
 
-    setIdx(newIdx);
-    const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) scrollToCard(el, card, !isWrap);
-  }, [idx]);
+  useEffect(() => {
+    if (!animated) {
+      const raf = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [animated]);
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null) return;
+    const diff = e.clientX - dragStartX.current;
+    dragStartX.current = null;
+    if (Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
+  }
+
+  const realIdx = ((pos - CLONES) % N + N) % N;
 
   return (
     <section className="bg-background py-20 lg:py-28 overflow-x-clip">
@@ -60,6 +100,7 @@ export function TerritoryPreview() {
         </div>
 
         <div className="relative">
+          {/* Left arrow */}
           <button
             onClick={() => go("prev")}
             aria-label="Назад"
@@ -68,28 +109,59 @@ export function TerritoryPreview() {
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
 
-          <div ref={scrollRef} className="flex gap-4 overflow-x-scroll scrollbar-hide">
-            {tiles.map((t, i) => (
-              <Link
-                key={i}
-                href="/dom"
-                className="group flex-none w-full sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] block"
-              >
-                <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
-                  <div
-                    className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${t.photo}')` }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)]" />
-                  <div className="absolute bottom-5 left-5 right-5">
-                    <p className="font-display text-xl font-bold text-white leading-tight">{t.title}</p>
-                    <p className="text-white/65 text-sm mt-1">{t.sub}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
+          {/* Clipping container */}
+          <div
+            ref={containerRef}
+            className={`overflow-hidden transition-opacity duration-300 ${containerW > 0 ? "opacity-100" : "opacity-0"}`}
+            style={{ touchAction: "pan-y" }}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+          >
+            {/* Sliding track */}
+            <div
+              className="flex select-none"
+              style={{
+                gap: GAP,
+                transform: containerW > 0 ? `translateX(${trackX}px)` : undefined,
+                transition: animated && containerW > 0 ? "transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)" : "none",
+                willChange: "transform",
+              }}
+              onTransitionEnd={onTransitionEnd}
+            >
+              {extended.map((t, i) => {
+                const isActive = i === pos;
+                return (
+                  <Link
+                    key={i}
+                    href="/dom"
+                    className="group flex-none"
+                    style={{ width: cardW > 0 ? cardW : undefined }}
+                    draggable={false}
+                  >
+                    <div
+                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden transition-all duration-500"
+                      style={{
+                        opacity: isActive ? 1 : 0.6,
+                        transform: isActive ? "scale(1)" : "scale(0.94)",
+                      }}
+                    >
+                      <div
+                        className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
+                        style={{ backgroundImage: `url('${t.photo}')` }}
+                      />
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)]" />
+                      <div className="absolute bottom-5 left-5 right-5">
+                        <p className="font-display text-xl font-bold text-white leading-tight">{t.title}</p>
+                        <p className="text-white/65 text-sm mt-1">{t.sub}</p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
+          {/* Right arrow */}
           <button
             onClick={() => go("next")}
             aria-label="Вперёд"
@@ -97,6 +169,20 @@ export function TerritoryPreview() {
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {tiles.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { setAnimated(true); setPos(CLONES + i); }}
+              aria-label={`Слайд ${i + 1}`}
+              className={`rounded-full transition-all duration-300 cursor-pointer ${
+                i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

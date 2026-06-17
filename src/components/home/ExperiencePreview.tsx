@@ -1,38 +1,82 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
 
-function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
-  const offset = el.scrollLeft + card.getBoundingClientRect().left - el.getBoundingClientRect().left;
-  if (smooth) {
-    el.scrollTo({ left: offset, behavior: "smooth" });
-  } else {
-    el.scrollLeft = offset;
-  }
+const GAP = 16;
+const CLONES = 3;
+
+function getCardsPerView(w: number): number {
+  if (w >= 1024) return 3;
+  if (w >= 640) return 2;
+  return 1;
 }
 
 export function ExperiencePreview() {
   const items = ACTIVITIES.summer;
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [idx, setIdx] = useState(0);
+  const N = items.length;
+  // Clone last CLONES items before start, first CLONES items after end
+  const extended = [...items.slice(-CLONES), ...items, ...items.slice(0, CLONES)];
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerW, setContainerW] = useState(0);
+  const [pos, setPos] = useState(CLONES); // start at first real item
+  const [animated, setAnimated] = useState(true);
+  const dragStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => setContainerW(e.contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const cpv = getCardsPerView(containerW);
+  const cardW = containerW > 0 ? (containerW - (cpv - 1) * GAP) / cpv : 0;
+  const step = cardW + GAP;
+  // Center the card at `pos` in the container
+  const trackX = containerW > 0 ? (containerW - cardW) / 2 - pos * step : 0;
 
   const go = useCallback((dir: "prev" | "next") => {
-    const el = scrollRef.current;
-    if (!el) return;
+    setAnimated(true);
+    setPos(p => p + (dir === "next" ? 1 : -1));
+  }, []);
 
-    const isWrap = (dir === "next" && idx === items.length - 1) ||
-                   (dir === "prev" && idx === 0);
-    const newIdx = dir === "next"
-      ? (idx + 1) % items.length
-      : (idx - 1 + items.length) % items.length;
+  function onTransitionEnd() {
+    // When we land on a clone, instantly jump to the real equivalent
+    if (pos >= N + CLONES) {
+      setAnimated(false);
+      setPos(p => p - N);
+    } else if (pos < CLONES) {
+      setAnimated(false);
+      setPos(p => p + N);
+    }
+  }
 
-    setIdx(newIdx);
-    const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) scrollToCard(el, card, !isWrap);
-  }, [idx, items.length]);
+  // Re-enable animation one frame after the silent position snap
+  useEffect(() => {
+    if (!animated) {
+      const raf = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [animated]);
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null) return;
+    const diff = e.clientX - dragStartX.current;
+    dragStartX.current = null;
+    if (Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
+  }
+
+  const realIdx = ((pos - CLONES) % N + N) % N;
 
   return (
     <section className="py-24 lg:py-32 bg-background overflow-x-clip">
@@ -55,6 +99,7 @@ export function ExperiencePreview() {
         </div>
 
         <div className="relative">
+          {/* Left arrow */}
           <button
             onClick={() => go("prev")}
             aria-label="Предыдущее"
@@ -63,27 +108,58 @@ export function ExperiencePreview() {
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
 
-          <div ref={scrollRef} className="flex gap-4 overflow-x-scroll scrollbar-hide">
-            {items.map((a, i) => (
-              <Link
-                key={i}
-                href={`/aktivnosti/${a.slug}`}
-                className="group flex-none w-full lg:w-[calc((100%-2rem)/3)] block"
-              >
-                <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
-                  <div
-                    className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${a.photo}')` }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)]" />
-                  <div className="absolute bottom-5 left-5 right-5">
-                    <p className="font-display text-xl font-bold text-white leading-tight">{a.title}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
+          {/* Clipping container */}
+          <div
+            ref={containerRef}
+            className={`overflow-hidden transition-opacity duration-300 ${containerW > 0 ? "opacity-100" : "opacity-0"}`}
+            style={{ touchAction: "pan-y" }}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+          >
+            {/* Sliding track */}
+            <div
+              className="flex select-none"
+              style={{
+                gap: GAP,
+                transform: containerW > 0 ? `translateX(${trackX}px)` : undefined,
+                transition: animated && containerW > 0 ? "transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)" : "none",
+                willChange: "transform",
+              }}
+              onTransitionEnd={onTransitionEnd}
+            >
+              {extended.map((a, i) => {
+                const isActive = i === pos;
+                return (
+                  <Link
+                    key={i}
+                    href={`/aktivnosti/${a.slug}`}
+                    className="group flex-none"
+                    style={{ width: cardW > 0 ? cardW : undefined }}
+                    draggable={false}
+                  >
+                    <div
+                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden transition-all duration-500"
+                      style={{
+                        opacity: isActive ? 1 : 0.6,
+                        transform: isActive ? "scale(1)" : "scale(0.94)",
+                      }}
+                    >
+                      <div
+                        className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
+                        style={{ backgroundImage: `url('${a.photo}')` }}
+                      />
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)]" />
+                      <div className="absolute bottom-5 left-5 right-5">
+                        <p className="font-display text-xl font-bold text-white leading-tight">{a.title}</p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
+          {/* Right arrow */}
           <button
             onClick={() => go("next")}
             aria-label="Следующее"
@@ -91,6 +167,20 @@ export function ExperiencePreview() {
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { setAnimated(true); setPos(CLONES + i); }}
+              aria-label={`Слайд ${i + 1}`}
+              className={`rounded-full transition-all duration-300 cursor-pointer ${
+                i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
