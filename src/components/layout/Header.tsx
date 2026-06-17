@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, TreePine, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/content/site";
@@ -36,20 +36,13 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-[68px] lg:h-[84px]">
-          <Link href="/" className="flex items-center gap-3 group">
-            {/* A-frame SVG logo mark */}
-            <svg
-              width="30"
-              height="26"
-              viewBox="0 0 30 26"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={cn("transition-colors shrink-0", scrolled ? "text-pine" : "text-white")}
-            >
-              <path d="M15 2L28 22H2L15 2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-              <path d="M11 22V15H19V22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-              <line x1="7" y1="15" x2="23" y2="15" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-            </svg>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className={cn(
+              "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+              scrolled ? "bg-primary" : "bg-white/15"
+            )}>
+              <TreePine className="w-4 h-4 text-white" />
+            </div>
             <div>
               <span className={cn(
                 "font-display text-lg font-bold transition-colors leading-none block",
@@ -58,10 +51,10 @@ export function Header() {
                 Spring Village
               </span>
               <span className={cn(
-                "text-[10px] font-medium tracking-[0.12em] uppercase transition-colors leading-none block mt-0.5",
-                scrolled ? "text-muted-foreground" : "text-white/50"
+                "text-xs font-medium tracking-wide transition-colors leading-none block mt-0.5",
+                scrolled ? "text-muted-foreground" : "text-white/55"
               )}>
-                A-frame · Михалёво
+                Коттедж WILD
               </span>
             </div>
           </Link>
