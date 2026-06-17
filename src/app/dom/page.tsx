@@ -1,149 +1,143 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle, XCircle, Users, BedDouble, Bath, ArrowLeft } from "lucide-react";
-import { HOUSE, SITE } from "@/lib/data";
-import { Button } from "@/components/ui/button";
+import { Users, BedDouble, Bath } from "lucide-react";
+import { HOUSE } from "@/content/house";
+import { HERITAGE } from "@/content/heritage";
+import { REVIEWS } from "@/content/reviews";
+import { PageHero } from "@/components/layout/PageHero";
 
 export const metadata: Metadata = {
-  title: `${HOUSE.name} — подробно`,
-  description: `${HOUSE.type}. Вместимость до ${HOUSE.capacity} гостей. ${HOUSE.description}`,
+  title: `${HOUSE.name} — коттедж у Михалёвского озера`,
+  description: `${HOUSE.type}. До ${HOUSE.capacity} гостей. ${HOUSE.description}`,
 };
+
+const galleryPhotos = [
+  { src: "/images/gallery-exterior.jpg", label: "Фасад и озеро", wide: true },
+  { src: "/images/gallery-interior.jpg", label: "Гостиная" },
+  { src: "/images/gallery-lake.jpg", label: "Панорамное окно" },
+  { src: "/images/gallery-sauna.jpg", label: "Баня у воды" },
+  { src: "/images/gallery-sunset.jpg", label: "Терраса" },
+];
+
+const review = REVIEWS[0];
 
 export default function DomPage() {
   return (
-    <div className="pt-16 min-h-screen bg-[--background]">
-      {/* Hero */}
-      <div className="bg-[--pine] py-20 px-6 sm:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          <Link href="/#house" className="inline-flex items-center gap-1.5 text-white/50 hover:text-white text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> На главную
-          </Link>
-          <p className="text-[--lake-light] text-xs font-semibold uppercase tracking-[0.2em] mb-4">
-            {SITE.name}
-          </p>
-          <h1 className="font-display text-4xl sm:text-6xl font-bold text-white mb-4">
-            {HOUSE.name}
-          </h1>
-          <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
-            {HOUSE.longDescription}
-          </p>
-          <div className="flex flex-wrap gap-6 mt-8 pt-8 border-t border-white/10">
-            {[
-              { icon: Users, value: `до ${HOUSE.capacity} гостей` },
-              { icon: BedDouble, value: `${HOUSE.bedrooms} спальни` },
-              { icon: Bath, value: `${HOUSE.bathrooms} санузел` },
-            ].map((s) => {
-              const Icon = s.icon;
-              return (
-                <div key={s.value} className="flex items-center gap-2 text-white/70 text-sm">
-                  <Icon className="w-4 h-4" /> {s.value}
-                </div>
-              );
-            })}
-          </div>
+    <article>
+      <PageHero
+        eyebrow="Размещение"
+        title={HOUSE.name}
+        subtitle={HOUSE.longDescription}
+        image="/images/stay.jpg"
+      />
+
+      {/* Specs */}
+      <div className="border-b border-[--border] bg-[--background]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 flex flex-wrap gap-x-10 gap-y-3">
+          {[
+            { icon: Users, value: `до ${HOUSE.capacity} гостей` },
+            { icon: BedDouble, value: `${HOUSE.bedrooms} спальни` },
+            { icon: Bath, value: `${HOUSE.bathrooms} санузел` },
+            { icon: null, value: HOUSE.type },
+          ].map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.value} className="flex items-center gap-2 text-sm text-[--foreground]">
+                {Icon && <Icon className="w-4 h-4 text-[--muted-foreground]" />}
+                {s.value}
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 space-y-16">
-        {/* Photo grid placeholder */}
-        <div>
-          <h2 className="font-display text-3xl font-bold text-[--foreground] mb-6">Фотографии</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 auto-rows-[200px]">
-            {[
-              { label: "Фасад и озеро", color: "from-emerald-900 to-teal-800", col: 2, row: 2 },
-              { label: "Гостиная / камин", color: "from-amber-900 to-amber-700", col: 1, row: 1 },
-              { label: "Панорамное окно", color: "from-slate-700 to-slate-500", col: 1, row: 1 },
-              { label: "Спальня 1", color: "from-stone-700 to-stone-500", col: 1, row: 1 },
-              { label: "Баня у воды", color: "from-forest-dark to-forest", col: 1, row: 1 },
-              { label: "Терраса", color: "from-lime-800 to-lime-600", col: 1, row: 1 },
-            ].map((p, i) => (
-              <div
-                key={i}
-                className={`relative rounded-xl overflow-hidden bg-gradient-to-br ${p.color}`}
-                style={{
-                  gridColumn: p.col > 1 ? `span ${p.col}` : undefined,
-                  gridRow: p.row > 1 ? `span ${p.row}` : undefined,
-                }}
-              >
-                <div className="absolute bottom-3 left-3">
-                  <span className="text-xs font-medium text-white/80 bg-black/20 rounded-full px-3 py-1 backdrop-blur-sm">
-                    {p.label}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-[--muted-foreground] mt-3">Профессиональная фотосъёмка запланирована — места замены актуальными фото.</p>
+      {/* Gallery */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[220px] lg:auto-rows-[260px]">
+          {galleryPhotos.map((p, i) => (
+            <div
+              key={i}
+              className="relative rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center"
+              style={{
+                backgroundImage: `url('${p.src}')`,
+                gridColumn: p.wide ? "span 2" : undefined,
+                gridRow: p.wide ? "span 2" : undefined,
+              }}
+            >
+              <span className="absolute bottom-3 left-3 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
+                {p.label}
+              </span>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* Highlights */}
-        <div>
-          <h2 className="font-display text-3xl font-bold text-[--foreground] mb-6">Преимущества</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {HOUSE.highlights.map((h) => (
-              <div key={h.label} className="bg-[--muted] rounded-2xl p-6 text-center border border-[--border]">
-                <div className="font-display text-2xl font-bold text-[--primary] mb-1">{h.detail}</div>
-                <div className="text-sm text-[--muted-foreground]">{h.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* All amenities */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      {/* Equipment + amenities, clean lists */}
+      <section className="bg-[--cream]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h2 className="font-display text-3xl font-bold text-[--foreground] mb-6">Удобства</h2>
-            <div className="space-y-2.5">
+            <h2 className="font-display text-3xl font-bold text-[--foreground] mb-8">Удобства</h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-[--foreground]">
               {HOUSE.amenities.map((a) => (
-                <div key={a} className="flex items-center gap-2.5 text-sm text-[--foreground]">
-                  <CheckCircle className="w-4 h-4 text-[--primary] shrink-0" /> {a}
-                </div>
+                <li key={a} className="border-b border-[--border] pb-3 text-[15px]">
+                  {a}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-
-          <div className="space-y-8">
-            <div>
-              <h2 className="font-display text-3xl font-bold text-[--foreground] mb-6">Оснащение дома</h2>
-              <div className="space-y-2.5">
-                {HOUSE.equipment.map((e) => (
-                  <div key={e} className="flex items-center gap-2.5 text-sm text-[--foreground]">
-                    <CheckCircle className="w-4 h-4 text-[--primary] shrink-0" /> {e}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-display text-xl font-bold text-[--foreground] mb-4">Не включено</h3>
-              <div className="space-y-2.5">
-                {HOUSE.notIncluded.map((n) => (
-                  <div key={n} className="flex items-start gap-2.5 text-sm text-[--muted-foreground]">
-                    <XCircle className="w-4 h-4 text-[--border] shrink-0 mt-0.5" /> {n}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div>
+            <h2 className="font-display text-3xl font-bold text-[--foreground] mb-8">Оснащение</h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-[--foreground]">
+              {HOUSE.equipment.map((e) => (
+                <li key={e} className="border-b border-[--border] pb-3 text-[15px]">
+                  {e}
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-[--muted-foreground] mt-8 leading-relaxed">
+              Не включено: {HOUSE.notIncluded.join(" · ")}.
+            </p>
           </div>
         </div>
+      </section>
 
-        {/* 3D Tour placeholder */}
-        <div className="bg-[--muted] rounded-2xl p-8 border border-[--border] text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-[--muted-foreground] mb-2">Скоро</p>
-          <h2 className="font-display text-2xl font-bold text-[--foreground] mb-3">3D-тур по коттеджу</h2>
-          <p className="text-[--muted-foreground] text-sm max-w-md mx-auto">
-            Виртуальный тур в формате 360° — посмотрите на каждый уголок дома до приезда.
-            Запланирован на ближайшее время.
+      {/* Heritage — editorial prose, no cards */}
+      <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-24 lg:py-32">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[--muted-foreground] mb-6">
+          {HERITAGE.sectionLabel}
+        </p>
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-[--foreground] leading-tight mb-8">
+          Финское наследие карельского леса
+        </h2>
+        <div className="space-y-5 text-[--muted-foreground] text-lg leading-relaxed">
+          <p>{HERITAGE.intro}</p>
+          {HERITAGE.items.map((item) => (
+            <p key={item.title}>{item.body}</p>
+          ))}
+        </div>
+      </section>
+
+      {/* Single review quote */}
+      <section className="bg-[--pine]">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-24 lg:py-32 text-center">
+          <blockquote className="font-display text-2xl lg:text-3xl text-white leading-snug mb-8">
+            «{review.body}»
+          </blockquote>
+          <p className="text-white/55 text-sm">
+            {review.author} · {review.date}
           </p>
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="text-center py-8">
-          <Button asChild size="lg">
-            <Link href="/#pricing">Забронировать Коттедж WILD</Link>
-          </Button>
-        </div>
-      </div>
-    </div>
+      {/* CTA */}
+      <section className="bg-[--background] py-20 text-center">
+        <Link
+          href="/tseny"
+          className="h-13 px-9 rounded-full bg-[--primary] text-white text-base font-semibold hover:bg-[--primary-light] transition-colors inline-flex items-center"
+        >
+          Цены и бронирование
+        </Link>
+      </section>
+    </article>
   );
 }

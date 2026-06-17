@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 import { CONTACT } from "@/content/site";
 
 const navLinks = [
-  { href: "#services",   label: "Услуги" },
-  { href: "#activities", label: "Активности" },
-  { href: "#gallery",    label: "Галерея" },
-  { href: "#pricing",    label: "Цены" },
-  { href: "/doroga",     label: "Как добраться" },
+  { href: "/dom",        label: "Коттедж" },
+  { href: "/aktivnosti", label: "Активности" },
+  { href: "/galereya",   label: "Галерея" },
+  { href: "/tseny",      label: "Цены" },
+  { href: "/kontakty",   label: "Контакты" },
 ];
 
 export function Header() {
@@ -88,7 +88,7 @@ export function Header() {
               {CONTACT.phone}
             </a>
             <Button asChild size="sm">
-              <Link href="#pricing">Забронировать</Link>
+              <Link href="/tseny">Забронировать</Link>
             </Button>
           </div>
 
@@ -120,7 +120,7 @@ export function Header() {
             ))}
             <div className="pt-4 pb-2">
               <Button asChild className="w-full" size="lg">
-                <Link href="#pricing" onClick={() => setOpen(false)}>Забронировать</Link>
+                <Link href="/tseny" onClick={() => setOpen(false)}>Забронировать</Link>
               </Button>
             </div>
           </nav>

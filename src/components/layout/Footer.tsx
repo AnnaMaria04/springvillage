@@ -6,16 +6,17 @@ import { CONTACT, SITE } from "@/lib/data";
 
 const footerLinks = {
   "Коттедж": [
-    { href: "/dom",         label: "О доме" },
-    { href: "/#house",      label: "Коттедж WILD" },
-    { href: "/#activities", label: "Активности" },
-    { href: "/#pricing",    label: "Цены и бронирование" },
+    { href: "/dom",        label: "О доме" },
+    { href: "/aktivnosti", label: "Активности" },
+    { href: "/galereya",   label: "Галерея" },
+    { href: "/tseny",      label: "Цены и бронирование" },
   ],
   "Информация": [
-    { href: "/doroga",  label: "Как добраться" },
-    { href: "/#faq",    label: "Вопросы и ответы" },
-    { href: "/privacy", label: "Конфиденциальность" },
-    { href: "/rules",   label: "Правила проживания" },
+    { href: "/doroga",   label: "Как добраться" },
+    { href: "/faq",      label: "Вопросы и ответы" },
+    { href: "/kontakty", label: "Контакты" },
+    { href: "/privacy",  label: "Конфиденциальность" },
+    { href: "/rules",    label: "Правила проживания" },
   ],
 };
 

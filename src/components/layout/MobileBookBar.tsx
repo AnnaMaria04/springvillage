@@ -16,7 +16,7 @@ export function MobileBookBar() {
           Позвонить
         </a>
         <Link
-          href="#pricing"
+          href="/tseny"
           className="flex-1 flex items-center justify-center py-3.5 bg-[--primary] text-white text-sm font-semibold hover:bg-[--primary-light] transition-colors"
         >
           Забронировать
