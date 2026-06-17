@@ -38,7 +38,7 @@ export function StickyBookingBar() {
   }
 
   return (
-    <div className="sticky top-[68px] lg:top-[84px] z-40 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
+    <div className="fixed top-[68px] lg:top-[84px] left-0 right-0 z-40 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
       {/* Mobile: single button */}
       <div className="md:hidden px-4 py-3 flex items-center justify-between gap-3">
         <div>
@@ -49,7 +49,7 @@ export function StickyBookingBar() {
           href={CONTACT.bnovoBookingUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 h-10 px-5 rounded-lg bg-wood text-white text-sm font-semibold hover:bg-wood/85 transition-colors"
+          className="shrink-0 inline-flex items-center h-10 px-5 rounded-lg bg-wood text-white text-sm font-semibold hover:bg-wood/85 transition-colors"
         >
           Выбрать даты
         </a>
@@ -139,7 +139,7 @@ export function StickyBookingBar() {
           href={bookingUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 h-10 px-6 rounded-lg bg-wood text-white text-sm font-semibold uppercase tracking-wider hover:bg-wood/85 transition-colors"
+          className="shrink-0 inline-flex items-center h-10 px-6 rounded-lg bg-wood text-white text-sm font-semibold uppercase tracking-wider hover:bg-wood/85 transition-colors"
         >
           Найти номер
         </a>

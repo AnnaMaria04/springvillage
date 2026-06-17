@@ -3,9 +3,8 @@ import { Navigation, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
-  const { coords, yandexMapOid } = CONTACT;
-  const { lat, lng: lon } = coords;
-  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=${yandexMapOid}&ll=${lon}%2C${lat}&z=15&lang=ru_RU`;
+  const { yandexMapOid } = CONTACT;
+  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=${yandexMapOid}&ll=29.445309%2C60.957295&z=12&lang=ru_RU`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
