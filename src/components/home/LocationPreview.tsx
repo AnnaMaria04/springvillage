@@ -4,7 +4,7 @@ import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
   const { yandexMapOid } = CONTACT;
-  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=${yandexMapOid}&ll=29.445309%2C60.957295&z=12&lang=ru_RU`;
+  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=${yandexMapOid}&ll=29.422227%2C60.983791&z=15&lang=ru_RU`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
