@@ -28,6 +28,7 @@ export function TerritoryPreview() {
   const [containerW, setContainerW] = useState(0);
   const [pos, setPos] = useState(CLONES);
   const [animated, setAnimated] = useState(true);
+  const lockedRef = useRef(false);
   const dragStartX = useRef<number | null>(null);
 
   useEffect(() => {
@@ -44,23 +45,33 @@ export function TerritoryPreview() {
   const trackX = containerW > 0 ? (containerW - cardW) / 2 - pos * step : 0;
 
   const go = useCallback((dir: "prev" | "next") => {
+    if (lockedRef.current) return;
+    lockedRef.current = true;
     setAnimated(true);
     setPos(p => p + (dir === "next" ? 1 : -1));
   }, []);
 
-  function onTransitionEnd() {
+  function onTransitionEnd(e: React.TransitionEvent<HTMLDivElement>) {
+    // Ignore transitionend bubbled up from inner card opacity/transform transitions
+    if (e.target !== e.currentTarget) return;
     if (pos >= N + CLONES) {
       setAnimated(false);
       setPos(p => p - N);
     } else if (pos < CLONES) {
       setAnimated(false);
       setPos(p => p + N);
+    } else {
+      lockedRef.current = false;
     }
   }
 
+  // Re-enable animation and unlock after the silent position snap
   useEffect(() => {
     if (!animated) {
-      const raf = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+      const raf = requestAnimationFrame(() => requestAnimationFrame(() => {
+        setAnimated(true);
+        lockedRef.current = false;
+      }));
       return () => cancelAnimationFrame(raf);
     }
   }, [animated]);
@@ -100,7 +111,6 @@ export function TerritoryPreview() {
         </div>
 
         <div className="relative">
-          {/* Left arrow */}
           <button
             onClick={() => go("prev")}
             aria-label="Назад"
@@ -109,7 +119,6 @@ export function TerritoryPreview() {
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
 
-          {/* Clipping container */}
           <div
             ref={containerRef}
             className={`overflow-hidden transition-opacity duration-300 ${containerW > 0 ? "opacity-100" : "opacity-0"}`}
@@ -117,7 +126,6 @@ export function TerritoryPreview() {
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
           >
-            {/* Sliding track */}
             <div
               className="flex select-none"
               style={{
@@ -139,10 +147,11 @@ export function TerritoryPreview() {
                     draggable={false}
                   >
                     <div
-                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden transition-all duration-500"
+                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden"
                       style={{
                         opacity: isActive ? 1 : 0.6,
                         transform: isActive ? "scale(1)" : "scale(0.94)",
+                        transition: "opacity 0.5s ease, transform 0.5s ease",
                       }}
                     >
                       <div
@@ -161,7 +170,6 @@ export function TerritoryPreview() {
             </div>
           </div>
 
-          {/* Right arrow */}
           <button
             onClick={() => go("next")}
             aria-label="Вперёд"
@@ -171,12 +179,16 @@ export function TerritoryPreview() {
           </button>
         </div>
 
-        {/* Dots */}
         <div className="flex justify-center gap-2 mt-8">
           {tiles.map((_, i) => (
             <button
               key={i}
-              onClick={() => { setAnimated(true); setPos(CLONES + i); }}
+              onClick={() => {
+                if (lockedRef.current) return;
+                lockedRef.current = true;
+                setAnimated(true);
+                setPos(CLONES + i);
+              }}
               aria-label={`Слайд ${i + 1}`}
               className={`rounded-full transition-all duration-300 cursor-pointer ${
                 i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"

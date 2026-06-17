@@ -17,13 +17,13 @@ function getCardsPerView(w: number): number {
 export function ExperiencePreview() {
   const items = ACTIVITIES.summer;
   const N = items.length;
-  // Clone last CLONES items before start, first CLONES items after end
   const extended = [...items.slice(-CLONES), ...items, ...items.slice(0, CLONES)];
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerW, setContainerW] = useState(0);
-  const [pos, setPos] = useState(CLONES); // start at first real item
+  const [pos, setPos] = useState(CLONES);
   const [animated, setAnimated] = useState(true);
+  const lockedRef = useRef(false);
   const dragStartX = useRef<number | null>(null);
 
   useEffect(() => {
@@ -37,29 +37,36 @@ export function ExperiencePreview() {
   const cpv = getCardsPerView(containerW);
   const cardW = containerW > 0 ? (containerW - (cpv - 1) * GAP) / cpv : 0;
   const step = cardW + GAP;
-  // Center the card at `pos` in the container
   const trackX = containerW > 0 ? (containerW - cardW) / 2 - pos * step : 0;
 
   const go = useCallback((dir: "prev" | "next") => {
+    if (lockedRef.current) return;
+    lockedRef.current = true;
     setAnimated(true);
     setPos(p => p + (dir === "next" ? 1 : -1));
   }, []);
 
-  function onTransitionEnd() {
-    // When we land on a clone, instantly jump to the real equivalent
+  function onTransitionEnd(e: React.TransitionEvent<HTMLDivElement>) {
+    // Ignore transitionend bubbled up from inner card opacity/transform transitions
+    if (e.target !== e.currentTarget) return;
     if (pos >= N + CLONES) {
       setAnimated(false);
       setPos(p => p - N);
     } else if (pos < CLONES) {
       setAnimated(false);
       setPos(p => p + N);
+    } else {
+      lockedRef.current = false;
     }
   }
 
-  // Re-enable animation one frame after the silent position snap
+  // Re-enable animation and unlock after the silent position snap
   useEffect(() => {
     if (!animated) {
-      const raf = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)));
+      const raf = requestAnimationFrame(() => requestAnimationFrame(() => {
+        setAnimated(true);
+        lockedRef.current = false;
+      }));
       return () => cancelAnimationFrame(raf);
     }
   }, [animated]);
@@ -99,7 +106,6 @@ export function ExperiencePreview() {
         </div>
 
         <div className="relative">
-          {/* Left arrow */}
           <button
             onClick={() => go("prev")}
             aria-label="Предыдущее"
@@ -108,7 +114,6 @@ export function ExperiencePreview() {
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
 
-          {/* Clipping container */}
           <div
             ref={containerRef}
             className={`overflow-hidden transition-opacity duration-300 ${containerW > 0 ? "opacity-100" : "opacity-0"}`}
@@ -116,7 +121,6 @@ export function ExperiencePreview() {
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
           >
-            {/* Sliding track */}
             <div
               className="flex select-none"
               style={{
@@ -138,10 +142,11 @@ export function ExperiencePreview() {
                     draggable={false}
                   >
                     <div
-                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden transition-all duration-500"
+                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden"
                       style={{
                         opacity: isActive ? 1 : 0.6,
                         transform: isActive ? "scale(1)" : "scale(0.94)",
+                        transition: "opacity 0.5s ease, transform 0.5s ease",
                       }}
                     >
                       <div
@@ -159,7 +164,6 @@ export function ExperiencePreview() {
             </div>
           </div>
 
-          {/* Right arrow */}
           <button
             onClick={() => go("next")}
             aria-label="Следующее"
@@ -169,12 +173,16 @@ export function ExperiencePreview() {
           </button>
         </div>
 
-        {/* Dots */}
         <div className="flex justify-center gap-2 mt-8">
           {items.map((_, i) => (
             <button
               key={i}
-              onClick={() => { setAnimated(true); setPos(CLONES + i); }}
+              onClick={() => {
+                if (lockedRef.current) return;
+                lockedRef.current = true;
+                setAnimated(true);
+                setPos(CLONES + i);
+              }}
               aria-label={`Слайд ${i + 1}`}
               className={`rounded-full transition-all duration-300 cursor-pointer ${
                 i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
