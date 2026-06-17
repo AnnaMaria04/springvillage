@@ -8,7 +8,6 @@ const footerLinks = {
     { href: "/dom",        label: "О доме" },
     { href: "/aktivnosti", label: "Активности" },
     { href: "/galereya",   label: "Галерея" },
-    { href: "/tseny",      label: "Цены и бронирование" },
   ],
   "Информация": [
     { href: "/doroga",   label: "Как добраться" },
