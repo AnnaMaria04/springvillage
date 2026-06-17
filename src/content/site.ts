@@ -17,6 +17,7 @@ export const CONTACT = {
   yandexReviewsWidget: "https://yandex.ru/maps-reviews-widget/193725846598?comments",
   yandexOrgUrl: "https://yandex.com/maps/org/spring_village/193725846598/?from=mapframe&ll=29.422337%2C61.013546&source=mapframe&utm_source=mapframe&z=12",
   bnovoUid: "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
+  bnovoBookingUrl: "https://reservationsteps.ru/rooms/index/12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
 } as const;
 
 export const SITE = {

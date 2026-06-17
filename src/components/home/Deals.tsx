@@ -1,16 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { BnovoModal } from "@/components/booking/BnovoModal";
 import { PRICE_TIERS } from "@/content/offers";
+import { CONTACT } from "@/content/site";
 
 function fmt(n: number) {
   return n.toLocaleString("ru-RU");
 }
 
 export function Deals() {
-  const [open, setOpen] = useState(false);
-
   return (
     <>
       <section
@@ -40,10 +37,12 @@ export function Deals() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-12">
             {PRICE_TIERS.map((tier) => (
-              <button
+              <a
                 key={tier.label}
-                onClick={() => setOpen(true)}
-                className={`rounded-2xl border p-5 text-center cursor-pointer group card-hover ${
+                href={CONTACT.bnovoBookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`rounded-2xl border p-5 text-center cursor-pointer group card-hover block ${
                   tier.highlighted
                     ? "bg-wood/25 border-wood/60 hover:bg-wood/35"
                     : "bg-white/8 border-white/15 hover:bg-white/15"
@@ -62,22 +61,22 @@ export function Deals() {
                 <p className="text-white/0 group-hover:text-white/60 text-[10px] mt-2 transition-colors">
                   Нажмите, чтобы забронировать →
                 </p>
-              </button>
+              </a>
             ))}
           </div>
 
           <div className="flex justify-center">
-            <button
-              onClick={() => setOpen(true)}
-              className="btn-lux h-13 px-12 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer uppercase tracking-wider"
+            <a
+              href={CONTACT.bnovoBookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-lux h-13 px-12 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors uppercase tracking-wider inline-flex items-center"
             >
               Выбрать даты
-            </button>
+            </a>
           </div>
         </div>
       </section>
-
-      <BnovoModal open={open} onOpenChange={setOpen} />
     </>
   );
 }

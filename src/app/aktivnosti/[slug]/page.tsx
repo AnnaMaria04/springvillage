@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
-import { BnovoModal } from "@/components/booking/BnovoModal";
+import { CONTACT } from "@/content/site";
 
 // Flatten all activities
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
@@ -71,13 +71,14 @@ export default async function ActivityPage({
         <p className="text-muted-foreground text-lg leading-relaxed">{activity.description}</p>
 
         <div className="mt-10">
-          <BnovoModal
-            trigger={
-              <button className="btn-lux h-13 px-10 rounded-full bg-primary text-white text-base font-semibold cursor-pointer">
-                Забронировать
-              </button>
-            }
-          />
+          <a
+            href={CONTACT.bnovoBookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-lux inline-flex items-center h-13 px-10 rounded-full bg-primary text-white text-base font-semibold"
+          >
+            Забронировать
+          </a>
         </div>
       </section>
 
