@@ -6,14 +6,15 @@ import { CONTACT, SITE } from "@/content/site";
 import { BnovoWidget } from "@/components/booking/BnovoWidget";
 
 type Props = {
-  /** Trigger element — renders an uncontrolled dialog */
   trigger?: React.ReactNode;
-  /** Controlled open state (use without trigger) */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  dfrom?: string;
+  dto?: string;
+  adults?: number;
 };
 
-export function BnovoModal({ trigger, open, onOpenChange }: Props) {
+export function BnovoModal({ trigger, open, onOpenChange, dfrom, dto, adults }: Props) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
@@ -21,7 +22,6 @@ export function BnovoModal({ trigger, open, onOpenChange }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-[80] bg-black/40 backdrop-blur-sm" />
         <Dialog.Content className="fixed inset-0 z-[81] flex flex-col bg-white focus:outline-none">
-          {/* Header — KORBI-style dark bar */}
           <div className="bg-pine flex items-center gap-4 px-6 sm:px-10 py-4 shrink-0">
             <div>
               <p className="text-white font-semibold text-sm tracking-wide">{SITE.name}</p>
@@ -33,10 +33,9 @@ export function BnovoModal({ trigger, open, onOpenChange }: Props) {
             </Dialog.Close>
           </div>
 
-          {/* Booking widget — scrollable */}
           <div className="flex-1 overflow-y-auto bg-[#f7f7f5]">
-            <div className="max-w-3xl mx-auto px-4 sm:px-8 py-10">
-              <BnovoWidget instanceId="booking_iframe_modal" />
+            <div className="max-w-4xl mx-auto px-4 sm:px-8 py-10">
+              <BnovoWidget instanceId="booking_iframe_modal" dfrom={dfrom} dto={dto} adults={adults} />
             </div>
           </div>
         </Dialog.Content>

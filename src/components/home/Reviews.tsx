@@ -26,13 +26,10 @@ export function Reviews() {
   const go = (dir: "prev" | "next") => {
     const el = scrollRef.current;
     if (!el) return;
-    const newIdx = dir === "next" ? Math.min(total - 1, idx + 1) : Math.max(0, idx - 1);
+    const newIdx = dir === "next" ? (idx + 1) % total : (idx - 1 + total) % total;
     setIdx(newIdx);
-    // Get the card at newIdx and scroll it into view
     const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) {
-      el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-    }
+    if (card) el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
   };
 
   return (
@@ -59,17 +56,15 @@ export function Reviews() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => go("prev")}
-              disabled={idx === 0}
               aria-label="Предыдущий отзыв"
-              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors"
             >
               <ChevronLeft className="w-5 h-5 text-foreground" />
             </button>
             <button
               onClick={() => go("next")}
-              disabled={idx === total - 1}
               aria-label="Следующий отзыв"
-              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors"
             >
               <ChevronRight className="w-5 h-5 text-foreground" />
             </button>

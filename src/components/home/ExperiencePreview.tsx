@@ -15,12 +15,10 @@ export function ExperiencePreview() {
   const go = (dir: "prev" | "next") => {
     const el = scrollRef.current;
     if (!el) return;
-    const newIdx = dir === "next" ? Math.min(maxIdx, idx + 1) : Math.max(0, idx - 1);
+    const newIdx = dir === "next" ? (idx + 1) % items.length : (idx - 1 + items.length) % items.length;
     setIdx(newIdx);
     const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) {
-      el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-    }
+    if (card) el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
   };
 
   return (
@@ -48,9 +46,8 @@ export function ExperiencePreview() {
           {/* Left arrow */}
           <button
             onClick={() => go("prev")}
-            disabled={idx === 0}
             aria-label="Предыдущее"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors disabled:opacity-0 disabled:pointer-events-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
@@ -83,9 +80,8 @@ export function ExperiencePreview() {
           {/* Right arrow */}
           <button
             onClick={() => go("next")}
-            disabled={idx >= maxIdx}
             aria-label="Следующее"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors disabled:opacity-0 disabled:pointer-events-none"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>

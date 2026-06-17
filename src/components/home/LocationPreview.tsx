@@ -4,22 +4,23 @@ import { MapPin, Navigation, ArrowRight } from "lucide-react";
 export function LocationPreview() {
   const lat = 60.983791;
   const lon = 29.422227;
-  const mapSrc = `https://static-maps.yandex.ru/1.x/?ll=${lon},${lat}&z=13&l=map&size=650,300&pt=${lon},${lat},pm2rdm`;
+  // Yandex Maps widget iframe — interactive, no API key required
+  const mapWidget = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=14&pt=${lon}%2C${lat}%2Cpm2rdm&l=map&lang=ru_RU`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: map image */}
+          {/* Left: interactive Yandex Maps iframe */}
           <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mapSrc}
-              alt="Карта: Spring Village на Михалёвском озере"
-              className="w-full h-full object-cover"
+            <iframe
+              src={mapWidget}
+              className="w-full h-full border-0"
+              title="Карта: Spring Village на Михалёвском озере"
+              allowFullScreen
             />
-            {/* Overlay with coordinates */}
-            <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 flex items-center gap-2.5">
+            {/* Coordinates overlay */}
+            <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 flex items-center gap-2.5 pointer-events-none">
               <MapPin className="w-4 h-4 text-pine shrink-0" />
               <div>
                 <p className="text-xs font-semibold text-pine">Координаты</p>
