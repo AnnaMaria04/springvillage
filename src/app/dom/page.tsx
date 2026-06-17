@@ -77,26 +77,6 @@ export default function DomPage() {
         </div>
       </section>
 
-      {/* House layout detail */}
-      <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
-          Планировка
-        </p>
-        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
-          Два этажа у озера
-        </h2>
-        <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
-          <p>
-            Первый этаж — открытое пространство: гостиная с дровяным камином, кухня с полным оснащением, ванная комната с тёплыми полами. Панорамные окна во всю стену открывают вид на лес и озеро прямо с дивана.
-          </p>
-          <p>
-            Второй этаж — две спальни: нижняя с двуспальной кроватью и верхняя мансардная. Оба уровня имеют свой характер: нижний — спокойный и просторный, верхний — уютный, под самой крышей треугольника.
-          </p>
-          <p>
-            Архитектура A-frame — это не просто форма, это ощущение. Высокие потолки, наклонные стены, дерево везде. Дом поставлен так, чтобы первое, что вы видите утром — было озеро.
-          </p>
-        </div>
-      </section>
 
       {/* Equipment + amenities, clean lists */}
       <section className="bg-cream">
@@ -175,19 +155,45 @@ export default function DomPage() {
         </div>
       </section>
 
-      {/* Heritage — editorial prose, no cards */}
-      <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-24 lg:py-32">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
-          {HERITAGE.sectionLabel}
-        </p>
-        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
-          Финское наследие карельского леса
-        </h2>
-        <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
-          <p>{HERITAGE.intro}</p>
-          {HERITAGE.items.map((item) => (
-            <p key={item.title}>{item.body}</p>
-          ))}
+      {/* Layout + Heritage — combined two-column editorial */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
+          {/* Floor plan */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
+              Планировка
+            </p>
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-7">
+              Два этажа у озера
+            </h2>
+            <div className="space-y-4 text-muted-foreground text-[17px] leading-relaxed">
+              <p>
+                Первый этаж — открытое пространство: гостиная с дровяным камином, кухня с полным оснащением, ванная комната с тёплыми полами. Панорамные окна во всю стену открывают вид на лес и озеро прямо с дивана.
+              </p>
+              <p>
+                Второй этаж — две спальни: нижняя с двуспальной кроватью и верхняя мансардная. Оба уровня имеют свой характер: нижний — спокойный и просторный, верхний — уютный, под самой крышей треугольника.
+              </p>
+              <p>
+                Архитектура A-frame — это не просто форма, это ощущение. Высокие потолки, наклонные стены, дерево везде. Дом поставлен так, чтобы первое, что вы видите утром — было озеро.
+              </p>
+            </div>
+          </div>
+
+          {/* Heritage */}
+          <div className="lg:border-l lg:border-border lg:pl-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
+              {HERITAGE.sectionLabel}
+            </p>
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-7">
+              Финское наследие карельского леса
+            </h2>
+            <div className="space-y-4 text-muted-foreground text-[17px] leading-relaxed">
+              <p>{HERITAGE.intro}</p>
+              {HERITAGE.items.map((item) => (
+                <p key={item.title}>{item.body}</p>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
