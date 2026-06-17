@@ -4,7 +4,6 @@ import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
-import { Reviews } from "@/components/home/Reviews";
 
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
@@ -78,6 +77,27 @@ export default function DomPage() {
         </div>
       </section>
 
+      {/* House layout detail */}
+      <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
+          Планировка
+        </p>
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
+          Два этажа у озера
+        </h2>
+        <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+          <p>
+            Первый этаж — открытое пространство: гостиная с дровяным камином, кухня с полным оснащением, ванная комната с тёплыми полами. Панорамные окна во всю стену открывают вид на лес и озеро прямо с дивана.
+          </p>
+          <p>
+            Второй этаж — две спальни: нижняя с двуспальной кроватью и верхняя мансардная. Оба уровня имеют свой характер: нижний — спокойный и просторный, верхний — уютный, под самой крышей треугольника.
+          </p>
+          <p>
+            Архитектура A-frame — это не просто форма, это ощущение. Высокие потолки, наклонные стены, дерево везде. Дом поставлен так, чтобы первое, что вы видите утром — было озеро.
+          </p>
+        </div>
+      </section>
+
       {/* Equipment + amenities, clean lists */}
       <section className="bg-cream">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -103,6 +123,11 @@ export default function DomPage() {
             <p className="text-sm text-muted-foreground mt-8 leading-relaxed">
               Не включено: {HOUSE.notIncluded.join(" · ")}.
             </p>
+            {HOUSE.extras && HOUSE.extras.length > 0 && (
+              <p className="text-sm text-muted-foreground mt-6 leading-relaxed">
+                По запросу: {HOUSE.extras.join(" · ")}.
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -165,9 +190,6 @@ export default function DomPage() {
           ))}
         </div>
       </section>
-
-      {/* Reviews */}
-      <Reviews />
 
       {/* CTA */}
       <section className="bg-background py-20 text-center">

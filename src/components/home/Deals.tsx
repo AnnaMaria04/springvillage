@@ -1,0 +1,68 @@
+import { BnovoModal } from "@/components/booking/BnovoModal";
+import { PRICE_TIERS } from "@/content/offers";
+
+function fmt(n: number) {
+  return n.toLocaleString("ru-RU");
+}
+
+export function Deals() {
+  return (
+    <section
+      className="relative bg-pine bg-cover bg-center py-24 lg:py-32"
+      style={{ backgroundImage: "url('/images/deals.jpg')" }}
+    >
+      <div className="absolute inset-0 bg-pine/80" />
+      <div className="relative max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/50 mb-4">
+            Специальные предложения
+          </p>
+          <h2
+            className="font-display font-bold text-white leading-tight tracking-tight"
+            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
+          >
+            Аренда с умом
+          </h2>
+          <p className="text-white/55 mt-3 text-lg">
+            Чем дольше — тем дешевле за сутки
+          </p>
+        </div>
+
+        {/* Price tiers */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-12">
+          {PRICE_TIERS.map((tier) => (
+            <div
+              key={tier.label}
+              className={`rounded-2xl border p-5 text-center transition-all ${
+                tier.highlighted
+                  ? "bg-wood/25 border-wood/60"
+                  : "bg-white/8 border-white/15 hover:bg-white/12"
+              }`}
+            >
+              <p className="text-white/50 text-xs mb-2">{tier.nights}</p>
+              <p className="font-display text-2xl font-bold text-white leading-none">
+                {fmt(tier.totalPrice)} ₽
+              </p>
+              <p className="text-white/40 text-xs mt-1.5">{fmt(tier.perNight)} ₽/ночь</p>
+              {tier.discount && (
+                <span className="inline-block mt-2 text-[11px] font-semibold text-wood bg-wood/20 rounded-full px-2 py-0.5">
+                  {tier.discount}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center">
+          <BnovoModal
+            trigger={
+              <button className="btn-lux h-13 px-12 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer uppercase tracking-wider">
+                Выбрать даты
+              </button>
+            }
+          />
+        </div>
+      </div>
+    </section>
+  );
+}

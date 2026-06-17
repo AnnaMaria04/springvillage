@@ -1,27 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { ACTIVITIES, type Season } from "@/lib/data";
 import { cn } from "@/lib/utils";
-
-const photoBySeason: Record<Season, string[]> = {
-  summer: [
-    "/images/activity-kayak.jpg",
-    "/images/activity-fishing.jpg",
-    "/images/activity-swim.jpg",
-    "/images/activity-bike.jpg",
-    "/images/activity-bbq.jpg",
-    "/images/activity-games.jpg",
-  ],
-  winter: [
-    "/images/activity-banya.jpg",
-    "/images/activity-ski.jpg",
-    "/images/activity-skate.jpg",
-    "/images/activity-icefish.jpg",
-    "/images/activity-forest.jpg",
-    "/images/activity-fireplace.jpg",
-  ],
-};
 
 export function Activities() {
   const [season, setSeason] = useState<Season>("summer");
@@ -50,19 +32,23 @@ export function Activities() {
         </div>
       </div>
 
-      {/* Photo cards */}
+      {/* Photo cards — each links to its own page */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {ACTIVITIES[season].map((activity, i) => (
-          <div key={activity.title}>
-            <div
-              className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center mb-5"
-              style={{ backgroundImage: `url('${photoBySeason[season][i]}')` }}
-            />
-            <h3 className="font-display text-xl font-bold text-foreground mb-2">
+        {ACTIVITIES[season].map((activity) => (
+          <Link key={activity.slug} href={`/aktivnosti/${activity.slug}`} className="group block">
+            <div className="media relative aspect-[4/3] rounded-3xl overflow-hidden bg-stone-300 mb-5">
+              <div
+                className="media-img absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url('${activity.photo}')` }}
+              />
+            </div>
+            <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-moss transition-colors">
               {activity.title}
             </h3>
-            <p className="text-muted-foreground leading-relaxed">{activity.description}</p>
-          </div>
+            <p className="text-muted-foreground leading-relaxed text-sm line-clamp-2">
+              {activity.description}
+            </p>
+          </Link>
         ))}
       </div>
     </section>
