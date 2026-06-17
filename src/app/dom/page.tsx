@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
+import { Users, BedDouble, Bath, Maximize2, Flame } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
+import { BookingCTA } from "@/components/home/BookingCTA";
 
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
@@ -155,57 +155,72 @@ export default function DomPage() {
         </div>
       </section>
 
-      {/* Layout + Heritage — combined two-column editorial */}
+      {/* Layout + Heritage — interactive two-column */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
-          {/* Floor plan */}
+          {/* Floor plan — visual cards */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               Планировка
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-7">
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
               Два этажа у озера
             </h2>
-            <div className="space-y-4 text-muted-foreground text-[17px] leading-relaxed">
-              <p>
-                Первый этаж — открытое пространство: гостиная с дровяным камином, кухня с полным оснащением, ванная комната с тёплыми полами. Панорамные окна во всю стену открывают вид на лес и озеро прямо с дивана.
-              </p>
-              <p>
-                Второй этаж — две спальни: нижняя с двуспальной кроватью и верхняя мансардная. Оба уровня имеют свой характер: нижний — спокойный и просторный, верхний — уютный, под самой крышей треугольника.
-              </p>
-              <p>
-                Архитектура A-frame — это не просто форма, это ощущение. Высокие потолки, наклонные стены, дерево везде. Дом поставлен так, чтобы первое, что вы видите утром — было озеро.
-              </p>
+            <div className="space-y-3 mb-6">
+              <div className="flex gap-4 p-5 rounded-2xl bg-cream border border-border">
+                <div className="w-10 h-10 rounded-xl bg-pine flex items-center justify-center shrink-0">
+                  <Flame className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Первый этаж</p>
+                  <p className="text-sm text-muted-foreground">Гостиная с камином · Кухня · Ванная с тёплыми полами · Панорамные окна на озеро</p>
+                </div>
+              </div>
+              <div className="flex gap-4 p-5 rounded-2xl bg-cream border border-border">
+                <div className="w-10 h-10 rounded-xl bg-pine flex items-center justify-center shrink-0">
+                  <BedDouble className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Второй этаж</p>
+                  <p className="text-sm text-muted-foreground">Спальня с двуспальной кроватью · Мансардная спальня под крышей треугольника</p>
+                </div>
+              </div>
             </div>
+            <p className="text-sm text-muted-foreground italic leading-relaxed">
+              Высокие потолки, наклонные стены, дерево везде — дом поставлен так, чтобы первое, что видишь утром, было озеро.
+            </p>
           </div>
 
-          {/* Heritage */}
+          {/* Heritage — timeline */}
           <div className="lg:border-l lg:border-border lg:pl-14">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               {HERITAGE.sectionLabel}
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-7">
-              Финское наследие карельского леса
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
+              Финское наследие
             </h2>
-            <div className="space-y-4 text-muted-foreground text-[17px] leading-relaxed">
-              <p>{HERITAGE.intro}</p>
-              {HERITAGE.items.map((item) => (
-                <p key={item.title}>{item.body}</p>
+            <div className="space-y-0">
+              {HERITAGE.items.map((item, i) => (
+                <div key={item.title} className="flex gap-5">
+                  <div className="flex flex-col items-center">
+                    <div className="w-2.5 h-2.5 rounded-full bg-wood shrink-0 mt-1.5" />
+                    {i < HERITAGE.items.length - 1 && (
+                      <div className="w-px flex-1 bg-border mt-2 mb-2" />
+                    )}
+                  </div>
+                  <div className={i < HERITAGE.items.length - 1 ? "pb-6" : ""}>
+                    <p className="text-xs font-semibold text-wood uppercase tracking-wider mb-1">{item.period}</p>
+                    <p className="font-semibold text-foreground mb-1">{item.title}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-background py-20 text-center">
-        <Link
-          href="/tseny"
-          className="h-13 px-9 rounded-full bg-primary text-white text-base font-semibold hover:bg-primary-light transition-colors inline-flex items-center"
-        >
-          Цены и бронирование
-        </Link>
-      </section>
+      <BookingCTA />
     </article>
   );
 }

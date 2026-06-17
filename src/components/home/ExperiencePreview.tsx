@@ -76,9 +76,9 @@ export function ExperiencePreview() {
                     style={{ backgroundImage: `url('${a.photo}')` }}
                   />
                   <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)]" />
-                  <h3 className="absolute bottom-6 left-6 right-6 font-display text-2xl font-bold text-white leading-tight">
-                    {a.title}
-                  </h3>
+                  <div className="absolute bottom-5 left-5 right-5">
+                    <p className="font-display text-xl font-bold text-white leading-tight">{a.title}</p>
+                  </div>
                 </div>
               </Link>
             ))}

@@ -1,42 +1,72 @@
+"use client";
+
 import { BnovoModal } from "@/components/booking/BnovoModal";
 import { BookingModal } from "@/components/booking/BookingModal";
+import { SITE, CONTACT } from "@/content/site";
+import { Phone } from "lucide-react";
+
+const stats = [
+  { value: SITE.priceFromLabel, label: SITE.priceFromSub },
+  { value: "до 5", label: "гостей" },
+  { value: SITE.distanceFromSpb, label: "от Петербурга" },
+  { value: "4.8 ★", label: "на Яндексе" },
+];
 
 export function BookingCTA() {
   return (
-    <section className="bg-background py-32 lg:py-44">
-      {/* Thin decorative top rule */}
-      <div className="max-w-xs mx-auto mb-16 flex items-center gap-4">
-        <div className="flex-1 h-px bg-border" />
-        <div className="w-1.5 h-1.5 rounded-full bg-moss" />
-        <div className="flex-1 h-px bg-border" />
-      </div>
+    <section
+      className="relative bg-pine bg-cover bg-center py-20 lg:py-28"
+      style={{ backgroundImage: "url('/images/booking.jpg')" }}
+    >
+      <div className="absolute inset-0 bg-pine/80" />
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/45 mb-4">
+              Бронирование
+            </p>
+            <h2
+              className="font-display font-bold text-white leading-[0.95] tracking-tight mb-8"
+              style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
+            >
+              Приезжайте<br />к озеру
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <p className="font-display text-2xl font-bold text-wood leading-none">{s.value}</p>
+                  <p className="text-white/45 text-xs mt-1">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
-          Бронирование
-        </p>
-        <h2 className="font-display text-5xl lg:text-7xl font-bold text-pine leading-[0.95] mb-6">
-          Приезжайте<br />к озеру
-        </h2>
-        <p className="text-muted-foreground text-lg mb-12 max-w-md mx-auto">
-          Свободные даты, цены и онлайн-бронирование — в одном месте.
-        </p>
-        <div className="flex items-center justify-center gap-6">
-          <BnovoModal
-            trigger={
-              <button className="btn-lux h-13 px-9 rounded-full bg-pine text-white text-base font-semibold hover:bg-pine/85 transition-colors inline-flex items-center cursor-pointer">
-                Выбрать даты
-              </button>
-            }
-          />
-          <BookingModal
-            source="home_cta"
-            trigger={
-              <button className="text-foreground/70 hover:text-foreground text-base font-medium underline-offset-4 hover:underline transition-colors cursor-pointer">
-                Написать нам
-              </button>
-            }
-          />
+          {/* Right */}
+          <div className="flex flex-col gap-4 lg:items-end">
+            <BnovoModal
+              trigger={
+                <button className="btn-lux w-full lg:w-auto h-13 px-10 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer">
+                  Выбрать даты
+                </button>
+              }
+            />
+            <BookingModal
+              source="home_cta"
+              trigger={
+                <button className="w-full lg:w-auto h-13 px-10 rounded-full border border-white/25 text-white/80 hover:text-white hover:border-white/50 text-base font-medium transition-colors cursor-pointer">
+                  Написать нам
+                </button>
+              }
+            />
+            <a
+              href={`tel:${CONTACT.phoneDial}`}
+              className="flex items-center justify-center lg:justify-end gap-2 text-white/45 hover:text-white/75 text-sm transition-colors mt-1"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              {CONTACT.phone}
+            </a>
+          </div>
         </div>
       </div>
     </section>
