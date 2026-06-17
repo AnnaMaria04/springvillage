@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
-import { Logo } from "@/components/global/Logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/content/site";
@@ -37,25 +36,19 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-[68px] lg:h-[84px]">
-          <Link href="/" className="flex items-center gap-3 group">
-            <Logo className={cn(
-              "h-9 w-auto transition-colors",
-              scrolled ? "text-pine" : "text-white"
-            )} />
-            <div>
-              <span className={cn(
-                "font-display text-lg font-bold transition-colors leading-none block",
-                scrolled ? "text-foreground" : "text-white"
-              )}>
-                Spring Village
-              </span>
-              <span className={cn(
-                "text-xs font-medium tracking-wide transition-colors leading-none block mt-0.5",
-                scrolled ? "text-muted-foreground" : "text-white/55"
-              )}>
-                Коттедж WILD
-              </span>
-            </div>
+          <Link href="/" className="group">
+            <span className={cn(
+              "font-display text-2xl font-bold transition-colors leading-none block",
+              scrolled ? "text-foreground" : "text-white"
+            )}>
+              Spring Village
+            </span>
+            <span className={cn(
+              "text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors leading-none block mt-0.5",
+              scrolled ? "text-muted-foreground" : "text-white/55"
+            )}>
+              Коттедж WILD
+            </span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-0.5">
