@@ -4,7 +4,7 @@ import { Gallery } from "@/components/home/Gallery";
 
 export const metadata: Metadata = {
   title: "Фотогалерея — коттедж WILD у озера",
-  description: "Фотографии коттеджа WILD: экстерьер, интерьер, баня, озеро, территория. A-frame в карельском лесу, Spring Village.",
+  description: "Фотографии коттеджа WILD: экстерьер, интерьер, озеро, территория. A-frame в карельском лесу, Spring Village.",
   alternates: { canonical: "/galereya" },
 };
 

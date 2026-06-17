@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 const photos = [
   "/images/gallery-exterior.jpg",
   "/images/gallery-interior.jpg",
-  "/images/gallery-sauna.jpg",
   "/images/gallery-lake.jpg",
 ];
 

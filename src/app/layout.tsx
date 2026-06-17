@@ -30,13 +30,12 @@ export const metadata: Metadata = {
     template: "%s | Spring Village",
   },
   description:
-    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Финская баня, пирс с лодками, карельский лес. До 5 гостей. 127 км от Петербурга.",
+    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Пирс с лодками, карельский лес. До 5 гостей. 127 км от Петербурга.",
   keywords: [
     "коттедж у озера Ленобласть",
     "аренда дома Михалёво",
     "A-frame коттедж Выборгский район",
     "отдых Михалёвское озеро",
-    "коттедж с баней у озера СПб",
     "снять коттедж Карелия",
     "Spring Village коттедж",
   ],
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Spring Village — Коттедж WILD у Михалёвского озера",
-    description: "A-frame 60 м² в карельском лесу. Баня, пирс, лодки. 127 км от СПб.",
+    description: "A-frame 60 м² в карельском лесу. Пирс, лодки. 127 км от СПб.",
     type: "website",
     locale: "ru_RU",
     siteName: "Spring Village",
@@ -54,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Spring Village — Коттедж WILD у Михалёвского озера",
-    description: "A-frame 60 м² в карельском лесу. Баня, пирс, лодки. 127 км от СПб.",
+    description: "A-frame 60 м² в карельском лесу. Пирс, лодки. 127 км от СПб.",
     images: ["/images/hero.jpg"],
   },
   robots: { index: true, follow: true },

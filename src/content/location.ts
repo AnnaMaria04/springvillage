@@ -3,9 +3,9 @@ export const LOCATION = {
   yandexMapOid: "193725846598",
   // Coordinate-based widget with a placemark — centers reliably on the cottage
   yandexMapUrl:
-    "https://yandex.ru/map-widget/v1/?ll=29.422227%2C60.983791&z=15&pt=29.422227%2C60.983791%2Cpm2rdm&lang=ru_RU",
+    "https://yandex.ru/map-widget/v1/?ll=29.422227%2C60.983791&z=15&oid=193725846598&pt=29.422227%2C60.983791%2Cpm2rdm&lang=ru_RU",
   yandexMapLink:
-    "https://yandex.ru/maps/?pt=29.422227,60.983791&z=15&l=map",
+    "https://yandex.ru/maps/org/193725846598/",
   distanceFromSpb: "127 км",
   driveTime: "~2 часа",
   address: "пос. Михалёво, Выборгский район, Ленинградская область",

@@ -8,11 +8,11 @@ import { StickyBookingBar } from "@/components/home/StickyBookingBar";
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
   description:
-    "Уединённый A-frame коттедж 60 м², 2 спальни, до 5 гостей. Финская баня у воды, оборудованный пирс, лодки, SUP. Аренда в Михалёво, Выборгский район.",
+    "Уединённый A-frame коттедж 60 м², 2 спальни, до 5 гостей. Оборудованный пирс, лодки, SUP. Аренда в Михалёво, Выборгский район.",
   alternates: { canonical: "/dom" },
   openGraph: {
     title: "Коттедж WILD — Spring Village",
-    description: "A-frame 60 м², финская баня, пирс, лодки. Михалёво, Ленобласть.",
+    description: "A-frame 60 м², пирс, лодки. Михалёво, Ленобласть.",
     images: [{ url: "/images/stay.jpg", width: 1200, height: 630, alt: "Коттедж WILD" }],
   },
 };
@@ -21,7 +21,6 @@ const galleryPhotos = [
   { src: "/images/gallery-exterior.jpg", label: "Фасад и озеро", wide: true },
   { src: "/images/gallery-interior.jpg", label: "Гостиная" },
   { src: "/images/gallery-lake.jpg", label: "Панорамное окно" },
-  { src: "/images/gallery-sauna.jpg", label: "Баня у воды" },
   { src: "/images/gallery-sunset.jpg", label: "Терраса" },
 ];
 

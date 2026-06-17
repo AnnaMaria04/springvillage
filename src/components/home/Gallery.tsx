@@ -1,7 +1,6 @@
 const photos = [
   { src: "/images/gallery-exterior.jpg", label: "Коттедж снаружи", wide: true },
   { src: "/images/gallery-interior.jpg", label: "Гостиная" },
-  { src: "/images/gallery-sauna.jpg", label: "Баня у воды" },
   { src: "/images/gallery-lake.jpg", label: "Вид на озеро" },
   { src: "/images/gallery-sunset.jpg", label: "Закат с террасы", wide: true },
   { src: "/images/gallery-winter.jpg", label: "Зима" },

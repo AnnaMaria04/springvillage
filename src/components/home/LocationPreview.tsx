@@ -48,8 +48,7 @@ export function LocationPreview() {
               Михалёвское озеро, Выборгский район Ленобласти. Два часа на машине по трассе «Скандинавия».
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              Ближайший населённый пункт — Михалёво. Асфальт до ворот.
-            </p>
+              </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -60,7 +59,7 @@ export function LocationPreview() {
                 Маршрут и ориентиры
               </Link>
               <a
-                href={`https://yandex.ru/maps/?ll=${lon},${lat}&z=15&pt=${lon},${lat},pm2rdm`}
+                href={CONTACT.yandexOrgUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 h-12 px-8 rounded-full border border-border text-foreground text-sm font-medium hover:bg-background transition-colors"

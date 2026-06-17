@@ -7,7 +7,7 @@ export function lodgingBusinessSchema() {
     "@type": ["LodgingBusiness", "VacationRental"],
     name: "Spring Village — Коттедж WILD",
     description:
-      "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Финская баня, пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга.",
+      "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга.",
     url: "https://springvillage.vercel.app",
     telephone: CONTACT.phone,
     email: CONTACT.email,

@@ -43,7 +43,7 @@ export function ExperiencePreview() {
               Развлечения
             </p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-              Озеро, лес и баня
+              Озеро и лес
             </h2>
           </div>
           <Link

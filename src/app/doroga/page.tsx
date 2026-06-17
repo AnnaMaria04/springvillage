@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Car, Train, MapPin, AlertTriangle, Clock } from "lucide-react";
+import { Car, Train, MapPin, Clock } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
 
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 export default function DorogaPage() {
   return (
     <div className="pt-16 min-h-screen bg-background">
-      <div className="bg-muted border-b border-border py-14 px-6 sm:px-8 lg:px-12">
+      <div className="bg-pine py-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">Навигация</p>
-          <h1 className="font-display text-4xl sm:text-5xl font-bold text-foreground mb-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50 mb-3">Навигация</p>
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-2">
             Как добраться
           </h1>
-          <p className="text-muted-foreground text-lg">{CONTACT.addressFull}</p>
+          <p className="text-white/60 text-lg">{CONTACT.addressFull}</p>
         </div>
       </div>
 
@@ -80,12 +80,6 @@ export default function DorogaPage() {
             ))}
           </div>
 
-          <div className="mt-6 flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-amber-800">
-              <strong>Важно:</strong> некоторые навигаторы могут предлагать альтернативный маршрут через просёлочные дороги — он длиннее и сложнее. Рекомендуем ехать через Выборг по трассе А-181.
-            </p>
-          </div>
         </div>
 
         {/* By train */}
