@@ -47,8 +47,8 @@ export function lodgingBusinessSchema() {
       maxValue: HOUSE.capacity,
     },
     priceRange: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽ за 3 ночи`,
-    checkinTime: "14:00",
-    checkoutTime: "12:00",
+    checkinTime: HOUSE.rules.checkIn,
+    checkoutTime: HOUSE.rules.checkOut,
     petsAllowed: true,
   };
 }

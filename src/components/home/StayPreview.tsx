@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Users, ArrowRight } from "lucide-react";
 import { HOUSE } from "@/content/house";
+import { SITE } from "@/content/site";
 import { BnovoModal } from "@/components/booking/BnovoModal";
 
 const features = [
@@ -58,7 +59,7 @@ export function StayPreview() {
 
             {/* Price */}
             <p className="font-display text-2xl font-bold text-pine mb-7">
-              от 20 000 ₽ / ночь
+              {SITE.priceFromLabel} <span className="text-lg font-normal text-muted-foreground">{SITE.priceFromSub}</span>
             </p>
 
             {/* Booking button */}

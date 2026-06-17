@@ -3,7 +3,7 @@ export const CONTACT = {
   phoneDial: "+79112333199",
   phoneWhatsApp: "79112333199",
   email: "springvillage@yandex.ru",
-  telegram: "https://t.me/springvillage",
+  telegram: "https://t.me/+79112333199",
   instagram: "https://instagram.com/springvillage",
   address: "пос. Михалёво, Выборгский район, Ленинградская область",
   addressFull: "Песчаный проезд, 5а, пос. Михалёво, Выборгский район, ЛО",

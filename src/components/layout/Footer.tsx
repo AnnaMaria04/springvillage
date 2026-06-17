@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { TreePine, Phone, Mail, MapPin, Send, MessageCircle, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { NewsletterForm } from "./NewsletterForm";
 import { CONTACT, SITE } from "@/lib/data";
 
 const footerLinks = {
@@ -92,15 +91,6 @@ export function Footer() {
               </ul>
             </div>
           ))}
-        </div>
-
-        {/* Newsletter */}
-        <div className="mt-10 border border-white/10 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5">
-          <div className="flex-1">
-            <p className="font-semibold text-white mb-0.5">Специальные предложения</p>
-            <p className="text-sm text-white/45">Скидки раз в месяц. Без спама.</p>
-          </div>
-          <NewsletterForm />
         </div>
 
         <Separator className="mt-8 mb-6 bg-white/10" />
