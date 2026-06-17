@@ -7,7 +7,6 @@ import { ExperiencePreview } from "@/components/home/ExperiencePreview";
 import { TerritoryPreview } from "@/components/home/TerritoryPreview";
 import { Reviews } from "@/components/home/Reviews";
 import { LocationPreview } from "@/components/home/LocationPreview";
-import { BookingCTA } from "@/components/home/BookingCTA";
 
 export const metadata: Metadata = {
   title: "Spring Village — Коттедж WILD у Михалёвского озера | Аренда A-Frame",
@@ -26,7 +25,6 @@ export default function HomePage() {
       <TerritoryPreview />
       <Reviews />
       <LocationPreview />
-      <BookingCTA />
     </>
   );
 }
