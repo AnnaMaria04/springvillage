@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Users, BedDouble, Bath } from "lucide-react";
+import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
@@ -36,6 +36,7 @@ export default function DomPage() {
             { icon: Users, value: `до ${HOUSE.capacity} гостей` },
             { icon: BedDouble, value: `${HOUSE.bedrooms} спальни` },
             { icon: Bath, value: `${HOUSE.bathrooms} санузел` },
+            { icon: Maximize2, value: `${HOUSE.area} м²` },
             { icon: null, value: HOUSE.type },
           ].map((s) => {
             const Icon = s.icon;
@@ -96,6 +97,49 @@ export default function DomPage() {
               Не включено: {HOUSE.notIncluded.join(" · ")}.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Territory highlights */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+          Территория
+        </p>
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-14">
+          Большая уединённая территория в лесу
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              title: "Финский родник",
+              body: "На территории сохранился бывший финский источник. Чистая питьевая вода прямо на участке.",
+              photo: "/images/territory-spring.jpg",
+            },
+            {
+              title: "Пирс и водная станция",
+              body: "Оборудованный пирс для рыбалки и рассветов. Лодки и SUP-доски — выходи на воду в любой момент.",
+              photo: "/images/territory-pier.jpg",
+            },
+            {
+              title: "Мангальная зона",
+              body: "Дрова, решётка и шампуры уже подготовлены. Мангал у воды — лучшее место для закатного ужина.",
+              photo: "/images/territory-bbq.jpg",
+            },
+            {
+              title: "Лесные тропы",
+              body: "Сосновый лес начинается прямо за домом. Грибы, ягоды, чистый воздух — всё рядом.",
+              photo: "/images/territory-forest.jpg",
+            },
+          ].map((item) => (
+            <div key={item.title}>
+              <div
+                className="aspect-[3/4] rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center mb-5"
+                style={{ backgroundImage: `url('${item.photo}')` }}
+              />
+              <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
+              <p className="text-[15px] text-muted-foreground leading-relaxed">{item.body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
