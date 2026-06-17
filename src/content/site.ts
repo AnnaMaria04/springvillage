@@ -15,7 +15,7 @@ export const CONTACT = {
     "https://yandex.ru/map-widget/v1/?ll=29.422227%2C60.983791&z=15&pt=29.422227%2C60.983791%2Cpm2rdm&lang=ru_RU",
   // ⚠️ Confirm this is the Yandex Business org ID with reviews enabled
   yandexReviewsWidget: "https://yandex.ru/maps-reviews-widget/193725846598?comments",
-  yandexOrgUrl: "https://yandex.ru/maps/org/spring_village/193725846598/",
+  yandexOrgUrl: "https://yandex.com/maps/org/spring_village/193725846598/",
   bnovoUid: "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
   bnovoBookingUrl: "https://reservationsteps.ru/rooms/index/12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
 } as const;
