@@ -155,67 +155,36 @@ export default function DomPage() {
       </section>
 
       {/* Layout + Heritage — interactive two-column */}
+      {/* Heritage — horizontal timeline */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
-          {/* Floor plan — numbered list */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
-              Планировка
-            </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
-              Два этажа у озера
-            </h2>
-            <div className="rounded-2xl border border-border overflow-hidden mb-6">
-              <div className="flex gap-5 p-5 border-b border-border bg-cream">
-                <span className="font-display text-3xl font-bold text-pine/20 leading-none select-none">1</span>
-                <div>
-                  <p className="font-semibold text-foreground mb-1.5">Первый этаж</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Гостиная с дровяным камином · Кухня с полным оснащением · Ванная с тёплыми полами · Панорамные окна с видом на озеро
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-5 p-5 bg-white">
-                <span className="font-display text-3xl font-bold text-pine/20 leading-none select-none">2</span>
-                <div>
-                  <p className="font-semibold text-foreground mb-1.5">Второй этаж</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Спальня с двуспальной кроватью · Мансардная спальня под крышей треугольника
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p className="text-sm text-muted-foreground italic leading-relaxed">
-              Архитектура A-frame — это ощущение. Дом поставлен так, чтобы первое, что видишь утром, было озеро.
-            </p>
-          </div>
-
-          {/* Heritage — timeline */}
-          <div className="lg:border-l lg:border-border lg:pl-14">
+        <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               {HERITAGE.sectionLabel}
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
-              Финское наследие
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-12">
+              Финское наследие карельского леса
             </h2>
-            <div className="space-y-0">
+            {/* Horizontal timeline */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
               {HERITAGE.items.map((item, i) => (
-                <div key={item.title} className="flex gap-5">
-                  <div className="flex flex-col items-center">
-                    <div className="w-2.5 h-2.5 rounded-full bg-wood shrink-0 mt-1.5" />
-                    {i < HERITAGE.items.length - 1 && (
-                      <div className="w-px flex-1 bg-border mt-2 mb-2" />
-                    )}
+                <div key={item.title} className="relative flex flex-col sm:pr-8">
+                  {/* Connector line */}
+                  {i < HERITAGE.items.length - 1 && (
+                    <div className="hidden sm:block absolute top-[5px] left-[calc(2.5rem+0.5rem)] right-0 h-px bg-border" />
+                  )}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-2.5 h-2.5 rounded-full bg-wood shrink-0 relative z-10" />
+                    <p className="text-xs font-semibold text-wood uppercase tracking-wider">{item.period}</p>
                   </div>
-                  <div className={i < HERITAGE.items.length - 1 ? "pb-6" : ""}>
-                    <p className="text-xs font-semibold text-wood uppercase tracking-wider mb-1">{item.period}</p>
-                    <p className="font-semibold text-foreground mb-1">{item.title}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-                  </div>
+                  <p className="font-semibold text-foreground mb-2">{item.title}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                  {/* Mobile vertical connector */}
+                  {i < HERITAGE.items.length - 1 && (
+                    <div className="sm:hidden w-px h-8 bg-border ml-[4px] mt-6 mb-2" />
+                  )}
                 </div>
               ))}
             </div>
-          </div>
         </div>
       </section>
 
