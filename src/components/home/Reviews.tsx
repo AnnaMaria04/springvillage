@@ -1,23 +1,24 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { REVIEWS } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
 
-const TRANSITION_MS = 420;
-
-// Extended for circular: [last-clone, ...REVIEWS, first-clone]
-const extended = [REVIEWS[REVIEWS.length - 1], ...REVIEWS, REVIEWS[0]];
+function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
+  const offset = el.scrollLeft + card.getBoundingClientRect().left - el.getBoundingClientRect().left;
+  if (smooth) {
+    el.scrollTo({ left: offset, behavior: "smooth" });
+  } else {
+    el.scrollLeft = offset;
+  }
+}
 
 function Stars({ n }: { n: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          className={`w-3.5 h-3.5 ${i < n ? "fill-wood text-wood" : "fill-border text-border"}`}
-        />
+        <Star key={i} className={`w-3.5 h-3.5 ${i < n ? "fill-wood text-wood" : "fill-border text-border"}`} />
       ))}
     </div>
   );
@@ -26,46 +27,24 @@ function Stars({ n }: { n: number }) {
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
-  const busy = useRef(false);
-
-  // Snap to first real card on mount (no animation)
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.children[1] as HTMLElement | undefined;
-    if (card) el.scrollLeft = card.offsetLeft;
-  }, []);
 
   const go = useCallback((dir: "prev" | "next") => {
-    if (busy.current) return;
     const el = scrollRef.current;
     if (!el) return;
-    busy.current = true;
 
-    const extPos = idx + 1;
-    const newExtPos = dir === "next" ? extPos + 1 : extPos - 1;
+    const isWrap = (dir === "next" && idx === REVIEWS.length - 1) ||
+                   (dir === "prev" && idx === 0);
+    const newIdx = dir === "next"
+      ? (idx + 1) % REVIEWS.length
+      : (idx - 1 + REVIEWS.length) % REVIEWS.length;
 
-    const target = el.children[newExtPos] as HTMLElement | undefined;
-    if (target) el.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
-
-    setTimeout(() => {
-      if (newExtPos === 0) {
-        const realLast = el.children[REVIEWS.length] as HTMLElement | undefined;
-        if (realLast) el.scrollLeft = realLast.offsetLeft;
-        setIdx(REVIEWS.length - 1);
-      } else if (newExtPos === extended.length - 1) {
-        const realFirst = el.children[1] as HTMLElement | undefined;
-        if (realFirst) el.scrollLeft = realFirst.offsetLeft;
-        setIdx(0);
-      } else {
-        setIdx(newExtPos - 1);
-      }
-      busy.current = false;
-    }, TRANSITION_MS + 60);
+    setIdx(newIdx);
+    const card = el.children[newIdx] as HTMLElement | undefined;
+    if (card) scrollToCard(el, card, !isWrap);
   }, [idx]);
 
   return (
-    <section className="bg-cream py-20 lg:py-28 overflow-hidden">
+    <section className="bg-cream py-20 lg:py-28 overflow-x-clip">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>
@@ -112,15 +91,15 @@ export function Reviews() {
         </div>
       </div>
 
-      {/* Carousel — full width but cards are sized to max-w-7xl grid */}
+      {/* Carousel — bleeds to edges on mobile but clipped by section overflow-x-clip */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-[max(3rem,calc((100vw-80rem)/2+3rem))] pb-2"
+        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
       >
-        {extended.map((r, i) => (
+        {REVIEWS.map((r, i) => (
           <div
             key={i}
-            className="flex-none w-[85vw] sm:w-[60vw] lg:w-[calc(min(80rem,100vw)/3-2.5rem)] flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
+            className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
           >
             <Stars n={r.rating} />
             <p className="font-display text-xl text-foreground leading-snug mt-5 flex-1">

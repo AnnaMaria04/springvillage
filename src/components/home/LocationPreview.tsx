@@ -1,13 +1,12 @@
 import Link from "next/link";
-import { MapPin, Navigation, ArrowRight } from "lucide-react";
-import { CONTACT } from "@/content/site";
+import { Navigation, ArrowRight, BedDouble } from "lucide-react";
+import { CONTACT, SITE } from "@/content/site";
 
 export function LocationPreview() {
   const { coords, yandexMapOid } = CONTACT;
-  const lat = coords.lat;
-  const lon = coords.lng;
-  // Use org ID so the widget shows the business card (name + rating), not just a raw pin
-  const mapWidget = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=15&lang=ru_RU&oid=${yandexMapOid}&mode=poi`;
+  const { lat, lng: lon } = coords;
+  // pt= ensures a visible pin; oid= loads the business card if available
+  const mapWidget = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=15&lang=ru_RU&oid=${yandexMapOid}&pt=${lon}%2C${lat}%2Cpm2rdm`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
@@ -21,12 +20,18 @@ export function LocationPreview() {
               title="Карта: Spring Village на Михалёвском озере"
               allowFullScreen
             />
-            {/* Coordinates overlay */}
-            <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 flex items-center gap-2.5 pointer-events-none">
-              <MapPin className="w-4 h-4 text-pine shrink-0" />
+            {/* Business card overlay — mimics Yandex POI card */}
+            <div className="absolute top-4 left-4 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-3 pointer-events-none">
+              <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center shrink-0">
+                <BedDouble className="w-5 h-5 text-white" />
+              </div>
               <div>
-                <p className="text-xs font-semibold text-pine">Координаты</p>
-                <p className="text-xs text-muted-foreground font-mono">{lat.toFixed(6)}, {lon.toFixed(6)}</p>
+                <p className="font-semibold text-[13px] text-gray-900 leading-tight">
+                  Spring Village{" "}
+                  <span className="text-amber-500 font-bold">{SITE.rating}</span>
+                  <span className="text-amber-400">★</span>
+                </p>
+                <p className="text-[11px] text-gray-500 leading-tight">Гостевой дом</p>
               </div>
             </div>
           </div>

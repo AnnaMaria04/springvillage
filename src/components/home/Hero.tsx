@@ -52,9 +52,7 @@ export function Hero() {
 
   const startTimer = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setCur((c) => (c + 1) % SLIDES.length);
-    }, AUTOPLAY_MS);
+    timerRef.current = setTimeout(() => setCur((c) => (c + 1) % SLIDES.length), AUTOPLAY_MS);
   }, []);
 
   useEffect(() => {
@@ -65,14 +63,12 @@ export function Hero() {
   const go = (dir: "prev" | "next") => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setCur((c) =>
-      dir === "next"
-        ? (c + 1) % SLIDES.length
-        : (c - 1 + SLIDES.length) % SLIDES.length
+      dir === "next" ? (c + 1) % SLIDES.length : (c - 1 + SLIDES.length) % SLIDES.length
     );
   };
 
   return (
-    <section className="relative h-[92vh] min-h-[600px] overflow-hidden bg-pine">
+    <section className="relative h-screen min-h-[640px] overflow-hidden bg-pine">
       {/* Background images — cross-fade */}
       {SLIDES.map((slide, i) => (
         <div
@@ -85,10 +81,10 @@ export function Hero() {
         />
       ))}
 
-      {/* Dark scrim */}
-      <div className="absolute inset-x-0 bottom-0 h-3/4 z-10 bg-[linear-gradient(to_top,rgba(18,26,20,0.82),transparent)]" />
+      {/* Dark scrim — only bottom half */}
+      <div className="absolute inset-x-0 bottom-0 h-[55%] z-10 bg-[linear-gradient(to_top,rgba(15,22,17,0.85),transparent)]" />
 
-      {/* Slide content — one per slide, absolute stacked */}
+      {/* Slide content */}
       {SLIDES.map((slide, i) => (
         <div
           key={i}
@@ -96,44 +92,38 @@ export function Hero() {
             i === cur ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
-          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
+          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 lg:pb-20">
             <p className="text-white/50 text-[11px] font-semibold uppercase tracking-[0.22em] mb-3">
               {CONTACT.addressShort} · {slide.label}
             </p>
             <h1
-              className="font-display font-bold text-white leading-[0.95] tracking-tight mb-5"
-              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
+              className="font-display font-bold text-white leading-[0.93] tracking-tight mb-4"
+              style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
             >
               {slide.title.split("\n").map((line, j, arr) => (
-                <span key={j}>
-                  {line}
-                  {j < arr.length - 1 && <br />}
-                </span>
+                <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
               ))}
             </h1>
-            <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-xl mb-9">
+            <p className="text-white/65 text-base leading-relaxed max-w-md mb-7">
               {slide.subtitle}
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-5">
               {slide.book ? (
                 <>
                   <button
                     onClick={() => setModalOpen(true)}
-                    className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 cursor-pointer"
+                    className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 cursor-pointer"
                   >
                     Забронировать
                   </button>
-                  <Link
-                    href="/dom"
-                    className="text-white/85 hover:text-white text-base font-medium link-underline"
-                  >
+                  <Link href="/dom" className="text-white/80 hover:text-white text-sm font-medium link-underline">
                     О коттедже
                   </Link>
                 </>
               ) : (
                 <Link
                   href={slide.href}
-                  className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 inline-flex items-center"
+                  className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 inline-flex items-center"
                 >
                   {slide.ctaLabel}
                 </Link>
@@ -143,41 +133,33 @@ export function Hero() {
         </div>
       ))}
 
-      {/* Booking modal — single instance */}
       <BnovoModal open={modalOpen} onOpenChange={setModalOpen} />
 
-      {/* Prev arrow */}
+      {/* Arrows */}
       <button
         onClick={() => go("prev")}
         aria-label="Предыдущий слайд"
-        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
       >
         <ChevronLeft className="w-5 h-5 text-white" />
       </button>
-
-      {/* Next arrow */}
       <button
         onClick={() => go("next")}
         aria-label="Следующий слайд"
-        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
       >
         <ChevronRight className="w-5 h-5 text-white" />
       </button>
 
-      {/* Slide indicators */}
-      <div className="absolute bottom-8 right-6 lg:right-12 z-30 flex gap-2 items-center">
+      {/* Dots */}
+      <div className="absolute bottom-6 right-6 lg:right-12 z-30 flex gap-2 items-center">
         {SLIDES.map((_, i) => (
           <button
             key={i}
-            onClick={() => {
-              if (timerRef.current) clearTimeout(timerRef.current);
-              setCur(i);
-            }}
+            onClick={() => { if (timerRef.current) clearTimeout(timerRef.current); setCur(i); }}
             aria-label={`Слайд ${i + 1}`}
             className={`rounded-full transition-all duration-300 cursor-pointer ${
-              i === cur
-                ? "bg-white w-6 h-2"
-                : "bg-white/40 w-2 h-2 hover:bg-white/65"
+              i === cur ? "bg-white w-6 h-2" : "bg-white/40 w-2 h-2 hover:bg-white/65"
             }`}
           />
         ))}

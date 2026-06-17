@@ -1,59 +1,41 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
 
-const TRANSITION_MS = 420;
+function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
+  const offset = el.scrollLeft + card.getBoundingClientRect().left - el.getBoundingClientRect().left;
+  if (smooth) {
+    el.scrollTo({ left: offset, behavior: "smooth" });
+  } else {
+    el.scrollLeft = offset;
+  }
+}
 
 export function ExperiencePreview() {
   const items = ACTIVITIES.summer;
-  // Extended array: [last-clone, ...items, first-clone]
-  const extended = [items[items.length - 1], ...items, items[0]];
-
   const scrollRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
-  const busy = useRef(false);
-
-  // On mount: snap to position 1 (first real item), no animation
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.children[1] as HTMLElement | undefined;
-    if (card) el.scrollLeft = card.offsetLeft;
-  }, []);
 
   const go = useCallback((dir: "prev" | "next") => {
-    if (busy.current) return;
     const el = scrollRef.current;
     if (!el) return;
-    busy.current = true;
 
-    const extPos = idx + 1;
-    const newExtPos = dir === "next" ? extPos + 1 : extPos - 1;
+    const isWrap = (dir === "next" && idx === items.length - 1) ||
+                   (dir === "prev" && idx === 0);
+    const newIdx = dir === "next"
+      ? (idx + 1) % items.length
+      : (idx - 1 + items.length) % items.length;
 
-    const target = el.children[newExtPos] as HTMLElement | undefined;
-    if (target) el.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
-
-    setTimeout(() => {
-      if (newExtPos === 0) {
-        const realLast = el.children[items.length] as HTMLElement | undefined;
-        if (realLast) el.scrollLeft = realLast.offsetLeft;
-        setIdx(items.length - 1);
-      } else if (newExtPos === extended.length - 1) {
-        const realFirst = el.children[1] as HTMLElement | undefined;
-        if (realFirst) el.scrollLeft = realFirst.offsetLeft;
-        setIdx(0);
-      } else {
-        setIdx(newExtPos - 1);
-      }
-      busy.current = false;
-    }, TRANSITION_MS + 60);
-  }, [idx, items.length, extended.length]);
+    setIdx(newIdx);
+    const card = el.children[newIdx] as HTMLElement | undefined;
+    if (card) scrollToCard(el, card, !isWrap);
+  }, [idx, items.length]);
 
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section className="py-24 lg:py-32 bg-background overflow-x-clip">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
@@ -81,11 +63,8 @@ export function ExperiencePreview() {
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
 
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-scroll scrollbar-hide"
-          >
-            {extended.map((a, i) => (
+          <div ref={scrollRef} className="flex gap-4 overflow-x-scroll scrollbar-hide">
+            {items.map((a, i) => (
               <Link
                 key={i}
                 href={`/aktivnosti/${a.slug}`}
