@@ -83,7 +83,7 @@ export function Reviews() {
       {/* Carousel: shows 3 cards on lg desktop, 1 on mobile */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-hidden px-6 sm:px-8 lg:px-12 pb-2"
+        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2"
       >
         {REVIEWS.map((r) => (
           <div

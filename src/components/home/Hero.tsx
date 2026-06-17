@@ -22,6 +22,21 @@ export function Hero() {
         <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-md mb-9">
           Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.
         </p>
+        {/* Key facts strip */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8">
+          {[
+            { label: "Заезд", value: "от 15:00" },
+            { label: "Выезд", value: "до 12:00" },
+            { label: "Гости", value: "до 5 взрослых" },
+            { label: "От СПб", value: "127 км" },
+            { label: "Цена", value: "от 20 000 ₽/ночь" },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex flex-col">
+              <span className="text-white/40 text-[10px] uppercase tracking-wider">{label}</span>
+              <span className="text-white text-sm font-medium">{value}</span>
+            </div>
+          ))}
+        </div>
         <div className="flex items-center gap-6">
           <BnovoModal
             trigger={

@@ -57,7 +57,7 @@ export function TerritoryPreview() {
 
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-hidden"
+            className="flex gap-4 overflow-x-scroll scrollbar-hide"
           >
             {tiles.map((t) => (
               <Link

@@ -55,7 +55,7 @@ export function ExperiencePreview() {
           {/* Cards viewport */}
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-hidden"
+            className="flex gap-4 overflow-x-scroll scrollbar-hide"
           >
             {items.map((a) => (
               <Link

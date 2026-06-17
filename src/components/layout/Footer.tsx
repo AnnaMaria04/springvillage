@@ -50,7 +50,7 @@ export function Footer() {
                 <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {CONTACT.addressShort}
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 shrink-0" /> {CONTACT.hours}
+                <Clock className="w-3.5 h-3.5 shrink-0" /> Заезд 15:00 · Выезд 12:00 · Депозит 5 000 ₽
               </div>
             </div>
             <div className="flex gap-2 mt-5">

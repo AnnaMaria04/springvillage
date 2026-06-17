@@ -31,8 +31,8 @@ export function StickyBookingBar() {
 
   return (
     <>
-      {/* Sticky bar — sits in page flow after hero, sticks on scroll */}
-      <div className="sticky top-16 lg:top-20 z-40 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
+      {/* Booking bar — sits in page flow after hero */}
+      <div className="relative z-10 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-3 flex items-center gap-3">
           <div className="hidden xl:block shrink-0 mr-4">
             <p className="text-white text-xs font-semibold uppercase tracking-wider">Бронирование</p>
@@ -88,14 +88,25 @@ export function StickyBookingBar() {
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setGuests((g) => Math.max(1, g - 1))}
-                  className="text-white/50 hover:text-white text-base leading-none cursor-pointer px-0.5"
+                  className="text-white/50 hover:text-white text-lg leading-none cursor-pointer w-5 text-center"
                 >−</button>
-                <span className="text-white text-sm font-medium w-20 text-center">
-                  {guests} {guests === 1 ? "гость" : guests < 5 ? "гостя" : "гостей"}
+                <input
+                  type="number"
+                  min={1}
+                  max={5}
+                  value={guests}
+                  onChange={(e) => {
+                    const v = parseInt(e.target.value, 10);
+                    if (!isNaN(v)) setGuests(Math.min(5, Math.max(1, v)));
+                  }}
+                  className="bg-transparent text-white text-sm font-medium w-8 text-center outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <span className="text-white/50 text-xs">
+                  {guests === 1 ? "гость" : guests < 5 ? "гостя" : "гостей"}
                 </span>
                 <button
                   onClick={() => setGuests((g) => Math.min(5, g + 1))}
-                  className="text-white/50 hover:text-white text-base leading-none cursor-pointer px-0.5"
+                  className="text-white/50 hover:text-white text-lg leading-none cursor-pointer w-5 text-center"
                 >+</button>
               </div>
             </div>

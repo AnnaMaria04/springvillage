@@ -35,7 +35,7 @@ export function Header() {
       )}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-[68px] lg:h-[84px]">
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className={cn(
               "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
@@ -45,13 +45,13 @@ export function Header() {
             </div>
             <div>
               <span className={cn(
-                "font-display text-base font-bold transition-colors leading-none block",
+                "font-display text-lg font-bold transition-colors leading-none block",
                 scrolled ? "text-foreground" : "text-white"
               )}>
                 Spring Village
               </span>
               <span className={cn(
-                "text-[10px] font-medium tracking-wide transition-colors leading-none block mt-0.5",
+                "text-xs font-medium tracking-wide transition-colors leading-none block mt-0.5",
                 scrolled ? "text-muted-foreground" : "text-white/55"
               )}>
                 Коттедж WILD
@@ -65,7 +65,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-150",
+                  "px-3.5 py-2 rounded-lg text-[15px] font-medium transition-all duration-150",
                   scrolled
                     ? "text-muted-foreground hover:text-foreground hover:bg-muted"
                     : "text-white/75 hover:text-white hover:bg-white/10"
@@ -80,7 +80,7 @@ export function Header() {
             <a
               href={`tel:${CONTACT.phoneDial}`}
               className={cn(
-                "flex items-center gap-2 text-sm font-medium transition-colors",
+                "flex items-center gap-2 text-[15px] font-medium transition-colors",
                 scrolled ? "text-foreground hover:text-primary" : "text-white/85 hover:text-white"
               )}
             >
