@@ -144,7 +144,6 @@ export function TerritoryPreview() {
               onTransitionEnd={onTransitionEnd}
             >
               {extended.map((t, i) => {
-                const isActive = i === pos;
                 return (
                   <Link
                     key={i}
@@ -153,14 +152,7 @@ export function TerritoryPreview() {
                     style={{ width: cardW > 0 ? cardW : undefined }}
                     draggable={false}
                   >
-                    <div
-                      className="media relative aspect-[3/4] rounded-3xl overflow-hidden"
-                      style={{
-                        opacity: isActive ? 1 : 0.6,
-                        transform: isActive ? "scale(1)" : "scale(0.94)",
-                        transition: "opacity 0.5s ease, transform 0.5s ease",
-                      }}
-                    >
+                    <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
                       <div
                         className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
                         style={{ backgroundImage: `url('${t.photo}')` }}

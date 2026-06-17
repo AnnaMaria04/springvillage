@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Navigation, ArrowRight, BedDouble } from "lucide-react";
-import { CONTACT, SITE } from "@/content/site";
+import { Navigation, ArrowRight } from "lucide-react";
+import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
   const { coords, yandexMapOid } = CONTACT;
@@ -12,27 +12,13 @@ export function LocationPreview() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: interactive Yandex Maps iframe */}
-          <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200">
+          <div className="rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200">
             <iframe
               src={mapWidget}
               className="w-full h-full border-0"
               title="Карта: Spring Village на Михалёвском озере"
               allowFullScreen
             />
-            {/* Business card overlay — mimics Yandex POI card */}
-            <div className="absolute top-4 left-4 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-3 pointer-events-none">
-              <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center shrink-0">
-                <BedDouble className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="font-semibold text-[13px] text-gray-900 leading-tight">
-                  Spring Village{" "}
-                  <span className="text-amber-500 font-bold">{SITE.rating}</span>
-                  <span className="text-amber-400">★</span>
-                </p>
-                <p className="text-[11px] text-gray-500 leading-tight">Гостевой дом</p>
-              </div>
-            </div>
           </div>
 
           {/* Right: text */}
