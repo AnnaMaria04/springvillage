@@ -9,7 +9,7 @@ export function Concept() {
           className="font-display text-foreground leading-[1.25] tracking-tight"
           style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)" }}
         >
-          Один дом у воды, лес за порогом и финская баня на берегу.
+          Один дом у воды, лес за порогом и пирс прямо у вашего берега.
           Здесь не нужно ничего планировать — только приехать и остаться в тишине.
         </p>
       </div>

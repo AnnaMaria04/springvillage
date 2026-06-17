@@ -27,7 +27,7 @@ export function StayPreview() {
           {/* Panel */}
           <div className="flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-12 lg:py-16">
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-pine mb-6">
-              {HOUSE.name} — A-frame у озера
+              {HOUSE.name} — <span className="whitespace-nowrap">A-frame у озера</span>
             </h2>
 
             <Link
