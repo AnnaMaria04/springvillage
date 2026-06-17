@@ -1,9 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { REVIEWS } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
+
+const TRANSITION_MS = 420;
+
+// Extended for circular: [last-clone, ...REVIEWS, first-clone]
+const extended = [REVIEWS[REVIEWS.length - 1], ...REVIEWS, REVIEWS[0]];
 
 function Stars({ n }: { n: number }) {
   return (
@@ -21,19 +26,46 @@ function Stars({ n }: { n: number }) {
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
-  const total = REVIEWS.length;
+  const busy = useRef(false);
 
-  const go = (dir: "prev" | "next") => {
+  // Snap to first real card on mount (no animation)
+  useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const newIdx = dir === "next" ? (idx + 1) % total : (idx - 1 + total) % total;
-    setIdx(newIdx);
-    const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-  };
+    const card = el.children[1] as HTMLElement | undefined;
+    if (card) el.scrollLeft = card.offsetLeft;
+  }, []);
+
+  const go = useCallback((dir: "prev" | "next") => {
+    if (busy.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    busy.current = true;
+
+    const extPos = idx + 1;
+    const newExtPos = dir === "next" ? extPos + 1 : extPos - 1;
+
+    const target = el.children[newExtPos] as HTMLElement | undefined;
+    if (target) el.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+
+    setTimeout(() => {
+      if (newExtPos === 0) {
+        const realLast = el.children[REVIEWS.length] as HTMLElement | undefined;
+        if (realLast) el.scrollLeft = realLast.offsetLeft;
+        setIdx(REVIEWS.length - 1);
+      } else if (newExtPos === extended.length - 1) {
+        const realFirst = el.children[1] as HTMLElement | undefined;
+        if (realFirst) el.scrollLeft = realFirst.offsetLeft;
+        setIdx(0);
+      } else {
+        setIdx(newExtPos - 1);
+      }
+      busy.current = false;
+    }, TRANSITION_MS + 60);
+  }, [idx]);
 
   return (
-    <section className="bg-cream py-20 lg:py-28">
+    <section className="bg-cream py-20 lg:py-28 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>
@@ -57,14 +89,14 @@ export function Reviews() {
             <button
               onClick={() => go("prev")}
               aria-label="Предыдущий отзыв"
-              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors"
+              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5 text-foreground" />
             </button>
             <button
               onClick={() => go("next")}
               aria-label="Следующий отзыв"
-              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors"
+              className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center hover:bg-background hover:border-foreground/20 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-5 h-5 text-foreground" />
             </button>
@@ -80,15 +112,15 @@ export function Reviews() {
         </div>
       </div>
 
-      {/* Carousel: shows 3 cards on lg desktop, 1 on mobile */}
+      {/* Carousel — full width but cards are sized to max-w-7xl grid */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2"
+        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-[max(3rem,calc((100vw-80rem)/2+3rem))] pb-2"
       >
-        {REVIEWS.map((r) => (
+        {extended.map((r, i) => (
           <div
-            key={r.author}
-            className="flex-none w-full lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
+            key={i}
+            className="flex-none w-[85vw] sm:w-[60vw] lg:w-[calc(min(80rem,100vw)/3-2.5rem)] flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
           >
             <Stars n={r.rating} />
             <p className="font-display text-xl text-foreground leading-snug mt-5 flex-1">

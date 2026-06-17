@@ -1,25 +1,56 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
 
+const TRANSITION_MS = 420;
+
 export function ExperiencePreview() {
-  const items = ACTIVITIES.summer; // all 6 summer activities
+  const items = ACTIVITIES.summer;
+  // Extended array: [last-clone, ...items, first-clone]
+  const extended = [items[items.length - 1], ...items, items[0]];
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
-  const visibleCount = 3;
-  const maxIdx = items.length - visibleCount; // 3 on desktop
+  const busy = useRef(false);
 
-  const go = (dir: "prev" | "next") => {
+  // On mount: snap to position 1 (first real item), no animation
+  useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const newIdx = dir === "next" ? (idx + 1) % items.length : (idx - 1 + items.length) % items.length;
-    setIdx(newIdx);
-    const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-  };
+    const card = el.children[1] as HTMLElement | undefined;
+    if (card) el.scrollLeft = card.offsetLeft;
+  }, []);
+
+  const go = useCallback((dir: "prev" | "next") => {
+    if (busy.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    busy.current = true;
+
+    const extPos = idx + 1;
+    const newExtPos = dir === "next" ? extPos + 1 : extPos - 1;
+
+    const target = el.children[newExtPos] as HTMLElement | undefined;
+    if (target) el.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+
+    setTimeout(() => {
+      if (newExtPos === 0) {
+        const realLast = el.children[items.length] as HTMLElement | undefined;
+        if (realLast) el.scrollLeft = realLast.offsetLeft;
+        setIdx(items.length - 1);
+      } else if (newExtPos === extended.length - 1) {
+        const realFirst = el.children[1] as HTMLElement | undefined;
+        if (realFirst) el.scrollLeft = realFirst.offsetLeft;
+        setIdx(0);
+      } else {
+        setIdx(newExtPos - 1);
+      }
+      busy.current = false;
+    }, TRANSITION_MS + 60);
+  }, [idx, items.length, extended.length]);
 
   return (
     <section className="py-24 lg:py-32 bg-background">
@@ -41,25 +72,22 @@ export function ExperiencePreview() {
           </Link>
         </div>
 
-        {/* Carousel with side arrows */}
         <div className="relative">
-          {/* Left arrow */}
           <button
             onClick={() => go("prev")}
             aria-label="Предыдущее"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
 
-          {/* Cards viewport */}
           <div
             ref={scrollRef}
             className="flex gap-4 overflow-x-scroll scrollbar-hide"
           >
-            {items.map((a) => (
+            {extended.map((a, i) => (
               <Link
-                key={a.slug}
+                key={i}
                 href={`/aktivnosti/${a.slug}`}
                 className="group flex-none w-full lg:w-[calc((100%-2rem)/3)] block"
               >
@@ -77,11 +105,10 @@ export function ExperiencePreview() {
             ))}
           </div>
 
-          {/* Right arrow */}
           <button
             onClick={() => go("next")}
             aria-label="Следующее"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>

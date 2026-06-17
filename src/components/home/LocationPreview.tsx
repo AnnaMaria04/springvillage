@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { MapPin, Navigation, ArrowRight } from "lucide-react";
+import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
-  const lat = 60.983791;
-  const lon = 29.422227;
-  // Yandex Maps widget iframe — interactive, no API key required
-  const mapWidget = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=14&pt=${lon}%2C${lat}%2Cpm2rdm&l=map&lang=ru_RU`;
+  const { coords, yandexMapOid } = CONTACT;
+  const lat = coords.lat;
+  const lon = coords.lng;
+  // Use org ID so the widget shows the business card (name + rating), not just a raw pin
+  const mapWidget = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=15&lang=ru_RU&oid=${yandexMapOid}&mode=poi`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">

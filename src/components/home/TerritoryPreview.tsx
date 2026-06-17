@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -11,20 +11,56 @@ const tiles = [
   { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/territory-forest.jpg" },
 ];
 
+// Extended array for infinite circular scroll: [last-clone, ...tiles, first-clone]
+const extended = [tiles[tiles.length - 1], ...tiles, tiles[0]];
+
+const TRANSITION_MS = 420;
+
 export function TerritoryPreview() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  // idx tracks position in the *real* tiles array (0-based)
   const [idx, setIdx] = useState(0);
-  const visibleCount = 3;
-  const maxIdx = tiles.length - visibleCount; // 1
+  const busy = useRef(false);
 
-  const go = (dir: "prev" | "next") => {
+  // On mount: snap to position 1 in extended (first real tile), no animation
+  useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const newIdx = dir === "next" ? (idx + 1) % tiles.length : (idx - 1 + tiles.length) % tiles.length;
-    setIdx(newIdx);
-    const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-  };
+    const card = el.children[1] as HTMLElement | undefined;
+    if (card) el.scrollLeft = card.offsetLeft;
+  }, []);
+
+  const go = useCallback((dir: "prev" | "next") => {
+    if (busy.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    busy.current = true;
+
+    // Current extended position = idx + 1
+    const extPos = idx + 1;
+    const newExtPos = dir === "next" ? extPos + 1 : extPos - 1;
+
+    // Smooth scroll to the target (clone or real)
+    const target = el.children[newExtPos] as HTMLElement | undefined;
+    if (target) el.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+
+    setTimeout(() => {
+      if (newExtPos === 0) {
+        // Hit the last-clone — jump instantly to the real last tile
+        const realLast = el.children[tiles.length] as HTMLElement | undefined;
+        if (realLast) el.scrollLeft = realLast.offsetLeft;
+        setIdx(tiles.length - 1);
+      } else if (newExtPos === extended.length - 1) {
+        // Hit the first-clone — jump instantly to the real first tile
+        const realFirst = el.children[1] as HTMLElement | undefined;
+        if (realFirst) el.scrollLeft = realFirst.offsetLeft;
+        setIdx(0);
+      } else {
+        setIdx(newExtPos - 1);
+      }
+      busy.current = false;
+    }, TRANSITION_MS + 60);
+  }, [idx]);
 
   return (
     <section className="bg-background py-20 lg:py-28">
@@ -50,7 +86,7 @@ export function TerritoryPreview() {
           <button
             onClick={() => go("prev")}
             aria-label="Назад"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
@@ -59,9 +95,9 @@ export function TerritoryPreview() {
             ref={scrollRef}
             className="flex gap-4 overflow-x-scroll scrollbar-hide"
           >
-            {tiles.map((t) => (
+            {extended.map((t, i) => (
               <Link
-                key={t.title}
+                key={i}
                 href="/dom"
                 className="group flex-none w-full sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] block"
               >
@@ -83,7 +119,7 @@ export function TerritoryPreview() {
           <button
             onClick={() => go("next")}
             aria-label="Вперёд"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>

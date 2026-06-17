@@ -1,57 +1,186 @@
+"use client";
+
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
 import { BnovoModal } from "@/components/booking/BnovoModal";
 
-export function Hero() {
-  return (
-    <section
-      className="relative h-[92vh] min-h-[600px] flex items-end bg-pine bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/hero.jpg')" }}
-    >
-      {/* Legibility scrim — flat, bottom-weighted */}
-      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-[linear-gradient(to_top,rgba(20,28,22,0.72),transparent)]" />
+const SLIDES = [
+  {
+    image: "/images/hero.jpg",
+    label: "A-frame коттедж",
+    title: "Тихая вода,\nкарельский лес",
+    subtitle: "Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.",
+    book: true as const,
+  },
+  {
+    image: "/images/territory-pier.jpg",
+    label: "Вода и активности",
+    title: "Пирс, лодки\nи чистое озеро",
+    subtitle: "Купание, рыбалка, SUP и прогулки на лодке — прямо с вашего берега.",
+    book: false as const,
+    href: "/aktivnosti",
+    ctaLabel: "Все активности",
+  },
+  {
+    image: "/images/territory-forest.jpg",
+    label: "Природа",
+    title: "Сосновый лес\nи финский родник",
+    subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",
+    book: false as const,
+    href: "/dom#territory",
+    ctaLabel: "О территории",
+  },
+  {
+    image: "/images/stay.jpg",
+    label: "Уют и комфорт",
+    title: "Камин, баня\nи панорамные окна",
+    subtitle: "Дровяной камин, тёплые полы, финская баня у воды — всё для отдыха.",
+    book: false as const,
+    href: "/dom",
+    ctaLabel: "О коттедже",
+  },
+];
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 lg:pb-24">
-        <p className="text-white/60 text-sm tracking-wide mb-5">{CONTACT.addressShort}</p>
-        <h1
-          className="font-display font-bold text-white leading-[0.95] tracking-tight mb-6"
-          style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
+const AUTOPLAY_MS = 5500;
+
+export function Hero() {
+  const [cur, setCur] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setCur((c) => (c + 1) % SLIDES.length);
+    }, AUTOPLAY_MS);
+  }, []);
+
+  useEffect(() => {
+    startTimer();
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [cur, startTimer]);
+
+  const go = (dir: "prev" | "next") => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setCur((c) =>
+      dir === "next"
+        ? (c + 1) % SLIDES.length
+        : (c - 1 + SLIDES.length) % SLIDES.length
+    );
+  };
+
+  return (
+    <section className="relative h-[92vh] min-h-[600px] overflow-hidden bg-pine">
+      {/* Background images — cross-fade */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          aria-hidden={i !== cur}
+          className={`absolute inset-0 bg-stone-700 bg-cover bg-center transition-opacity duration-700 ease-in-out ${
+            i === cur ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ backgroundImage: `url('${slide.image}')` }}
+        />
+      ))}
+
+      {/* Dark scrim */}
+      <div className="absolute inset-x-0 bottom-0 h-3/4 z-10 bg-[linear-gradient(to_top,rgba(18,26,20,0.82),transparent)]" />
+
+      {/* Slide content — one per slide, absolute stacked */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 z-20 flex items-end transition-opacity duration-700 ease-in-out ${
+            i === cur ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         >
-          Тихая вода,<br />карельский лес
-        </h1>
-        <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-md mb-9">
-          Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.
-        </p>
-        {/* Key facts strip */}
-        <div className="flex flex-wrap gap-x-6 gap-y-2 mb-8">
-          {[
-            { label: "Заезд", value: "от 15:00" },
-            { label: "Выезд", value: "до 12:00" },
-            { label: "Гости", value: "до 5 взрослых" },
-            { label: "От СПб", value: "127 км" },
-            { label: "Цена", value: "от 20 000 ₽/ночь" },
-          ].map(({ label, value }) => (
-            <div key={label} className="flex flex-col">
-              <span className="text-white/40 text-[10px] uppercase tracking-wider">{label}</span>
-              <span className="text-white text-sm font-medium">{value}</span>
+          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
+            <p className="text-white/50 text-[11px] font-semibold uppercase tracking-[0.22em] mb-3">
+              {CONTACT.addressShort} · {slide.label}
+            </p>
+            <h1
+              className="font-display font-bold text-white leading-[0.95] tracking-tight mb-5"
+              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
+            >
+              {slide.title.split("\n").map((line, j, arr) => (
+                <span key={j}>
+                  {line}
+                  {j < arr.length - 1 && <br />}
+                </span>
+              ))}
+            </h1>
+            <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-xl mb-9">
+              {slide.subtitle}
+            </p>
+            <div className="flex items-center gap-6">
+              {slide.book ? (
+                <>
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 cursor-pointer"
+                  >
+                    Забронировать
+                  </button>
+                  <Link
+                    href="/dom"
+                    className="text-white/85 hover:text-white text-base font-medium link-underline"
+                  >
+                    О коттедже
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  href={slide.href}
+                  className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 inline-flex items-center"
+                >
+                  {slide.ctaLabel}
+                </Link>
+              )}
             </div>
-          ))}
+          </div>
         </div>
-        <div className="flex items-center gap-6">
-          <BnovoModal
-            trigger={
-              <button className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 cursor-pointer">
-                Забронировать
-              </button>
-            }
+      ))}
+
+      {/* Booking modal — single instance */}
+      <BnovoModal open={modalOpen} onOpenChange={setModalOpen} />
+
+      {/* Prev arrow */}
+      <button
+        onClick={() => go("prev")}
+        aria-label="Предыдущий слайд"
+        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+      >
+        <ChevronLeft className="w-5 h-5 text-white" />
+      </button>
+
+      {/* Next arrow */}
+      <button
+        onClick={() => go("next")}
+        aria-label="Следующий слайд"
+        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+      >
+        <ChevronRight className="w-5 h-5 text-white" />
+      </button>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 right-6 lg:right-12 z-30 flex gap-2 items-center">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              if (timerRef.current) clearTimeout(timerRef.current);
+              setCur(i);
+            }}
+            aria-label={`Слайд ${i + 1}`}
+            className={`rounded-full transition-all duration-300 cursor-pointer ${
+              i === cur
+                ? "bg-white w-6 h-2"
+                : "bg-white/40 w-2 h-2 hover:bg-white/65"
+            }`}
           />
-          <Link
-            href="/dom"
-            className="text-white/85 hover:text-white text-base font-medium link-underline"
-          >
-            О коттедже
-          </Link>
-        </div>
+        ))}
       </div>
     </section>
   );
