@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
+import { BookingBar } from "@/components/home/BookingBar";
 import { StayPreview } from "@/components/home/StayPreview";
 import { TerritoryPreview } from "@/components/home/TerritoryPreview";
 import { Reviews } from "@/components/home/Reviews";
@@ -16,6 +17,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <BookingBar />
       <StayPreview />
       <TerritoryPreview />
       <Reviews />

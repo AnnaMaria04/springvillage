@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CONTACT } from "@/content/site";
-import { BookingModal } from "@/components/booking/BookingModal";
+import { BnovoModal } from "@/components/booking/BnovoModal";
 
 export function Hero() {
   return (
@@ -23,8 +23,7 @@ export function Hero() {
           Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.
         </p>
         <div className="flex items-center gap-6">
-          <BookingModal
-            source="hero"
+          <BnovoModal
             trigger={
               <button className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 cursor-pointer">
                 Забронировать

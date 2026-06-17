@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { BnovoModal } from "@/components/booking/BnovoModal";
 import { BookingModal } from "@/components/booking/BookingModal";
 
 export function BookingCTA() {
@@ -16,12 +16,13 @@ export function BookingCTA() {
           Свободные даты, цены и онлайн-бронирование — в одном месте.
         </p>
         <div className="flex items-center justify-center gap-6">
-          <Link
-            href="/tseny"
-            className="h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors inline-flex items-center"
-          >
-            Цены и даты
-          </Link>
+          <BnovoModal
+            trigger={
+              <button className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors inline-flex items-center cursor-pointer">
+                Выбрать даты
+              </button>
+            }
+          />
           <BookingModal
             source="home_cta"
             trigger={

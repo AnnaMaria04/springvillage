@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Users, ArrowRight } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { SITE } from "@/content/site";
+import { BnovoModal } from "@/components/booking/BnovoModal";
 
 const features = [
   `60 м² · 2 спальни (верхняя и нижняя)`,
@@ -66,12 +67,13 @@ export function StayPreview() {
             </p>
 
             {/* Booking button */}
-            <Link
-              href="/tseny"
-              className="btn-lux inline-flex items-center justify-center self-start h-13 px-12 rounded-full bg-wood text-white text-sm font-semibold uppercase tracking-wider"
-            >
-              Забронировать
-            </Link>
+            <BnovoModal
+              trigger={
+                <button className="btn-lux inline-flex items-center justify-center self-start h-13 px-12 rounded-full bg-wood text-white text-sm font-semibold uppercase tracking-wider cursor-pointer">
+                  Забронировать
+                </button>
+              }
+            />
           </div>
         </div>
       </div>
