@@ -5,8 +5,7 @@ import { CONTACT, SITE } from "@/content/site";
 export function LocationPreview() {
   const { coords, yandexMapOid } = CONTACT;
   const { lat, lng: lon } = coords;
-  // pt= ensures a visible pin; oid= loads the business card if available
-  const mapWidget = `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=15&lang=ru_RU&oid=${yandexMapOid}&pt=${lon}%2C${lat}%2Cpm2rdm`;
+  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=${yandexMapOid}&ll=${lon}%2C${lat}&z=15&lang=ru_RU`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
@@ -48,7 +47,8 @@ export function LocationPreview() {
               Михалёвское озеро, Выборгский район Ленобласти. Два часа на машине по трассе «Скандинавия».
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              </p>
+              Ближайший населённый пункт — Михалёво. Последние 2 км по лесной дороге.
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link

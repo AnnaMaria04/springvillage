@@ -11,7 +11,7 @@ import { LocationPreview } from "@/components/home/LocationPreview";
 export const metadata: Metadata = {
   title: "Spring Village — Коттедж WILD у Михалёвского озера | Аренда A-Frame",
   description:
-    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера, Ленобласть. Финская баня, пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга. Рейтинг 4.8 ★",
+    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера, Ленобласть. Пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга. Рейтинг 4.8 ★",
 };
 
 export default function HomePage() {
