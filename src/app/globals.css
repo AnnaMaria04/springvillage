@@ -38,8 +38,8 @@
   --ring:               var(--pine);
 
   /* Font stacks */
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-body:    var(--font-manrope), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-cormorant), "Times New Roman", Georgia, serif;
+  --font-body:    var(--font-onest), system-ui, -apple-system, sans-serif;
 
   --radius: 0.75rem;
 }
@@ -162,12 +162,41 @@
   }
 
   .hover-lift {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
   }
   .hover-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 24px 50px -20px rgba(30,35,31,0.30);
   }
+
+  /* Photo zoom: parent gets .media, hover scales the inner .media-img */
+  .media { overflow: hidden; }
+  .media-img {
+    transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    will-change: transform;
+  }
+  .group:hover .media-img,
+  .media:hover .media-img {
+    transform: scale(1.05);
+  }
+
+  /* Animated underline for editorial text links */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.22,1,0.36,1);
+    padding-bottom: 2px;
+  }
+  .link-underline:hover { background-size: 100% 1px; }
+
+  /* Premium button press/hover */
+  .btn-lux {
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+  }
+  .btn-lux:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(30,35,31,0.45); }
+  .btn-lux:active { transform: translateY(0); }
 
   .img-overlay::after {
     content: '';

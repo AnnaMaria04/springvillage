@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display } from "next/font/google";
+import { Onest, Cormorant } from "next/font/google";
 import "./globals.css";
 import { lodgingBusinessSchema } from "@/lib/schema";
 import { Header } from "@/components/layout/Header";
@@ -9,17 +9,18 @@ import { MobileBookBar } from "@/components/layout/MobileBookBar";
 import { CookieBanner } from "@/components/global/CookieBanner";
 import { SITE } from "@/content/site";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const cormorant = Cormorant({
+  variable: "--font-cormorant",
   subsets: ["latin", "cyrillic"],
   display: "swap",
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={`${manrope.variable} ${playfair.variable} h-full`}>
+    <html lang="ru" className={`${onest.variable} ${cormorant.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <script
           type="application/ld+json"

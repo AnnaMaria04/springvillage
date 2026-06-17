@@ -12,7 +12,10 @@ export const CONTACT = {
   coords: { lat: 60.983791, lng: 29.422227 },
   yandexMapOid: "193725846598",
   yandexMapUrl:
-    "https://yandex.ru/map-widget/v1/?oid=193725846598&lang=ru_RU&scroll=false",
+    "https://yandex.ru/map-widget/v1/?ll=29.422227%2C60.983791&z=15&pt=29.422227%2C60.983791%2Cpm2rdm&lang=ru_RU",
+  // ⚠️ Confirm this is the Yandex Business org ID with reviews enabled
+  yandexReviewsWidget: "https://yandex.ru/maps-reviews-widget/193725846598?comments",
+  yandexOrgUrl: "https://yandex.ru/maps/org/193725846598/",
   bnovoUid: "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16",
 } as const;
 

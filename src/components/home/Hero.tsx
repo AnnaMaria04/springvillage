@@ -5,7 +5,7 @@ import { BookingModal } from "@/components/booking/BookingModal";
 export function Hero() {
   return (
     <section
-      className="relative h-[92vh] min-h-[600px] flex items-end bg-[--pine] bg-cover bg-center"
+      className="relative h-[92vh] min-h-[600px] flex items-end bg-pine bg-cover bg-center"
       style={{ backgroundImage: "url('/images/hero.jpg')" }}
     >
       {/* Legibility scrim — flat, bottom-weighted */}
@@ -26,14 +26,14 @@ export function Hero() {
           <BookingModal
             source="hero"
             trigger={
-              <button className="h-13 px-9 rounded-full bg-white text-[--pine] text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer">
+              <button className="btn-lux h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 cursor-pointer">
                 Забронировать
               </button>
             }
           />
           <Link
             href="/dom"
-            className="text-white/80 hover:text-white text-base font-medium underline-offset-4 hover:underline transition-colors"
+            className="text-white/85 hover:text-white text-base font-medium link-underline"
           >
             О коттедже
           </Link>

@@ -46,51 +46,51 @@ export function Contacts() {
           <div className="space-y-3">
             <a
               href={`tel:${CONTACT.phoneDial}`}
-              className="flex items-center gap-3 p-4 rounded-2xl border border-[--border] hover:bg-[--cream] transition-colors"
+              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
             >
-              <Phone className="w-4 h-4 text-[--primary] shrink-0" />
-              <span className="font-medium text-[--foreground]">{CONTACT.phone}</span>
+              <Phone className="w-4 h-4 text-primary shrink-0" />
+              <span className="font-medium text-foreground">{CONTACT.phone}</span>
             </a>
             <a
               href={`https://wa.me/${CONTACT.phoneWhatsApp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-2xl border border-[--border] hover:bg-[--cream] transition-colors"
+              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
             >
-              <MessageCircle className="w-4 h-4 text-[--primary] shrink-0" />
-              <span className="font-medium text-[--foreground]">WhatsApp</span>
+              <MessageCircle className="w-4 h-4 text-primary shrink-0" />
+              <span className="font-medium text-foreground">WhatsApp</span>
             </a>
             <a
               href={CONTACT.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-2xl border border-[--border] hover:bg-[--cream] transition-colors"
+              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
             >
-              <Send className="w-4 h-4 text-[--primary] shrink-0" />
-              <span className="font-medium text-[--foreground]">Telegram</span>
+              <Send className="w-4 h-4 text-primary shrink-0" />
+              <span className="font-medium text-foreground">Telegram</span>
             </a>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-3 p-4 rounded-2xl border border-[--border] hover:bg-[--cream] transition-colors"
+              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
             >
-              <Mail className="w-4 h-4 text-[--primary] shrink-0" />
-              <span className="font-medium text-[--foreground]">{CONTACT.email}</span>
+              <Mail className="w-4 h-4 text-primary shrink-0" />
+              <span className="font-medium text-foreground">{CONTACT.email}</span>
             </a>
           </div>
-          <div className="flex items-center gap-2 text-sm text-[--muted-foreground] mt-6">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-6">
             <Clock className="w-4 h-4" /> {CONTACT.hours}
           </div>
-          <p className="text-sm text-[--muted-foreground] mt-2">{CONTACT.addressFull}</p>
+          <p className="text-sm text-muted-foreground mt-2">{CONTACT.addressFull}</p>
         </div>
 
         {/* Form */}
         <div>
           {status === "ok" ? (
             <div className="h-full flex flex-col items-center justify-center text-center py-12">
-              <h3 className="font-display text-2xl font-bold text-[--foreground] mb-2">
+              <h3 className="font-display text-2xl font-bold text-foreground mb-2">
                 Сообщение отправлено
               </h3>
-              <p className="text-[--muted-foreground]">Ответим в течение часа.</p>
+              <p className="text-muted-foreground">Ответим в течение часа.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,13 +99,13 @@ export function Contacts() {
                   name="name"
                   required
                   placeholder="Имя"
-                  className="h-12 rounded-2xl border border-[--border] px-4 text-sm focus:outline-none focus:border-[--primary] bg-white"
+                  className="h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-white"
                 />
                 <input
                   name="phone"
                   type="tel"
                   placeholder="Телефон"
-                  className="h-12 rounded-2xl border border-[--border] px-4 text-sm focus:outline-none focus:border-[--primary] bg-white"
+                  className="h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-white"
                 />
               </div>
               <input
@@ -113,14 +113,14 @@ export function Contacts() {
                 type="email"
                 required
                 placeholder="Email"
-                className="w-full h-12 rounded-2xl border border-[--border] px-4 text-sm focus:outline-none focus:border-[--primary] bg-white"
+                className="w-full h-12 rounded-2xl border border-border px-4 text-sm focus:outline-none focus:border-primary bg-white"
               />
               <textarea
                 name="message"
                 rows={5}
                 required
                 placeholder="Сообщение"
-                className="w-full rounded-2xl border border-[--border] px-4 py-3 text-sm focus:outline-none focus:border-[--primary] bg-white resize-none"
+                className="w-full rounded-2xl border border-border px-4 py-3 text-sm focus:outline-none focus:border-primary bg-white resize-none"
               />
               {status === "error" && <p className="text-xs text-red-500">{err}</p>}
               <Button type="submit" size="lg" className="w-full" disabled={status === "loading"}>

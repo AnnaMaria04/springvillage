@@ -11,7 +11,7 @@ type Props = {
 export function PageHero({ eyebrow, title, subtitle, image }: Props) {
   return (
     <header
-      className="relative bg-[--pine] bg-cover bg-center"
+      className="relative bg-pine bg-cover bg-center"
       style={image ? { backgroundImage: `url('${image}')` } : undefined}
     >
       {image && <div className="absolute inset-0 bg-black/45" />}

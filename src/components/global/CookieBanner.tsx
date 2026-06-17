@@ -27,7 +27,7 @@ export function CookieBanner() {
       aria-label="Уведомление о cookies"
       className="fixed bottom-0 left-0 right-0 z-[60] px-4 pb-4 sm:px-6 sm:pb-6"
     >
-      <div className="max-w-2xl mx-auto bg-[--ink] text-white rounded-2xl shadow-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+      <div className="max-w-2xl mx-auto bg-ink text-white rounded-2xl shadow-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <p className="text-sm text-white/80 leading-relaxed flex-1">
           Мы используем cookies для аналитики и улучшения сайта. Продолжая использование, вы соглашаетесь с{" "}
           <Link href="/privacy" className="underline text-white hover:text-white/70 transition-colors">
@@ -37,7 +37,7 @@ export function CookieBanner() {
         </p>
         <button
           onClick={accept}
-          className="shrink-0 h-9 px-5 rounded-xl bg-[--moss] text-white text-sm font-semibold hover:bg-[--pine] transition-colors"
+          className="shrink-0 h-9 px-5 rounded-xl bg-moss text-white text-sm font-semibold hover:bg-pine transition-colors"
         >
           Понятно
         </button>

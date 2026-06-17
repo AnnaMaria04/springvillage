@@ -14,13 +14,14 @@ export function Gallery() {
         {photos.map((p, i) => (
           <div
             key={i}
-            className="relative rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('${p.src}')`,
-              gridColumn: p.wide ? "span 2" : undefined,
-            }}
+            className="media group relative rounded-3xl"
+            style={{ gridColumn: p.wide ? "span 2" : undefined }}
           >
-            <span className="absolute bottom-3 left-3 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
+            <div
+              className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
+              style={{ backgroundImage: `url('${p.src}')` }}
+            />
+            <span className="absolute bottom-3 left-3 text-xs font-medium text-white/85 bg-black/30 rounded-full px-2.5 py-1 backdrop-blur-sm">
               {p.label}
             </span>
           </div>

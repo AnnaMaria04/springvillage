@@ -18,7 +18,7 @@ export default function KontaktyPage() {
       />
       <Contacts />
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
-        <div className="rounded-3xl overflow-hidden border border-[--border] h-[360px] lg:h-[440px]">
+        <div className="rounded-3xl overflow-hidden border border-border h-[360px] lg:h-[440px]">
           <iframe
             src={LOCATION.yandexMapUrl}
             width="100%"

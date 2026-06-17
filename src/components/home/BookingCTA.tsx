@@ -4,7 +4,7 @@ import { BookingModal } from "@/components/booking/BookingModal";
 export function BookingCTA() {
   return (
     <section
-      className="relative bg-[--pine] bg-cover bg-center"
+      className="relative bg-pine bg-cover bg-center"
       style={{ backgroundImage: "url('/images/booking.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/55" />
@@ -18,7 +18,7 @@ export function BookingCTA() {
         <div className="flex items-center justify-center gap-6">
           <Link
             href="/tseny"
-            className="h-13 px-9 rounded-full bg-white text-[--pine] text-base font-semibold hover:bg-white/90 transition-colors inline-flex items-center"
+            className="h-13 px-9 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors inline-flex items-center"
           >
             Цены и даты
           </Link>

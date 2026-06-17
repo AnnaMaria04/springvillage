@@ -30,7 +30,7 @@ export function Activities() {
     <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
       {/* Season toggle */}
       <div className="flex justify-center mb-14">
-        <div className="inline-flex rounded-full border border-[--border] bg-[--cream] p-1">
+        <div className="inline-flex rounded-full border border-border bg-cream p-1">
           {(["summer", "winter"] as Season[]).map((s) => (
             <button
               key={s}
@@ -39,9 +39,9 @@ export function Activities() {
                 "px-7 py-2.5 text-sm font-medium rounded-full transition-all",
                 season === s
                   ? s === "summer"
-                    ? "bg-[--primary] text-white"
-                    : "bg-[--lake] text-white"
-                  : "text-[--muted-foreground] hover:text-[--foreground]"
+                    ? "bg-primary text-white"
+                    : "bg-lake text-white"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
               {s === "summer" ? "Лето" : "Зима"}
@@ -58,10 +58,10 @@ export function Activities() {
               className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center mb-5"
               style={{ backgroundImage: `url('${photoBySeason[season][i]}')` }}
             />
-            <h3 className="font-display text-xl font-bold text-[--foreground] mb-2">
+            <h3 className="font-display text-xl font-bold text-foreground mb-2">
               {activity.title}
             </h3>
-            <p className="text-[--muted-foreground] leading-relaxed">{activity.description}</p>
+            <p className="text-muted-foreground leading-relaxed">{activity.description}</p>
           </div>
         ))}
       </div>

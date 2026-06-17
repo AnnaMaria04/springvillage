@@ -30,7 +30,7 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out",
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[--border]"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
           : "bg-transparent"
       )}
     >
@@ -39,20 +39,20 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className={cn(
               "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-              scrolled ? "bg-[--primary]" : "bg-white/15"
+              scrolled ? "bg-primary" : "bg-white/15"
             )}>
               <TreePine className="w-4 h-4 text-white" />
             </div>
             <div>
               <span className={cn(
                 "font-display text-base font-bold transition-colors leading-none block",
-                scrolled ? "text-[--foreground]" : "text-white"
+                scrolled ? "text-foreground" : "text-white"
               )}>
                 Spring Village
               </span>
               <span className={cn(
                 "text-[10px] font-medium tracking-wide transition-colors leading-none block mt-0.5",
-                scrolled ? "text-[--muted-foreground]" : "text-white/55"
+                scrolled ? "text-muted-foreground" : "text-white/55"
               )}>
                 Коттедж WILD
               </span>
@@ -67,7 +67,7 @@ export function Header() {
                 className={cn(
                   "px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-150",
                   scrolled
-                    ? "text-[--muted-foreground] hover:text-[--foreground] hover:bg-[--muted]"
+                    ? "text-muted-foreground hover:text-foreground hover:bg-muted"
                     : "text-white/75 hover:text-white hover:bg-white/10"
                 )}
               >
@@ -81,7 +81,7 @@ export function Header() {
               href={`tel:${CONTACT.phoneDial}`}
               className={cn(
                 "flex items-center gap-2 text-sm font-medium transition-colors",
-                scrolled ? "text-[--foreground] hover:text-[--primary]" : "text-white/85 hover:text-white"
+                scrolled ? "text-foreground hover:text-primary" : "text-white/85 hover:text-white"
               )}
             >
               <Phone className="w-4 h-4" />
@@ -96,7 +96,7 @@ export function Header() {
             onClick={() => setOpen(!open)}
             className={cn(
               "lg:hidden p-2 rounded-lg transition-colors",
-              scrolled ? "text-[--foreground] hover:bg-[--muted]" : "text-white hover:bg-white/10"
+              scrolled ? "text-foreground hover:bg-muted" : "text-white hover:bg-white/10"
             )}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
           >
@@ -106,14 +106,14 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-white border-t border-[--border]">
+        <div className="lg:hidden bg-white border-t border-border">
           <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-3.5 text-sm font-medium text-[--foreground] hover:text-[--primary] border-b border-[--border] last:border-0 transition-colors"
+                className="px-3 py-3.5 text-sm font-medium text-foreground hover:text-primary border-b border-border last:border-0 transition-colors"
               >
                 {link.label}
               </Link>

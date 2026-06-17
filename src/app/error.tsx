@@ -10,13 +10,13 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-[--background] flex items-center justify-center px-6 pt-20">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6 pt-20">
       <div className="text-center max-w-md">
-        <div className="font-display text-6xl font-bold text-[--border] mb-4 leading-none">Упс</div>
-        <h1 className="font-display text-2xl font-bold text-[--foreground] mb-3">
+        <div className="font-display text-6xl font-bold text-border mb-4 leading-none">Упс</div>
+        <h1 className="font-display text-2xl font-bold text-foreground mb-3">
           Что-то пошло не так
         </h1>
-        <p className="text-[--muted-foreground] mb-8">
+        <p className="text-muted-foreground mb-8">
           Произошла ошибка при загрузке страницы. Попробуйте ещё раз.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">

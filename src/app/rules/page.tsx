@@ -29,13 +29,13 @@ const rules = [
 
 export default function RulesPage() {
   return (
-    <div className="pt-16 min-h-screen bg-[--background]">
-      <div className="bg-[--muted] border-b border-[--border] py-14 px-6 sm:px-8 lg:px-12">
+    <div className="pt-16 min-h-screen bg-background">
+      <div className="bg-muted border-b border-border py-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-3xl mx-auto">
-          <h1 className="font-display text-4xl sm:text-5xl font-bold text-[--foreground] mb-3">
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-foreground mb-3">
             Правила проживания
           </h1>
-          <p className="text-[--muted-foreground] text-lg">
+          <p className="text-muted-foreground text-lg">
             Просим ознакомиться перед заездом
           </p>
         </div>
@@ -44,13 +44,13 @@ export default function RulesPage() {
       <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-12 space-y-8">
         {rules.map((section) => (
           <div key={section.section}>
-            <h2 className="font-display text-xl font-bold text-[--foreground] mb-3">
+            <h2 className="font-display text-xl font-bold text-foreground mb-3">
               {section.section}
             </h2>
             <ul className="space-y-2">
               {section.items.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-[--muted-foreground]">
-                  <span className="text-[--primary] font-bold shrink-0 mt-0.5">—</span>
+                <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                  <span className="text-primary font-bold shrink-0 mt-0.5">—</span>
                   {item}
                 </li>
               ))}
@@ -58,14 +58,14 @@ export default function RulesPage() {
           </div>
         ))}
 
-        <div className="bg-[--muted] rounded-2xl p-6 mt-8">
-          <p className="text-sm text-[--muted-foreground]">
+        <div className="bg-muted rounded-2xl p-6 mt-8">
+          <p className="text-sm text-muted-foreground">
             Вопросы по правилам:{" "}
-            <a href={`tel:${CONTACT.phoneDial}`} className="text-[--primary] font-medium hover:underline">
+            <a href={`tel:${CONTACT.phoneDial}`} className="text-primary font-medium hover:underline">
               {CONTACT.phone}
             </a>{" "}
             или{" "}
-            <a href={`mailto:${CONTACT.email}`} className="text-[--primary] font-medium hover:underline">
+            <a href={`mailto:${CONTACT.email}`} className="text-primary font-medium hover:underline">
               {CONTACT.email}
             </a>
           </p>

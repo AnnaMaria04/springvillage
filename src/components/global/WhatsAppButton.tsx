@@ -44,7 +44,7 @@ export function WhatsAppButton() {
                 href={c.href}
                 target={c.external ? "_blank" : undefined}
                 rel={c.external ? "noopener noreferrer" : undefined}
-                className="flex items-center gap-3 bg-white rounded-2xl shadow-xl border border-[--border] pr-4 pl-2 py-2.5 text-sm font-medium text-[--foreground] hover:shadow-2xl transition-all duration-150 hover:-translate-y-0.5"
+                className="flex items-center gap-3 bg-white rounded-2xl shadow-xl border border-border pr-4 pl-2 py-2.5 text-sm font-medium text-foreground hover:shadow-2xl transition-all duration-150 hover:-translate-y-0.5"
               >
                 <div
                   className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
