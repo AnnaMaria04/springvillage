@@ -99,7 +99,7 @@ export function Reviews() {
         {REVIEWS.map((r, i) => (
           <div
             key={i}
-            className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 hover:shadow-[0_16px_40px_-20px_rgba(30,35,31,0.18)] transition-shadow"
+            className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover"
           >
             <Stars n={r.rating} />
             <p className="font-display text-xl text-foreground leading-snug mt-5 flex-1">

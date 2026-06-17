@@ -39,7 +39,7 @@ export function Deals() {
               <button
                 key={tier.label}
                 onClick={() => setOpen(true)}
-                className={`rounded-2xl border p-5 text-center transition-all cursor-pointer group ${
+                className={`rounded-2xl border p-5 text-center cursor-pointer group card-hover ${
                   tier.highlighted
                     ? "bg-wood/25 border-wood/60 hover:bg-wood/35"
                     : "bg-white/8 border-white/15 hover:bg-white/15"

@@ -162,22 +162,32 @@
   }
 
   .hover-lift {
-    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
   }
   .hover-lift:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 24px 50px -20px rgba(30,35,31,0.30);
+    transform: translateY(-6px);
+    box-shadow: 0 28px 55px -20px rgba(30,35,31,0.32);
+  }
+
+  /* Subtle card lift for review cards, deal tiles, etc. */
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 44px -16px rgba(30,35,31,0.22);
   }
 
   /* Photo zoom: parent gets .media, hover scales the inner .media-img */
   .media { overflow: hidden; }
   .media-img {
-    transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    transition: transform 0.65s cubic-bezier(0.22,1,0.36,1), filter 0.65s ease;
     will-change: transform;
   }
   .group:hover .media-img,
   .media:hover .media-img {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    filter: brightness(1.06);
   }
 
   /* Animated underline for editorial text links */
