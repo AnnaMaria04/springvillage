@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Car, Train, MapPin, AlertTriangle, Clock } from "lucide-react";
 import { CONTACT } from "@/lib/data";
+import { LOCATION } from "@/content/location";
 
 export const metadata: Metadata = {
   title: "Как добраться до Spring Village",
-  description: `Маршрут до Коттеджа WILD, пос. Михалёво, Выборгский район. На машине 90 км от Петербурга, координаты: ${CONTACT.coords.lat}, ${CONTACT.coords.lng}.`,
+  description: `Маршрут до Коттеджа WILD, пос. Михалёво, Выборгский район. На машине 127 км от Петербурга, координаты: ${CONTACT.coords.lat}, ${CONTACT.coords.lng}.`,
 };
 
 export default function DorogaPage() {
@@ -24,7 +25,7 @@ export default function DorogaPage() {
         {/* Map */}
         <div className="rounded-2xl overflow-hidden border border-[--border] shadow-sm h-[360px]">
           <iframe
-            src={CONTACT.yandexMapUrl}
+            src={LOCATION.yandexMapUrl}
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -59,7 +60,7 @@ export default function DorogaPage() {
               <h2 className="font-display text-2xl font-bold text-[--foreground]">На автомобиле</h2>
               <div className="flex gap-3 text-sm text-[--muted-foreground]">
                 <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> ~2 часа</span>
-                <span>· 90 км от КАД</span>
+                <span>· 127 км от СПб</span>
               </div>
             </div>
           </div>

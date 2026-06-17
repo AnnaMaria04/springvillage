@@ -1,10 +1,11 @@
-import { SITE, HOUSE, CONTACT } from "./data";
+import { SITE, CONTACT } from "@/content/site";
+import { HOUSE } from "@/content/house";
 
 export function lodgingBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
-    name: `${SITE.name} — ${HOUSE.name}`,
+    name: `${SITE.name} — ${SITE.houseName}`,
     description: SITE.description,
     url: "https://springvillage.vercel.app",
     telephone: CONTACT.phone,

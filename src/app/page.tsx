@@ -2,7 +2,9 @@ import { Hero } from "@/components/home/Hero";
 import { Concept } from "@/components/home/Concept";
 import { HouseShowcase } from "@/components/home/HouseShowcase";
 import { Amenities } from "@/components/home/Amenities";
+import { TourBase } from "@/components/home/TourBase";
 import { Activities } from "@/components/home/Activities";
+import { Heritage } from "@/components/home/Heritage";
 import { Pricing } from "@/components/home/Pricing";
 import { Location } from "@/components/home/Location";
 import { Reviews } from "@/components/home/Reviews";
@@ -16,7 +18,9 @@ export default function HomePage() {
       <Concept />
       <HouseShowcase />
       <Amenities />
+      <TourBase />
       <Activities />
+      <Heritage />
       <Pricing />
       <Location />
       <Reviews />

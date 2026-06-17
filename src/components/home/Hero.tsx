@@ -1,23 +1,26 @@
 import Link from "next/link";
-import { SITE, CONTACT } from "@/lib/data";
+import { SITE, CONTACT } from "@/content/site";
+import { BookingModal } from "@/components/booking/BookingModal";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-[--forest-dark]">
-      <div className="absolute inset-0 bg-gradient-to-br from-[--forest-dark] via-[--forest] to-[--lake-dark] opacity-90" />
+    <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-[--pine]">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[--pine] via-[#1a2a1e] to-[--lake] opacity-95" />
+      {/* Noise texture */}
       <div
-        className="absolute inset-0 opacity-[0.035]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
           backgroundRepeat: "repeat",
           backgroundSize: "128px",
         }}
       />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[--lake-light]/30 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[--wood]/30 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 lg:pb-24 pt-32 lg:pt-40 w-full">
         <div className="max-w-3xl">
-          <p className="text-[--lake-light] text-xs font-semibold uppercase tracking-[0.25em] mb-6">
+          <p className="text-[--wood] text-xs font-semibold uppercase tracking-[0.25em] mb-6">
             {CONTACT.addressShort}
           </p>
           <h1
@@ -31,12 +34,14 @@ export function Hero() {
             Два часа от города — и вы уже здесь.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href="#pricing"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-xl bg-white text-[--forest-dark] text-sm font-semibold hover:bg-white/90 transition-colors"
-            >
-              Забронировать
-            </Link>
+            <BookingModal
+              source="hero"
+              trigger={
+                <button className="inline-flex items-center justify-center h-12 px-8 rounded-xl bg-white text-[--pine] text-sm font-semibold hover:bg-white/90 transition-colors cursor-pointer">
+                  Забронировать
+                </button>
+              }
+            />
             <Link
               href="#house"
               className="inline-flex items-center justify-center h-12 px-8 rounded-xl border border-white/20 text-white text-sm font-medium hover:bg-white/8 transition-colors"
@@ -49,7 +54,7 @@ export function Hero() {
         <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-3 gap-6 max-w-lg">
           {[
             { value: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽`, label: "за ночь" },
-            { value: SITE.distanceFromSpb ?? "", label: "от Петербурга" },
+            { value: SITE.distanceFromSpb, label: "от Петербурга" },
             { value: `${SITE.rating}★`, label: `${SITE.reviewCount}+ отзывов` },
           ].map((s) => (
             <div key={s.label}>
