@@ -63,7 +63,7 @@ export function TerritoryPreview() {
           <button
             onClick={() => go("prev")}
             aria-label="Назад"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+            className="absolute left-0 lg:-translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
@@ -82,8 +82,8 @@ export function TerritoryPreview() {
                   />
                   <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)]" />
                   <div className="absolute bottom-5 left-5 right-5">
-                    <p className="font-display text-lg font-bold text-white leading-tight">{t.title}</p>
-                    <p className="text-white/70 text-xs mt-1">{t.sub}</p>
+                    <p className="font-display text-xl font-bold text-white leading-tight">{t.title}</p>
+                    <p className="text-white/65 text-sm mt-1">{t.sub}</p>
                   </div>
                 </div>
               </Link>
@@ -93,7 +93,7 @@ export function TerritoryPreview() {
           <button
             onClick={() => go("next")}
             aria-label="Вперёд"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+            className="absolute right-0 lg:translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>

@@ -91,7 +91,7 @@ export function Reviews() {
         </div>
       </div>
 
-      {/* Carousel — bleeds to edges on mobile but clipped by section overflow-x-clip */}
+      {/* Carousel */}
       <div
         ref={scrollRef}
         className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"

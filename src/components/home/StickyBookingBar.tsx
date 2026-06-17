@@ -33,7 +33,22 @@ export function StickyBookingBar() {
     <>
       {/* Booking bar — sits in page flow after hero */}
       <div className="relative z-10 bg-pine/97 backdrop-blur-sm border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-3 flex items-center gap-3">
+        {/* Mobile: single button */}
+        <div className="md:hidden px-4 py-3 flex items-center justify-between gap-3">
+          <div>
+            <p className="text-white text-sm font-semibold leading-tight">Забронировать коттедж</p>
+            <p className="text-white/40 text-xs mt-0.5">Онлайн · Мгновенное подтверждение</p>
+          </div>
+          <button
+            onClick={() => setOpen(true)}
+            className="shrink-0 h-10 px-5 rounded-lg bg-wood text-white text-sm font-semibold hover:bg-wood/85 transition-colors cursor-pointer"
+          >
+            Выбрать даты
+          </button>
+        </div>
+
+        {/* Desktop: full bar */}
+        <div className="hidden md:flex max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-3 items-center gap-3">
           <div className="hidden xl:block shrink-0 mr-4">
             <p className="text-white text-xs font-semibold uppercase tracking-wider">Бронирование</p>
             <p className="text-white/40 text-[11px] mt-0.5">Гарантированное заселение</p>

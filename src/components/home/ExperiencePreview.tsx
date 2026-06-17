@@ -58,7 +58,7 @@ export function ExperiencePreview() {
           <button
             onClick={() => go("prev")}
             aria-label="Предыдущее"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+            className="absolute left-0 lg:-translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
@@ -87,7 +87,7 @@ export function ExperiencePreview() {
           <button
             onClick={() => go("next")}
             aria-label="Следующее"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+            className="absolute right-0 lg:translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>

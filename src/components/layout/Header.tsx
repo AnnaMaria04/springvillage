@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, TreePine, Phone } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import { Logo } from "@/components/global/Logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/content/site";
@@ -36,13 +37,11 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-[68px] lg:h-[84px]">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className={cn(
-              "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-              scrolled ? "bg-primary" : "bg-white/15"
-            )}>
-              <TreePine className="w-4 h-4 text-white" />
-            </div>
+          <Link href="/" className="flex items-center gap-3 group">
+            <Logo className={cn(
+              "h-9 w-auto transition-colors",
+              scrolled ? "text-pine" : "text-white"
+            )} />
             <div>
               <span className={cn(
                 "font-display text-lg font-bold transition-colors leading-none block",

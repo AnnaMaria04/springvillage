@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Users, BedDouble, Bath, Maximize2, Flame } from "lucide-react";
+import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
@@ -158,7 +158,7 @@ export default function DomPage() {
       {/* Layout + Heritage — interactive two-column */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
-          {/* Floor plan — visual cards */}
+          {/* Floor plan — numbered list */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               Планировка
@@ -166,28 +166,28 @@ export default function DomPage() {
             <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-8">
               Два этажа у озера
             </h2>
-            <div className="space-y-3 mb-6">
-              <div className="flex gap-4 p-5 rounded-2xl bg-cream border border-border">
-                <div className="w-10 h-10 rounded-xl bg-pine flex items-center justify-center shrink-0">
-                  <Flame className="w-5 h-5 text-white" />
-                </div>
+            <div className="rounded-2xl border border-border overflow-hidden mb-6">
+              <div className="flex gap-5 p-5 border-b border-border bg-cream">
+                <span className="font-display text-3xl font-bold text-pine/20 leading-none select-none">1</span>
                 <div>
-                  <p className="font-semibold text-foreground mb-1">Первый этаж</p>
-                  <p className="text-sm text-muted-foreground">Гостиная с камином · Кухня · Ванная с тёплыми полами · Панорамные окна на озеро</p>
+                  <p className="font-semibold text-foreground mb-1.5">Первый этаж</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Гостиная с дровяным камином · Кухня с полным оснащением · Ванная с тёплыми полами · Панорамные окна с видом на озеро
+                  </p>
                 </div>
               </div>
-              <div className="flex gap-4 p-5 rounded-2xl bg-cream border border-border">
-                <div className="w-10 h-10 rounded-xl bg-pine flex items-center justify-center shrink-0">
-                  <BedDouble className="w-5 h-5 text-white" />
-                </div>
+              <div className="flex gap-5 p-5 bg-white">
+                <span className="font-display text-3xl font-bold text-pine/20 leading-none select-none">2</span>
                 <div>
-                  <p className="font-semibold text-foreground mb-1">Второй этаж</p>
-                  <p className="text-sm text-muted-foreground">Спальня с двуспальной кроватью · Мансардная спальня под крышей треугольника</p>
+                  <p className="font-semibold text-foreground mb-1.5">Второй этаж</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Спальня с двуспальной кроватью · Мансардная спальня под крышей треугольника
+                  </p>
                 </div>
               </div>
             </div>
             <p className="text-sm text-muted-foreground italic leading-relaxed">
-              Высокие потолки, наклонные стены, дерево везде — дом поставлен так, чтобы первое, что видишь утром, было озеро.
+              Архитектура A-frame — это ощущение. Дом поставлен так, чтобы первое, что видишь утром, было озеро.
             </p>
           </div>
 

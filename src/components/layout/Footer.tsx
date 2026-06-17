@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { TreePine, Phone, Mail, MapPin, Send, MessageCircle, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Send, MessageCircle, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { Logo } from "@/components/global/Logo";
 import { CONTACT, SITE } from "@/lib/data";
 
 const footerLinks = {
@@ -26,14 +27,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-                <TreePine className="w-4 h-4 text-white" />
-              </div>
+            <Link href="/" className="flex items-center gap-3 mb-5">
+              <Logo className="h-9 w-auto text-white" goldColor="rgba(185,138,94,0.85)" />
               <div>
-              <span className="font-display text-base font-bold block leading-none">{SITE.name}</span>
-              <span className="text-[10px] text-white/45 block mt-0.5">{SITE.houseName}</span>
-            </div>
+                <span className="font-display text-base font-bold block leading-none">{SITE.name}</span>
+                <span className="text-[10px] text-white/45 block mt-0.5">{SITE.houseName}</span>
+              </div>
             </Link>
             <p className="text-white/55 text-sm leading-relaxed max-w-xs mb-6">
               {SITE.description}
