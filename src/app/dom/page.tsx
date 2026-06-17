@@ -4,11 +4,18 @@ import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
-import { YandexReviews } from "@/components/home/YandexReviews";
+import { Reviews } from "@/components/home/Reviews";
 
 export const metadata: Metadata = {
-  title: `${HOUSE.name} — коттедж у Михалёвского озера`,
-  description: `${HOUSE.type}. До ${HOUSE.capacity} гостей. ${HOUSE.description}`,
+  title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
+  description:
+    "Уединённый A-frame коттедж 60 м², 2 спальни, до 5 гостей. Финская баня у воды, оборудованный пирс, лодки, SUP. Аренда в Михалёво, Выборгский район.",
+  alternates: { canonical: "/dom" },
+  openGraph: {
+    title: "Коттедж WILD — Spring Village",
+    description: "A-frame 60 м², финская баня, пирс, лодки. Михалёво, Ленобласть.",
+    images: [{ url: "/images/stay.jpg", width: 1200, height: 630, alt: "Коттедж WILD" }],
+  },
 };
 
 const galleryPhotos = [
@@ -159,10 +166,8 @@ export default function DomPage() {
         </div>
       </section>
 
-      {/* Live Yandex reviews */}
-      <div className="bg-cream">
-        <YandexReviews />
-      </div>
+      {/* Reviews */}
+      <Reviews />
 
       {/* CTA */}
       <section className="bg-background py-20 text-center">

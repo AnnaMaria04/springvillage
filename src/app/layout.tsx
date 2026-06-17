@@ -24,27 +24,38 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://springvillage.vercel.app"),
   title: {
     default: "Spring Village — Коттедж WILD у Михалёвского озера",
-    template: "%s — Spring Village",
+    template: "%s | Spring Village",
   },
   description:
-    "A-frame коттедж в карельском лесу на берегу Михалёвского озера. 127 км от Петербурга. Финская баня, байдарки, тишина.",
+    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Финская баня, пирс с лодками, карельский лес. До 5 гостей. 127 км от Петербурга.",
   keywords: [
-    "коттедж Михалёво",
-    "аренда коттеджа Выборгский район",
-    "A-frame аренда Ленобласть",
-    "отдых на Михалёвском озере",
-    "дом у озера Выборгский район",
-    "коттедж с баней у озера Ленобласть",
-    "Spring Village",
+    "коттедж у озера Ленобласть",
+    "аренда дома Михалёво",
+    "A-frame коттедж Выборгский район",
+    "отдых Михалёвское озеро",
+    "коттедж с баней у озера СПб",
+    "снять коттедж Карелия",
+    "Spring Village коттедж",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Коттедж WILD — Spring Village у Михалёвского озера",
-    description: "A-frame в карельском лесу. Баня, байдарки, озеро. 127 км от СПб.",
+    title: "Spring Village — Коттедж WILD у Михалёвского озера",
+    description: "A-frame 60 м² в карельском лесу. Баня, пирс, лодки. 127 км от СПб.",
     type: "website",
     locale: "ru_RU",
     siteName: "Spring Village",
+    images: [{ url: "/images/hero.jpg", width: 1200, height: 630, alt: "Коттедж WILD — Spring Village" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Spring Village — Коттедж WILD у Михалёвского озера",
+    description: "A-frame 60 м² в карельском лесу. Баня, пирс, лодки. 127 км от СПб.",
+    images: ["/images/hero.jpg"],
   },
   robots: { index: true, follow: true },
 };

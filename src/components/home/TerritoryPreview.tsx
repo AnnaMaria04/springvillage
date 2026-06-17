@@ -1,0 +1,67 @@
+import Link from "next/link";
+
+const tiles = [
+  {
+    title: "Финский родник",
+    sub: "Питьевая вода на территории",
+    photo: "/images/territory-spring.jpg",
+  },
+  {
+    title: "Пирс и водная станция",
+    sub: "Лодки, SUP, рыбалка",
+    photo: "/images/territory-pier.jpg",
+  },
+  {
+    title: "Мангальная зона",
+    sub: "Дрова и решётка включены",
+    photo: "/images/territory-bbq.jpg",
+  },
+  {
+    title: "Лесные тропы",
+    sub: "Грибы, ягоды, сосновый лес",
+    photo: "/images/territory-forest.jpg",
+  },
+];
+
+export function TerritoryPreview() {
+  return (
+    <section className="bg-background py-20 lg:py-28">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+              Территория
+            </p>
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+              Большой лесной участок
+            </h2>
+          </div>
+          <Link
+            href="/dom#territory"
+            className="shrink-0 text-foreground font-medium link-underline inline-flex items-center gap-2"
+          >
+            Подробнее о коттедже
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {tiles.map((t) => (
+            <Link key={t.title} href="/dom" className="group block">
+              <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
+                <div
+                  className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${t.photo}')` }}
+                />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)]" />
+                <div className="absolute bottom-5 left-5 right-5">
+                  <p className="font-display text-lg font-bold text-white leading-tight">{t.title}</p>
+                  <p className="text-white/70 text-xs mt-1">{t.sub}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -3,9 +3,10 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Activities } from "@/components/home/Activities";
 
 export const metadata: Metadata = {
-  title: "Активности — лето и зима у Михалёвского озера",
+  title: "Активности — байдарки, баня, рыбалка у Михалёвского озера",
   description:
-    "Байдарки, SUP, рыбалка, велосипеды летом. Баня, лыжи, коньки и зимняя рыбалка зимой. Чем заняться в Spring Village.",
+    "Летом: байдарки, SUP, рыбалка, велосипеды, BBQ. Зимой: финская баня, коньки, лыжи. Чем заняться в Spring Village круглый год.",
+  alternates: { canonical: "/aktivnosti" },
 };
 
 export default function AktivnostiPage() {

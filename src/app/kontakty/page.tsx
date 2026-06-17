@@ -4,8 +4,9 @@ import { Contacts } from "@/components/home/Contacts";
 import { LOCATION } from "@/content/location";
 
 export const metadata: Metadata = {
-  title: "Контакты",
-  description: "Связаться со Spring Village: телефон, WhatsApp, Telegram, email. Михалёвское озеро, Выборгский район.",
+  title: "Контакты — Spring Village, Михалёво",
+  description: "Телефон, WhatsApp, Telegram Spring Village. Адрес: пос. Михалёво, Выборгский район, Ленинградская область. Как связаться для бронирования.",
+  alternates: { canonical: "/kontakty" },
 };
 
 export default function KontaktyPage() {

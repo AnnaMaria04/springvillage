@@ -4,8 +4,9 @@ import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
 
 export const metadata: Metadata = {
-  title: "Как добраться до Spring Village",
-  description: `Маршрут до Коттеджа WILD, пос. Михалёво, Выборгский район. На машине 127 км от Петербурга, координаты: ${CONTACT.coords.lat}, ${CONTACT.coords.lng}.`,
+  title: "Как добраться до Spring Village — из Петербурга 127 км",
+  description: "Маршрут на машине и электричке из Санкт-Петербурга до коттеджа Spring Village в пос. Михалёво, Выборгский район. Координаты и карта.",
+  alternates: { canonical: "/doroga" },
 };
 
 export default function DorogaPage() {

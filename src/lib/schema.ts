@@ -4,12 +4,14 @@ import { HOUSE } from "@/content/house";
 export function lodgingBusinessSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
-    name: `${SITE.name} — ${SITE.houseName}`,
-    description: SITE.description,
+    "@type": ["LodgingBusiness", "VacationRental"],
+    name: "Spring Village — Коттедж WILD",
+    description:
+      "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Финская баня, пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга.",
     url: "https://springvillage.vercel.app",
     telephone: CONTACT.phone,
     email: CONTACT.email,
+    image: "https://springvillage.vercel.app/images/hero.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Песчаный проезд, 5а",
@@ -35,10 +37,18 @@ export function lodgingBusinessSchema() {
       value: true,
     })),
     numberOfRooms: HOUSE.bedrooms,
+    floorSize: {
+      "@type": "QuantitativeValue",
+      value: HOUSE.area,
+      unitCode: "MTK",
+    },
     occupancy: {
       "@type": "QuantitativeValue",
       maxValue: HOUSE.capacity,
     },
-    priceRange: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽/ночь`,
+    priceRange: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽ за 3 ночи`,
+    checkinTime: "14:00",
+    checkoutTime: "12:00",
+    petsAllowed: true,
   };
 }

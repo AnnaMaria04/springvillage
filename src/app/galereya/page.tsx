@@ -3,8 +3,9 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Gallery } from "@/components/home/Gallery";
 
 export const metadata: Metadata = {
-  title: "Галерея — Коттедж WILD у озера",
-  description: "Фотографии коттеджа, бани, озера и территории Spring Village в разные сезоны.",
+  title: "Фотогалерея — коттедж WILD у озера",
+  description: "Фотографии коттеджа WILD: экстерьер, интерьер, баня, озеро, территория. A-frame в карельском лесу, Spring Village.",
+  alternates: { canonical: "/galereya" },
 };
 
 export default function GalereyaPage() {

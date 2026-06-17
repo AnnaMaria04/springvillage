@@ -25,8 +25,8 @@ export const SITE = {
   tagline: "A-frame у Михалёвского озера",
   description:
     "A-frame коттедж в карельском лесу. 127 км от Петербурга, тишина, озеро, своя баня.",
-  rating: 4.9,
-  reviewCount: 47,
+  rating: 4.8,
+  reviewCount: 15,
   priceFrom: 50000,
   priceFromLabel: "от 50 000 ₽",
   priceFromSub: "за 3 ночи",
