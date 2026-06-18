@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Send, MessageCircle, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { CONTACT, SITE } from "@/lib/data";
 
@@ -55,15 +55,6 @@ export function Footer() {
                 aria-label="Instagram"
               >
                 <Send className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href={CONTACT.telegram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center hover:bg-white/15 transition-colors"
-                aria-label="Telegram"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>

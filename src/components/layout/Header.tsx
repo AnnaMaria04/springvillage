@@ -80,7 +80,7 @@ export function Header() {
               {CONTACT.phone}
             </a>
             <button
-              onClick={openBooking}
+              onClick={() => openBooking()}
               className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
             >
               Забронировать

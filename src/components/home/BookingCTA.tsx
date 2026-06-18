@@ -46,7 +46,7 @@ export function BookingCTA() {
           {/* Right */}
           <div className="flex flex-col gap-4 lg:items-end">
             <button
-              onClick={openBooking}
+              onClick={() => openBooking()}
               className="btn-lux w-full lg:w-auto h-13 px-10 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer"
             >
               Выбрать даты

@@ -17,7 +17,7 @@ export function MobileBookBar() {
           Позвонить
         </a>
         <button
-          onClick={openBooking}
+          onClick={() => openBooking()}
           className="flex-1 flex items-center justify-center py-3.5 bg-wood text-white text-sm font-semibold cursor-pointer"
         >
           Забронировать

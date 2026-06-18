@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { Users, ArrowRight } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { SITE } from "@/content/site";
-import { CONTACT } from "@/content/site";
+import { useBooking } from "@/context/booking-context";
 
 const features = [
   `60 м² · 2 спальни (верхняя и нижняя)`,
@@ -12,6 +14,8 @@ const features = [
 ];
 
 export function StayPreview() {
+  const { openBooking } = useBooking();
+
   return (
     <section className="bg-background py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -43,7 +47,7 @@ export function StayPreview() {
               <div className="w-10 h-10 rounded-full bg-pine flex items-center justify-center shrink-0">
                 <Users className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg text-foreground">до {HOUSE.capacity} взрослых + дети</span>
+              <span className="text-lg text-foreground">до {HOUSE.capacity} гостей: взрослые и дети</span>
             </div>
 
             {/* Features */}
@@ -62,14 +66,12 @@ export function StayPreview() {
             </p>
 
             {/* Booking button */}
-            <a
-              href={CONTACT.bnovoBookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-lux inline-flex items-center justify-center self-start h-13 px-12 rounded-full bg-wood text-white text-sm font-semibold uppercase tracking-wider"
+            <button
+              onClick={() => openBooking()}
+              className="btn-lux inline-flex items-center justify-center self-start h-13 px-12 rounded-full bg-wood text-white text-sm font-semibold uppercase tracking-wider cursor-pointer"
             >
               Забронировать
-            </a>
+            </button>
           </div>
         </div>
       </div>

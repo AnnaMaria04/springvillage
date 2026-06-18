@@ -84,7 +84,7 @@ export function Pricing() {
           Онлайн-бронирование с мгновенным подтверждением.
         </p>
         <button
-          onClick={openBooking}
+          onClick={() => openBooking()}
           className="btn-lux h-13 px-10 rounded-full bg-pine text-white text-base font-semibold hover:bg-pine/90 transition-colors cursor-pointer"
         >
           Открыть календарь

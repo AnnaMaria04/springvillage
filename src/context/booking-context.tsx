@@ -3,9 +3,12 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { KorbiOverlay } from "@/components/booking/KorbiOverlay";
 
+export type BookingOpts = { nights?: number };
+
 type BookingCtx = {
   isOpen: boolean;
-  openBooking: () => void;
+  nights: number | undefined;
+  openBooking: (opts?: BookingOpts) => void;
   closeBooking: () => void;
 };
 
@@ -19,11 +22,17 @@ export function useBooking(): BookingCtx {
 
 export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const openBooking = useCallback(() => setIsOpen(true), []);
+  const [nights, setNights] = useState<number | undefined>();
+
+  const openBooking = useCallback((opts?: BookingOpts) => {
+    setNights(opts?.nights);
+    setIsOpen(true);
+  }, []);
+
   const closeBooking = useCallback(() => setIsOpen(false), []);
 
   return (
-    <BookingContext.Provider value={{ isOpen, openBooking, closeBooking }}>
+    <BookingContext.Provider value={{ isOpen, nights, openBooking, closeBooking }}>
       {children}
       <KorbiOverlay />
     </BookingContext.Provider>

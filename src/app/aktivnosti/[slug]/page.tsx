@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
-import { CONTACT } from "@/content/site";
+import { BookingButton } from "@/components/booking/BookingButton";
 
 // Flatten all activities
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
@@ -71,14 +71,9 @@ export default async function ActivityPage({
         <p className="text-muted-foreground text-lg leading-relaxed">{activity.description}</p>
 
         <div className="mt-10">
-          <a
-            href={CONTACT.bnovoBookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-lux inline-flex items-center h-13 px-10 rounded-full bg-primary text-white text-base font-semibold"
-          >
+          <BookingButton className="btn-lux inline-flex items-center h-13 px-10 rounded-full bg-primary text-white text-base font-semibold cursor-pointer">
             Забронировать
-          </a>
+          </BookingButton>
         </div>
       </section>
 

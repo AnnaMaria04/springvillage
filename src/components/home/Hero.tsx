@@ -109,7 +109,7 @@ export function Hero() {
               {slide.book ? (
                 <>
                   <button
-                    onClick={openBooking}
+                    onClick={() => openBooking()}
                     className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 inline-flex items-center cursor-pointer"
                   >
                     Забронировать

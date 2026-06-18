@@ -1,6 +1,7 @@
 export type PriceTier = {
   label: string;
   nights: string;
+  nightsCount: number;
   totalPrice: number;
   perNight: number;
   discount: string | null;
@@ -12,6 +13,7 @@ export const PRICE_TIERS: PriceTier[] = [
   {
     label: "Мини-отдых",
     nights: "3 ночи",
+    nightsCount: 3,
     totalPrice: 50_000,
     perNight: 16_667,
     discount: null,
@@ -20,6 +22,7 @@ export const PRICE_TIERS: PriceTier[] = [
   {
     label: "Длинные выходные",
     nights: "4 ночи",
+    nightsCount: 4,
     totalPrice: 60_000,
     perNight: 15_000,
     discount: "−10%",
@@ -28,6 +31,7 @@ export const PRICE_TIERS: PriceTier[] = [
   {
     label: "Неделя",
     nights: "7 ночей",
+    nightsCount: 7,
     totalPrice: 85_000,
     perNight: 12_143,
     discount: "−27%",
@@ -36,6 +40,7 @@ export const PRICE_TIERS: PriceTier[] = [
   {
     label: "9 дней",
     nights: "9 ночей",
+    nightsCount: 9,
     totalPrice: 100_000,
     perNight: 11_111,
     discount: "−33%",
@@ -44,6 +49,7 @@ export const PRICE_TIERS: PriceTier[] = [
   {
     label: "Длительно",
     nights: "30 ночей",
+    nightsCount: 30,
     totalPrice: 250_000,
     perNight: 8_333,
     discount: "−50%",
