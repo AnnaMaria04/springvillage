@@ -35,17 +35,13 @@ export function BnovoHorizontalWidget() {
           bg_alpha: "0",
           bg_alpha_mobile: "0",
           border_color_mobile: "#E6E0D4",
-          padding: "24",
-          padding_mobile: "24",
+          padding: "0",
+          padding_mobile: "0",
           border_radius: "12",
           button_font_size: "15",
           button_height: "56",
           font_type: "inter",
           without_title: "on",
-          title_color: "#F4EFE4",
-          title_color_mobile: "#F4EFE4",
-          title_size: "20",
-          title_size_mobile: "20",
           inp_color: "#1F2A24",
           inp_bordhover: "#C2A06B",
           inp_bordcolor: "#E6E0D4",
@@ -89,17 +85,41 @@ export function BnovoHorizontalWidget() {
   }, []);
 
   return (
-    <div className="w-full">
-      <div id={WIDGET_ID} className="left w-full">
-        <a
-          href="https://bnovo.ru/"
-          id="_bnovo_link_"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden"
+    <div
+      className={[
+        "flex items-center",
+        "gap-[clamp(20px,4vw,48px)] px-[clamp(20px,5vw,56px)] py-[22px]",
+        "[@media(max-width:900px)]:flex-col [@media(max-width:900px)]:items-stretch",
+        "[@media(max-width:900px)]:gap-[14px] [@media(max-width:900px)]:text-center",
+      ].join(" ")}
+      style={{ background: "#2F3E34" }}
+    >
+      {/* Branded label */}
+      <div className="shrink-0" style={{ color: "#F4EFE4", lineHeight: 1.2 }}>
+        <strong className="block text-[1.15rem] font-bold uppercase tracking-[.04em]">
+          Бронирование
+        </strong>
+        <span
+          className="block text-[.84rem] mt-[5px]"
+          style={{ color: "rgba(244,239,228,.6)" }}
         >
-          Биново
-        </a>
+          Гарантированное заселение
+        </span>
+      </div>
+
+      {/* Bnovo widget */}
+      <div className="flex-1 min-w-0">
+        <div id={WIDGET_ID} className="left w-full">
+          <a
+            href="https://bnovo.ru/"
+            id="_bnovo_link_"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden"
+          >
+            Биново
+          </a>
+        </div>
       </div>
     </div>
   );
