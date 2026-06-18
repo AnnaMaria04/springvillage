@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { CONTACT } from "@/content/site";
@@ -10,16 +9,14 @@ import { useBooking } from "@/context/booking-context";
 
 const SLIDES = [
   {
-    image: "/images/IMG_DF41196D43C2-17.jpeg",
-    objectPosition: "center top",
+    image: "/images/hero.jpg",
     label: "A-frame коттедж",
     title: "Тихая вода,\nкарельский лес",
     subtitle: "Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.",
     book: true as const,
   },
   {
-    image: "/images/IMG_DF41196D43C2-19.jpeg",
-    objectPosition: "center center",
+    image: "/images/territory-pier.jpg",
     label: "Вода и активности",
     title: "Пирс, лодки\nи чистое озеро",
     subtitle: "Купание, рыбалка, SUP и прогулки на лодке — прямо с вашего берега.",
@@ -28,8 +25,7 @@ const SLIDES = [
     ctaLabel: "Все активности",
   },
   {
-    image: "/images/IMG_DF41196D43C2-23.jpeg",
-    objectPosition: "center center",
+    image: "/images/territory-forest.jpg",
     label: "Природа",
     title: "Сосновый лес\nи финский родник",
     subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",
@@ -38,8 +34,7 @@ const SLIDES = [
     ctaLabel: "О территории",
   },
   {
-    image: "/images/IMG_DF41196D43C2-5.jpeg",
-    objectPosition: "center center",
+    image: "/images/stay.jpg",
     label: "Уют и комфорт",
     title: "Камин\nи панорамные окна",
     subtitle: "Дровяной камин, тёплые полы, панорамный вид на воду — всё для отдыха.",
@@ -48,8 +43,7 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/b3d82f36-945d-4490-8355-85017ec15cd8.JPG",
-    objectPosition: "center center",
+    image: "/images/territory-pier.jpg",
     label: "Новая Тур база",
     title: "Тур база\nМихалёвское",
     subtitle: "В 1.5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
@@ -72,6 +66,7 @@ export function Hero() {
     return () => clearTimeout(t);
   }, [cur]);
 
+  // Increment animTick each time the active slide changes to restart the zoom animation
   useEffect(() => {
     setAnimTick(t => t + 1);
   }, [cur]);
@@ -90,19 +85,12 @@ export function Hero() {
           {/* Inner div remounts when slide activates, restarting the zoom animation */}
           <div
             key={i === cur ? `${i}-${animTick}` : i}
-            className="absolute inset-0"
-            style={{ animation: "hero-zoom 5s ease-out forwards" }}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title.replace("\n", " ")}
-              fill
-              className="object-cover"
-              style={{ objectPosition: slide.objectPosition }}
-              priority={i === 0}
-              sizes="100vw"
-            />
-          </div>
+            className="absolute inset-0 bg-stone-700 bg-cover bg-center"
+            style={{
+              backgroundImage: `url('${slide.image}')`,
+              animation: "hero-zoom 5s ease-out forwards",
+            }}
+          />
         </div>
       ))}
 

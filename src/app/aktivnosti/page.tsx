@@ -16,7 +16,7 @@ export default function AktivnostiPage() {
         eyebrow="Впечатления"
         title="Активности"
         subtitle="Озеро и лес круглый год — выбирайте сезон."
-        image="/images/IMG_DF41196D43C2-19.jpeg"
+        image="/images/exp-lake.jpg"
       />
       <Activities />
     </>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
@@ -14,15 +13,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Коттедж WILD — Spring Village",
     description: "A-frame 60 м², пирс, лодки. Михалёво, Ленобласть.",
-    images: [{ url: "/images/IMG_DF41196D43C2-5.jpeg", width: 1200, height: 630, alt: "Коттедж WILD" }],
+    images: [{ url: "/images/stay.jpg", width: 1200, height: 630, alt: "Коттедж WILD" }],
   },
 };
 
 const galleryPhotos = [
-  { src: "/images/IMG_DF41196D43C2-5.jpeg", label: "Коттедж осенью", wide: true },
-  { src: "/images/IMG_DF41196D43C2-15.jpeg", label: "Территория" },
-  { src: "/images/IMG_DF41196D43C2-19.jpeg", label: "У воды" },
-  { src: "/images/IMG_DF41196D43C2-22.jpeg", label: "Сад" },
+  { src: "/images/gallery-exterior.jpg", label: "Фасад и озеро", wide: true },
+  { src: "/images/gallery-interior.jpg", label: "Гостиная" },
+  { src: "/images/gallery-lake.jpg", label: "Панорамное окно" },
+  { src: "/images/gallery-sunset.jpg", label: "Терраса" },
 ];
 
 export default function DomPage() {
@@ -32,7 +31,7 @@ export default function DomPage() {
         eyebrow="Размещение"
         title={HOUSE.name}
         subtitle={HOUSE.longDescription}
-        image="/images/IMG_DF41196D43C2-5.jpeg"
+        image="/images/stay.jpg"
       />
       <StickyBookingBar />
 
@@ -63,21 +62,14 @@ export default function DomPage() {
           {galleryPhotos.map((p, i) => (
             <div
               key={i}
-              className="relative rounded-3xl overflow-hidden bg-stone-300"
+              className="relative rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center"
               style={{
+                backgroundImage: `url('${p.src}')`,
                 gridColumn: p.wide ? "span 2" : undefined,
                 gridRow: p.wide ? "span 2" : undefined,
               }}
             >
-              <Image
-                src={p.src}
-                alt={p.label}
-                fill
-                className="object-cover object-center"
-                loading="lazy"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <span className="absolute bottom-3 left-3 z-10 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
+              <span className="absolute bottom-3 left-3 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
                 {p.label}
               </span>
             </div>
@@ -133,35 +125,29 @@ export default function DomPage() {
             {
               title: "Финский родник",
               body: "На территории сохранился бывший финский источник. Чистая питьевая вода прямо на участке.",
-              photo: "/images/IMG_DF41196D43C2-21.jpeg",
+              photo: "/images/territory-spring.jpg",
             },
             {
               title: "Пирс и водная станция",
               body: "Оборудованный пирс для рыбалки и рассветов. Лодки и SUP-доски — выходи на воду в любой момент.",
-              photo: "/images/IMG_DF41196D43C2-7.jpeg",
+              photo: "/images/territory-pier.jpg",
             },
             {
               title: "Мангальная зона",
               body: "Дрова, решётка и шампуры уже подготовлены. Мангал у воды — лучшее место для закатного ужина.",
-              photo: "/images/IMG_DF41196D43C2-13.jpeg",
+              photo: "/images/territory-bbq.jpg",
             },
             {
               title: "Лесные тропы",
               body: "Сосновый лес начинается прямо за домом. Грибы, ягоды, чистый воздух — всё рядом.",
-              photo: "/images/IMG_DF41196D43C2-23.jpeg",
+              photo: "/images/territory-forest.jpg",
             },
           ].map((item) => (
             <div key={item.title}>
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-stone-300 mb-5">
-                <Image
-                  src={item.photo}
-                  alt={item.title}
-                  fill
-                  className="object-cover object-center"
-                  loading="lazy"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
+              <div
+                className="aspect-[3/4] rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center mb-5"
+                style={{ backgroundImage: `url('${item.photo}')` }}
+              />
               <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
               <p className="text-[15px] text-muted-foreground leading-relaxed">{item.body}</p>
             </div>

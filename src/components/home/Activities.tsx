@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ACTIVITIES, type Season } from "@/lib/data";
@@ -38,13 +37,9 @@ export function Activities() {
         {ACTIVITIES[season].map((activity) => (
           <Link key={activity.slug} href={`/aktivnosti/${activity.slug}`} className="group block">
             <div className="media relative aspect-[4/3] rounded-3xl overflow-hidden bg-stone-300 mb-5">
-              <Image
-                src={activity.photo}
-                alt={activity.title}
-                fill
-                className="object-cover object-center media-img"
-                loading="lazy"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              <div
+                className="media-img absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url('${activity.photo}')` }}
               />
             </div>
             <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-moss transition-colors">
