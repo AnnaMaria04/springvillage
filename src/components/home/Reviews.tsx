@@ -6,11 +6,11 @@ import { REVIEWS, type Review } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
 
 function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
-  const offset = el.scrollLeft + card.getBoundingClientRect().left - el.getBoundingClientRect().left;
+  // offsetLeft is stable even mid-scroll-animation; getBoundingClientRect is not
   if (smooth) {
-    el.scrollTo({ left: offset, behavior: "smooth" });
+    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
   } else {
-    el.scrollLeft = offset;
+    el.scrollLeft = card.offsetLeft;
   }
 }
 
@@ -62,6 +62,37 @@ function Stars({ n }: { n: number }) {
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
+  const dragStartX = useRef<number | null>(null);
+  const dragStartScrollLeft = useRef(0);
+  const isDraggingRef = useRef(false);
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+    dragStartScrollLeft.current = scrollRef.current?.scrollLeft ?? 0;
+    isDraggingRef.current = false;
+  }
+
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null) return;
+    const diff = e.clientX - dragStartX.current;
+    if (!isDraggingRef.current && Math.abs(diff) > 5) {
+      isDraggingRef.current = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    if (isDraggingRef.current && scrollRef.current) {
+      scrollRef.current.scrollLeft = dragStartScrollLeft.current - diff;
+    }
+  }
+
+  function onPointerUp() {
+    dragStartX.current = null;
+    isDraggingRef.current = false;
+  }
+
+  function onPointerCancel() {
+    dragStartX.current = null;
+    isDraggingRef.current = false;
+  }
 
   const go = useCallback((dir: "prev" | "next") => {
     const el = scrollRef.current;
@@ -129,7 +160,12 @@ export function Reviews() {
       {/* Carousel */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
+        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto select-none cursor-grab active:cursor-grabbing"
+        style={{ touchAction: "pan-y" }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
       >
         {REVIEWS.map((r, i) => (
           <ReviewCard key={i} r={r} />

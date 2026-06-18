@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { CONTACT, SITE } from "@/lib/data";
 
@@ -43,19 +43,8 @@ export function Footer() {
                 <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {CONTACT.addressShort}
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 shrink-0" /> Заезд 15:00 · Выезд 12:00 · Депозит 5 000 ₽
+                <Clock className="w-3.5 h-3.5 shrink-0" /> Заезд 15:00 · Выезд 12:00
               </div>
-            </div>
-            <div className="flex gap-2 mt-5">
-              <a
-                href={CONTACT.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center hover:bg-white/15 transition-colors"
-                aria-label="Instagram"
-              >
-                <Send className="w-3.5 h-3.5" />
-              </a>
             </div>
           </div>
 

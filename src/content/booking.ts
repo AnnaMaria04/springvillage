@@ -1,7 +1,7 @@
 const UID = "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16";
 const BASE = `https://reservationsteps.ru/rooms/index/${UID}`;
 
-export function buildBookingUrl(opts?: { dfrom?: string; dto?: string; adults?: number; children?: number }): string {
+export function buildBookingUrl(opts?: { dfrom?: string; dto?: string; adults?: number; children?: number; childrenAges?: number[] }): string {
   const params = new URLSearchParams({
     lang: "ru",
     insidePopup: "1",
@@ -9,7 +9,11 @@ export function buildBookingUrl(opts?: { dfrom?: string; dto?: string; adults?: 
   });
   if (opts?.dfrom) params.set("dfrom", opts.dfrom);
   if (opts?.dto) params.set("dto", opts.dto);
-  if (opts?.children && opts.children > 0) params.set("children", String(opts.children));
+  if (opts?.childrenAges && opts.childrenAges.length > 0) {
+    params.set("children", JSON.stringify(opts.childrenAges));
+  } else if (opts?.children && opts.children > 0) {
+    params.set("children", String(opts.children));
+  }
   return `${BASE}?${params}`;
 }
 

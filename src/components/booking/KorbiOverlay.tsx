@@ -29,7 +29,7 @@ function nightsLabel(n: number): string {
 }
 
 export function KorbiOverlay() {
-  const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, closeBooking } = useBooking();
+  const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges, closeBooking } = useBooking();
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
   const [src, setSrc] = useState<string | undefined>();
@@ -46,7 +46,7 @@ export function KorbiOverlay() {
     if (!isOpen) return;
     if (ctxDfrom && ctxDto) {
       // Dates pre-filled (from BookingBar) — load iframe directly
-      setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren }));
+      setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges }));
       setStep("booking");
     } else if (nights) {
       // Offer card with nights count — show date-pick step
@@ -58,7 +58,7 @@ export function KorbiOverlay() {
       setSrc(prev => (prev && !prev.includes("dfrom=")) ? prev : defaultUrl);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren]);
+  }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren, ctxChildrenAges]);
 
   // Reset iframeLoaded when src changes so loading overlay re-appears
   useEffect(() => {

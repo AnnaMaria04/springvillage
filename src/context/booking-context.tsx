@@ -9,6 +9,7 @@ export type BookingOpts = {
   dto?: string;
   adults?: number;
   children?: number;
+  childrenAges?: number[];
 };
 
 type BookingCtx = {
@@ -18,6 +19,7 @@ type BookingCtx = {
   dto: string | undefined;
   adults: number | undefined;
   children: number | undefined;
+  childrenAges: number[] | undefined;
   openBooking: (opts?: BookingOpts) => void;
   closeBooking: () => void;
 };
@@ -31,12 +33,13 @@ export function useBooking(): BookingCtx {
 }
 
 export function BookingProvider({ children: childrenProp }: { children: React.ReactNode }) {
-  const [isOpen,    setIsOpen]    = useState(false);
-  const [nights,    setNights]    = useState<number | undefined>();
-  const [dfrom,     setDfrom]     = useState<string | undefined>();
-  const [dto,       setDto]       = useState<string | undefined>();
-  const [adults,    setAdults]    = useState<number | undefined>();
-  const [children,  setChildren]  = useState<number | undefined>();
+  const [isOpen,        setIsOpen]        = useState(false);
+  const [nights,        setNights]        = useState<number | undefined>();
+  const [dfrom,         setDfrom]         = useState<string | undefined>();
+  const [dto,           setDto]           = useState<string | undefined>();
+  const [adults,        setAdults]        = useState<number | undefined>();
+  const [children,      setChildren]      = useState<number | undefined>();
+  const [childrenAges,  setChildrenAges]  = useState<number[] | undefined>();
 
   const openBooking = useCallback((opts?: BookingOpts) => {
     setNights(opts?.nights);
@@ -44,13 +47,14 @@ export function BookingProvider({ children: childrenProp }: { children: React.Re
     setDto(opts?.dto);
     setAdults(opts?.adults);
     setChildren(opts?.children);
+    setChildrenAges(opts?.childrenAges);
     setIsOpen(true);
   }, []);
 
   const closeBooking = useCallback(() => setIsOpen(false), []);
 
   return (
-    <BookingContext.Provider value={{ isOpen, nights, dfrom, dto, adults, children, openBooking, closeBooking }}>
+    <BookingContext.Provider value={{ isOpen, nights, dfrom, dto, adults, children, childrenAges, openBooking, closeBooking }}>
       {childrenProp}
       <KorbiOverlay />
     </BookingContext.Provider>
