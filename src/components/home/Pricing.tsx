@@ -2,15 +2,16 @@
 
 import { Gift } from "lucide-react";
 import { PRICE_TIERS, GIFT_CERT } from "@/content/offers";
-import { BnovoWidget } from "@/components/booking/BnovoWidget";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { cn } from "@/lib/utils";
+import { useBooking } from "@/context/booking-context";
 
 function fmt(n: number) {
   return n.toLocaleString("ru-RU");
 }
 
 export function Pricing() {
+  const { openBooking } = useBooking();
   return (
     <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
       {/* Price list */}
@@ -73,12 +74,21 @@ export function Pricing() {
         />
       </div>
 
-      {/* Booking widget */}
-      <div id="booking-widget">
-        <h2 className="font-display text-3xl font-bold text-foreground mb-6">Выбрать даты</h2>
-        <div className="bg-white rounded-3xl border border-border p-4 sm:p-8">
-          <BnovoWidget />
-        </div>
+      {/* Booking CTA */}
+      <div
+        id="booking-widget"
+        className="rounded-3xl border border-border bg-white p-8 sm:p-12 text-center"
+      >
+        <h2 className="font-display text-3xl font-bold text-foreground mb-3">Выбрать даты</h2>
+        <p className="text-muted-foreground mb-8">
+          Онлайн-бронирование с мгновенным подтверждением.
+        </p>
+        <button
+          onClick={openBooking}
+          className="btn-lux h-13 px-10 rounded-full bg-pine text-white text-base font-semibold hover:bg-pine/90 transition-colors cursor-pointer"
+        >
+          Открыть календарь
+        </button>
       </div>
     </section>
   );

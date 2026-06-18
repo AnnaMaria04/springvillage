@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 import { CONTACT } from "@/content/site";
+import { useBooking } from "@/context/booking-context";
 
 
 const SLIDES = [
@@ -57,6 +58,7 @@ const AUTOPLAY_MS = 4000;
 export function Hero() {
   const [cur, setCur] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const t = setTimeout(() => setCur((c) => (c + 1) % SLIDES.length), AUTOPLAY_MS);
@@ -106,14 +108,12 @@ export function Hero() {
             <div className="flex items-center gap-5">
               {slide.book ? (
                 <>
-                  <a
-                    href={CONTACT.bnovoBookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 inline-flex items-center"
+                  <button
+                    onClick={openBooking}
+                    className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 inline-flex items-center cursor-pointer"
                   >
                     Забронировать
-                  </a>
+                  </button>
                   <Link href="/dom" className="text-white/80 hover:text-white text-sm font-medium link-underline">
                     О коттедже
                   </Link>

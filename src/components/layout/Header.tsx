@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/content/site";
+import { useBooking } from "@/context/booking-context";
 
 const navLinks = [
   { href: "/dom",        label: "Коттедж" },
@@ -16,6 +17,7 @@ const navLinks = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -77,14 +79,12 @@ export function Header() {
               <Phone className="w-4 h-4" />
               {CONTACT.phone}
             </a>
-            <a
-              href={CONTACT.bnovoBookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+            <button
+              onClick={openBooking}
+              className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
             >
               Забронировать
-            </a>
+            </button>
           </div>
 
           <button
@@ -114,15 +114,12 @@ export function Header() {
               </Link>
             ))}
             <div className="pt-4 pb-2">
-              <a
-                href={CONTACT.bnovoBookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => { setOpen(false); openBooking(); }}
+                className="flex items-center justify-center w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
               >
                 Забронировать
-              </a>
+              </button>
             </div>
           </nav>
         </div>

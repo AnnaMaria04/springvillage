@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widget.reservationsteps.ru https://mc.yandex.ru",
-              "frame-src https://yandex.ru https://widget.reservationsteps.ru",
+              "frame-src https://yandex.ru https://widget.reservationsteps.ru https://reservationsteps.ru",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://widget.reservationsteps.ru",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https:",

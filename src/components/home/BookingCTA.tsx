@@ -1,9 +1,9 @@
 "use client";
 
-import { BnovoModal } from "@/components/booking/BnovoModal";
 import { BookingModal } from "@/components/booking/BookingModal";
 import { SITE, CONTACT } from "@/content/site";
 import { Phone } from "lucide-react";
+import { useBooking } from "@/context/booking-context";
 
 const stats = [
   { value: SITE.priceFromLabel, label: SITE.priceFromSub },
@@ -13,6 +13,7 @@ const stats = [
 ];
 
 export function BookingCTA() {
+  const { openBooking } = useBooking();
   return (
     <section
       className="relative bg-pine bg-cover bg-center py-20 lg:py-28"
@@ -44,13 +45,12 @@ export function BookingCTA() {
 
           {/* Right */}
           <div className="flex flex-col gap-4 lg:items-end">
-            <BnovoModal
-              trigger={
-                <button className="btn-lux w-full lg:w-auto h-13 px-10 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer">
-                  Выбрать даты
-                </button>
-              }
-            />
+            <button
+              onClick={openBooking}
+              className="btn-lux w-full lg:w-auto h-13 px-10 rounded-full bg-white text-pine text-base font-semibold hover:bg-white/90 transition-colors cursor-pointer"
+            >
+              Выбрать даты
+            </button>
             <BookingModal
               source="home_cta"
               trigger={

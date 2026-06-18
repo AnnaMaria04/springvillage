@@ -8,6 +8,7 @@ import { WhatsAppButton } from "@/components/global/WhatsAppButton";
 import { MobileBookBar } from "@/components/layout/MobileBookBar";
 import { CookieBanner } from "@/components/global/CookieBanner";
 import { SITE } from "@/content/site";
+import { BookingProvider } from "@/context/booking-context";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -82,12 +83,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </div>
         </noscript>
-        <Header />
-        <main className="flex-1 pb-[58px] lg:pb-0">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <MobileBookBar />
-        <CookieBanner />
+        <BookingProvider>
+          <Header />
+          <main className="flex-1 pb-[58px] lg:pb-0">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+          <MobileBookBar />
+          <CookieBanner />
+        </BookingProvider>
       </body>
     </html>
   );
