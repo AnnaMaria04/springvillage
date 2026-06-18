@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
 import { CONTACT } from "@/content/site";
 
 
@@ -58,22 +58,10 @@ export function Hero() {
   const [cur, setCur] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const startTimer = useCallback(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setCur((c) => (c + 1) % SLIDES.length), AUTOPLAY_MS);
-  }, []);
-
   useEffect(() => {
-    startTimer();
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [cur, startTimer]);
-
-  const go = (dir: "prev" | "next") => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setCur((c) =>
-      dir === "next" ? (c + 1) % SLIDES.length : (c - 1 + SLIDES.length) % SLIDES.length
-    );
-  };
+    const t = setTimeout(() => setCur((c) => (c + 1) % SLIDES.length), AUTOPLAY_MS);
+    return () => clearTimeout(t);
+  }, [cur]);
 
   return (
     <section className="relative h-screen min-h-[640px] overflow-hidden bg-pine">
@@ -142,22 +130,6 @@ export function Hero() {
           </div>
         </div>
       ))}
-
-      {/* Arrows */}
-      <button
-        onClick={() => go("prev")}
-        aria-label="Предыдущий слайд"
-        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
-      >
-        <ChevronLeft className="w-5 h-5 text-white" />
-      </button>
-      <button
-        onClick={() => go("next")}
-        aria-label="Следующий слайд"
-        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/15 hover:bg-white/28 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
-      >
-        <ChevronRight className="w-5 h-5 text-white" />
-      </button>
 
       {/* Dots */}
       <div className="absolute bottom-6 right-6 lg:right-12 z-30 flex gap-2 items-center">
