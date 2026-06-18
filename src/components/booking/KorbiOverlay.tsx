@@ -13,8 +13,7 @@ const MESSAGES = [
 function formatDateDMY(date: Date): string {
   const d = String(date.getDate()).padStart(2, "0");
   const m = String(date.getMonth() + 1).padStart(2, "0");
-  const y = date.getFullYear();
-  return `${d}-${m}-${y}`;
+  return `${d}-${m}-${date.getFullYear()}`;
 }
 
 function tomorrowStr(): string {
@@ -30,7 +29,7 @@ function nightsLabel(n: number): string {
 }
 
 export function KorbiOverlay() {
-  const { isOpen, nights, closeBooking } = useBooking();
+  const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, closeBooking } = useBooking();
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
   const [src, setSrc] = useState<string | undefined>();
@@ -45,15 +44,21 @@ export function KorbiOverlay() {
   // Decide mode when overlay opens
   useEffect(() => {
     if (!isOpen) return;
-    if (nights) {
+    if (ctxDfrom && ctxDto) {
+      // Dates pre-filled (from BookingBar) — load iframe directly
+      setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults }));
+      setStep("booking");
+    } else if (nights) {
+      // Offer card with nights count — show date-pick step
       setStep("date-pick");
       setTimeout(() => dateInputRef.current?.focus(), 80);
     } else {
+      // Generic open — load iframe without pre-filled dates
       setStep("booking");
       setSrc(prev => (prev && !prev.includes("dfrom=")) ? prev : defaultUrl);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, nights]);
+  }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults]);
 
   // Reset iframeLoaded when src changes so loading overlay re-appears
   useEffect(() => {
@@ -207,7 +212,7 @@ export function KorbiOverlay() {
 
         {/* ── Booking step: iframe + branded loading layer ── */}
         <div className={`relative overflow-hidden bg-white ${step === "booking" ? "flex-1" : "hidden"}`}>
-          {/* Branded loading overlay — covers Bnovo chrome until iframe is ready */}
+          {/* Branded loading overlay */}
           <div
             aria-hidden="true"
             className={[
