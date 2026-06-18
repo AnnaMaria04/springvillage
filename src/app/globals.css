@@ -3,6 +3,11 @@
 
 /* ─── Design tokens ──────────────────────────────────────────── */
 :root {
+  /* Motion tokens */
+  --ease:       cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-hover:  250ms;
+  --dur-reveal: 500ms;
+
   /* Brand palette */
   --pine:   #2F3E34;
   --moss:   #5A6E54;
@@ -124,6 +129,16 @@
   --radius-full: 9999px;
 }
 
+/* ─── Accessibility ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ─── Custom utilities ───────────────────────────────────────── */
 @layer utilities {
   .font-display { font-family: var(--font-display); }
@@ -162,8 +177,17 @@
     .section-y { padding-top: 7rem; padding-bottom: 7rem; }
   }
 
+  /* Header transition class */
+  .header-transition {
+    transition:
+      background-color var(--dur-hover) var(--ease),
+      box-shadow       var(--dur-hover) var(--ease),
+      border-color     var(--dur-hover) var(--ease),
+      backdrop-filter  var(--dur-hover) var(--ease);
+  }
+
   .hover-lift {
-    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+    transition: transform var(--dur-hover) var(--ease), box-shadow var(--dur-hover) ease;
   }
   .hover-lift:hover {
     transform: translateY(-6px);
@@ -172,7 +196,7 @@
 
   /* Subtle card lift for review cards, deal tiles, etc. */
   .card-hover {
-    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+    transition: transform var(--dur-hover) var(--ease), box-shadow var(--dur-hover) ease;
   }
   .card-hover:hover {
     transform: translateY(-3px);
@@ -182,8 +206,19 @@
   /* Photo zoom: parent gets .media, hover scales the inner .media-img */
   .media { overflow: hidden; }
   .media-img {
-    transition: transform 0.65s cubic-bezier(0.22,1,0.36,1), filter 0.65s ease;
+    transition: transform var(--dur-reveal) var(--ease), filter var(--dur-reveal) ease;
     will-change: transform;
+  }
+
+  /* Scroll-reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity var(--dur-reveal) var(--ease), transform var(--dur-reveal) var(--ease);
+  }
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
   .group:hover .media-img,
   .media:hover .media-img {
@@ -197,17 +232,17 @@
     background-size: 0% 1px;
     background-position: 0 100%;
     background-repeat: no-repeat;
-    transition: background-size 0.4s cubic-bezier(0.22,1,0.36,1);
+    transition: background-size var(--dur-hover) var(--ease);
     padding-bottom: 2px;
   }
   .link-underline:hover { background-size: 100% 1px; }
 
   /* Premium button press/hover */
   .btn-lux {
-    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+    transition: transform var(--dur-hover) var(--ease), box-shadow var(--dur-hover) ease, background-color var(--dur-hover) ease, opacity var(--dur-hover) ease;
   }
-  .btn-lux:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(30,35,31,0.45); }
-  .btn-lux:active { transform: translateY(0); }
+  .btn-lux:hover  { transform: translateY(-1px); box-shadow: 0 14px 30px -12px rgba(30,35,31,0.45); }
+  .btn-lux:active { transform: scale(0.98); }
 
   .img-overlay::after {
     content: '';
@@ -238,7 +273,19 @@
   100% { transform: scale(2.2); opacity: 0; }
 }
 
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes lightbox-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
 .animate-float       { animation: float 3s ease-in-out infinite; }
 .animate-scale-in    { animation: scale-in 0.2s ease-out both; }
 .animate-slide-up    { animation: slide-up 0.3s ease-out both; }
 .animate-whatsapp    { animation: whatsapp-ping 2s ease-out infinite; }
+.animate-fade-in     { animation: fade-in var(--dur-hover) var(--ease) both; }
+.animate-lightbox    { animation: lightbox-in var(--dur-hover) var(--ease) both; }
