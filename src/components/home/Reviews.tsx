@@ -20,7 +20,7 @@ function ReviewCard({ r, expanded, onToggle }: { r: Review; expanded: boolean; o
   const isLong = r.body.length > CLAMP_THRESHOLD;
 
   return (
-    <div className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover">
+    <div className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover" style={{ scrollSnapAlign: "start" }}>
       <Stars n={r.rating} />
       <div className="mt-5 flex-1 flex flex-col">
         <p className={`font-display text-xl text-foreground leading-snug${!expanded && isLong ? " line-clamp-4" : ""}`}>
@@ -67,12 +67,14 @@ export function Reviews() {
   const isDraggingRef = useRef(false);
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType === "touch") return; // native scroll handles touch
     dragStartX.current = e.clientX;
     dragStartScrollLeft.current = scrollRef.current?.scrollLeft ?? 0;
     isDraggingRef.current = false;
   }
 
   function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType === "touch") return;
     if (dragStartX.current === null) return;
     const diff = e.clientX - dragStartX.current;
     if (!isDraggingRef.current && Math.abs(diff) > 5) {
@@ -161,7 +163,7 @@ export function Reviews() {
       <div
         ref={scrollRef}
         className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto select-none cursor-grab active:cursor-grabbing"
-        style={{ touchAction: "pan-y" }}
+        style={{ touchAction: "pan-x", scrollSnapType: "x mandatory" }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
