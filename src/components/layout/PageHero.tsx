@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -10,11 +11,20 @@ type Props = {
 
 export function PageHero({ eyebrow, title, subtitle, image }: Props) {
   return (
-    <header
-      className="relative bg-pine bg-cover bg-center"
-      style={image ? { backgroundImage: `url('${image}')` } : undefined}
-    >
-      {image && <div className="absolute inset-0 bg-black/45" />}
+    <header className="relative bg-pine">
+      {image && (
+        <>
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/45" />
+        </>
+      )}
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-16 lg:pt-36 lg:pb-20">
         <Link
           href="/"
