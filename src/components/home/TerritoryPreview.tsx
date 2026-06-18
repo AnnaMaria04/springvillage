@@ -31,6 +31,7 @@ export function TerritoryPreview() {
   const lockedRef = useRef(false);
   const firstMeasureRef = useRef(true);
   const dragStartX = useRef<number | null>(null);
+  const isDraggingRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -85,14 +86,28 @@ export function TerritoryPreview() {
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     dragStartX.current = e.clientX;
-    e.currentTarget.setPointerCapture(e.pointerId);
+    isDraggingRef.current = false;
+  }
+
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null || isDraggingRef.current) return;
+    if (Math.abs(e.clientX - dragStartX.current) > 5) {
+      isDraggingRef.current = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
   }
 
   function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
     if (dragStartX.current === null) return;
     const diff = e.clientX - dragStartX.current;
     dragStartX.current = null;
-    if (Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
+    if (isDraggingRef.current && Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
+    isDraggingRef.current = false;
+  }
+
+  function onPointerCancel() {
+    dragStartX.current = null;
+    isDraggingRef.current = false;
   }
 
   const realIdx = ((pos - CLONES) % N + N) % N;
@@ -131,7 +146,9 @@ export function TerritoryPreview() {
             className={`overflow-hidden transition-opacity duration-300 ${containerW > 0 ? "opacity-100" : "opacity-0"}`}
             style={{ touchAction: "pan-y" }}
             onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
+            onPointerCancel={onPointerCancel}
           >
             <div
               className="flex select-none"
@@ -156,7 +173,7 @@ export function TerritoryPreview() {
                         className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
                         style={{ backgroundImage: `url('${t.photo}')` }}
                       />
-                      <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)]" />
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)] pointer-events-none" />
                       <div className="absolute bottom-5 left-5 right-5 z-20" style={{ transform: "translateZ(0)" }}>
                         <p className="font-display text-xl font-bold text-white leading-tight">{t.title}</p>
                         <p className="text-white/65 text-sm mt-1">{t.sub}</p>
