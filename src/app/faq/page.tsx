@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Частые вопросы",
   description:
     "Заезд и выезд, вместимость, животные, оплата, отмена, парковка — ответы на частые вопросы о Коттедже WILD.",
+  alternates: { canonical: "/faq" },
 };
 
 export default function FaqPage() {

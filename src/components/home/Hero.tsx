@@ -109,14 +109,25 @@ export function Hero() {
             <p className="text-white/50 text-[11px] font-semibold uppercase tracking-[0.22em] mb-3">
               {CONTACT.addressShort} · {slide.label}
             </p>
-            <h1
-              className="font-display font-bold text-white leading-[0.93] tracking-tight mb-4"
-              style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
-            >
-              {slide.title.split("\n").map((line, j, arr) => (
-                <span key={j}>{line}{j < arr.length - 1 && <br className="hidden sm:block" />}</span>
-              ))}
-            </h1>
+            {i === 0 ? (
+              <h1
+                className="font-display font-bold text-white leading-[0.93] tracking-tight mb-4"
+                style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
+              >
+                {slide.title.split("\n").map((line, j, arr) => (
+                  <span key={j}>{line}{j < arr.length - 1 && <br className="hidden sm:block" />}</span>
+                ))}
+              </h1>
+            ) : (
+              <p
+                className="font-display font-bold text-white leading-[0.93] tracking-tight mb-4"
+                style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
+              >
+                {slide.title.split("\n").map((line, j, arr) => (
+                  <span key={j}>{line}{j < arr.length - 1 && <br className="hidden sm:block" />}</span>
+                ))}
+              </p>
+            )}
             <p className="text-white/65 text-base leading-relaxed max-w-md mb-7">
               {slide.subtitle}
             </p>

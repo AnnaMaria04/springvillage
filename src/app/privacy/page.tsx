@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { CONTACT, SITE } from "@/lib/data";
+
+export const metadata: Metadata = {
+  title: "Политика конфиденциальности",
+  description: "Политика обработки персональных данных Spring Village.",
+  alternates: { canonical: "/privacy" },
+  robots: { index: false, follow: false },
+};
 
 export default function PrivacyPage() {
   return (
