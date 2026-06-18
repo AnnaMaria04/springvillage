@@ -13,8 +13,8 @@ const features = [
 
 export function StayPreview() {
   return (
-    <section className="bg-background py-24 lg:py-32">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="bg-background py-20 lg:py-28">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="group grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden bg-cream border border-border hover-lift">
           {/* Photo */}
           <div className="media relative min-h-[340px] lg:min-h-[560px]">
