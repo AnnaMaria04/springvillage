@@ -9,6 +9,7 @@ import { MobileBookBar } from "@/components/layout/MobileBookBar";
 import { CookieBanner } from "@/components/global/CookieBanner";
 import { SITE } from "@/content/site";
 import { BookingProvider } from "@/context/booking-context";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -85,7 +86,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
         <BookingProvider>
           <Header />
-          <main className="flex-1 pb-[58px] lg:pb-0">{children}</main>
+          <main className="flex-1 pb-[58px] lg:pb-0">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
           <WhatsAppButton />
           <MobileBookBar />
