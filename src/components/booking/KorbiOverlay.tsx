@@ -41,26 +41,30 @@ export function KorbiOverlay() {
   const shellRef = useRef<HTMLDivElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
 
+  // Reset state on close so next open always starts fresh with loading screen
+  useEffect(() => {
+    if (isOpen) return;
+    setSrc(undefined);
+    setIframeLoaded(false);
+  }, [isOpen]);
+
   // Decide mode when overlay opens
   useEffect(() => {
     if (!isOpen) return;
     if (ctxDfrom && ctxDto) {
-      // Dates pre-filled (from BookingBar) — load iframe directly
       setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges }));
       setStep("booking");
     } else if (nights) {
-      // Offer card with nights count — show date-pick step
       setStep("date-pick");
       setTimeout(() => dateInputRef.current?.focus(), 80);
     } else {
-      // Generic open — load iframe without pre-filled dates
       setStep("booking");
-      setSrc(prev => (prev && !prev.includes("dfrom=")) ? prev : defaultUrl);
+      setSrc(defaultUrl);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren, ctxChildrenAges]);
 
-  // Reset iframeLoaded when src changes so loading overlay re-appears
+  // Show loading overlay whenever src is set/changed
   useEffect(() => {
     if (src) setIframeLoaded(false);
   }, [src]);
