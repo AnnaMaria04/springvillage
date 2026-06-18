@@ -71,8 +71,10 @@ export function Reviews() {
     const el = scrollRef.current;
     if (!el) return;
     function onWheel(e: WheelEvent) {
+      // Let native CSS handle horizontal trackpad swipes (deltaX dominant)
+      if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
       e.preventDefault();
-      el!.scrollLeft += e.deltaY + e.deltaX;
+      el!.scrollLeft += e.deltaY;
     }
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
