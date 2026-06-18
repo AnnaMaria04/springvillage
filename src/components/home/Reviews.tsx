@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { REVIEWS } from "@/content/reviews";
+import { REVIEWS, type Review } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
 
 function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
@@ -12,6 +12,41 @@ function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
   } else {
     el.scrollLeft = offset;
   }
+}
+
+const CLAMP_THRESHOLD = 200;
+
+function ReviewCard({ r }: { r: Review }) {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = r.body.length > CLAMP_THRESHOLD;
+
+  return (
+    <div className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover">
+      <Stars n={r.rating} />
+      <div className="mt-5 flex-1 flex flex-col">
+        <p className={`font-display text-xl text-foreground leading-snug${!expanded && isLong ? " line-clamp-4" : ""}`}>
+          «{r.body}»
+        </p>
+        {isLong && (
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="mt-3 self-start text-sm font-medium text-pine hover:text-pine/70 transition-colors cursor-pointer"
+          >
+            {expanded ? "Свернуть" : "Читать полностью"}
+          </button>
+        )}
+      </div>
+      <div className="mt-8 pt-6 border-t border-border flex items-center gap-3">
+        <div className="w-9 h-9 rounded-full bg-pine flex items-center justify-center text-white text-sm font-semibold shrink-0">
+          {r.initials}
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-foreground">{r.author}</p>
+          <p className="text-xs text-muted-foreground">{r.date}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Stars({ n }: { n: number }) {
@@ -97,24 +132,7 @@ export function Reviews() {
         className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
       >
         {REVIEWS.map((r, i) => (
-          <div
-            key={i}
-            className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover"
-          >
-            <Stars n={r.rating} />
-            <p className="font-display text-xl text-foreground leading-snug mt-5 flex-1">
-              «{r.body}»
-            </p>
-            <div className="mt-8 pt-6 border-t border-border flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-pine flex items-center justify-center text-white text-sm font-semibold shrink-0">
-                {r.initials}
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">{r.author}</p>
-                <p className="text-xs text-muted-foreground">{r.date}</p>
-              </div>
-            </div>
-          </div>
+          <ReviewCard key={i} r={r} />
         ))}
       </div>
     </section>

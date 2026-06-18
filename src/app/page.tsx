@@ -24,7 +24,7 @@ export default function HomePage() {
       <Deals />
       <ExperiencePreview />
       <TerritoryPreview />
-      <Reveal><Reviews /></Reveal>
+      <Reviews />
       <LocationPreview />
     </>
   );
