@@ -8,6 +8,7 @@ export type BookingOpts = {
   dfrom?: string;
   dto?: string;
   adults?: number;
+  children?: number;
 };
 
 type BookingCtx = {
@@ -16,6 +17,7 @@ type BookingCtx = {
   dfrom: string | undefined;
   dto: string | undefined;
   adults: number | undefined;
+  children: number | undefined;
   openBooking: (opts?: BookingOpts) => void;
   closeBooking: () => void;
 };
@@ -28,26 +30,28 @@ export function useBooking(): BookingCtx {
   return ctx;
 }
 
-export function BookingProvider({ children }: { children: React.ReactNode }) {
-  const [isOpen,  setIsOpen]  = useState(false);
-  const [nights,  setNights]  = useState<number | undefined>();
-  const [dfrom,   setDfrom]   = useState<string | undefined>();
-  const [dto,     setDto]     = useState<string | undefined>();
-  const [adults,  setAdults]  = useState<number | undefined>();
+export function BookingProvider({ children: childrenProp }: { children: React.ReactNode }) {
+  const [isOpen,    setIsOpen]    = useState(false);
+  const [nights,    setNights]    = useState<number | undefined>();
+  const [dfrom,     setDfrom]     = useState<string | undefined>();
+  const [dto,       setDto]       = useState<string | undefined>();
+  const [adults,    setAdults]    = useState<number | undefined>();
+  const [children,  setChildren]  = useState<number | undefined>();
 
   const openBooking = useCallback((opts?: BookingOpts) => {
     setNights(opts?.nights);
     setDfrom(opts?.dfrom);
     setDto(opts?.dto);
     setAdults(opts?.adults);
+    setChildren(opts?.children);
     setIsOpen(true);
   }, []);
 
   const closeBooking = useCallback(() => setIsOpen(false), []);
 
   return (
-    <BookingContext.Provider value={{ isOpen, nights, dfrom, dto, adults, openBooking, closeBooking }}>
-      {children}
+    <BookingContext.Provider value={{ isOpen, nights, dfrom, dto, adults, children, openBooking, closeBooking }}>
+      {childrenProp}
       <KorbiOverlay />
     </BookingContext.Provider>
   );

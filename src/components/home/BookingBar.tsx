@@ -70,12 +70,12 @@ interface MonthGridProps {
 }
 
 function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
-  const rows       = buildGrid(year, month);
+  const rows        = buildGrid(year, month);
   const hasBothEnds = dfrom !== null && dto !== null;
 
   return (
     <div>
-      <p className="text-center text-sm font-semibold mb-3" style={{ color: "#F4EFE4" }}>
+      <p className="text-center text-sm font-semibold mb-3" style={{ color: "#1F2A24" }}>
         {MONTHS_RU[month]} {year}
       </p>
 
@@ -85,7 +85,7 @@ function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
           <div
             key={label}
             className="text-center py-1 text-[11px] font-semibold"
-            style={{ color: i >= 5 ? "rgba(194,160,107,.5)" : "rgba(244,239,228,.4)" }}
+            style={{ color: i >= 5 ? "#C2A06B" : "rgba(31,42,36,.4)" }}
           >
             {label}
           </div>
@@ -96,7 +96,7 @@ function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
       {rows.map((week, wi) => (
         <div key={wi} className="grid grid-cols-7">
           {week.map((day, di) => {
-            if (!day) return <div key={di} className="h-9" />;
+            if (!day) return <div key={di} className="h-10" />;
 
             const past    = day < today;
             const isDfrom = dfrom ? sameDay(day, dfrom) : false;
@@ -119,13 +119,13 @@ function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
                 type="button"
                 disabled={past}
                 onClick={() => onDay(day)}
-                className="h-9 flex items-center justify-center text-sm transition-colors"
+                className="h-10 flex items-center justify-center text-sm transition-colors"
                 style={{
                   cursor:       past ? "default" : "pointer",
-                  color:        past    ? "rgba(244,239,228,.2)"
+                  color:        past    ? "rgba(31,42,36,.25)"
                               : sel     ? "#2F3E34"
-                              : weekend ? "rgba(194,160,107,.85)"
-                              : "#F4EFE4",
+                              : weekend ? "#C2A06B"
+                              : "#1F2A24",
                   fontWeight:   sel ? 700 : undefined,
                   background:   sel     ? "#C2A06B"
                               : inRange  ? "rgba(194,160,107,.18)"
@@ -189,6 +189,7 @@ export function BookingBar() {
   const [dfrom,         setDfrom]         = useState<Date | null>(null);
   const [dto,           setDto]           = useState<Date | null>(null);
   const [adults,        setAdults]        = useState(2);
+  const [children,      setChildren]      = useState(0);
   const [active,        setActive]        = useState<ActiveField>(null);
   const [viewMonth,     setViewMonth]     = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1)
@@ -251,7 +252,7 @@ export function BookingBar() {
   function handleSubmit() {
     // If dates not chosen, open the calendar to prompt selection
     if (!dfrom || !dto) { setActive("dfrom"); return; }
-    openBooking({ dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults });
+    openBooking({ dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults, children: children > 0 ? children : undefined });
   }
 
   return (
@@ -298,38 +299,43 @@ export function BookingBar() {
             <span style={VALUE_STYLE}>{dto ? fmtDisplay(dto) : "Выбрать дату"}</span>
           </button>
 
-          {/* ГОСТИ — stepper */}
+          {/* ГОСТИ — adults + children steppers */}
           <div
             className="flex-1 px-4 py-3"
             style={FIELD_BASE}
           >
             <span style={LABEL_STYLE}>Гости</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "5px" }}>
-              <button
-                type="button"
-                onClick={() => setAdults(n => Math.max(1, n - 1))}
-                disabled={adults <= 1}
-                className="w-7 h-7 flex items-center justify-center rounded text-xl leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
-                style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
-                aria-label="Уменьшить количество гостей"
-              >
-                −
-              </button>
-              <span
-                style={{ ...VALUE_STYLE, marginTop: 0, minWidth: "88px", textAlign: "center" }}
-              >
-                {adults}&nbsp;{guestsLabel(adults)}
-              </span>
-              <button
-                type="button"
-                onClick={() => setAdults(n => Math.min(5, n + 1))}
-                disabled={adults >= 5}
-                className="w-7 h-7 flex items-center justify-center rounded text-xl leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
-                style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
-                aria-label="Увеличить количество гостей"
-              >
-                +
-              </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "5px" }}>
+              {/* Adults row */}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ ...VALUE_STYLE, marginTop: 0, fontSize: "12px", color: "rgba(244,239,228,.55)", minWidth: "56px" }}>
+                  Взрослые
+                </span>
+                <button type="button" onClick={() => setAdults(n => Math.max(1, n - 1))} disabled={adults <= 1}
+                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
+                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
+                  aria-label="Уменьшить взрослых">−</button>
+                <span style={{ ...VALUE_STYLE, marginTop: 0, minWidth: "20px", textAlign: "center" }}>{adults}</span>
+                <button type="button" onClick={() => setAdults(n => Math.min(5, n + 1))} disabled={adults >= 5}
+                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
+                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
+                  aria-label="Увеличить взрослых">+</button>
+              </div>
+              {/* Children row */}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ ...VALUE_STYLE, marginTop: 0, fontSize: "12px", color: "rgba(244,239,228,.55)", minWidth: "56px" }}>
+                  Дети
+                </span>
+                <button type="button" onClick={() => setChildren(n => Math.max(0, n - 1))} disabled={children <= 0}
+                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
+                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
+                  aria-label="Уменьшить детей">−</button>
+                <span style={{ ...VALUE_STYLE, marginTop: 0, minWidth: "20px", textAlign: "center" }}>{children}</span>
+                <button type="button" onClick={() => setChildren(n => Math.min(3, n + 1))} disabled={children >= 3}
+                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
+                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
+                  aria-label="Увеличить детей">+</button>
+              </div>
             </div>
           </div>
         </div>
@@ -345,21 +351,22 @@ export function BookingBar() {
         </button>
       </div>
 
-      {/* ── Expanding calendar ───────────────────────────────────────────────── */}
+      {/* ── Expanding calendar (light panel) ────────────────────────────────── */}
       <div
         style={{
           display:          "grid",
           gridTemplateRows: calOpen ? "1fr" : "0fr",
-          transition:       reducedMotion ? "none" : "grid-template-rows 0.35s ease",
+          transition:       reducedMotion ? "none" : "grid-template-rows 0.38s cubic-bezier(0.25,0.46,0.45,0.94)",
         }}
       >
         {/* Inner div must have overflow:hidden for grid-template-rows trick */}
         <div style={{ overflow: "hidden" }}>
           <div
             style={{
-              background:   "#33453B",
+              background:   "#FBF8F2",
               borderRadius: "0 0 16px 16px",
-              padding:      "8px 24px 28px",
+              padding:      "8px 28px 28px",
+              boxShadow:    "0 12px 40px rgba(31,42,36,.12)",
             }}
           >
             {/* Navigation */}
@@ -368,8 +375,8 @@ export function BookingBar() {
                 type="button"
                 onClick={() => setViewMonth(m => shiftMonth(m, -1))}
                 disabled={!canGoBack}
-                className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-default"
-                style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
+                className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-default hover:bg-black/5"
+                style={{ color: "#2F3E34", background: "none", border: "none" }}
                 aria-label="Предыдущий месяц"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -377,8 +384,8 @@ export function BookingBar() {
               <button
                 type="button"
                 onClick={() => setViewMonth(m => shiftMonth(m, 1))}
-                className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors cursor-pointer"
-                style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
+                className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors cursor-pointer hover:bg-black/5"
+                style={{ color: "#2F3E34", background: "none", border: "none" }}
                 aria-label="Следующий месяц"
               >
                 <ChevronRight className="w-4 h-4" />

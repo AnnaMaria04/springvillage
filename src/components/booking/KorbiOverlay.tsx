@@ -29,7 +29,7 @@ function nightsLabel(n: number): string {
 }
 
 export function KorbiOverlay() {
-  const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, closeBooking } = useBooking();
+  const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, closeBooking } = useBooking();
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
   const [src, setSrc] = useState<string | undefined>();
@@ -46,7 +46,7 @@ export function KorbiOverlay() {
     if (!isOpen) return;
     if (ctxDfrom && ctxDto) {
       // Dates pre-filled (from BookingBar) — load iframe directly
-      setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults }));
+      setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren }));
       setStep("booking");
     } else if (nights) {
       // Offer card with nights count — show date-pick step
@@ -58,7 +58,7 @@ export function KorbiOverlay() {
       setSrc(prev => (prev && !prev.includes("dfrom=")) ? prev : defaultUrl);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults]);
+  }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren]);
 
   // Reset iframeLoaded when src changes so loading overlay re-appears
   useEffect(() => {
@@ -113,10 +113,10 @@ export function KorbiOverlay() {
   function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const val = e.target.value; // YYYY-MM-DD
     if (!val || !nights) return;
-    const [y, m, d] = val.split("-");
-    const dfrom = `${d}-${m}-${y}`;
-    const checkout = new Date(val);
-    checkout.setDate(checkout.getDate() + nights);
+    const [y, m, d] = val.split("-").map(Number);
+    // Use local date constructor to avoid UTC-offset date shift bugs
+    const dfrom = `${String(d).padStart(2,"0")}-${String(m).padStart(2,"0")}-${y}`;
+    const checkout = new Date(y, m - 1, d + nights); // d+nights handles month overflow
     setSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
     setStep("booking");
   }

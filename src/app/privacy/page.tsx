@@ -55,6 +55,14 @@ export default function PrivacyPage() {
             Продолжая использовать сайт, вы соглашаетесь с использованием cookies.
           </p>
 
+          <h2 className="font-display text-xl font-bold text-foreground mt-8">Оператор персональных данных</h2>
+          <p>
+            В соответствии с Федеральным законом № 152-ФЗ «О персональных данных»:<br />
+            <strong>ИП Кушковский Павел Юрьевич</strong><br />
+            ИНН: ___________________<br />
+            Адрес регистрации: ___________________
+          </p>
+
           <h2 className="font-display text-xl font-bold text-foreground mt-8">Контакты</h2>
           <p>
             Вопросы по конфиденциальности:{" "}
