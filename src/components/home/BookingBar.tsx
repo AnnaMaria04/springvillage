@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useBooking } from "@/context/booking-context";
 
-// ─── Locale ──────────────────────────────────────────────────────────────────
+// ─── Locale ───────────────────────────────────────────────────────────────────
 
 const MONTHS_RU = [
   "Январь","Февраль","Март","Апрель","Май","Июнь",
@@ -36,7 +36,7 @@ function fmtDMY(d: Date) {
 
 function guestsLabel(n: number) {
   if (n === 1) return "гость";
-  if (n <= 4) return "гостя";
+  if (n <= 4)  return "гостя";
   return "гостей";
 }
 
@@ -105,7 +105,6 @@ function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
             const inRange = !!(dfrom && dto && day > dfrom && day < dto);
             const weekend = isWeekend(day);
 
-            // Flatten inner edge of range endpoints so highlight is continuous
             let radius = "8px";
             if (sel && hasBothEnds) {
               radius = isDfrom ? "8px 0 0 8px" : "0 8px 8px 0";
@@ -128,7 +127,7 @@ function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
                               : "#1F2A24",
                   fontWeight:   sel ? 700 : undefined,
                   background:   sel     ? "#C2A06B"
-                              : inRange  ? "rgba(194,160,107,.18)"
+                              : inRange ? "rgba(194,160,107,.18)"
                               : "transparent",
                   borderRadius: (sel || inRange) ? radius : undefined,
                 }}
@@ -143,9 +142,7 @@ function MonthGrid({ year, month, today, dfrom, dto, onDay }: MonthGridProps) {
   );
 }
 
-// ─── BookingBar ───────────────────────────────────────────────────────────────
-
-type ActiveField = "dfrom" | "dto" | null;
+// ─── Shared field styles ──────────────────────────────────────────────────────
 
 const FIELD_BASE: React.CSSProperties = {
   background:   "rgba(255,255,255,.06)",
@@ -177,6 +174,10 @@ const VALUE_STYLE: React.CSSProperties = {
   whiteSpace: "nowrap",
 };
 
+// ─── BookingBar ───────────────────────────────────────────────────────────────
+
+type ActiveField = "dfrom" | "dto" | null;
+
 export function BookingBar() {
   const { openBooking } = useBooking();
 
@@ -188,19 +189,17 @@ export function BookingBar() {
 
   const [dfrom,         setDfrom]         = useState<Date | null>(null);
   const [dto,           setDto]           = useState<Date | null>(null);
-  const [adults,        setAdults]        = useState(2);
-  const [children,      setChildren]      = useState(0);
+  const [guests,        setGuests]        = useState(2);
   const [active,        setActive]        = useState<ActiveField>(null);
   const [viewMonth,     setViewMonth]     = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1)
   );
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  const barRef         = useRef<HTMLDivElement>(null);
-  const calOpen        = active !== null;
-  const month2         = shiftMonth(viewMonth, 1);
-  const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-  const canGoBack      = viewMonth > thisMonthStart;
+  const barRef      = useRef<HTMLDivElement>(null);
+  const calOpen     = active !== null;
+  const month2      = shiftMonth(viewMonth, 1);
+  const canGoBack   = viewMonth > new Date(today.getFullYear(), today.getMonth(), 1);
 
   // Detect prefers-reduced-motion
   useEffect(() => {
@@ -231,18 +230,15 @@ export function BookingBar() {
 
   function handleDay(day: Date) {
     if (!dfrom || dto !== null) {
-      // Start fresh range
       setDfrom(day);
       setDto(null);
       setActive("dto");
       return;
     }
-    // dfrom set, dto not yet
     if (sameDay(day, dfrom)) { setDfrom(null); return; }
     if (day < dfrom)         { setDfrom(day); setDto(null); return; }
-    // Valid end date — close calendar
     setDto(day);
-    setActive(null);
+    setActive(null); // close when range complete
   }
 
   function toggleField(field: ActiveField) {
@@ -250,15 +246,19 @@ export function BookingBar() {
   }
 
   function handleSubmit() {
-    // If dates not chosen, open the calendar to prompt selection
     if (!dfrom || !dto) { setActive("dfrom"); return; }
-    openBooking({ dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults, children: children > 0 ? children : undefined });
+    openBooking({ dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults: guests });
   }
 
-  return (
-    <div ref={barRef} style={{ background: "#2F3E34" }}>
+  const CAL_TRANSITION = reducedMotion
+    ? "none"
+    : "opacity 250ms cubic-bezier(0.22,1,0.36,1), transform 250ms cubic-bezier(0.22,1,0.36,1)";
 
-      {/* ── Bar row ─────────────────────────────────────────────────────────── */}
+  return (
+    /* position:relative is the anchor for the floating calendar */
+    <div ref={barRef} style={{ background: "#2F3E34", position: "relative" }}>
+
+      {/* ── Bar row ────────────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 px-6 sm:px-8 lg:px-12 py-[22px]">
 
         {/* Title block */}
@@ -281,7 +281,9 @@ export function BookingBar() {
           <button
             type="button"
             onClick={() => toggleField("dfrom")}
-            className="flex-1 px-4 py-3 text-left"
+            aria-expanded={active === "dfrom"}
+            aria-haspopup="dialog"
+            className="flex-1 px-4 py-3 text-left cursor-pointer"
             style={active === "dfrom" ? { ...FIELD_BASE, ...FIELD_ACTIVE } : FIELD_BASE}
           >
             <span style={LABEL_STYLE}>Заезд</span>
@@ -292,50 +294,45 @@ export function BookingBar() {
           <button
             type="button"
             onClick={() => toggleField("dto")}
-            className="flex-1 px-4 py-3 text-left"
+            aria-expanded={active === "dto"}
+            aria-haspopup="dialog"
+            className="flex-1 px-4 py-3 text-left cursor-pointer"
             style={active === "dto" ? { ...FIELD_BASE, ...FIELD_ACTIVE } : FIELD_BASE}
           >
             <span style={LABEL_STYLE}>Выезд</span>
             <span style={VALUE_STYLE}>{dto ? fmtDisplay(dto) : "Выбрать дату"}</span>
           </button>
 
-          {/* ГОСТИ — adults + children steppers */}
-          <div
-            className="flex-1 px-4 py-3"
-            style={FIELD_BASE}
-          >
+          {/* ГОСТИ */}
+          <div className="flex-1 px-4 py-3" style={FIELD_BASE}>
             <span style={LABEL_STYLE}>Гости</span>
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "5px" }}>
-              {/* Adults row */}
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ ...VALUE_STYLE, marginTop: 0, fontSize: "12px", color: "rgba(244,239,228,.55)", minWidth: "56px" }}>
-                  Взрослые
-                </span>
-                <button type="button" onClick={() => setAdults(n => Math.max(1, n - 1))} disabled={adults <= 1}
-                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
-                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
-                  aria-label="Уменьшить взрослых">−</button>
-                <span style={{ ...VALUE_STYLE, marginTop: 0, minWidth: "20px", textAlign: "center" }}>{adults}</span>
-                <button type="button" onClick={() => setAdults(n => Math.min(5, n + 1))} disabled={adults >= 5}
-                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
-                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
-                  aria-label="Увеличить взрослых">+</button>
-              </div>
-              {/* Children row */}
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ ...VALUE_STYLE, marginTop: 0, fontSize: "12px", color: "rgba(244,239,228,.55)", minWidth: "56px" }}>
-                  Дети
-                </span>
-                <button type="button" onClick={() => setChildren(n => Math.max(0, n - 1))} disabled={children <= 0}
-                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
-                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
-                  aria-label="Уменьшить детей">−</button>
-                <span style={{ ...VALUE_STYLE, marginTop: 0, minWidth: "20px", textAlign: "center" }}>{children}</span>
-                <button type="button" onClick={() => setChildren(n => Math.min(3, n + 1))} disabled={children >= 3}
-                  className="w-6 h-6 flex items-center justify-center rounded text-lg leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default"
-                  style={{ color: "rgba(244,239,228,.8)", background: "none", border: "none" }}
-                  aria-label="Увеличить детей">+</button>
-              </div>
+            <div className="flex items-center gap-2 mt-[5px]">
+              <button
+                type="button"
+                onClick={() => setGuests(n => Math.max(1, n - 1))}
+                disabled={guests <= 1}
+                className="w-7 h-7 flex items-center justify-center text-xl leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default select-none"
+                style={{ color: "rgba(244,239,228,.85)" }}
+                aria-label="Уменьшить количество гостей"
+              >
+                −
+              </button>
+              <span
+                className="text-sm font-medium text-center"
+                style={{ color: "#F4EFE4", minWidth: "72px", whiteSpace: "nowrap" }}
+              >
+                {guests} {guestsLabel(guests)}
+              </span>
+              <button
+                type="button"
+                onClick={() => setGuests(n => Math.min(5, n + 1))}
+                disabled={guests >= 5}
+                className="w-7 h-7 flex items-center justify-center text-xl leading-none disabled:opacity-30 cursor-pointer disabled:cursor-default select-none"
+                style={{ color: "rgba(244,239,228,.85)" }}
+                aria-label="Увеличить количество гостей"
+              >
+                +
+              </button>
             </div>
           </div>
         </div>
@@ -351,67 +348,79 @@ export function BookingBar() {
         </button>
       </div>
 
-      {/* ── Expanding calendar (light panel) ────────────────────────────────── */}
+      {/* ── Floating calendar panel ─────────────────────────────────────────── */}
+      {/*
+        Always in DOM; toggled via opacity/transform/pointer-events.
+        position:absolute anchors it under the green bar without pushing content.
+        z-index:200 floats it above the page sections below.
+      */}
       <div
+        role="dialog"
+        aria-label="Выбор дат"
+        aria-hidden={!calOpen}
         style={{
-          display:          "grid",
-          gridTemplateRows: calOpen ? "1fr" : "0fr",
-          transition:       reducedMotion ? "none" : "grid-template-rows 0.38s cubic-bezier(0.25,0.46,0.45,0.94)",
+          position:        "absolute",
+          top:             "calc(100% + 8px)",
+          left:            0,
+          right:           0,
+          zIndex:          200,
+          /* Entry/exit animation — opacity + slight translateY/scale */
+          opacity:         calOpen ? 1 : 0,
+          transform:       calOpen ? "translateY(0) scale(1)" : "translateY(-10px) scale(0.98)",
+          transformOrigin: "top center",
+          pointerEvents:   calOpen ? "auto" : "none",
+          transition:      CAL_TRANSITION,
+          /* Calendar look */
+          background:   "#FFFFFF",
+          borderRadius: "16px",
+          boxShadow:    "0 24px 64px rgba(31,42,36,.22), 0 2px 16px rgba(31,42,36,.08)",
+          overflowY:    "auto",
+          maxHeight:    "90vh",
         }}
       >
-        {/* Inner div must have overflow:hidden for grid-template-rows trick */}
-        <div style={{ overflow: "hidden" }}>
-          <div
-            style={{
-              background:   "#FBF8F2",
-              borderRadius: "0 0 16px 16px",
-              padding:      "8px 28px 28px",
-              boxShadow:    "0 12px 40px rgba(31,42,36,.12)",
-            }}
-          >
-            {/* Navigation */}
-            <div className="flex items-center justify-between py-3">
-              <button
-                type="button"
-                onClick={() => setViewMonth(m => shiftMonth(m, -1))}
-                disabled={!canGoBack}
-                className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-default hover:bg-black/5"
-                style={{ color: "#2F3E34", background: "none", border: "none" }}
-                aria-label="Предыдущий месяц"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMonth(m => shiftMonth(m, 1))}
-                className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors cursor-pointer hover:bg-black/5"
-                style={{ color: "#2F3E34", background: "none", border: "none" }}
-                aria-label="Следующий месяц"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+        <div style={{ padding: "8px 28px 28px" }}>
+          {/* Navigation row */}
+          <div className="flex items-center justify-between py-3">
+            <button
+              type="button"
+              onClick={() => setViewMonth(m => shiftMonth(m, -1))}
+              disabled={!canGoBack}
+              className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer disabled:opacity-30 disabled:cursor-default hover:bg-black/5 transition-colors"
+              style={{ color: "#2F3E34" }}
+              aria-label="Предыдущий месяц"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMonth(m => shiftMonth(m, 1))}
+              className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-black/5 transition-colors"
+              style={{ color: "#2F3E34" }}
+              aria-label="Следующий месяц"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
 
-            {/* Month grids — 1 on mobile, 2 on sm+ */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {/* Month grids — 1 on mobile, 2 on sm+ */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <MonthGrid
+              year={viewMonth.getFullYear()}
+              month={viewMonth.getMonth()}
+              today={today}
+              dfrom={dfrom}
+              dto={dto}
+              onDay={handleDay}
+            />
+            <div className="hidden sm:block">
               <MonthGrid
-                year={viewMonth.getFullYear()}
-                month={viewMonth.getMonth()}
+                year={month2.getFullYear()}
+                month={month2.getMonth()}
                 today={today}
                 dfrom={dfrom}
                 dto={dto}
                 onDay={handleDay}
               />
-              <div className="hidden sm:block">
-                <MonthGrid
-                  year={month2.getFullYear()}
-                  month={month2.getMonth()}
-                  today={today}
-                  dfrom={dfrom}
-                  dto={dto}
-                  onDay={handleDay}
-                />
-              </div>
             </div>
           </div>
         </div>
