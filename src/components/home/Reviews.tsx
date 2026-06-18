@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { REVIEWS, type Review } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
@@ -65,6 +65,18 @@ export function Reviews() {
   const dragStartX = useRef<number | null>(null);
   const dragStartScrollLeft = useRef(0);
   const isDraggingRef = useRef(false);
+
+  // Redirect vertical wheel to horizontal scroll on desktop
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    function onWheel(e: WheelEvent) {
+      e.preventDefault();
+      el!.scrollLeft += e.deltaY + e.deltaX;
+    }
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (e.pointerType === "touch") return; // native scroll handles touch
