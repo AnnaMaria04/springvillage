@@ -57,6 +57,7 @@ const AUTOPLAY_MS = 4000;
 
 export function Hero() {
   const [cur, setCur] = useState(0);
+  const [animTick, setAnimTick] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { openBooking } = useBooking();
 
@@ -65,18 +66,32 @@ export function Hero() {
     return () => clearTimeout(t);
   }, [cur]);
 
+  // Increment animTick each time the active slide changes to restart the zoom animation
+  useEffect(() => {
+    setAnimTick(t => t + 1);
+  }, [cur]);
+
   return (
     <section className="relative h-screen min-h-[640px] overflow-hidden bg-pine">
-      {/* Background images — cross-fade */}
+      {/* Background images — cross-fade with Ken Burns zoom per slide */}
       {SLIDES.map((slide, i) => (
         <div
           key={i}
           aria-hidden={i !== cur}
-          className={`absolute inset-0 bg-stone-700 bg-cover bg-center transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ease-in-out ${
             i === cur ? "opacity-100" : "opacity-0"
           }`}
-          style={{ backgroundImage: `url('${slide.image}')` }}
-        />
+        >
+          {/* Inner div remounts when slide activates, restarting the zoom animation */}
+          <div
+            key={i === cur ? `${i}-${animTick}` : i}
+            className="absolute inset-0 bg-stone-700 bg-cover bg-center"
+            style={{
+              backgroundImage: `url('${slide.image}')`,
+              animation: "hero-zoom 5s ease-out forwards",
+            }}
+          />
+        </div>
       ))}
 
       {/* Dark scrim — only bottom half */}
