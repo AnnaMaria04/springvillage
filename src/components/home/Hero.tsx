@@ -114,7 +114,7 @@ export function Hero() {
               style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
             >
               {slide.title.split("\n").map((line, j, arr) => (
-                <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
+                <span key={j}>{line}{j < arr.length - 1 && <br className="hidden sm:block" />}</span>
               ))}
             </h1>
             <p className="text-white/65 text-base leading-relaxed max-w-md mb-7">
@@ -147,16 +147,18 @@ export function Hero() {
       ))}
 
       {/* Dots */}
-      <div className="absolute bottom-6 right-6 lg:right-12 z-30 flex gap-2 items-center">
+      <div className="absolute bottom-6 right-6 lg:right-12 z-30 flex items-center">
         {SLIDES.map((_, i) => (
           <button
             key={i}
             onClick={() => { if (timerRef.current) clearTimeout(timerRef.current); setCur(i); }}
             aria-label={`Слайд ${i + 1}`}
-            className={`rounded-full transition-all duration-300 cursor-pointer ${
+            className="flex items-center justify-center w-11 h-11 cursor-pointer"
+          >
+            <span className={`rounded-full transition-all duration-300 block ${
               i === cur ? "bg-white w-6 h-2" : "bg-white/40 w-2 h-2 hover:bg-white/65"
-            }`}
-          />
+            }`} />
+          </button>
         ))}
       </div>
     </section>

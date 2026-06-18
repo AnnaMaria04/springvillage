@@ -321,7 +321,7 @@ export function BookingBar() {
   const guestsOpen = panel === "guests";
 
   return (
-    <div ref={barRef} style={{ background: "#2F3E34", position: "relative", zIndex: 30 }}>
+    <div ref={barRef} className="hidden md:block" style={{ background: "#2F3E34", position: "relative", zIndex: 30 }}>
 
       {/* ── Bar row ─────────────────────────────────────────────────────────── */}
       <div

@@ -86,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
         <BookingProvider>
           <Header />
-          <main className="flex-1 pb-[58px] lg:pb-0">
+          <main className="flex-1 pb-[58px] md:pb-0">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

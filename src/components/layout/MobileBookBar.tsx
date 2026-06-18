@@ -7,7 +7,7 @@ import { useBooking } from "@/context/booking-context";
 export function MobileBookBar() {
   const { openBooking } = useBooking();
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden border-t border-white/10 bg-pine/97 backdrop-blur-sm">
+    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden border-t border-white/10 bg-pine/97 backdrop-blur-sm">
       <div className="flex">
         <a
           href={`tel:${CONTACT.phoneDial}`}
