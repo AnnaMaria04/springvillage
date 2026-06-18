@@ -53,7 +53,7 @@ const SLIDES = [
   },
 ];
 
-const AUTOPLAY_MS = 4000;
+const AUTOPLAY_MS = 7000;
 
 export function Hero() {
   const [cur, setCur] = useState(0);
