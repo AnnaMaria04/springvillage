@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
-import { StickyBookingBar } from "@/components/home/StickyBookingBar";
+import { BnovoHorizontalWidget } from "@/components/booking/BnovoHorizontalWidget";
 import { StayPreview } from "@/components/home/StayPreview";
 import { Deals } from "@/components/home/Deals";
 import { ExperiencePreview } from "@/components/home/ExperiencePreview";
@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <StickyBookingBar />
+      <BnovoHorizontalWidget />
       <StayPreview />
       <Deals />
       <ExperiencePreview />
