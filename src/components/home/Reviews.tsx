@@ -16,8 +16,7 @@ function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
 
 const CLAMP_THRESHOLD = 200;
 
-function ReviewCard({ r }: { r: Review }) {
-  const [expanded, setExpanded] = useState(false);
+function ReviewCard({ r, expanded, onToggle }: { r: Review; expanded: boolean; onToggle: () => void }) {
   const isLong = r.body.length > CLAMP_THRESHOLD;
 
   return (
@@ -29,7 +28,7 @@ function ReviewCard({ r }: { r: Review }) {
         </p>
         {isLong && (
           <button
-            onClick={() => setExpanded((v) => !v)}
+            onClick={onToggle}
             className="mt-3 self-start text-sm font-medium text-pine hover:text-pine/70 transition-colors cursor-pointer"
           >
             {expanded ? "Свернуть" : "Читать полностью"}
@@ -62,6 +61,7 @@ function Stars({ n }: { n: number }) {
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
+  const [allExpanded, setAllExpanded] = useState(false);
   const dragStartX = useRef<number | null>(null);
   const dragStartScrollLeft = useRef(0);
   const isDraggingRef = useRef(false);
@@ -168,7 +168,7 @@ export function Reviews() {
         onPointerCancel={onPointerCancel}
       >
         {REVIEWS.map((r, i) => (
-          <ReviewCard key={i} r={r} />
+          <ReviewCard key={i} r={r} expanded={allExpanded} onToggle={() => setAllExpanded(v => !v)} />
         ))}
       </div>
     </section>
