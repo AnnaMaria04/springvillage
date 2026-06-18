@@ -347,7 +347,7 @@ export function BookingBar() {
             onClick={() => togglePanel("calendar")}
             aria-expanded={calOpen}
             aria-haspopup="dialog"
-            style={{ flex: "1 1 140px", ...FIELD_BASE, ...(calOpen ? FIELD_ACTIVE : {}) }}
+            style={{ flex: "1 1 130px", maxWidth: 190, ...FIELD_BASE, ...(calOpen ? FIELD_ACTIVE : {}) }}
           >
             <span style={LBL}>Заезд</span>
             <span style={dfrom ? VAL : VAL_PH}>{dfrom ? fmtDot(dfrom) : "Выбрать дату"}</span>
@@ -359,7 +359,7 @@ export function BookingBar() {
             onClick={() => togglePanel("calendar")}
             aria-expanded={calOpen}
             aria-haspopup="dialog"
-            style={{ flex: "1 1 140px", ...FIELD_BASE, ...(calOpen ? FIELD_ACTIVE : {}) }}
+            style={{ flex: "1 1 130px", maxWidth: 190, ...FIELD_BASE, ...(calOpen ? FIELD_ACTIVE : {}) }}
           >
             <span style={LBL}>Выезд</span>
             <span style={dto ? VAL : VAL_PH}>{dto ? fmtDot(dto) : "Выбрать дату"}</span>
@@ -371,7 +371,7 @@ export function BookingBar() {
             onClick={() => togglePanel("guests")}
             aria-expanded={guestsOpen}
             aria-haspopup="dialog"
-            style={{ flex: "1 1 160px", ...FIELD_BASE, ...(guestsOpen ? FIELD_ACTIVE : {}) }}
+            style={{ flex: "1 1 150px", maxWidth: 210, ...FIELD_BASE, ...(guestsOpen ? FIELD_ACTIVE : {}) }}
           >
             <span style={LBL}>Гости</span>
             <span style={VAL}>{guestsText()}</span>
