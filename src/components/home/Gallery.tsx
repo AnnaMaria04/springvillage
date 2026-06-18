@@ -47,7 +47,7 @@ export function Gallery() {
           {photos.map((p, i) => (
             <Reveal
               key={i}
-              delay={i * 70}
+              delay={i * 100}
               className="media group relative rounded-3xl"
               style={{ gridColumn: p.wide ? "span 2" : undefined }}
             >

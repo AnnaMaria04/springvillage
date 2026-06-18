@@ -252,7 +252,7 @@ export function BookingBar() {
 
   const CAL_TRANSITION = reducedMotion
     ? "none"
-    : "opacity 250ms cubic-bezier(0.22,1,0.36,1), transform 250ms cubic-bezier(0.22,1,0.36,1)";
+    : "opacity var(--dur-hover) var(--ease), transform var(--dur-hover) var(--ease)";
 
   return (
     /* position:relative is the anchor for the floating calendar */

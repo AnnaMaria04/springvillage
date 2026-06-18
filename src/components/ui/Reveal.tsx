@@ -26,7 +26,7 @@ export function Reveal({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();

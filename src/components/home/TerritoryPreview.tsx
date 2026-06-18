@@ -155,7 +155,7 @@ export function TerritoryPreview() {
               style={{
                 gap: GAP,
                 transform: containerW > 0 ? `translateX(${trackX}px)` : undefined,
-                transition: animated && containerW > 0 ? "transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)" : "none",
+                transition: animated && containerW > 0 ? "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)" : "none",
               }}
               onTransitionEnd={onTransitionEnd}
             >
