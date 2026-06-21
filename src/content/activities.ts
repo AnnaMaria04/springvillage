@@ -23,7 +23,7 @@ export const ACTIVITIES: Record<Season, ActivityItem[]> = {
       title: "Рыбалка",
       slug: "rybalka",
       description: "Щука, окунь, плотва. Рыбачить можно с пирса или с лодки — снасти в наличии. Озеро без моторных лодок, тишина гарантирована.",
-      photo: "/images/activity-fishing-catch.jpeg",
+      photo: "/images/activity-boat-lake.jpeg",
       emoji: "",
     },
     {

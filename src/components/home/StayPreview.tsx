@@ -24,10 +24,10 @@ export function StayPreview() {
           {/* Photo */}
           <div className="media relative min-h-[340px] lg:min-h-[560px] overflow-hidden">
             <Image
-              src="/images/lifestyle-couple-loft.jpg"
+              src="/images/exterior-dusk-triangles.jpg"
               fill
               alt="Лофт коттеджа"
-              style={{ objectFit: "cover", objectPosition: "center 30%" }}
+              style={{ objectFit: "cover", objectPosition: "center center" }}
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>

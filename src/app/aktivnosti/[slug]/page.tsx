@@ -2,12 +2,61 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
 import { BookingButton } from "@/components/booking/BookingButton";
+import { StickyBookingBar } from "@/components/home/StickyBookingBar";
 
-// Flatten all activities
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
+
+type ActivityGallery = {
+  photos: string[];
+  fishInfo?: string[];
+  fishText?: string;
+  extraText?: string;
+};
+
+const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
+  bajdarki: {
+    photos: [
+      "/images/activity-sup-dog.jpeg",
+      "/images/activity-boat-lake.jpeg",
+      "/images/dock-morning-mist.jpg",
+    ],
+  },
+  rybalka: {
+    photos: [
+      "/images/activity-fishing-catch.jpeg",
+      "/images/activity-boat-pov.jpeg",
+      "/images/dock-morning-mist.jpg",
+    ],
+    fishInfo: ["Щука (Pike)", "Окунь (Perch)", "Плотва (Roach)", "Лещ (Bream)"],
+    fishText: "Рыбачить можно с пирса или с лодки прямо с территории.",
+  },
+  kupanie: {
+    photos: [
+      "/images/feature-lake-sunset.jpg",
+      "/images/lake-panorama-autumn.jpeg",
+      "/images/activity-boat-lake.jpeg",
+    ],
+  },
+  velosipedy: {
+    photos: [
+      "/images/activity-forest-walk.jpg",
+      "/images/lifestyle-couple-forest-walk.jpg",
+      "/images/lifestyle-couple-stone-path.jpg",
+    ],
+  },
+  mangal: {
+    photos: [
+      "/images/exterior-spring-back.jpg",
+      "/images/territory-bbq.jpg",
+    ],
+  },
+  igry: {
+    photos: [],
+    extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
+  },
+};
 
 export function generateStaticParams() {
   return allActivities.map((a) => ({ slug: a.slug }));
@@ -37,59 +86,92 @@ export default async function ActivityPage({
   const activity = allActivities.find((a) => a.slug === slug);
   if (!activity) notFound();
 
-  // Find related activities (same season, different slug, up to 3)
   const season = ACTIVITIES.summer.find((a) => a.slug === slug) ? "summer" : "winter";
   const related = ACTIVITIES[season].filter((a) => a.slug !== slug).slice(0, 3);
+  const gallery = ACTIVITY_GALLERIES[slug] ?? { photos: [] };
 
   return (
     <article>
-      {/* Hero */}
-      <section className="relative h-[70vh] min-h-[480px] flex flex-col justify-end bg-pine overflow-hidden">
-        <Image
-          src={activity.photo}
-          fill
-          alt={activity.title}
-          style={{ objectFit: "cover" }}
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,22,0.75),rgba(20,28,22,0.2))]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 text-center">
+      {/* Hero — dark green, no background image */}
+      <section className="relative bg-pine flex flex-col justify-end min-h-[50vh] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-14">
           {/* Breadcrumb */}
-          <Link
-            href="/aktivnosti"
-            className="inline-flex items-center gap-1.5 text-white/50 hover:text-white text-sm mb-6 transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Все активности
-          </Link>
+          <nav className="flex items-center gap-1.5 text-white/50 text-sm mb-6">
+            <Link href="/" className="hover:text-white transition-colors">Главная</Link>
+            <span>/</span>
+            <Link href="/aktivnosti" className="hover:text-white transition-colors">Активности</Link>
+            <span>/</span>
+            <span className="text-white/80">{activity!.title}</span>
+          </nav>
           <h1
-            className="font-display font-bold text-white leading-tight"
+            className="font-display font-bold text-white leading-tight mb-4"
             style={{ fontSize: "clamp(2.5rem, 7vw, 5rem)" }}
           >
-            {activity.title}
+            {activity!.title}
           </h1>
+          <p className="text-white/65 text-lg leading-relaxed max-w-xl">{activity!.description}</p>
         </div>
       </section>
 
-      {/* Description */}
-      <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
-        <p className="text-muted-foreground text-lg leading-relaxed">{activity.description}</p>
+      {/* Booking bar */}
+      <StickyBookingBar />
 
-        {activity.secondaryPhoto && (
-          <div className="relative aspect-[16/9] rounded-3xl overflow-hidden mt-12">
-            <Image
-              src={activity.secondaryPhoto}
-              fill
-              alt={activity.title}
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, 768px"
-              loading="lazy"
-            />
+      {/* Content */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
+        {/* Fish info for rybalka */}
+        {gallery.fishInfo && (
+          <div className="mb-12 p-6 rounded-2xl bg-cream border border-border">
+            <h2 className="font-display text-xl font-bold text-foreground mb-4">
+              Какая рыба водится в Михалёвском озере:
+            </h2>
+            <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+              {gallery.fishInfo.map((fish) => (
+                <li key={fish} className="flex items-center gap-2 text-foreground">
+                  <span className="w-1.5 h-1.5 rounded-full bg-moss shrink-0" />
+                  {fish}
+                </li>
+              ))}
+            </ul>
+            {gallery.fishText && (
+              <p className="text-muted-foreground">{gallery.fishText}</p>
+            )}
           </div>
         )}
 
-        <div className="mt-10">
+        {/* Extra text for igry */}
+        {gallery.extraText && (
+          <p className="text-muted-foreground text-lg leading-relaxed mb-12">{gallery.extraText}</p>
+        )}
+
+        {/* Image gallery */}
+        {gallery.photos.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {gallery.photos.map((src, i) => (
+              <div key={i} className="relative aspect-[4/3] rounded-3xl overflow-hidden">
+                <Image
+                  src={src}
+                  fill
+                  alt={activity!.title}
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Placeholder for igry — TODO: Add photos */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* TODO: Add petanque photo */}
+            <div className="aspect-[4/3] rounded-3xl bg-stone-200 flex items-center justify-center text-stone-400 text-sm">Петанк — фото скоро</div>
+            {/* TODO: Add knife throwing photo */}
+            <div className="aspect-[4/3] rounded-3xl bg-stone-200 flex items-center justify-center text-stone-400 text-sm">Метание ножей — фото скоро</div>
+            {/* TODO: Add basketball court photo */}
+            <div className="aspect-[4/3] rounded-3xl bg-stone-200 flex items-center justify-center text-stone-400 text-sm">Баскетбол — фото скоро</div>
+          </div>
+        )}
+
+        <div className="mt-12">
           <BookingButton className="btn-lux inline-flex items-center h-13 px-10 rounded-full bg-primary text-white text-base font-semibold cursor-pointer">
             Забронировать
           </BookingButton>
@@ -106,7 +188,7 @@ export default async function ActivityPage({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {related.map((r) => (
                 <Link key={r.slug} href={`/aktivnosti/${r.slug}`} className="group block">
-                  <div className="media relative aspect-[4/3] rounded-3xl overflow-hidden mb-4">
+                  <div className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-4">
                     <Image
                       src={r.photo}
                       fill
@@ -116,7 +198,7 @@ export default async function ActivityPage({
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       loading="lazy"
                     />
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.6),transparent)]" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.75),transparent)]" />
                     <h3 className="absolute bottom-4 left-4 right-4 z-10 font-display text-lg font-bold text-white">
                       {r.title}
                     </h3>

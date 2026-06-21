@@ -92,6 +92,57 @@ export default function DomPage() {
         </div>
       </section>
 
+      {/* Photo gallery */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+          Фотографии
+        </p>
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-14">
+          Коттедж изнутри и снаружи
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Exterior */}
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/exterior-dusk-triangles.jpg" fill alt="Вид снаружи" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/exterior-winter-deep-snow.jpg" fill alt="Зима у коттеджа" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/exterior-frost-morning.jpeg" fill alt="Морозное утро" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          {/* Interior — wide */}
+          <div className="relative sm:col-span-2 aspect-[16/9] sm:aspect-[2/1] rounded-2xl overflow-hidden">
+            <Image src="/images/feature-interior-window.jpeg" fill alt="Панорамные окна" style={{ objectFit: "cover", objectPosition: "center 50%" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 66vw" loading="lazy" />
+          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-living-room.jpeg" fill alt="Гостиная" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          {/* Loft bedroom */}
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-loft-bedroom-new.jpeg" fill alt="Спальня на антресоли" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-loft-bed-end.jpeg" fill alt="Антресоль" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          {/* Ground bedroom */}
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-bedroom-ground-yellow.jpeg" fill alt="Спальня на первом этаже" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          {/* Kitchen placeholder — TODO: Add kitchen photo */}
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-kitchen-counter.jpeg" fill alt="Кухня" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          {/* Bathroom */}
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-bathroom.jpeg" fill alt="Санузел" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image src="/images/interior-main-hall.jpeg" fill alt="Гостиная — общий вид" style={{ objectFit: "cover" }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
       {/* Territory highlights */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">

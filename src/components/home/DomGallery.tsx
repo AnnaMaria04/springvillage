@@ -5,12 +5,12 @@ import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
-  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true, position: "center 50%" },
-  { src: "/images/hero-fireplace.jpg", label: "Камин", position: "center 40%" },
-  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт", position: "center 40%" },
-  { src: "/images/interior-staircase.jpeg", label: "Лестница", position: "center 30%" },
-  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня", position: "center 50%" },
-  { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true, position: "center 30%" },
+  { src: "/images/interior-loft-bedroom-new.jpeg", label: "Спальня лофт", wide: true, position: "center 40%" },
+  { src: "/images/interior-living-room.jpeg", label: "Гостиная", position: "center 50%" },
+  { src: "/images/interior-kitchen-counter.jpeg", label: "Кухня", position: "center 50%" },
+  { src: "/images/interior-bathroom.jpeg", label: "Санузел", position: "center 40%" },
+  { src: "/images/interior-bedroom-ground-yellow.jpeg", label: "Спальня", position: "center 50%" },
+  { src: "/images/interior-main-hall.jpeg", label: "Гостиная — вид", wide: true, position: "center 50%" },
 ];
 
 export function DomGallery() {

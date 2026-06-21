@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { REVIEWS, type Review } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
@@ -65,18 +65,6 @@ export function Reviews() {
   const dragStartX = useRef<number | null>(null);
   const dragStartScrollLeft = useRef(0);
   const isDraggingRef = useRef(false);
-
-  // Redirect vertical wheel to horizontal scroll on desktop
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    function onWheel(e: WheelEvent) {
-      e.preventDefault();
-      el!.scrollLeft += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    }
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, []);
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (e.pointerType === "touch") return; // native scroll handles touch
@@ -175,7 +163,7 @@ export function Reviews() {
       <div
         ref={scrollRef}
         className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto select-none cursor-grab active:cursor-grabbing"
-        style={{ touchAction: "pan-x", scrollSnapType: "x mandatory" }}
+        style={{ touchAction: "pan-x", scrollSnapType: "x proximity" }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

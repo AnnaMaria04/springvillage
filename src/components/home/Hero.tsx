@@ -48,8 +48,8 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/feature-glamping-tent.jpg",
-    position: "center 50%",
+    image: "/images/exterior-frost-dawn.jpeg",
+    position: "center 40%",
     label: "Новая Тур база",
     title: "Тур база\nМихалёвское",
     subtitle: "В 1.5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
@@ -107,7 +107,7 @@ export function Hero() {
       ))}
 
       {/* Dark scrim — only bottom half */}
-      <div className="absolute inset-x-0 bottom-0 h-[55%] z-10 bg-[linear-gradient(to_top,rgba(15,22,17,0.85),transparent)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[70%] z-10 bg-[linear-gradient(to_top,rgba(15,22,17,0.90)_0%,rgba(15,22,17,0.50)_50%,transparent_100%)]" />
 
       {/* Slide content */}
       {SLIDES.map((slide, i) => (
