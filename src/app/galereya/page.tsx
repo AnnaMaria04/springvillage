@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function GalereyaPage() {
   return (
     <>
-      <PageHero eyebrow="Spring Village" title="Галерея" image="/images/gallery-exterior.jpg" />
+      <PageHero eyebrow="Spring Village" title="Галерея" image="/images/exterior-frost-dawn.jpeg" />
       <Gallery />
     </>
   );

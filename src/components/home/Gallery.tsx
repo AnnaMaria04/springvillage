@@ -1,15 +1,38 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
 const photos = [
-  { src: "/images/gallery-exterior.jpg", label: "Коттедж снаружи", wide: true },
-  { src: "/images/gallery-interior.jpg", label: "Гостиная" },
-  { src: "/images/gallery-lake.jpg", label: "Вид на озеро" },
-  { src: "/images/gallery-sunset.jpg", label: "Закат с террасы", wide: true },
-  { src: "/images/gallery-winter.jpg", label: "Зима" },
+  // Exterior
+  { src: "/images/exterior-frost-dawn.jpeg", label: "Рассвет зимой", wide: true },
+  { src: "/images/exterior-sunset-front.jpg", label: "Коттедж на закате" },
+  { src: "/images/exterior-dusk-side.jpg", label: "Вечер" },
+  { src: "/images/exterior-spring-front.jpg", label: "Весна" },
+  { src: "/images/exterior-spring-back.jpg", label: "Задний фасад" },
+  // Lifestyle
+  { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true },
+  { src: "/images/lifestyle-couple-lake.jpg", label: "На озере" },
+  { src: "/images/lifestyle-woman-dock.jpg", label: "На пирсе" },
+  { src: "/images/lifestyle-couple-kiss-forest.jpg", label: "В лесу" },
+  { src: "/images/lifestyle-couple-forest-walk.jpg", label: "Прогулка" },
+  { src: "/images/lifestyle-couple-windows.jpg", label: "У окон" },
+  { src: "/images/lifestyle-loft-bedroom.webp", label: "Спальня в лофте" },
+  { src: "/images/lifestyle-couple-stone-path.jpg", label: "Тропа" },
+  // Interior
+  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true },
+  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт" },
+  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня" },
+  { src: "/images/interior-staircase.jpeg", label: "Лестница" },
+  // Nature & territory
+  { src: "/images/feature-lake-sunset.jpg", label: "Закат на озере", wide: true },
+  { src: "/images/lake-panorama-autumn.jpeg", label: "Озеро осенью" },
+  { src: "/images/dock-morning-mist.jpg", label: "Утро на пирсе" },
+  { src: "/images/feature-pond-spring.jpeg", label: "Родник" },
+  { src: "/images/activity-boat-lake.jpeg", label: "На лодке" },
+  { src: "/images/activity-forest-walk.jpg", label: "Лесная тропа" },
 ];
 
 export function Gallery() {
@@ -48,19 +71,24 @@ export function Gallery() {
             <Reveal
               key={i}
               delay={i * 100}
-              className="media group relative rounded-3xl"
+              className="media group relative rounded-3xl overflow-hidden"
               style={{ gridColumn: p.wide ? "span 2" : undefined }}
             >
-              <div
-                className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-                style={{ backgroundImage: `url('${p.src}')` }}
+              <Image
+                src={p.src}
+                fill
+                alt={p.label}
+                style={{ objectFit: "cover" }}
+                className="transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
               />
-              <span className="absolute bottom-3 left-3 text-xs font-medium text-white/85 bg-black/30 rounded-full px-2.5 py-1 backdrop-blur-sm">
+              <span className="absolute bottom-3 left-3 z-10 text-xs font-medium text-white/85 bg-black/30 rounded-full px-2.5 py-1 backdrop-blur-sm">
                 {p.label}
               </span>
               <button
                 onClick={() => setLightbox(i)}
-                className="absolute inset-0 w-full h-full cursor-pointer opacity-0"
+                className="absolute inset-0 w-full h-full cursor-pointer opacity-0 z-20"
                 aria-label={`Открыть фото: ${p.label}`}
               />
             </Reveal>

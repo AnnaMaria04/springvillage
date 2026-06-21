@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
@@ -18,10 +19,10 @@ export const metadata: Metadata = {
 };
 
 const galleryPhotos = [
-  { src: "/images/gallery-exterior.jpg", label: "Фасад и озеро", wide: true },
-  { src: "/images/gallery-interior.jpg", label: "Гостиная" },
-  { src: "/images/gallery-lake.jpg", label: "Панорамное окно" },
-  { src: "/images/gallery-sunset.jpg", label: "Терраса" },
+  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true },
+  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт" },
+  { src: "/images/interior-staircase.jpeg", label: "Лестница" },
+  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня" },
 ];
 
 export default function DomPage() {
@@ -31,7 +32,7 @@ export default function DomPage() {
         eyebrow="Размещение"
         title={HOUSE.name}
         subtitle={HOUSE.longDescription}
-        image="/images/stay.jpg"
+        image="/images/exterior-winter-snow.jpg"
       />
       <StickyBookingBar />
 
@@ -62,14 +63,21 @@ export default function DomPage() {
           {galleryPhotos.map((p, i) => (
             <div
               key={i}
-              className="relative rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center"
+              className="relative rounded-3xl overflow-hidden"
               style={{
-                backgroundImage: `url('${p.src}')`,
                 gridColumn: p.wide ? "span 2" : undefined,
                 gridRow: p.wide ? "span 2" : undefined,
               }}
             >
-              <span className="absolute bottom-3 left-3 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
+              <Image
+                src={p.src}
+                fill
+                alt={p.label}
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+              />
+              <span className="absolute bottom-3 left-3 z-10 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
                 {p.label}
               </span>
             </div>
@@ -125,12 +133,12 @@ export default function DomPage() {
             {
               title: "Финский родник",
               body: "На территории сохранился бывший финский источник. Чистая питьевая вода прямо на участке.",
-              photo: "/images/territory-spring.jpg",
+              photo: "/images/feature-pond-spring.jpeg",
             },
             {
               title: "Пирс и водная станция",
               body: "Оборудованный пирс для рыбалки и рассветов. Лодки и SUP-доски — выходи на воду в любой момент.",
-              photo: "/images/territory-pier.jpg",
+              photo: "/images/dock-morning-mist.jpg",
             },
             {
               title: "Мангальная зона",
@@ -140,14 +148,20 @@ export default function DomPage() {
             {
               title: "Лесные тропы",
               body: "Сосновый лес начинается прямо за домом. Грибы, ягоды, чистый воздух — всё рядом.",
-              photo: "/images/territory-forest.jpg",
+              photo: "/images/activity-forest-walk.jpg",
             },
           ].map((item) => (
             <div key={item.title}>
-              <div
-                className="aspect-[3/4] rounded-3xl overflow-hidden bg-stone-300 bg-cover bg-center mb-5"
-                style={{ backgroundImage: `url('${item.photo}')` }}
-              />
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden mb-5">
+                <Image
+                  src={item.photo}
+                  fill
+                  alt={item.title}
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  loading="lazy"
+                />
+              </div>
               <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
               <p className="text-[15px] text-muted-foreground leading-relaxed">{item.body}</p>
             </div>

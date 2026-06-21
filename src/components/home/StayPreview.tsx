@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Users, ArrowRight } from "lucide-react";
 import { HOUSE } from "@/content/house";
@@ -21,10 +22,13 @@ export function StayPreview() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="group grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden bg-cream border border-border hover-lift">
           {/* Photo */}
-          <div className="media relative min-h-[340px] lg:min-h-[560px]">
-            <div
-              className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/stay.jpg')" }}
+          <div className="media relative min-h-[340px] lg:min-h-[560px] overflow-hidden">
+            <Image
+              src="/images/lifestyle-couple-loft.jpg"
+              fill
+              alt="Лофт коттеджа"
+              style={{ objectFit: "cover", objectPosition: "center 30%" }}
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
 

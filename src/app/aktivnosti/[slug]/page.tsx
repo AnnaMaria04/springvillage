@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
@@ -43,12 +44,17 @@ export default async function ActivityPage({
   return (
     <article>
       {/* Hero */}
-      <section
-        className="relative h-[70vh] min-h-[480px] flex flex-col justify-end bg-pine bg-cover bg-center"
-        style={{ backgroundImage: `url('${activity.photo}')` }}
-      >
+      <section className="relative h-[70vh] min-h-[480px] flex flex-col justify-end bg-pine overflow-hidden">
+        <Image
+          src={activity.photo}
+          fill
+          alt={activity.title}
+          style={{ objectFit: "cover" }}
+          priority
+          sizes="100vw"
+        />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,22,0.75),rgba(20,28,22,0.2))]" />
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 text-center">
           {/* Breadcrumb */}
           <Link
             href="/aktivnosti"
@@ -70,6 +76,19 @@ export default async function ActivityPage({
       <section className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
         <p className="text-muted-foreground text-lg leading-relaxed">{activity.description}</p>
 
+        {activity.secondaryPhoto && (
+          <div className="relative aspect-[16/9] rounded-3xl overflow-hidden mt-12">
+            <Image
+              src={activity.secondaryPhoto}
+              fill
+              alt={activity.title}
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, 768px"
+              loading="lazy"
+            />
+          </div>
+        )}
+
         <div className="mt-10">
           <BookingButton className="btn-lux inline-flex items-center h-13 px-10 rounded-full bg-primary text-white text-base font-semibold cursor-pointer">
             Забронировать
@@ -88,12 +107,17 @@ export default async function ActivityPage({
               {related.map((r) => (
                 <Link key={r.slug} href={`/aktivnosti/${r.slug}`} className="group block">
                   <div className="media relative aspect-[4/3] rounded-3xl overflow-hidden mb-4">
-                    <div
-                      className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-                      style={{ backgroundImage: `url('${r.photo}')` }}
+                    <Image
+                      src={r.photo}
+                      fill
+                      alt={r.title}
+                      style={{ objectFit: "cover" }}
+                      className="transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
                     />
                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,rgba(20,28,22,0.6),transparent)]" />
-                    <h3 className="absolute bottom-4 left-4 right-4 font-display text-lg font-bold text-white">
+                    <h3 className="absolute bottom-4 left-4 right-4 z-10 font-display text-lg font-bold text-white">
                       {r.title}
                     </h3>
                   </div>

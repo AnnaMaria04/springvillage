@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { CONTACT } from "@/content/site";
@@ -9,14 +10,16 @@ import { useBooking } from "@/context/booking-context";
 
 const SLIDES = [
   {
-    image: "/images/hero.jpg",
+    image: "/images/exterior-winter-snow.jpg",
+    position: "center 60%",
     label: "A-frame коттедж",
     title: "Тихая вода,\nкарельский лес",
     subtitle: "Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.",
     book: true as const,
   },
   {
-    image: "/images/territory-pier.jpg",
+    image: "/images/feature-lake-sunset.jpg",
+    position: "center 40%",
     label: "Вода и активности",
     title: "Пирс, лодки\nи чистое озеро",
     subtitle: "Купание, рыбалка, SUP и прогулки на лодке — прямо с вашего берега.",
@@ -25,7 +28,8 @@ const SLIDES = [
     ctaLabel: "Все активности",
   },
   {
-    image: "/images/territory-forest.jpg",
+    image: "/images/feature-pond-spring.jpeg",
+    position: "center 50%",
     label: "Природа",
     title: "Сосновый лес\nи финский родник",
     subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",
@@ -34,7 +38,8 @@ const SLIDES = [
     ctaLabel: "О территории",
   },
   {
-    image: "/images/stay.jpg",
+    image: "/images/hero-fireplace.jpg",
+    position: "center 40%",
     label: "Уют и комфорт",
     title: "Камин\nи панорамные окна",
     subtitle: "Дровяной камин, тёплые полы, панорамный вид на воду — всё для отдыха.",
@@ -43,7 +48,8 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/territory-pier.jpg",
+    image: "/images/exterior-frost-dawn.jpeg",
+    position: "center 60%",
     label: "Новая Тур база",
     title: "Тур база\nМихалёвское",
     subtitle: "В 1.5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
@@ -85,12 +91,18 @@ export function Hero() {
           {/* Inner div remounts when slide activates, restarting the zoom animation */}
           <div
             key={i === cur ? `${i}-${animTick}` : i}
-            className="absolute inset-0 bg-stone-700 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('${slide.image}')`,
-              animation: "hero-zoom 5s ease-out forwards",
-            }}
-          />
+            className="absolute inset-0"
+            style={{ animation: "hero-zoom 5s ease-out forwards" }}
+          >
+            <Image
+              src={slide.image}
+              fill
+              alt={slide.label}
+              style={{ objectFit: "cover", objectPosition: slide.position }}
+              priority={i === 0}
+              sizes="100vw"
+            />
+          </div>
         </div>
       ))}
 

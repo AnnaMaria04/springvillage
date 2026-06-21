@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -8,10 +9,10 @@ const GAP = 16;
 const CLONES = 3;
 
 const tiles = [
-  { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/territory-spring.jpg" },
-  { title: "Пирс и водная станция", sub: "Лодки, SUP, рыбалка", photo: "/images/territory-pier.jpg" },
+  { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/feature-pond-spring.jpeg" },
+  { title: "Пирс и водная станция", sub: "Лодки, SUP, рыбалка", photo: "/images/dock-morning-mist.jpg" },
   { title: "Мангальная зона", sub: "Дрова и решётка включены", photo: "/images/territory-bbq.jpg" },
-  { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/territory-forest.jpg" },
+  { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/activity-forest-walk.jpg" },
 ];
 
 function getCardsPerView(w: number): number {
@@ -169,9 +170,14 @@ export function TerritoryPreview() {
                     draggable={false}
                   >
                     <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
-                      <div
-                        className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-                        style={{ backgroundImage: `url('${t.photo}')` }}
+                      <Image
+                        src={t.photo}
+                        fill
+                        alt={t.title}
+                        style={{ objectFit: "cover" }}
+                        className="transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
                       />
                       <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)] pointer-events-none" />
                       <div className="absolute bottom-5 left-5 right-5 z-20" style={{ transform: "translateZ(0)" }}>

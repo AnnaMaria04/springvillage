@@ -5,6 +5,7 @@ export type ActivityItem = {
   slug: string;
   description: string;
   photo: string;
+  secondaryPhoto?: string;
   emoji: string;
 };
 
@@ -14,21 +15,22 @@ export const ACTIVITIES: Record<Season, ActivityItem[]> = {
       title: "Байдарки и SUP",
       slug: "bajdarki",
       description: "Выход с оборудованного пирса. Михалёвское озеро — спокойное, без моторных лодок. Лодки и SUP-доски включены в стоимость проживания. Можно выходить на воду в любое время дня.",
-      photo: "/images/activity-kayak.jpg",
+      photo: "/images/activity-sup-dog.jpeg",
+      secondaryPhoto: "/images/activity-boat-lake.jpeg",
       emoji: "",
     },
     {
       title: "Рыбалка",
       slug: "rybalka",
       description: "Щука, окунь, плотва. Рыбачить можно с пирса или с лодки — снасти в наличии. Озеро без моторных лодок, тишина гарантирована.",
-      photo: "/images/activity-fishing.jpg",
+      photo: "/images/activity-fishing-catch.jpeg",
       emoji: "",
     },
     {
       title: "Купание",
       slug: "kupanie",
       description: "Чистая вода Михалёвского озера и берег рядом с домом. Пирс — идеальная точка для прыжка в озеро. Вода прогревается с июня по сентябрь.",
-      photo: "/images/activity-swim.jpg",
+      photo: "/images/lake-panorama-autumn.jpeg",
       emoji: "",
     },
     {
