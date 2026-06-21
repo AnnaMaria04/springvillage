@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, MapPin, Flame } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
+import { CONTACT } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Тур база Михалёвское — кемпинг у озера, аренда лодок",
@@ -11,8 +12,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/turbaza" },
 };
 
-const PHONE = "+7 911 110-16-52";
-const PHONE_DIAL = "+79111101652";
 
 const features = [
   "Удобный спуск (слип) к озеру для сапов и лодок",
@@ -69,11 +68,11 @@ export default function TurbazaPage() {
             </ul>
 
             <a
-              href={`tel:${PHONE_DIAL}`}
+              href={`tel:${CONTACT.phoneDial}`}
               className="inline-flex items-center gap-3 h-14 px-8 rounded-full bg-pine text-white font-semibold text-base hover:bg-pine/90 transition-colors"
             >
               <Phone className="w-5 h-5" />
-              {PHONE}
+              {CONTACT.phone}
             </a>
           </div>
 
@@ -118,11 +117,11 @@ export default function TurbazaPage() {
             Новые лодки с полным комплектом снаряжения. Уточняйте наличие и даты по телефону.
           </p>
           <a
-            href={`tel:${PHONE_DIAL}`}
+            href={`tel:${CONTACT.phoneDial}`}
             className="inline-flex items-center gap-3 h-14 px-10 rounded-full bg-white text-pine font-semibold text-base hover:bg-white/90 transition-colors"
           >
             <Phone className="w-5 h-5" />
-            {PHONE}
+            {CONTACT.phone}
           </a>
           <p className="text-white/40 text-sm mt-6">
             Отдельная территория от коттеджа WILD · 1,5 км · 135 км от Петербурга
