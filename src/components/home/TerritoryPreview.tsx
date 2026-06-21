@@ -2,7 +2,6 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const GAP = 16;
@@ -11,7 +10,7 @@ const CLONES = 3;
 const tiles = [
   { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/feature-pond-spring.jpeg" },
   { title: "Пирс и водная станция", sub: "Лодки, SUP, рыбалка", photo: "/images/dock-morning-mist.jpg" },
-  { title: "Мангальная зона", sub: "Дрова и решётка включены", photo: "/images/territory-bbq.jpg" },
+  { title: "Мангальная зона", sub: "Дрова и решётка включены", photo: "/images/territory-woodshed.jpeg" },
   { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/activity-forest-walk.jpg" },
 ];
 
@@ -162,12 +161,10 @@ export function TerritoryPreview() {
             >
               {extended.map((t, i) => {
                 return (
-                  <Link
+                  <div
                     key={i}
-                    href="/dom"
-                    className="group flex-none"
+                    className="flex-none"
                     style={{ width: cardW > 0 ? cardW : undefined }}
-                    draggable={false}
                   >
                     <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
                       <Image
@@ -175,7 +172,6 @@ export function TerritoryPreview() {
                         fill
                         alt={t.title}
                         style={{ objectFit: "cover" }}
-                        className="transition-transform duration-700 group-hover:scale-110"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         loading="lazy"
                       />
@@ -185,7 +181,7 @@ export function TerritoryPreview() {
                         <p className="text-white/65 text-sm mt-1">{t.sub}</p>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>

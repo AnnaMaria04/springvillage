@@ -33,7 +33,7 @@ export function KorbiOverlay() {
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
   const [src, setSrc] = useState<string | undefined>();
-  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(true);
   const [msgIdx, setMsgIdx] = useState(0);
 
   const defaultUrl = useRef(buildBookingUrl()).current;

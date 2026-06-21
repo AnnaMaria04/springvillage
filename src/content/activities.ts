@@ -12,17 +12,16 @@ export type ActivityItem = {
 export const ACTIVITIES: Record<Season, ActivityItem[]> = {
   summer: [
     {
-      title: "Байдарки и SUP",
+      title: "SUP-доски",
       slug: "bajdarki",
-      description: "Выход с оборудованного пирса. Михалёвское озеро — спокойное, без моторных лодок. Лодки и SUP-доски включены в стоимость проживания. Можно выходить на воду в любое время дня.",
+      description: "Выход с оборудованного пирса. Михалёвское озеро — спокойное, без моторных лодок. SUP-доски включены в стоимость проживания. Можно выходить на воду в любое время дня.",
       photo: "/images/activity-sup-dog.jpeg",
-      secondaryPhoto: "/images/activity-boat-lake.jpeg",
       emoji: "",
     },
     {
       title: "Рыбалка",
       slug: "rybalka",
-      description: "Щука, окунь, плотва. Рыбачить можно с пирса или с лодки — снасти в наличии. Озеро без моторных лодок, тишина гарантирована.",
+      description: "Михалёвское озеро — глубокое (до 21 м), без моторных лодок. Рыбачить можно с пирса или с лодки — снасти в наличии. Тишина гарантирована.",
       photo: "/images/activity-boat-lake.jpeg",
       emoji: "",
     },

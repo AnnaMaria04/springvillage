@@ -4,9 +4,9 @@ import Image from "next/image";
 import { Activities } from "@/components/home/Activities";
 
 export const metadata: Metadata = {
-  title: "Активности — байдарки, рыбалка у Михалёвского озера",
+  title: "Активности — SUP, рыбалка у Михалёвского озера",
   description:
-    "Летом: байдарки, SUP, рыбалка, велосипеды, BBQ. Зимой: коньки, лыжи, зимняя рыбалка. Чем заняться в Spring Village круглый год.",
+    "Летом: SUP, рыбалка, велосипеды, BBQ. Зимой: коньки, лыжи, зимняя рыбалка. Чем заняться в Spring Village круглый год.",
   alternates: { canonical: "/aktivnosti" },
 };
 

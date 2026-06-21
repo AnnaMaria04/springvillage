@@ -19,7 +19,7 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   bajdarki: {
     photos: [
       "/images/activity-sup-dog.jpeg",
-      "/images/activity-boat-lake.jpeg",
+      "/images/activity-sup-boards.jpg",
       "/images/dock-morning-mist.jpg",
     ],
   },
@@ -29,8 +29,8 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
       "/images/activity-boat-pov.jpeg",
       "/images/dock-morning-mist.jpg",
     ],
-    fishInfo: ["Щука (Pike)", "Окунь (Perch)", "Плотва (Roach)", "Лещ (Bream)"],
-    fishText: "Рыбачить можно с пирса или с лодки прямо с территории.",
+    fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
+    fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без моторных лодок. Рыбачить можно с пирса или с лодки прямо с территории — снасти в наличии.",
   },
   kupanie: {
     photos: [
