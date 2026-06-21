@@ -8,8 +8,10 @@ import { BookingBar } from "@/components/home/BookingBar";
 
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
 
+type GalleryPhoto = { src: string; position?: string };
+
 type ActivityGallery = {
-  photos: string[];
+  photos: GalleryPhoto[];
   fishInfo?: string[];
   fishText?: string;
   extraText?: string;
@@ -18,45 +20,45 @@ type ActivityGallery = {
 const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   bajdarki: {
     photos: [
-      "/images/activity-sup-dog.jpeg",
-      "/images/activity-sup-dog-board.jpeg",
-      "/images/activity-sup-gear.jpeg",
+      { src: "/images/activity-sup-dog.jpeg" },
+      { src: "/images/activity-sup-dog-board.jpeg" },
+      { src: "/images/activity-sup-gear.jpeg" },
     ],
   },
   rybalka: {
     photos: [
-      "/images/activity-fishing-catch.jpeg",
-      "/images/activity-rental-boats.jpeg",
-      "/images/lifestyle-dog-boat-lake.jpeg",
+      { src: "/images/activity-fishing-catch.jpeg", position: "center 30%" },
+      { src: "/images/activity-rental-boats.jpeg" },
+      { src: "/images/lifestyle-dog-boat-lake.jpeg" },
     ],
     fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
     fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без моторных лодок. Рыбачить можно с пирса или с лодки прямо с территории — снасти в наличии.",
   },
   kupanie: {
     photos: [
-      "/images/feature-lake-sunset.jpg",
-      "/images/lake-panorama-autumn.jpeg",
-      "/images/activity-boat-lake.jpeg",
+      { src: "/images/feature-lake-sunset.jpg" },
+      { src: "/images/lake-panorama-autumn.jpeg" },
+      { src: "/images/activity-boat-lake.jpeg" },
     ],
   },
-  velosipedy: {
+  les: {
     photos: [
-      "/images/activity-forest-walk.jpg",
-      "/images/lifestyle-couple-forest-walk.jpg",
-      "/images/lifestyle-couple-stone-path.jpg",
+      { src: "/images/activity-forest-walk.jpg" },
+      { src: "/images/lifestyle-couple-forest-walk.jpg" },
+      { src: "/images/lifestyle-couple-stone-path.jpg" },
     ],
   },
   mangal: {
     photos: [
-      "/images/exterior-spring-back.jpg",
-      "/images/territory-bbq.jpg",
+      { src: "/images/exterior-spring-back.jpg" },
+      { src: "/images/territory-firewood-shed.jpeg" },
     ],
   },
   igry: {
     photos: [
-      "/images/activity-petanque.jpg",
-      "/images/activity-basketball-court.jpeg",
-      "/images/activity-knife-target.jpeg",
+      { src: "/images/activity-petanque.jpg" },
+      { src: "/images/activity-basketball-court.jpeg" },
+      { src: "/images/activity-knife-target.jpeg" },
     ],
     extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
   },
@@ -148,30 +150,20 @@ export default async function ActivityPage({
         )}
 
         {/* Image gallery */}
-        {gallery.photos.length > 0 ? (
+        {gallery.photos.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {gallery.photos.map((src, i) => (
+            {gallery.photos.map((p, i) => (
               <div key={i} className="relative aspect-[4/3] rounded-3xl overflow-hidden">
                 <Image
-                  src={src}
+                  src={p.src}
                   fill
                   alt={activity!.title}
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "cover", objectPosition: p.position ?? "center 50%" }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   loading="lazy"
                 />
               </div>
             ))}
-          </div>
-        ) : (
-          /* Placeholder for igry — TODO: Add photos */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* TODO: Add petanque photo */}
-            <div className="aspect-[4/3] rounded-3xl bg-stone-200 flex items-center justify-center text-stone-400 text-sm">Петанк — фото скоро</div>
-            {/* TODO: Add knife throwing photo */}
-            <div className="aspect-[4/3] rounded-3xl bg-stone-200 flex items-center justify-center text-stone-400 text-sm">Метание ножей — фото скоро</div>
-            {/* TODO: Add basketball court photo */}
-            <div className="aspect-[4/3] rounded-3xl bg-stone-200 flex items-center justify-center text-stone-400 text-sm">Баскетбол — фото скоро</div>
           </div>
         )}
 

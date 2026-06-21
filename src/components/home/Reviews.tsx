@@ -5,22 +5,16 @@ import { Star, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { REVIEWS, type Review } from "@/content/reviews";
 import { CONTACT, SITE } from "@/content/site";
 
-function scrollToCard(el: HTMLElement, card: HTMLElement, smooth: boolean) {
-  // offsetLeft is stable even mid-scroll-animation; getBoundingClientRect is not
-  if (smooth) {
-    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
-  } else {
-    el.scrollLeft = card.offsetLeft;
-  }
-}
-
 const CLAMP_THRESHOLD = 200;
 
 function ReviewCard({ r, expanded, onToggle }: { r: Review; expanded: boolean; onToggle: () => void }) {
   const isLong = r.body.length > CLAMP_THRESHOLD;
 
   return (
-    <div className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover" style={{ scrollSnapAlign: "start" }}>
+    <div
+      className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover"
+      style={{ scrollSnapAlign: "start" }}
+    >
       <Stars n={r.rating} />
       <div className="mt-5 flex-1 flex flex-col">
         <p className={`font-display text-xl text-foreground leading-snug${!expanded && isLong ? " line-clamp-4" : ""}`}>
@@ -60,23 +54,36 @@ function Stars({ n }: { n: number }) {
 
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [idx, setIdx] = useState(0);
   const [allExpanded, setAllExpanded] = useState(false);
 
   const go = useCallback((dir: "prev" | "next") => {
     const el = scrollRef.current;
     if (!el) return;
+    const firstCard = el.children[0] as HTMLElement | null;
+    if (!firstCard) return;
 
-    const isWrap = (dir === "next" && idx === REVIEWS.length - 1) ||
-                   (dir === "prev" && idx === 0);
-    const newIdx = dir === "next"
-      ? (idx + 1) % REVIEWS.length
-      : (idx - 1 + REVIEWS.length) % REVIEWS.length;
+    // Measure card width + gap from DOM so it's always correct regardless of breakpoint
+    const cardW = firstCard.getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 20;
+    const step = cardW + gap;
+    const max = el.scrollWidth - el.clientWidth;
 
-    setIdx(newIdx);
-    const card = el.children[newIdx] as HTMLElement | undefined;
-    if (card) scrollToCard(el, card, !isWrap);
-  }, [idx]);
+    if (dir === "next") {
+      if (el.scrollLeft >= max - 5) {
+        // At the end — wrap to start instantly, then user can scroll forward again
+        el.scrollTo({ left: 0, behavior: "instant" as ScrollBehavior });
+      } else {
+        el.scrollBy({ left: step, behavior: "smooth" });
+      }
+    } else {
+      if (el.scrollLeft <= 5) {
+        // At the start — wrap to end instantly
+        el.scrollTo({ left: max, behavior: "instant" as ScrollBehavior });
+      } else {
+        el.scrollBy({ left: -step, behavior: "smooth" });
+      }
+    }
+  }, []);
 
   return (
     <section className="bg-cream py-20 lg:py-28 overflow-x-clip">
@@ -126,11 +133,13 @@ export function Reviews() {
         </div>
       </div>
 
-      {/* Carousel */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-scroll scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
-        style={{ scrollSnapType: "x proximity" }}
+        className="flex gap-5 overflow-x-auto scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
+        style={{
+          scrollSnapType: "x proximity",
+          overscrollBehaviorX: "contain",
+        }}
       >
         {REVIEWS.map((r, i) => (
           <ReviewCard key={i} r={r} expanded={allExpanded} onToggle={() => setAllExpanded(v => !v)} />
