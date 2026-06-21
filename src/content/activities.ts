@@ -34,7 +34,7 @@ export const ACTIVITIES: Record<Season, ActivityItem[]> = {
     },
     {
       title: "Лес и природа",
-      slug: "les",
+      slug: "priroda",
       description: "Карельский сосновый лес начинается прямо за территорией. Грибы, ягоды, свежий воздух, лесные тропы — полное погружение в природу.",
       photo: "/images/activity-forest-walk.jpg",
       emoji: "",

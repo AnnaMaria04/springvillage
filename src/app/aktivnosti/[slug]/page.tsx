@@ -41,7 +41,7 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
       { src: "/images/activity-boat-lake.jpeg" },
     ],
   },
-  les: {
+  priroda: {
     photos: [
       { src: "/images/activity-forest-walk.jpg" },
       { src: "/images/lifestyle-couple-forest-walk.jpg" },
