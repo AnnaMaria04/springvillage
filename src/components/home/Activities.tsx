@@ -33,30 +33,40 @@ export function Activities() {
         </div>
       </div>
 
-      {/* Photo cards — each links to its own page */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {ACTIVITIES[season].map((activity) => (
-          <Link key={activity.slug} href={`/aktivnosti/${activity.slug}`} className="group block">
-            <div className="media relative aspect-[4/3] rounded-3xl overflow-hidden bg-stone-300 mb-5">
-              <Image
-                src={activity.photo}
-                fill
-                alt={activity.title}
-                style={{ objectFit: "cover" }}
-                className="transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                loading="lazy"
-              />
-            </div>
-            <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-moss transition-colors">
-              {activity.title}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed text-sm line-clamp-2">
-              {activity.description}
-            </p>
-          </Link>
-        ))}
-      </div>
+      {season === "winter" ? (
+        <div className="flex flex-col items-center justify-center py-24 text-center">
+          <p className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            Скоро — зима 2026
+          </p>
+          <p className="text-muted-foreground text-lg max-w-md">
+            Зимний сезон открываем в декабре 2026. Коньки, лыжи, зимняя рыбалка и камин — следите за обновлениями.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {ACTIVITIES[season].map((activity) => (
+            <Link key={activity.slug} href={`/aktivnosti/${activity.slug}`} className="group block">
+              <div className="media relative aspect-[4/3] rounded-3xl overflow-hidden bg-stone-300 mb-5">
+                <Image
+                  src={activity.photo}
+                  fill
+                  alt={activity.title}
+                  style={{ objectFit: "cover" }}
+                  className="transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                />
+              </div>
+              <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-moss transition-colors">
+                {activity.title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed text-sm line-clamp-2">
+                {activity.description}
+              </p>
+            </Link>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

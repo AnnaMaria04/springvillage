@@ -26,13 +26,6 @@ export const ACTIVITIES: Record<Season, ActivityItem[]> = {
       emoji: "",
     },
     {
-      title: "Купание",
-      slug: "kupanie",
-      description: "Чистая вода Михалёвского озера и берег рядом с домом. Пирс — идеальная точка для прыжка в озеро. Вода прогревается с июня по сентябрь.",
-      photo: "/images/lake-panorama-autumn.jpeg",
-      emoji: "",
-    },
-    {
       title: "Лес и природа",
       slug: "priroda",
       description: "Карельский сосновый лес начинается прямо за территорией. Грибы, ягоды, свежий воздух, лесные тропы — полное погружение в природу.",
@@ -43,7 +36,7 @@ export const ACTIVITIES: Record<Season, ActivityItem[]> = {
       title: "Мангальная зона",
       slug: "mangal",
       description: "Дрова, решётка и шампуры уже готовы. Ужин у огня на берегу — лучший способ закончить день. Всё необходимое включено в стоимость.",
-      photo: "/images/exterior-spring-back.jpg",
+      photo: "/images/territory-firewood-shed.jpeg",
       emoji: "",
     },
     {

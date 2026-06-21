@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ACTIVITIES } from "@/content/activities";
-import { BookingButton } from "@/components/booking/BookingButton";
 import { BookingBar } from "@/components/home/BookingBar";
 
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
@@ -167,11 +166,6 @@ export default async function ActivityPage({
           </div>
         )}
 
-        <div className="mt-12">
-          <BookingButton className="btn-lux inline-flex items-center h-13 px-10 rounded-full bg-primary text-white text-base font-semibold cursor-pointer">
-            Забронировать
-          </BookingButton>
-        </div>
       </section>
 
       {/* Related activities */}

@@ -96,8 +96,8 @@ export function Hero() {
         </div>
       ))}
 
-      {/* Dark scrim — only bottom half */}
-      <div className="absolute inset-x-0 bottom-0 h-[70%] z-10 bg-[linear-gradient(to_top,rgba(15,22,17,0.90)_0%,rgba(15,22,17,0.50)_50%,transparent_100%)]" />
+      {/* Dark scrim — strong at bottom where text lives, fades to top */}
+      <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(12,18,14,0.96)_0%,rgba(12,18,14,0.75)_30%,rgba(12,18,14,0.35)_60%,transparent_100%)]" />
 
       {/* Slide content */}
       {SLIDES.map((slide, i) => (
@@ -108,7 +108,7 @@ export function Hero() {
           }`}
         >
           <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 lg:pb-20">
-            <p className="text-white/50 text-[11px] font-semibold uppercase tracking-[0.22em] mb-3">
+            <p className="text-white/70 text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
               {CONTACT.addressShort} · {slide.label}
             </p>
             {i === 0 ? (
@@ -130,7 +130,7 @@ export function Hero() {
                 ))}
               </p>
             )}
-            <p className="text-white/65 text-base leading-relaxed max-w-md mb-7">
+            <p className="text-white/80 text-base leading-relaxed max-w-md mb-7" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}>
               {slide.subtitle}
             </p>
             <div className="flex items-center gap-5">
