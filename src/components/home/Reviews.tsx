@@ -7,8 +7,9 @@ import { CONTACT, SITE } from "@/content/site";
 
 const CLAMP_THRESHOLD = 200;
 
-function ReviewCard({ r, expanded, onToggle }: { r: Review; expanded: boolean; onToggle: () => void }) {
+function ReviewCard({ r }: { r: Review }) {
   const isLong = r.body.length > CLAMP_THRESHOLD;
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div
@@ -22,7 +23,8 @@ function ReviewCard({ r, expanded, onToggle }: { r: Review; expanded: boolean; o
         </p>
         {isLong && (
           <button
-            onClick={onToggle}
+            type="button"
+            onClick={() => setExpanded(v => !v)}
             className="mt-3 self-start text-sm font-medium text-pine hover:text-pine/70 transition-colors cursor-pointer"
           >
             {expanded ? "Свернуть" : "Читать полностью"}
@@ -54,7 +56,6 @@ function Stars({ n }: { n: number }) {
 
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [allExpanded, setAllExpanded] = useState(false);
 
   const go = useCallback((dir: "prev" | "next") => {
     const el = scrollRef.current;
@@ -142,7 +143,7 @@ export function Reviews() {
         }}
       >
         {REVIEWS.map((r, i) => (
-          <ReviewCard key={i} r={r} expanded={allExpanded} onToggle={() => setAllExpanded(v => !v)} />
+          <ReviewCard key={i} r={r} />
         ))}
       </div>
     </section>

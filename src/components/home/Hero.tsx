@@ -109,7 +109,7 @@ export function Hero() {
               fill
               alt={slide.label}
               style={{ objectFit: "cover", objectPosition: slide.position }}
-              priority={i === 0}
+              priority={i <= 1}
               sizes="100vw"
             />
           </div>
