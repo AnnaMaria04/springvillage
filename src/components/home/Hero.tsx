@@ -57,6 +57,16 @@ const SLIDES = [
     href: "/dom",
     ctaLabel: "О коттедже",
   },
+  {
+    image: "/images/exterior-frost-dawn.jpeg",
+    position: "center 40%",
+    label: "Тур база рядом",
+    title: "Тур база\nМихалёвское",
+    subtitle: "В 1.5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
+    book: false as const,
+    href: "/kontakty",
+    ctaLabel: "Узнать подробнее",
+  },
 ];
 
 const AUTOPLAY_MS = 7000;
