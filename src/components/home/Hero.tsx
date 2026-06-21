@@ -48,8 +48,8 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/exterior-frost-dawn.jpeg",
-    position: "center 60%",
+    image: "/images/feature-glamping-tent.jpg",
+    position: "center 50%",
     label: "Новая Тур база",
     title: "Тур база\nМихалёвское",
     subtitle: "В 1.5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
