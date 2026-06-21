@@ -58,13 +58,13 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/exterior-frost-dawn.jpeg",
+    image: "/images/territory-glamping-tent.jpg",
     position: "center 40%",
     label: "Тур база рядом",
     title: "Тур база\nМихалёвское",
-    subtitle: "В 1.5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
+    subtitle: "В 1,5 км: слип к озеру, аренда палаток у воды, аренда лодок и панорамные закаты.",
     book: false as const,
-    href: "/kontakty",
+    href: "/turbaza",
     ctaLabel: "Узнать подробнее",
   },
 ];
