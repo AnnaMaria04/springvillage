@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
-import { StickyBookingBar } from "@/components/home/StickyBookingBar";
+import { BookingBar } from "@/components/home/BookingBar";
 import { DomGallery } from "@/components/home/DomGallery";
 
 export const metadata: Metadata = {
@@ -29,7 +28,7 @@ export default function DomPage() {
         subtitle={HOUSE.longDescription}
         image="/images/exterior-winter-snow.jpg"
       />
-      <StickyBookingBar />
+      <BookingBar />
 
       {/* Specs */}
       <div className="border-b border-border bg-background">
@@ -89,55 +88,6 @@ export default function DomPage() {
               </p>
             )}
           </div>
-        </div>
-      </section>
-
-      {/* Territory highlights */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
-          Территория
-        </p>
-        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-14">
-          Большая уединённая территория в лесу
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: "Финский родник",
-              body: "На территории сохранился бывший финский источник. Чистая питьевая вода прямо на участке.",
-              photo: "/images/feature-pond-spring.jpeg",
-            },
-            {
-              title: "Пирс и водная станция",
-              body: "Оборудованный пирс для рыбалки и рассветов. Лодки и SUP-доски — выходи на воду в любой момент.",
-              photo: "/images/dock-morning-mist.jpg",
-            },
-            {
-              title: "Мангальная зона",
-              body: "Дрова, решётка и шампуры уже подготовлены. Мангал у воды — лучшее место для закатного ужина.",
-              photo: "/images/territory-bbq.jpg",
-            },
-            {
-              title: "Лесные тропы",
-              body: "Сосновый лес начинается прямо за домом. Грибы, ягоды, чистый воздух — всё рядом.",
-              photo: "/images/activity-forest-walk.jpg",
-            },
-          ].map((item) => (
-            <div key={item.title}>
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden mb-5">
-                <Image
-                  src={item.photo}
-                  fill
-                  alt={item.title}
-                  style={{ objectFit: "cover" }}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
-              <p className="text-[15px] text-muted-foreground leading-relaxed">{item.body}</p>
-            </div>
-          ))}
         </div>
       </section>
 

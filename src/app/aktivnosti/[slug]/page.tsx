@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ACTIVITIES } from "@/content/activities";
 import { BookingButton } from "@/components/booking/BookingButton";
-import { StickyBookingBar } from "@/components/home/StickyBookingBar";
+import { BookingBar } from "@/components/home/BookingBar";
 
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
 
@@ -19,15 +19,15 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   bajdarki: {
     photos: [
       "/images/activity-sup-dog.jpeg",
-      "/images/activity-sup-boards.jpg",
-      "/images/dock-morning-mist.jpg",
+      "/images/activity-sup-dog-board.jpeg",
+      "/images/activity-sup-gear.jpeg",
     ],
   },
   rybalka: {
     photos: [
       "/images/activity-fishing-catch.jpeg",
-      "/images/activity-boat-pov.jpeg",
-      "/images/dock-morning-mist.jpg",
+      "/images/activity-rental-boats.jpeg",
+      "/images/lifestyle-dog-boat-lake.jpeg",
     ],
     fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
     fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без моторных лодок. Рыбачить можно с пирса или с лодки прямо с территории — снасти в наличии.",
@@ -53,7 +53,10 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
     ],
   },
   igry: {
-    photos: [],
+    photos: [
+      "/images/activity-basketball-court.jpeg",
+      "/images/activity-knife-target.jpeg",
+    ],
     extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
   },
 };
@@ -114,7 +117,7 @@ export default async function ActivityPage({
       </section>
 
       {/* Booking bar */}
-      <StickyBookingBar />
+      <BookingBar />
 
       {/* Content */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">

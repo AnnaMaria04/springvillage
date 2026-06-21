@@ -9,9 +9,9 @@ const GAP = 16;
 const CLONES = 3;
 
 const tiles = [
-  { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/feature-pond-spring.jpeg" },
+  { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/territory-spring-water.jpeg" },
   { title: "Пирс и водная станция", sub: "Лодки, SUP, рыбалка", photo: "/images/dock-morning-mist.jpg" },
-  { title: "Мангальная зона", sub: "Дрова и решётка включены", photo: "/images/territory-woodshed.jpeg" },
+  { title: "Мангальная зона", sub: "Дрова и решётка включены", photo: "/images/territory-firewood-shed.jpeg" },
   { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/activity-forest-walk.jpg" },
 ];
 

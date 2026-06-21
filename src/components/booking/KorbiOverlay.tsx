@@ -5,11 +5,6 @@ import { X } from "lucide-react";
 import { useBooking } from "@/context/booking-context";
 import { buildBookingUrl } from "@/content/booking";
 
-const MESSAGES = [
-  "Проверяем свободные даты…",
-  "Подбираем лучшие предложения…",
-];
-
 function formatDateDMY(date: Date): string {
   const d = String(date.getDate()).padStart(2, "0");
   const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -32,21 +27,12 @@ export function KorbiOverlay() {
   const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges, closeBooking } = useBooking();
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
-  const [src, setSrc] = useState<string | undefined>();
-  const [iframeLoaded, setIframeLoaded] = useState(true);
-  const [msgIdx, setMsgIdx] = useState(0);
-
   const defaultUrl = useRef(buildBookingUrl()).current;
+  // Pre-load the default Bnovo URL in the background so modal opens instantly
+  const [src, setSrc] = useState<string>(defaultUrl);
   const closeRef = useRef<HTMLButtonElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
-
-  // Reset state on close so next open always starts fresh with loading screen
-  useEffect(() => {
-    if (isOpen) return;
-    setSrc(undefined);
-    setIframeLoaded(false);
-  }, [isOpen]);
 
   // Decide mode when overlay opens
   useEffect(() => {
@@ -63,25 +49,6 @@ export function KorbiOverlay() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren, ctxChildrenAges]);
-
-  // Show loading overlay whenever src is set/changed
-  useEffect(() => {
-    if (src) setIframeLoaded(false);
-  }, [src]);
-
-  // 10s fallback: hide loading overlay regardless
-  useEffect(() => {
-    if (!src || iframeLoaded) return;
-    const t = setTimeout(() => setIframeLoaded(true), 10_000);
-    return () => clearTimeout(t);
-  }, [src, iframeLoaded]);
-
-  // Rotate loading messages
-  useEffect(() => {
-    if (!src || iframeLoaded) return;
-    const iv = setInterval(() => setMsgIdx(i => (i + 1) % MESSAGES.length), 2500);
-    return () => clearInterval(iv);
-  }, [src, iframeLoaded]);
 
   // Lock body scroll
   useEffect(() => {
@@ -214,34 +181,13 @@ export function KorbiOverlay() {
           </div>
         )}
 
-        {/* ── Booking step: iframe + branded loading layer ── */}
+        {/* ── Booking step: iframe ── */}
         <div className={`relative overflow-hidden bg-white ${step === "booking" ? "flex-1" : "hidden"}`}>
-          {/* Branded loading overlay */}
-          <div
-            aria-hidden="true"
-            className={[
-              "absolute inset-0 z-10 flex flex-col items-center justify-center gap-4",
-              "transition-opacity duration-500 motion-reduce:transition-none",
-              iframeLoaded ? "opacity-0 pointer-events-none" : "opacity-100",
-            ].join(" ")}
-            style={{ background: "#2F3E34" }}
-          >
-            <div
-              className="w-10 h-10 rounded-full border-2 animate-spin"
-              style={{ borderColor: "rgba(194,160,107,.25)", borderTopColor: "#C2A06B" }}
-            />
-            <p className="text-sm font-medium" style={{ color: "rgba(244,239,228,.7)" }}>
-              {MESSAGES[msgIdx]}
-            </p>
-          </div>
-
-          {/* Iframe */}
           <iframe
             src={src}
             title="Бронирование коттеджа"
             className="absolute inset-0 w-full h-full border-0 bg-white"
             allow="payment"
-            onLoad={() => setIframeLoaded(true)}
           />
         </div>
       </div>
