@@ -79,10 +79,10 @@ export default function TurbazaPage() {
           <div className="space-y-8">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
               <Image
-                src="/images/activity-rental-boats.jpeg"
+                src="/images/turbaza-dock-boats.jpg"
                 fill
-                alt="Лодки у пирса Михалёвского озера"
-                style={{ objectFit: "cover", objectPosition: "center 40%" }}
+                alt="Пирс и лодки на Михалёвском озере"
+                style={{ objectFit: "cover", objectPosition: "center 50%" }}
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
