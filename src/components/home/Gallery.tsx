@@ -7,11 +7,9 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const photos = [
   // Exterior
-  { src: "/images/exterior-frost-dawn.jpeg", label: "Рассвет зимой", wide: true, position: "center 50%" },
+  { src: "/images/exterior-couple-window.jpg", label: "Коттедж", wide: true, position: "center 40%" },
   { src: "/images/exterior-sunset-front.jpg", label: "Коттедж на закате", position: "center 50%" },
-  { src: "/images/exterior-dusk-side.jpg", label: "Вечер", position: "center 50%" },
   { src: "/images/exterior-spring-front.jpg", label: "Весна", position: "center 50%" },
-  { src: "/images/exterior-spring-back.jpg", label: "Задний фасад", position: "center 50%" },
   // Lifestyle
   { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true, position: "center 25%" },
   { src: "/images/lifestyle-couple-lake.jpg", label: "На озере", position: "center 20%" },
@@ -20,7 +18,6 @@ const photos = [
   { src: "/images/lifestyle-couple-forest-walk.jpg", label: "Прогулка", position: "center 20%" },
   { src: "/images/lifestyle-couple-windows.jpg", label: "У окон", position: "center 20%" },
   { src: "/images/lifestyle-loft-bedroom.webp", label: "Спальня в лофте", position: "center 40%" },
-  { src: "/images/lifestyle-couple-stone-path.jpg", label: "Тропа", position: "center 20%" },
   // Interior
   { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true, position: "center 50%" },
   { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт", position: "center 40%" },

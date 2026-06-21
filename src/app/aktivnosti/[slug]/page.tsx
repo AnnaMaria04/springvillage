@@ -20,8 +20,8 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   bajdarki: {
     photos: [
       { src: "/images/activity-sup-dog.jpeg" },
-      { src: "/images/activity-sup-dog-board.jpeg" },
       { src: "/images/activity-sup-gear.jpeg" },
+      { src: "/images/dock-morning-mist.jpg" },
     ],
   },
   rybalka: {
@@ -49,7 +49,6 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   },
   mangal: {
     photos: [
-      { src: "/images/exterior-spring-back.jpg" },
       { src: "/images/territory-firewood-shed.jpeg" },
     ],
   },
