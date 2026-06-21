@@ -7,32 +7,32 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const photos = [
   // Exterior
-  { src: "/images/exterior-frost-dawn.jpeg", label: "Рассвет зимой", wide: true },
-  { src: "/images/exterior-sunset-front.jpg", label: "Коттедж на закате" },
-  { src: "/images/exterior-dusk-side.jpg", label: "Вечер" },
-  { src: "/images/exterior-spring-front.jpg", label: "Весна" },
-  { src: "/images/exterior-spring-back.jpg", label: "Задний фасад" },
+  { src: "/images/exterior-frost-dawn.jpeg", label: "Рассвет зимой", wide: true, position: "center 50%" },
+  { src: "/images/exterior-sunset-front.jpg", label: "Коттедж на закате", position: "center 50%" },
+  { src: "/images/exterior-dusk-side.jpg", label: "Вечер", position: "center 50%" },
+  { src: "/images/exterior-spring-front.jpg", label: "Весна", position: "center 50%" },
+  { src: "/images/exterior-spring-back.jpg", label: "Задний фасад", position: "center 50%" },
   // Lifestyle
-  { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true },
-  { src: "/images/lifestyle-couple-lake.jpg", label: "На озере" },
-  { src: "/images/lifestyle-woman-dock.jpg", label: "На пирсе" },
-  { src: "/images/lifestyle-couple-kiss-forest.jpg", label: "В лесу" },
-  { src: "/images/lifestyle-couple-forest-walk.jpg", label: "Прогулка" },
-  { src: "/images/lifestyle-couple-windows.jpg", label: "У окон" },
-  { src: "/images/lifestyle-loft-bedroom.webp", label: "Спальня в лофте" },
-  { src: "/images/lifestyle-couple-stone-path.jpg", label: "Тропа" },
+  { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true, position: "center 25%" },
+  { src: "/images/lifestyle-couple-lake.jpg", label: "На озере", position: "center 20%" },
+  { src: "/images/lifestyle-woman-dock.jpg", label: "На пирсе", position: "center 15%" },
+  { src: "/images/lifestyle-couple-kiss-forest.jpg", label: "В лесу", position: "center 20%" },
+  { src: "/images/lifestyle-couple-forest-walk.jpg", label: "Прогулка", position: "center 20%" },
+  { src: "/images/lifestyle-couple-windows.jpg", label: "У окон", position: "center 20%" },
+  { src: "/images/lifestyle-loft-bedroom.webp", label: "Спальня в лофте", position: "center 40%" },
+  { src: "/images/lifestyle-couple-stone-path.jpg", label: "Тропа", position: "center 20%" },
   // Interior
-  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true },
-  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт" },
-  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня" },
-  { src: "/images/interior-staircase.jpeg", label: "Лестница" },
+  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true, position: "center 50%" },
+  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт", position: "center 40%" },
+  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня", position: "center 50%" },
+  { src: "/images/interior-staircase.jpeg", label: "Лестница", position: "center 30%" },
   // Nature & territory
-  { src: "/images/feature-lake-sunset.jpg", label: "Закат на озере", wide: true },
-  { src: "/images/lake-panorama-autumn.jpeg", label: "Озеро осенью" },
-  { src: "/images/dock-morning-mist.jpg", label: "Утро на пирсе" },
-  { src: "/images/feature-pond-spring.jpeg", label: "Родник" },
-  { src: "/images/activity-boat-lake.jpeg", label: "На лодке" },
-  { src: "/images/activity-forest-walk.jpg", label: "Лесная тропа" },
+  { src: "/images/feature-lake-sunset.jpg", label: "Закат на озере", wide: true, position: "center 50%" },
+  { src: "/images/lake-panorama-autumn.jpeg", label: "Озеро осенью", position: "center 50%" },
+  { src: "/images/dock-morning-mist.jpg", label: "Утро на пирсе", position: "center 50%" },
+  { src: "/images/feature-pond-spring.jpeg", label: "Родник", position: "center 40%" },
+  { src: "/images/activity-boat-lake.jpeg", label: "На лодке", position: "center 50%" },
+  { src: "/images/activity-forest-walk.jpg", label: "Лесная тропа", position: "center 30%" },
 ];
 
 export function Gallery() {
@@ -66,7 +66,7 @@ export function Gallery() {
   return (
     <>
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[220px] lg:auto-rows-[280px]">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[260px] lg:auto-rows-[320px]">
           {photos.map((p, i) => (
             <Reveal
               key={i}
@@ -78,7 +78,7 @@ export function Gallery() {
                 src={p.src}
                 fill
                 alt={p.label}
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: p.position }}
                 className="transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 loading="lazy"

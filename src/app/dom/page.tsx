@@ -5,6 +5,7 @@ import { HOUSE } from "@/content/house";
 import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
 import { StickyBookingBar } from "@/components/home/StickyBookingBar";
+import { DomGallery } from "@/components/home/DomGallery";
 
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
@@ -18,12 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-const galleryPhotos = [
-  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true },
-  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт" },
-  { src: "/images/interior-staircase.jpeg", label: "Лестница" },
-  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня" },
-];
 
 export default function DomPage() {
   return (
@@ -59,30 +54,7 @@ export default function DomPage() {
 
       {/* Gallery */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[220px] lg:auto-rows-[260px]">
-          {galleryPhotos.map((p, i) => (
-            <div
-              key={i}
-              className="relative rounded-3xl overflow-hidden"
-              style={{
-                gridColumn: p.wide ? "span 2" : undefined,
-                gridRow: p.wide ? "span 2" : undefined,
-              }}
-            >
-              <Image
-                src={p.src}
-                fill
-                alt={p.label}
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 1024px) 50vw, 33vw"
-                loading="lazy"
-              />
-              <span className="absolute bottom-3 left-3 z-10 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
-                {p.label}
-              </span>
-            </div>
-          ))}
-        </div>
+        <DomGallery />
       </section>
 
 

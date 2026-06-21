@@ -23,7 +23,8 @@ export function PageHero({ eyebrow, title, subtitle, image }: Props) {
           sizes="100vw"
         />
       )}
-      {image && <div className="absolute inset-0 bg-black/45" />}
+      {image && <div className="absolute inset-0 bg-black/50" />}
+      {image && <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.45)_0%,transparent_60%)]" />}
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-16 lg:pt-36 lg:pb-20">
         <Link
           href="/"
