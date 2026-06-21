@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Phone, MapPin, Flame } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { CONTACT } from "@/content/site";
@@ -80,9 +79,9 @@ export default function TurbazaPage() {
           <div className="space-y-8">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
               <Image
-                src="/images/territory-glamping-tent.jpg"
+                src="/images/activity-rental-boats.jpeg"
                 fill
-                alt="Кемпинговая палатка у озера"
+                alt="Лодки у пирса Михалёвского озера"
                 style={{ objectFit: "cover", objectPosition: "center 40%" }}
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
@@ -129,15 +128,6 @@ export default function TurbazaPage() {
         </div>
       </section>
 
-      {/* Back to main */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
-        >
-          ← Назад на главную
-        </Link>
-      </section>
     </article>
   );
 }

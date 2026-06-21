@@ -7,6 +7,7 @@ import { ExperiencePreview } from "@/components/home/ExperiencePreview";
 import { TerritoryPreview } from "@/components/home/TerritoryPreview";
 import { Reviews } from "@/components/home/Reviews";
 import { LocationPreview } from "@/components/home/LocationPreview";
+import { TurbazaTeaser } from "@/components/home/TurbazaTeaser";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function HomePage() {
       <Deals />
       <ExperiencePreview />
       <TerritoryPreview />
+      <TurbazaTeaser />
       <Reviews />
       <LocationPreview />
     </>
