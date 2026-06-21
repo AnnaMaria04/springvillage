@@ -110,10 +110,10 @@ export default function TurbazaPage() {
             Специальное предложение
           </div>
           <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">
-            Забронируйте на 3 дня —<br className="hidden sm:block" /> получите лодку в подарок
+            Забронируйте на 3 дня —<br className="hidden sm:block" /> аренда лодки в подарок
           </h2>
           <p className="text-white/65 text-lg mb-8 max-w-xl mx-auto">
-            Новые лодки с полным комплектом снаряжения. Уточняйте наличие и даты по телефону.
+            Один день аренды лодки (до 4 часов) бесплатно при бронировании от 3 ночей. Новые лодки с полным комплектом снаряжения. Уточняйте наличие и даты по телефону.
           </p>
           <a
             href={`tel:${CONTACT.phoneDial}`}

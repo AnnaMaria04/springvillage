@@ -71,15 +71,13 @@ export function Reviews() {
 
     if (dir === "next") {
       if (el.scrollLeft >= max - 5) {
-        // At the end — wrap to start instantly, then user can scroll forward again
-        el.scrollTo({ left: 0, behavior: "instant" as ScrollBehavior });
+        el.scrollLeft = 0;
       } else {
         el.scrollBy({ left: step, behavior: "smooth" });
       }
     } else {
       if (el.scrollLeft <= 5) {
-        // At the start — wrap to end instantly
-        el.scrollTo({ left: max, behavior: "instant" as ScrollBehavior });
+        el.scrollLeft = max;
       } else {
         el.scrollBy({ left: -step, behavior: "smooth" });
       }
