@@ -54,6 +54,7 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   },
   igry: {
     photos: [
+      "/images/activity-petanque.jpg",
       "/images/activity-basketball-court.jpeg",
       "/images/activity-knife-target.jpeg",
     ],

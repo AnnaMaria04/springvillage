@@ -9,7 +9,7 @@ const photos = [
   { src: "/images/interior-loft-bedroom-new.jpeg", label: "Спальня лофт", position: "center 40%" },
   { src: "/images/exterior-autumn-yellow.jpeg", label: "Экстерьер", position: "center 60%" },
   { src: "/images/interior-living-room.jpeg", label: "Гостиная", position: "center 50%" },
-  { src: "/images/interior-kitchen-counter.jpeg", label: "Кухня", position: "center 50%" },
+  { src: "/images/interior-kitchen-new.webp", label: "Кухня", position: "center 50%" },
   { src: "/images/interior-bathroom.jpeg", label: "Санузел", position: "center 40%" },
   { src: "/images/interior-bedroom-ground-yellow.jpeg", label: "Спальня", position: "center 50%" },
   { src: "/images/interior-main-hall.jpeg", label: "Холл и лестница", wide: true, position: "center 50%" },
