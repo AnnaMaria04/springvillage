@@ -3,7 +3,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Faq } from "@/components/home/Faq";
 
 export const metadata: Metadata = {
-  title: "Частые вопросы",
+  title: "Частые вопросы — коттедж WILD, Spring Village",
   description:
     "Заезд и выезд, вместимость, животные, оплата, отмена, парковка — ответы на частые вопросы о Коттедже WILD.",
   alternates: { canonical: "/faq" },

@@ -26,7 +26,7 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://springvillage.vercel.app"),
+  metadataBase: new URL("https://www.springvillage.ru"),
   title: {
     default: "Spring Village — Коттедж WILD у Михалёвского озера",
     template: "%s | Spring Village",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "аренда дома Михалёво",
     "A-frame коттедж Выборгский район",
     "отдых Михалёвское озеро",
-    "снять коттедж Карелия",
+    "снять коттедж Ленинградская область",
     "Spring Village коттедж",
   ],
   alternates: {

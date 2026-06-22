@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description:
     "Летом: SUP, рыбалка, велосипеды, BBQ. Зимой: коньки, лыжи, зимняя рыбалка. Чем заняться в Spring Village круглый год.",
   alternates: { canonical: "/aktivnosti" },
+  openGraph: {
+    title: "Активности в Spring Village — SUP, рыбалка, природа",
+    description: "Пирс, лодки, SUP, рыбалка, мангал — летний отдых у Михалёвского озера.",
+    images: [{ url: "/images/feature-lake-sunset.jpg", width: 1200, height: 630, alt: "Михалёвское озеро — Spring Village" }],
+  },
 };
 
 export default function AktivnostiPage() {

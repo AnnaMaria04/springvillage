@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   description:
     "Кемпинг у Михалёвского озера в 1,5 км от коттеджа WILD. Аренда палаток у воды, лодок, слип для сапов. 135 км от Петербурга.",
   alternates: { canonical: "/turbaza" },
+  openGraph: {
+    title: "Тур база Михалёвское — кемпинг и аренда лодок",
+    description: "Кемпинг у воды, аренда лодок, слип для сапов. 1,5 км от коттеджа WILD.",
+    images: [{ url: "/images/turbaza-dock-boats.jpg", width: 1200, height: 630, alt: "Пирс и лодки на Михалёвском озере" }],
+  },
 };
 
 
@@ -30,8 +35,8 @@ export default function TurbazaPage() {
   return (
     <article>
       <PageHero
-        eyebrow="Тур база"
-        title="Михалёвское"
+        eyebrow="В 1,5 км от коттеджа WILD"
+        title="Тур база Михалёвское"
         subtitle="Кемпинг у озера в карельском лесу. Отдельная территория в 1,5 км от коттеджа WILD."
         image="/images/territory-glamping-tent.jpg"
       />

@@ -11,7 +11,7 @@ import { TurbazaTeaser } from "@/components/home/TurbazaTeaser";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
-  title: "Spring Village — Коттедж WILD у Михалёвского озера | Аренда A-Frame",
+  title: "Spring Village — A-Frame коттедж у Михалёвского озера",
   description:
     "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера, Ленобласть. Пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга. Рейтинг 4.8 ★",
 };

@@ -8,10 +8,10 @@ export function lodgingBusinessSchema() {
     name: "Spring Village — Коттедж WILD",
     description:
       "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера. Пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга.",
-    url: "https://springvillage.vercel.app",
+    url: "https://www.springvillage.ru",
     telephone: CONTACT.phone,
     email: CONTACT.email,
-    image: "https://springvillage.vercel.app/images/hero.jpg",
+    image: "https://www.springvillage.ru/images/hero.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Песчаный проезд, 5а",
@@ -46,7 +46,7 @@ export function lodgingBusinessSchema() {
       "@type": "QuantitativeValue",
       maxValue: HOUSE.capacity,
     },
-    priceRange: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽ за 3 ночи`,
+    priceRange: `от ${SITE.priceFrom.toLocaleString("ru-RU")} ₽ за ночь`,
     checkinTime: HOUSE.rules.checkIn,
     checkoutTime: HOUSE.rules.checkOut,
     petsAllowed: true,
