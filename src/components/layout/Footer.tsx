@@ -7,6 +7,7 @@ const footerLinks = {
   "Коттедж": [
     { href: "/dom",        label: "О доме" },
     { href: "/aktivnosti", label: "Активности" },
+    { href: "/tseny",      label: "Цены и бронирование" },
     { href: "/galereya",   label: "Галерея" },
   ],
   "Информация": [

@@ -32,7 +32,7 @@ export function WhatsAppButton() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2.5">
+    <div className="fixed bottom-[82px] md:bottom-6 right-6 z-50 flex flex-col items-end gap-2.5">
       {/* Menu items */}
       {open && (
         <div className="flex flex-col gap-2 mb-1 animate-slide-up">

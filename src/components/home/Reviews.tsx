@@ -151,7 +151,8 @@ export function Reviews() {
         className="flex gap-5 overflow-x-auto scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
         style={{
           overscrollBehaviorX: "contain",
-        }}
+          WebkitOverflowScrolling: "touch",
+        } as React.CSSProperties}
       >
         {REVIEWS.map((r, i) => (
           <ReviewCard key={i} r={r} />

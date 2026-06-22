@@ -123,6 +123,7 @@ export function Hero() {
       {SLIDES.map((slide, i) => (
         <div
           key={i}
+          aria-hidden={i !== cur}
           className={`absolute inset-0 z-20 flex items-end transition-opacity duration-700 ease-in-out ${
             i === cur ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}

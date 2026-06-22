@@ -86,9 +86,11 @@ export function DomGallery() {
             className="animate-lightbox relative max-w-5xl w-full rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="w-full bg-stone-900 bg-cover bg-center"
-              style={{ backgroundImage: `url('${photos[lightbox].src}')`, aspectRatio: "16/9" }}
+            <img
+              src={photos[lightbox].src}
+              alt={photos[lightbox].label}
+              className="w-full block"
+              style={{ maxHeight: "80vh", objectFit: "contain", background: "#0c110e" }}
             />
             <div className="absolute bottom-0 left-0 right-0 px-6 py-4 bg-gradient-to-t from-black/65 to-transparent">
               <p className="text-white font-medium text-sm">{photos[lightbox].label}</p>

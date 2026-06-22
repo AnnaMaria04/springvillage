@@ -10,6 +10,7 @@ import { useBooking } from "@/context/booking-context";
 const navLinks = [
   { href: "/dom",        label: "Коттедж" },
   { href: "/aktivnosti", label: "Активности" },
+  { href: "/tseny",      label: "Цены" },
   { href: "/galereya",   label: "Галерея" },
   { href: "/kontakty",   label: "Контакты" },
 ];
