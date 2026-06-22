@@ -207,7 +207,8 @@
   .media { overflow: hidden; }
   .media-img {
     transition: transform 1.2s var(--ease), filter 1.2s ease;
-    will-change: transform;
+    /* will-change promoted only on hover, NOT globally — global promotion
+       creates a compositor layer per image and causes scroll jank */
   }
 
   /* Scroll-reveal */
@@ -222,6 +223,7 @@
   }
   .group:hover .media-img,
   .media:hover .media-img {
+    will-change: transform;
     transform: scale(1.06);
     filter: brightness(1.04);
   }

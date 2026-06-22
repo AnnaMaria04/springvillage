@@ -9,10 +9,11 @@ export function buildBookingUrl(opts?: { dfrom?: string; dto?: string; adults?: 
   });
   if (opts?.dfrom) params.set("dfrom", opts.dfrom);
   if (opts?.dto) params.set("dto", opts.dto);
+  // Bnovo requires children as a JSON array of ages — never a plain count
   if (opts?.childrenAges && opts.childrenAges.length > 0) {
     params.set("children", JSON.stringify(opts.childrenAges));
   } else if (opts?.children && opts.children > 0) {
-    params.set("children", String(opts.children));
+    params.set("children", JSON.stringify(Array(opts.children).fill(0)));
   }
   return `${BASE}?${params}`;
 }

@@ -11,11 +11,6 @@ function formatDateDMY(date: Date): string {
   return `${d}-${m}-${date.getFullYear()}`;
 }
 
-function tomorrowStr(): string {
-  const t = new Date();
-  t.setDate(t.getDate() + 1);
-  return t.toISOString().split("T")[0];
-}
 
 function nightsLabel(n: number): string {
   if (n === 1) return "ночь";
@@ -81,13 +76,23 @@ export function KorbiOverlay() {
     if (isOpen && step === "booking") closeRef.current?.focus();
   }, [isOpen, step]);
 
-  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const val = e.target.value; // YYYY-MM-DD
-    if (!val || !nights) return;
-    const [y, m, d] = val.split("-").map(Number);
-    // Use local date constructor to avoid UTC-offset date shift bugs
+  function handleDateInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value.replace(/\D/g, "");
+    // Auto-insert dots: 27.06.2026
+    let formatted = val;
+    if (val.length > 2) formatted = val.slice(0, 2) + "." + val.slice(2);
+    if (val.length > 4) formatted = formatted.slice(0, 5) + "." + val.slice(4, 8);
+    e.target.value = formatted;
+
+    if (val.length < 8) return; // not complete yet
+    const d = Number(val.slice(0, 2));
+    const m = Number(val.slice(2, 4));
+    const y = Number(val.slice(4, 8));
+    if (!d || !m || !y || m > 12 || d > 31 || !nights) return;
+    const checkin = new Date(y, m - 1, d);
+    if (isNaN(checkin.getTime()) || checkin < new Date()) return;
     const dfrom = `${String(d).padStart(2,"0")}-${String(m).padStart(2,"0")}-${y}`;
-    const checkout = new Date(y, m - 1, d + nights); // d+nights handles month overflow
+    const checkout = new Date(y, m - 1, d + nights);
     setSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
     setStep("booking");
   }
@@ -156,16 +161,18 @@ export function KorbiOverlay() {
 
             <input
               ref={dateInputRef}
-              type="date"
-              min={tomorrowStr()}
-              onChange={handleDateChange}
-              className="h-14 px-5 rounded-xl text-base font-medium outline-none cursor-pointer"
+              type="text"
+              inputMode="numeric"
+              placeholder="ДД.ММ.ГГГГ"
+              maxLength={10}
+              onChange={handleDateInput}
+              className="h-14 px-5 rounded-xl text-base font-medium outline-none"
               style={{
                 background: "rgba(255,255,255,.1)",
                 border: "1.5px solid rgba(244,239,228,.2)",
                 color: "#F4EFE4",
-                colorScheme: "dark",
                 minWidth: "220px",
+                letterSpacing: "0.08em",
               }}
             />
 
