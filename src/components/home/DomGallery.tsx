@@ -6,8 +6,8 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const photos = [
   { src: "/images/exterior-couple-window.jpg", label: "Лофт", wide: true, position: "center 35%" },
-  { src: "/images/interior-loft-bedroom-new.jpeg", label: "Спальня лофт", position: "center 40%" },
-  { src: "/images/interior-loft-couch.webp", label: "Уют лофта", position: "center 50%" },
+  { src: "/images/interior-loft-couch.webp", label: "Спальня лофт", position: "center 40%" },
+  { src: "/images/interior-sofa-colorful.jpeg", label: "Гостиная", position: "center 50%" },
   { src: "/images/exterior-autumn-yellow.jpeg", label: "Экстерьер", position: "center 60%" },
   { src: "/images/interior-kitchen-new.webp", label: "Кухня", position: "center 50%" },
   { src: "/images/interior-bathroom.jpeg", label: "Санузел", position: "center 40%" },

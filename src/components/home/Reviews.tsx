@@ -14,7 +14,6 @@ function ReviewCard({ r }: { r: Review }) {
   return (
     <div
       className="flex-none w-[80vw] sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] flex flex-col bg-white rounded-3xl border border-border p-8 card-hover"
-      style={{ scrollSnapAlign: "start" }}
     >
       <Stars n={r.rating} />
       <div className="mt-5 flex-1 flex flex-col">
@@ -73,13 +72,13 @@ export function Reviews() {
       if (el.scrollLeft >= max - 5) {
         el.scrollLeft = 0;
       } else {
-        el.scrollBy({ left: step, behavior: "smooth" });
+        el.scrollTo({ left: el.scrollLeft + step, behavior: "smooth" });
       }
     } else {
       if (el.scrollLeft <= 5) {
         el.scrollLeft = max;
       } else {
-        el.scrollBy({ left: -step, behavior: "smooth" });
+        el.scrollTo({ left: el.scrollLeft - step, behavior: "smooth" });
       }
     }
   }, []);
@@ -136,7 +135,6 @@ export function Reviews() {
         ref={scrollRef}
         className="flex gap-5 overflow-x-auto scrollbar-hide px-6 sm:px-8 lg:px-12 pb-2 max-w-7xl mx-auto"
         style={{
-          scrollSnapType: "x proximity",
           overscrollBehaviorX: "contain",
         }}
       >
