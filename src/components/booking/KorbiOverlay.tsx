@@ -11,6 +11,11 @@ function formatDateDMY(date: Date): string {
   return `${d}-${m}-${date.getFullYear()}`;
 }
 
+function tomorrowStr(): string {
+  const t = new Date();
+  t.setDate(t.getDate() + 1);
+  return t.toISOString().split("T")[0];
+}
 
 function nightsLabel(n: number): string {
   if (n === 1) return "ночь";
@@ -19,28 +24,58 @@ function nightsLabel(n: number): string {
 }
 
 export function KorbiOverlay() {
-  const { isOpen, nights, dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges, closeBooking } = useBooking();
+  const {
+    isOpen, nights,
+    dfrom: ctxDfrom, dto: ctxDto,
+    adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges,
+    closeBooking,
+  } = useBooking();
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
+
+  // Default iframe: src is frozen at mount — the <iframe> lives in the DOM
+  // permanently and is NEVER reloaded. Handles plain "Забронировать" opens.
   const defaultUrl = useRef(buildBookingUrl()).current;
-  // Pre-load the default Bnovo URL in the background so modal opens instantly
-  const [src, setSrc] = useState<string>(defaultUrl);
+
+  // Custom iframe: only rendered when specific dates are needed.
+  // null → show default iframe; string → overlay a fresh dated iframe.
+  const [customSrc, setCustomSrc] = useState<string | null>(null);
+
+  // Loading overlay shown while the custom iframe is fetching Bnovo
+  const [loading, setLoading] = useState(false);
+
   const closeRef = useRef<HTMLButtonElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
 
-  // Decide mode when overlay opens
+  // When customSrc changes, show the loading overlay
   useEffect(() => {
-    if (!isOpen) return;
+    if (customSrc) setLoading(true);
+  }, [customSrc]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      // Tear down custom iframe on close so next open starts clean
+      setCustomSrc(null);
+      setLoading(false);
+      return;
+    }
     if (ctxDfrom && ctxDto) {
-      setSrc(buildBookingUrl({ dfrom: ctxDfrom, dto: ctxDto, adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges }));
+      setCustomSrc(buildBookingUrl({
+        dfrom: ctxDfrom, dto: ctxDto,
+        adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges,
+      }));
       setStep("booking");
     } else if (nights) {
+      setCustomSrc(null);
+      setLoading(false);
       setStep("date-pick");
       setTimeout(() => dateInputRef.current?.focus(), 80);
     } else {
+      // Plain open — default iframe already pre-loaded, nothing to change
+      setCustomSrc(null);
+      setLoading(false);
       setStep("booking");
-      setSrc(defaultUrl);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren, ctxChildrenAges]);
@@ -71,29 +106,17 @@ export function KorbiOverlay() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen, closeBooking]);
 
-  // Focus close button when on booking step
   useEffect(() => {
     if (isOpen && step === "booking") closeRef.current?.focus();
   }, [isOpen, step]);
 
-  function handleDateInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const val = e.target.value.replace(/\D/g, "");
-    // Auto-insert dots: 27.06.2026
-    let formatted = val;
-    if (val.length > 2) formatted = val.slice(0, 2) + "." + val.slice(2);
-    if (val.length > 4) formatted = formatted.slice(0, 5) + "." + val.slice(4, 8);
-    e.target.value = formatted;
-
-    if (val.length < 8) return; // not complete yet
-    const d = Number(val.slice(0, 2));
-    const m = Number(val.slice(2, 4));
-    const y = Number(val.slice(4, 8));
-    if (!d || !m || !y || m > 12 || d > 31 || !nights) return;
-    const checkin = new Date(y, m - 1, d);
-    if (isNaN(checkin.getTime()) || checkin < new Date()) return;
-    const dfrom = `${String(d).padStart(2,"0")}-${String(m).padStart(2,"0")}-${y}`;
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value; // YYYY-MM-DD from native date picker
+    if (!val || !nights) return;
+    const [y, m, d] = val.split("-").map(Number);
+    const dfrom = `${String(d).padStart(2, "0")}-${String(m).padStart(2, "0")}-${y}`;
     const checkout = new Date(y, m - 1, d + nights);
-    setSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
+    setCustomSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
     setStep("booking");
   }
 
@@ -126,7 +149,7 @@ export function KorbiOverlay() {
           "shadow-[0_32px_80px_rgba(0,0,0,0.55)]",
         ].join(" ")}
       >
-        {/* Brand chrome bar */}
+        {/* Chrome bar */}
         <div className="flex items-center shrink-0 px-5 py-3" style={{ background: "#2F3E34" }}>
           <p className="text-sm font-semibold leading-none" style={{ color: "#F4EFE4" }}>
             Бронирование · Коттедж WILD
@@ -161,23 +184,21 @@ export function KorbiOverlay() {
 
             <input
               ref={dateInputRef}
-              type="text"
-              inputMode="numeric"
-              placeholder="ДД.ММ.ГГГГ"
-              maxLength={10}
-              onChange={handleDateInput}
-              className="h-14 px-5 rounded-xl text-base font-medium outline-none"
+              type="date"
+              min={tomorrowStr()}
+              onChange={handleDateChange}
+              className="h-14 px-5 rounded-xl text-base font-medium outline-none cursor-pointer"
               style={{
-                background: "rgba(255,255,255,.1)",
-                border: "1.5px solid rgba(244,239,228,.2)",
+                background: "rgba(255,255,255,.12)",
+                border: "1.5px solid rgba(244,239,228,.25)",
                 color: "#F4EFE4",
+                colorScheme: "dark",
                 minWidth: "220px",
-                letterSpacing: "0.08em",
               }}
             />
 
             <button
-              onClick={() => { setSrc(defaultUrl); setStep("booking"); }}
+              onClick={() => { setCustomSrc(null); setStep("booking"); }}
               className="text-sm transition-colors cursor-pointer mt-1"
               style={{ color: "rgba(244,239,228,.35)" }}
               onMouseEnter={e => (e.currentTarget.style.color = "rgba(244,239,228,.7)")}
@@ -188,14 +209,44 @@ export function KorbiOverlay() {
           </div>
         )}
 
-        {/* ── Booking step: iframe ── */}
+        {/* ── Booking step: iframes ── */}
         <div className={`relative overflow-hidden bg-white ${step === "booking" ? "flex-1" : "hidden"}`}>
+
+          {/* Default iframe — always in DOM, src never changes, pre-loaded on mount */}
           <iframe
-            src={src}
+            src={defaultUrl}
             title="Бронирование коттеджа"
-            className="absolute inset-0 w-full h-full border-0 bg-white"
+            className={`absolute inset-0 w-full h-full border-0 bg-white ${customSrc ? "invisible" : "visible"}`}
             allow="payment"
           />
+
+          {/* Custom iframe — only mounted for specific dates; destroyed on modal close */}
+          {customSrc && (
+            <iframe
+              key={customSrc}
+              src={customSrc}
+              title="Бронирование коттеджа"
+              className="absolute inset-0 w-full h-full border-0 bg-white"
+              allow="payment"
+              onLoad={() => setLoading(false)}
+            />
+          )}
+
+          {/* Loading overlay — covers iframe while Bnovo fetches availability */}
+          {loading && (
+            <div
+              className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4"
+              style={{ background: "#2F3E34" }}
+            >
+              <div
+                className="w-10 h-10 rounded-full border-2 animate-spin"
+                style={{ borderColor: "rgba(244,239,228,.15)", borderTopColor: "#B98A5E" }}
+              />
+              <p className="text-sm font-medium" style={{ color: "rgba(244,239,228,.65)" }}>
+                Ищем доступные даты...
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
