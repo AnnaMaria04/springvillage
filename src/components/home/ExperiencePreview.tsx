@@ -26,6 +26,7 @@ export function ExperiencePreview() {
   const lockedRef = useRef(false);
   const firstMeasureRef = useRef(true);
   const dragStartX = useRef<number | null>(null);
+  const dragStartY = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
 
   useEffect(() => {
@@ -81,15 +82,23 @@ export function ExperiencePreview() {
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     dragStartX.current = e.clientX;
+    dragStartY.current = e.clientY;
     isDraggingRef.current = false;
-    // Don't capture yet — a tap must reach the nested <Link> as a click
   }
 
   function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (dragStartX.current === null || isDraggingRef.current) return;
-    if (Math.abs(e.clientX - dragStartX.current) > 5) {
+    if (dragStartX.current === null || dragStartY.current === null || isDraggingRef.current) return;
+    const dx = Math.abs(e.clientX - dragStartX.current);
+    const dy = Math.abs(e.clientY - dragStartY.current);
+    if (dy > dx) {
+      // Vertical scroll intent — abort drag so browser can scroll freely
+      dragStartX.current = null;
+      dragStartY.current = null;
+      return;
+    }
+    if (dx > 10) {
       isDraggingRef.current = true;
-      e.currentTarget.setPointerCapture(e.pointerId); // only capture on confirmed drag
+      e.currentTarget.setPointerCapture(e.pointerId);
     }
   }
 
@@ -97,12 +106,14 @@ export function ExperiencePreview() {
     if (dragStartX.current === null) return;
     const diff = e.clientX - dragStartX.current;
     dragStartX.current = null;
+    dragStartY.current = null;
     if (isDraggingRef.current && Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
     isDraggingRef.current = false;
   }
 
   function onPointerCancel() {
     dragStartX.current = null;
+    dragStartY.current = null;
     isDraggingRef.current = false;
   }
 
