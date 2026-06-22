@@ -33,48 +33,42 @@ export function KorbiOverlay() {
 
   const [step, setStep] = useState<"date-pick" | "booking">("booking");
 
-  // Default iframe: src is frozen at mount — the <iframe> lives in the DOM
-  // permanently and is NEVER reloaded. Handles plain "Забронировать" opens.
-  const defaultUrl = useRef(buildBookingUrl()).current;
+  // Single lazy iframe — null means not in DOM (modal closed → no background JS)
+  const [iframeSrc, setIframeSrc] = useState<string | null>(null);
 
-  // Custom iframe: only rendered when specific dates are needed.
-  // null → show default iframe; string → overlay a fresh dated iframe.
-  const [customSrc, setCustomSrc] = useState<string | null>(null);
-
-  // Loading overlay shown while the custom iframe is fetching Bnovo
+  // Loading overlay shown while Bnovo iframe is fetching
   const [loading, setLoading] = useState(false);
 
   const closeRef = useRef<HTMLButtonElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const dateInputRef = useRef<HTMLInputElement>(null);
 
-  // When customSrc changes, show the loading overlay
+  // Show loading whenever a new src is set
   useEffect(() => {
-    if (customSrc) setLoading(true);
-  }, [customSrc]);
+    if (iframeSrc) setLoading(true);
+  }, [iframeSrc]);
 
   useEffect(() => {
     if (!isOpen) {
-      // Tear down custom iframe on close so next open starts clean
-      setCustomSrc(null);
+      // Destroy iframe on close — frees Bnovo JS thread, stops scroll jank
+      setIframeSrc(null);
       setLoading(false);
       return;
     }
     if (ctxDfrom && ctxDto) {
-      setCustomSrc(buildBookingUrl({
+      setIframeSrc(buildBookingUrl({
         dfrom: ctxDfrom, dto: ctxDto,
         adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges,
       }));
       setStep("booking");
     } else if (nights) {
-      setCustomSrc(null);
+      setIframeSrc(null);
       setLoading(false);
       setStep("date-pick");
       setTimeout(() => dateInputRef.current?.focus(), 80);
     } else {
-      // Plain open — default iframe already pre-loaded, nothing to change
-      setCustomSrc(null);
-      setLoading(false);
+      // Plain open — load default URL
+      setIframeSrc(buildBookingUrl());
       setStep("booking");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,7 +110,7 @@ export function KorbiOverlay() {
     const [y, m, d] = val.split("-").map(Number);
     const dfrom = `${String(d).padStart(2, "0")}-${String(m).padStart(2, "0")}-${y}`;
     const checkout = new Date(y, m - 1, d + nights);
-    setCustomSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
+    setIframeSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
     setStep("booking");
   }
 
@@ -198,7 +192,7 @@ export function KorbiOverlay() {
             />
 
             <button
-              onClick={() => { setCustomSrc(null); setStep("booking"); }}
+              onClick={() => { setIframeSrc(buildBookingUrl()); setStep("booking"); }}
               className="text-sm transition-colors cursor-pointer mt-1"
               style={{ color: "rgba(244,239,228,.35)" }}
               onMouseEnter={e => (e.currentTarget.style.color = "rgba(244,239,228,.7)")}
@@ -209,22 +203,14 @@ export function KorbiOverlay() {
           </div>
         )}
 
-        {/* ── Booking step: iframes ── */}
+        {/* ── Booking step: single lazy iframe ── */}
         <div className={`relative overflow-hidden bg-white ${step === "booking" ? "flex-1" : "hidden"}`}>
 
-          {/* Default iframe — always in DOM, src never changes, pre-loaded on mount */}
-          <iframe
-            src={defaultUrl}
-            title="Бронирование коттеджа"
-            className={`absolute inset-0 w-full h-full border-0 bg-white ${customSrc ? "invisible" : "visible"}`}
-            allow="payment"
-          />
-
-          {/* Custom iframe — only mounted for specific dates; destroyed on modal close */}
-          {customSrc && (
+          {/* Iframe only exists in DOM while modal is open */}
+          {iframeSrc && (
             <iframe
-              key={customSrc}
-              src={customSrc}
+              key={iframeSrc}
+              src={iframeSrc}
               title="Бронирование коттеджа"
               className="absolute inset-0 w-full h-full border-0 bg-white"
               allow="payment"
