@@ -55,6 +55,22 @@ function Stars({ n }: { n: number }) {
 
 export function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+
+  const smoothScroll = useCallback((el: HTMLDivElement, target: number) => {
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    const start = el.scrollLeft;
+    const dist = target - start;
+    const duration = 380;
+    const t0 = performance.now();
+    function tick(now: number) {
+      const p = Math.min((now - t0) / duration, 1);
+      const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      el.scrollLeft = start + dist * ease;
+      if (p < 1) rafRef.current = requestAnimationFrame(tick);
+    }
+    rafRef.current = requestAnimationFrame(tick);
+  }, []);
 
   const go = useCallback((dir: "prev" | "next") => {
     const el = scrollRef.current;
@@ -62,7 +78,6 @@ export function Reviews() {
     const firstCard = el.children[0] as HTMLElement | null;
     if (!firstCard) return;
 
-    // Measure card width + gap from DOM so it's always correct regardless of breakpoint
     const cardW = firstCard.getBoundingClientRect().width;
     const gap = parseFloat(getComputedStyle(el).columnGap) || 20;
     const step = cardW + gap;
@@ -72,16 +87,16 @@ export function Reviews() {
       if (el.scrollLeft >= max - 5) {
         el.scrollLeft = 0;
       } else {
-        el.scrollTo({ left: el.scrollLeft + step, behavior: "smooth" });
+        smoothScroll(el, Math.min(el.scrollLeft + step, max));
       }
     } else {
       if (el.scrollLeft <= 5) {
         el.scrollLeft = max;
       } else {
-        el.scrollTo({ left: el.scrollLeft - step, behavior: "smooth" });
+        smoothScroll(el, Math.max(el.scrollLeft - step, 0));
       }
     }
-  }, []);
+  }, [smoothScroll]);
 
   return (
     <section className="bg-cream py-20 lg:py-28 overflow-x-clip">

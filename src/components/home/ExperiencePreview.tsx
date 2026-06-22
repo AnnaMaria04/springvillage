@@ -28,6 +28,7 @@ export function ExperiencePreview() {
   const dragStartX = useRef<number | null>(null);
   const dragStartY = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
+  const preventClickRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -84,18 +85,16 @@ export function ExperiencePreview() {
     dragStartX.current = e.clientX;
     dragStartY.current = e.clientY;
     isDraggingRef.current = false;
+    preventClickRef.current = false;
   }
 
   function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (dragStartX.current === null || dragStartY.current === null || isDraggingRef.current) return;
     const dx = Math.abs(e.clientX - dragStartX.current);
     const dy = Math.abs(e.clientY - dragStartY.current);
-    if (dy > dx) {
-      // Vertical scroll intent — abort drag so browser can scroll freely
-      dragStartX.current = null;
-      dragStartY.current = null;
-      return;
-    }
+    // Any movement beyond tap threshold — block the click that would follow pointerup
+    if (dx > 4 || dy > 4) preventClickRef.current = true;
+    if (dy > dx) return; // vertical scroll — don't capture, let browser scroll
     if (dx > 10) {
       isDraggingRef.current = true;
       e.currentTarget.setPointerCapture(e.pointerId);
@@ -115,6 +114,14 @@ export function ExperiencePreview() {
     dragStartX.current = null;
     dragStartY.current = null;
     isDraggingRef.current = false;
+  }
+
+  function onClickCapture(e: React.MouseEvent) {
+    if (preventClickRef.current) {
+      preventClickRef.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
   const realIdx = ((pos - CLONES) % N + N) % N;
@@ -156,6 +163,7 @@ export function ExperiencePreview() {
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerCancel}
+            onClickCapture={onClickCapture}
           >
             <div
               className="flex select-none"

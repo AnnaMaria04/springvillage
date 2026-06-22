@@ -34,6 +34,7 @@ export function TerritoryPreview() {
   const dragStartX = useRef<number | null>(null);
   const dragStartY = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
+  const preventClickRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -90,17 +91,15 @@ export function TerritoryPreview() {
     dragStartX.current = e.clientX;
     dragStartY.current = e.clientY;
     isDraggingRef.current = false;
+    preventClickRef.current = false;
   }
 
   function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (dragStartX.current === null || dragStartY.current === null || isDraggingRef.current) return;
     const dx = Math.abs(e.clientX - dragStartX.current);
     const dy = Math.abs(e.clientY - dragStartY.current);
-    if (dy > dx) {
-      dragStartX.current = null;
-      dragStartY.current = null;
-      return;
-    }
+    if (dx > 4 || dy > 4) preventClickRef.current = true;
+    if (dy > dx) return;
     if (dx > 10) {
       isDraggingRef.current = true;
       e.currentTarget.setPointerCapture(e.pointerId);
@@ -120,6 +119,14 @@ export function TerritoryPreview() {
     dragStartX.current = null;
     dragStartY.current = null;
     isDraggingRef.current = false;
+  }
+
+  function onClickCapture(e: React.MouseEvent) {
+    if (preventClickRef.current) {
+      preventClickRef.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
   const realIdx = ((pos - CLONES) % N + N) % N;
@@ -161,6 +168,7 @@ export function TerritoryPreview() {
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerCancel}
+            onClickCapture={onClickCapture}
           >
             <div
               className="flex select-none"
