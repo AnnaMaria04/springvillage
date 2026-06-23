@@ -61,17 +61,9 @@ export function WhatsAppButton() {
 
       {/* Main button */}
       <div className="relative">
-        {/* Ping ring */}
-        {!open && (
-          <span
-            className="absolute inset-0 rounded-full animate-whatsapp pointer-events-none"
-            style={{ background: "#25D366" }}
-          />
-        )}
         <button
           onClick={() => setOpen(!open)}
-          style={{ background: open ? "#1a1a1a" : "#25D366" }}
-          className="relative w-14 h-14 rounded-full text-white shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95"
+          className="relative w-14 h-14 rounded-full text-white shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95 bg-pine hover:bg-pine/90"
           aria-label={open ? "Закрыть меню связи" : "Связаться с нами"}
         >
           {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-6 h-6" />}
