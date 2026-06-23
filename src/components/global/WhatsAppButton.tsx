@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PhoneCall, X, Phone, Send } from "lucide-react";
+import { PhoneCall, X, Phone, Send, MessageCircle } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 
 const contacts = [
