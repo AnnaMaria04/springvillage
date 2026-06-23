@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle, X, Phone, Send } from "lucide-react";
+import { PhoneCall, X, Phone, Send } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 
 const contacts = [
@@ -61,12 +61,15 @@ export function WhatsAppButton() {
 
       {/* Main button */}
       <div className="relative">
+        {!open && (
+          <span className="absolute inset-0 rounded-full animate-whatsapp bg-wood/60 pointer-events-none" />
+        )}
         <button
           onClick={() => setOpen(!open)}
-          className="relative w-14 h-14 rounded-full text-white shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95 bg-pine hover:bg-pine/90"
+          className="relative w-14 h-14 rounded-full text-white shadow-xl transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95 bg-wood hover:bg-wood/90"
           aria-label={open ? "Закрыть меню связи" : "Связаться с нами"}
         >
-          {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-6 h-6" />}
+          {open ? <X className="w-5 h-5" /> : <PhoneCall className="w-6 h-6" />}
         </button>
       </div>
     </div>
