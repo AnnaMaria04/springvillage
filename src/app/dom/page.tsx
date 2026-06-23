@@ -9,7 +9,7 @@ import { DomGallery } from "@/components/home/DomGallery";
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
   description:
-    "Уединённый A-frame коттедж 60 м², 2 спальни, до 5 гостей. Оборудованный пирс, лодки, SUP. Аренда в Михалёво, Выборгский район.",
+    "Уединённый A-frame коттедж 60 м², 2 спальни, до 5 гостей. 200 м частного берега, пирс, лодка и SUP включены в стоимость. Михалёво, Выборгский район.",
   alternates: { canonical: "/dom" },
   openGraph: {
     title: "Коттедж WILD — Spring Village",
@@ -54,6 +54,46 @@ export default function DomPage() {
       {/* Gallery */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <DomGallery />
+      </section>
+
+      {/* Waterfront stat — prominent sell */}
+      <section className="bg-pine py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40 mb-6">
+            Берег и вода
+          </p>
+          <div className="flex items-end justify-center gap-2 mb-4">
+            <span
+              className="font-display font-bold text-white leading-none"
+              style={{ fontSize: "clamp(5.5rem, 16vw, 11rem)" }}
+            >
+              200
+            </span>
+            <span
+              className="font-display font-bold text-white/50 leading-none mb-3"
+              style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
+            >
+              м
+            </span>
+          </div>
+          <p className="font-display text-xl lg:text-2xl text-white/70 mb-8">
+            частного берега Михалёвского озера
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <span className="inline-flex items-center bg-white/10 border border-white/15 rounded-full px-5 py-2.5 text-white/85 text-sm font-medium">
+              Оборудованный пирс
+            </span>
+            <span className="inline-flex items-center bg-wood/30 border border-wood/50 rounded-full px-5 py-2.5 text-white text-sm font-semibold">
+              Лодка с вёслами — включена в стоимость
+            </span>
+            <span className="inline-flex items-center bg-wood/30 border border-wood/50 rounded-full px-5 py-2.5 text-white text-sm font-semibold">
+              SUP-доски — включены в стоимость
+            </span>
+          </div>
+          <p className="text-white/40 text-sm max-w-sm mx-auto leading-relaxed">
+            Михалёвское — чистое озеро без моторных лодок. На воде — только ваши гости.
+          </p>
+        </div>
       </section>
 
 

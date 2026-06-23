@@ -43,6 +43,44 @@ export default function TurbazaPage() {
         image="/images/territory-glamping-tent.jpg"
       />
 
+      {/* 500m waterfront — prominent stat banner */}
+      <section style={{ background: "#192820" }} className="border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-14 lg:py-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+          <div className="text-center lg:text-left shrink-0">
+            <div className="flex items-end gap-2 justify-center lg:justify-start">
+              <span
+                className="font-display font-bold text-white leading-none"
+                style={{ fontSize: "clamp(4.5rem, 12vw, 8rem)" }}
+              >
+                500
+              </span>
+              <span
+                className="font-display font-bold text-white/45 leading-none mb-2"
+                style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
+              >
+                м
+              </span>
+            </div>
+            <p className="font-display text-lg lg:text-xl text-white/60 mt-2">
+              берега с песчаным пляжем
+            </p>
+          </div>
+          <div className="hidden lg:block w-px h-24 bg-white/10 shrink-0" />
+          <div className="flex-1 text-center lg:text-left">
+            <p className="text-white/75 text-lg leading-relaxed max-w-lg">
+              Редкость для Михалёвского озера — собственный песчаный пляж и 500 метров береговой линии. Только для гостей тур базы, без посторонних.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-5 justify-center lg:justify-start">
+              {["Песчаный пляж", "Прямой вход в воду", "Слип для лодок и SAP", "Кемпинг у берега"].map(t => (
+                <span key={t} className="text-[11px] font-semibold uppercase tracking-wider text-white/55 bg-white/8 rounded-full px-3 py-1.5">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Main content */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
