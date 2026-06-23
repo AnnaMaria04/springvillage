@@ -39,6 +39,7 @@ export default function DomPage() {
             { icon: Bath, value: `${HOUSE.bathrooms} санузел` },
             { icon: Maximize2, value: `${HOUSE.area} м²` },
             { icon: null, value: HOUSE.type },
+            { icon: null, value: "200 м берега · пирс, лодка, SUP включены" },
           ].map((s) => {
             const Icon = s.icon;
             return (
@@ -55,21 +56,6 @@ export default function DomPage() {
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <DomGallery />
       </section>
-
-      {/* Waterfront callout */}
-      <div className="border-y border-border bg-background">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-10">
-          <div className="flex items-baseline gap-2 shrink-0">
-            <span className="font-display text-5xl font-bold text-pine leading-none">200</span>
-            <span className="font-display text-2xl font-bold text-pine/40 leading-none">м</span>
-          </div>
-          <div>
-            <p className="font-medium text-foreground">частного берега Михалёвского озера</p>
-            <p className="text-sm text-muted-foreground mt-0.5">Оборудованный пирс · лодка с вёслами и SUP-доски включены в стоимость</p>
-          </div>
-        </div>
-      </div>
-
 
       {/* Equipment + amenities, clean lists */}
       <section className="bg-cream">
