@@ -1,7 +1,7 @@
 export const CONTACT = {
-  phone: "+7 (911) 233-31-99",
-  phoneDial: "+79112333199",
-  phoneWhatsApp: "79112333199",
+  phone: "+7 (911) 110-16-52",
+  phoneDial: "+79111101652",
+  phoneWhatsApp: "79111101652",
   email: "springvillage@yandex.ru",
   telegram: "https://t.me/springvillage",
   instagram: "https://instagram.com/springvillage",
