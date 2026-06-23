@@ -56,34 +56,19 @@ export default function DomPage() {
         <DomGallery />
       </section>
 
-      {/* Waterfront stat — prominent sell */}
-      <section className="bg-pine py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40 mb-6">
-            Берег и вода
-          </p>
-          <div className="flex items-end justify-center gap-2 mb-4">
-            <span
-              className="font-display font-bold text-white leading-none"
-              style={{ fontSize: "clamp(5.5rem, 16vw, 11rem)" }}
-            >
-              200
-            </span>
-            <span
-              className="font-display font-bold text-white/50 leading-none mb-3"
-              style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
-            >
-              м
-            </span>
+      {/* Waterfront callout */}
+      <div className="border-y border-border bg-background">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-10">
+          <div className="flex items-baseline gap-2 shrink-0">
+            <span className="font-display text-5xl font-bold text-pine leading-none">200</span>
+            <span className="font-display text-2xl font-bold text-pine/40 leading-none">м</span>
           </div>
-          <p className="font-display text-xl lg:text-2xl text-white/70 mb-6">
-            частного берега Михалёвского озера
-          </p>
-          <p className="text-white/45 text-sm max-w-xs mx-auto leading-relaxed">
-            Оборудованный пирс, лодка с вёслами и SUP-доски — всё включено в стоимость. Чистое озеро без моторных лодок.
-          </p>
+          <div>
+            <p className="font-medium text-foreground">частного берега Михалёвского озера</p>
+            <p className="text-sm text-muted-foreground mt-0.5">Оборудованный пирс · лодка с вёслами и SUP-доски включены в стоимость</p>
+          </div>
         </div>
-      </section>
+      </div>
 
 
       {/* Equipment + amenities, clean lists */}
