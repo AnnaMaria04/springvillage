@@ -76,22 +76,11 @@ export default function DomPage() {
               м
             </span>
           </div>
-          <p className="font-display text-xl lg:text-2xl text-white/70 mb-8">
+          <p className="font-display text-xl lg:text-2xl text-white/70 mb-6">
             частного берега Михалёвского озера
           </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <span className="inline-flex items-center bg-white/10 border border-white/15 rounded-full px-5 py-2.5 text-white/85 text-sm font-medium">
-              Оборудованный пирс
-            </span>
-            <span className="inline-flex items-center bg-wood/30 border border-wood/50 rounded-full px-5 py-2.5 text-white text-sm font-semibold">
-              Лодка с вёслами — включена в стоимость
-            </span>
-            <span className="inline-flex items-center bg-wood/30 border border-wood/50 rounded-full px-5 py-2.5 text-white text-sm font-semibold">
-              SUP-доски — включены в стоимость
-            </span>
-          </div>
-          <p className="text-white/40 text-sm max-w-sm mx-auto leading-relaxed">
-            Михалёвское — чистое озеро без моторных лодок. На воде — только ваши гости.
+          <p className="text-white/45 text-sm max-w-xs mx-auto leading-relaxed">
+            Оборудованный пирс, лодка с вёслами и SUP-доски — всё включено в стоимость. Чистое озеро без моторных лодок.
           </p>
         </div>
       </section>
