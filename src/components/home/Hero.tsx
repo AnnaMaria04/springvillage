@@ -129,7 +129,7 @@ export function Hero() {
           }`}
         >
           <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 lg:pb-20">
-            <p className="text-white/70 text-[11px] font-semibold uppercase tracking-[0.22em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
+            <p className="text-white/70 text-[11px] font-semibold uppercase tracking-[0.25em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
               {CONTACT.addressShort} · {slide.label}
             </p>
             {i === 0 ? (
@@ -190,7 +190,7 @@ export function Hero() {
             className="flex items-center justify-center w-11 h-11 cursor-pointer"
           >
             <span className={`rounded-full transition-all duration-300 block ${
-              i === cur ? "bg-white w-6 h-2" : "bg-white/40 w-2 h-2 hover:bg-white/65"
+              i === cur ? "bg-white w-6 h-2" : "bg-white/50 w-2 h-2 hover:bg-white/70"
             }`} />
           </button>
         ))}

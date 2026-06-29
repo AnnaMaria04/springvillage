@@ -33,13 +33,6 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
     fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
     fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без моторных лодок. Рыбачить можно с пирса или с лодки прямо с территории — снасти в наличии.",
   },
-  kupanie: {
-    photos: [
-      { src: "/images/feature-lake-sunset.jpg" },
-      { src: "/images/lake-panorama-autumn.jpeg" },
-      { src: "/images/activity-boat-lake.jpeg" },
-    ],
-  },
   priroda: {
     photos: [
       { src: "/images/activity-forest-walk.jpg" },
@@ -134,7 +127,7 @@ export default async function ActivityPage({
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
         {/* Fish info for rybalka */}
         {gallery.fishInfo && (
-          <div className="mb-12 p-6 rounded-2xl bg-cream border border-border">
+          <div className="mb-12 p-6 rounded-3xl bg-cream border border-border">
             <h2 className="font-display text-xl font-bold text-foreground mb-4">
               Какая рыба водится в Михалёвском озере:
             </h2>

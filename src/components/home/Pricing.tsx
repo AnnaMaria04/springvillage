@@ -20,7 +20,7 @@ export function Pricing() {
           <div
             key={tier.label}
             className={cn(
-              "group flex items-center justify-between gap-6 rounded-2xl border px-6 py-6 sm:px-8 transition-all duration-300 hover:shadow-[0_18px_40px_-22px_rgba(30,35,31,0.35)]",
+              "group flex items-center justify-between gap-6 rounded-3xl border px-6 py-6 sm:px-8 transition-all duration-300 hover:shadow-[0_18px_40px_-22px_rgba(30,35,31,0.35)]",
               tier.highlighted
                 ? "border-wood bg-cream"
                 : "border-border bg-white hover:border-foreground/20"
@@ -58,7 +58,7 @@ export function Pricing() {
       </div>
 
       {/* Gift certificate — quiet line */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-2xl border border-border bg-white p-6 mb-16">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 rounded-3xl border border-border bg-white p-6 mb-16">
         <Gift className="w-6 h-6 text-wood shrink-0" />
         <div className="flex-1">
           <h3 className="font-display text-xl font-bold text-foreground mb-1">{GIFT_CERT.title}</h3>

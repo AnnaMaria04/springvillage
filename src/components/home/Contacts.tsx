@@ -46,7 +46,7 @@ export function Contacts() {
           <div className="space-y-3">
             <a
               href={`tel:${CONTACT.phoneDial}`}
-              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
+              className="flex items-center gap-3 p-4 rounded-3xl border border-border hover:bg-cream transition-colors"
             >
               <Phone className="w-4 h-4 text-primary shrink-0" />
               <span className="font-medium text-foreground">{CONTACT.phone}</span>
@@ -55,7 +55,7 @@ export function Contacts() {
               href={`https://wa.me/${CONTACT.phoneWhatsApp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
+              className="flex items-center gap-3 p-4 rounded-3xl border border-border hover:bg-cream transition-colors"
             >
               <MessageCircle className="w-4 h-4 text-primary shrink-0" />
               <span className="font-medium text-foreground">WhatsApp</span>
@@ -64,14 +64,14 @@ export function Contacts() {
               href={CONTACT.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
+              className="flex items-center gap-3 p-4 rounded-3xl border border-border hover:bg-cream transition-colors"
             >
               <Send className="w-4 h-4 text-primary shrink-0" />
               <span className="font-medium text-foreground">Telegram</span>
             </a>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-3 p-4 rounded-2xl border border-border hover:bg-cream transition-colors"
+              className="flex items-center gap-3 p-4 rounded-3xl border border-border hover:bg-cream transition-colors"
             >
               <Mail className="w-4 h-4 text-primary shrink-0" />
               <span className="font-medium text-foreground">{CONTACT.email}</span>

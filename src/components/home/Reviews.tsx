@@ -47,7 +47,7 @@ function Stars({ n }: { n: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className={`w-3.5 h-3.5 ${i < n ? "fill-wood text-wood" : "fill-foreground/10 text-foreground/10"}`} />
+        <Star key={i} className={`w-3.5 h-3.5 ${i < n ? "fill-wood text-wood" : "fill-foreground/25 text-foreground/25"}`} />
       ))}
     </div>
   );

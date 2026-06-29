@@ -19,9 +19,9 @@ export function Deals() {
         <div className="absolute inset-0 bg-pine/80" />
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-amber-400/15 border border-amber-300/25 rounded-full px-4 py-1.5 mb-5">
+            <div className="inline-flex items-center gap-2 bg-amber-400/25 border border-amber-300/25 rounded-full px-4 py-1.5 mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-300 shrink-0" />
-              <span className="text-amber-200 text-[11px] font-semibold uppercase tracking-[0.2em]">Лето 2026</span>
+              <span className="text-amber-200 text-[11px] font-semibold uppercase tracking-[0.25em]">Лето 2026</span>
             </div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/50 mb-4">
               Специальные предложения
@@ -42,7 +42,7 @@ export function Deals() {
               <button
                 key={tier.label}
                 onClick={() => openBooking({ nights: tier.nightsCount })}
-                className={`rounded-2xl border p-5 text-center cursor-pointer group card-hover block w-full text-left ${
+                className={`rounded-3xl border p-5 text-center cursor-pointer group card-hover block w-full text-left ${
                   tier.highlighted
                     ? "bg-wood/25 border-wood/60 hover:bg-wood/35"
                     : "bg-white/8 border-white/15 hover:bg-white/15"

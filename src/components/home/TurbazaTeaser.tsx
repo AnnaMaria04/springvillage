@@ -11,7 +11,7 @@ export function TurbazaTeaser() {
       >
         {/* Text */}
         <div className="flex-1 z-10">
-          <p className="text-white/60 text-xs font-semibold uppercase tracking-[0.2em] mb-2">
+          <p className="text-white/60 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
             В 1,5 км от коттеджа
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-2">

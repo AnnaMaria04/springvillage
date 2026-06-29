@@ -46,7 +46,7 @@ export function Header() {
             </span>
             <span className={cn(
               "text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors leading-none block mt-0.5",
-              scrolled ? "text-muted-foreground" : "text-white/55"
+              scrolled ? "text-muted-foreground" : "text-white/70"
             )}>
               Коттедж WILD
             </span>
@@ -82,7 +82,7 @@ export function Header() {
             </a>
             <button
               onClick={() => openBooking()}
-              className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
             >
               Забронировать
             </button>

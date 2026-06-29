@@ -229,7 +229,7 @@ export function ExperiencePreview() {
               }}
               aria-label={`Слайд ${i + 1}`}
               className={`rounded-full transition-all duration-300 cursor-pointer ${
-                i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
+                i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/40 w-2 h-2 hover:bg-foreground/60"
               }`}
             />
           ))}

@@ -46,7 +46,7 @@ export default function AktivnostiPage() {
             Активности
           </h1>
           <p className="text-white/65 text-lg leading-relaxed mt-6 max-w-xl">
-            Озеро и лес круглый год — выбирайте сезон.
+            SUP, рыбалка, мангал и родник летом. Коньки, лыжи и зимняя рыбалка — зимой.
           </p>
         </div>
       </header>

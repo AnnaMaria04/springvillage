@@ -52,7 +52,7 @@ export function Footer() {
           {/* Nav columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/35 mb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55 mb-4">
                 {title}
               </h3>
               <ul className="space-y-2.5">
