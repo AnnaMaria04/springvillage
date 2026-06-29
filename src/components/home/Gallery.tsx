@@ -19,15 +19,15 @@ const photos = [
   { src: "/images/lifestyle-couple-windows.jpg", label: "У окон", position: "center 20%" },
   { src: "/images/lifestyle-loft-bedroom.webp", label: "Спальня в лофте", position: "center 40%" },
   // Interior
-  { src: "/images/feature-interior-window.jpeg", label: "Панорамное окно", wide: true, position: "center 50%" },
-  { src: "/images/interior-bedroom-loft.jpeg", label: "Спальня лофт", position: "center 40%" },
-  { src: "/images/interior-bedroom-ground.jpeg", label: "Спальня", position: "center 50%" },
-  { src: "/images/interior-staircase.jpeg", label: "Лестница", position: "center 30%" },
+  { src: "/images/interior-aframe-window.jpeg", label: "Панорамное окно А-фрейма", wide: true, position: "center 50%" },
+  { src: "/images/interior-loft-bedroom-hq.jpeg", label: "Спальня лофт", position: "center 40%" },
+  { src: "/images/interior-bedroom-ground-hq.jpeg", label: "Спальня", position: "center 50%" },
+  { src: "/images/interior-staircase-top.jpeg", label: "Лестница", position: "center 30%" },
   // Nature & territory
   { src: "/images/feature-lake-sunset.jpg", label: "Закат на озере", wide: true, position: "center 50%" },
   { src: "/images/lake-panorama-autumn.jpeg", label: "Озеро осенью", position: "center 50%" },
-  { src: "/images/dock-morning-mist.jpg", label: "Утро на пирсе", position: "center 50%" },
-  { src: "/images/feature-pond-spring.jpeg", label: "Родник", position: "center 40%" },
+  { src: "/images/dock-boat-dusk.jpeg", label: "Пирс вечером", position: "center 50%" },
+  { src: "/images/territory-spring-steps.jpeg", label: "Финский родник", position: "center 40%" },
   { src: "/images/activity-boat-lake.jpeg", label: "На лодке", position: "center 50%" },
   { src: "/images/activity-forest-walk.jpg", label: "Лесная тропа", position: "center 30%" },
 ];

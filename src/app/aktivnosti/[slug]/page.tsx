@@ -21,7 +21,7 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
     photos: [
       { src: "/images/activity-sup-dog.jpeg" },
       { src: "/images/activity-sup-gear.jpeg" },
-      { src: "/images/dock-morning-mist.jpg" },
+      { src: "/images/dock-boat-dusk.jpeg" },
     ],
   },
   rybalka: {
@@ -49,14 +49,16 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   },
   mangal: {
     photos: [
-      { src: "/images/territory-firewood-shed.jpeg" },
+      { src: "/images/territory-firewood-shed-hq.jpeg" },
+      { src: "/images/territory-firewood-shed-night.jpeg" },
     ],
   },
   igry: {
     photos: [
       { src: "/images/activity-petanque.jpg" },
-      { src: "/images/activity-basketball-court.jpeg" },
+      { src: "/images/activity-sports-court-night.jpeg" },
       { src: "/images/activity-knife-target.jpeg" },
+      { src: "/images/activity-sports-court-day.jpeg" },
     ],
     extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
   },
