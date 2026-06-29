@@ -18,8 +18,8 @@ const SLIDES = [
     book: true as const,
   },
   {
-    image: "/images/feature-lake-sunset.jpg",
-    position: "center 40%",
+    image: "/images/dock-boat-dusk.jpeg",
+    position: "center 55%",
     label: "Вода и активности",
     title: "Пирс, лодки\nи чистое озеро",
     subtitle: "Купание, рыбалка, SUP и прогулки на лодке — прямо с вашего берега.",
