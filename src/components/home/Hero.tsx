@@ -38,7 +38,7 @@ const SLIDES = [
     ctaLabel: "О территории",
   },
   {
-    image: "/images/exterior-sunset-front.jpg",
+    image: "/images/exterior-dusk-deck.jpg",
     position: "center 40%",
     label: "Коттедж WILD",
     title: "A-frame\nс мансардой",

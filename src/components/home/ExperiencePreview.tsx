@@ -14,8 +14,19 @@ function getCardsPerView(w: number): number {
   return 1;
 }
 
+const TERRITORY_TILES = [
+  { title: "Финский родник", photo: "/images/territory-spring-steps.jpeg", href: "/dom#territory" },
+  { title: "Пирс и водная станция", photo: "/images/dock-boat-dusk.jpeg", href: "/aktivnosti" },
+  { title: "Мангальная зона с дровами", photo: "/images/territory-firewood-shed-night.jpeg", href: "/aktivnosti/mangal" },
+  { title: "Лесные тропы", photo: "/images/activity-forest-walk.jpg", href: "/aktivnosti/priroda" },
+];
+
 export function ExperiencePreview() {
-  const items = ACTIVITIES.summer;
+  const combined = [
+    ...ACTIVITIES.summer.map((a) => ({ title: a.title, photo: a.photo, href: `/aktivnosti/${a.slug}` })),
+    ...TERRITORY_TILES,
+  ];
+  const items = combined;
   const N = items.length;
   const extended = [...items.slice(-CLONES), ...items, ...items.slice(0, CLONES)];
 
@@ -178,7 +189,7 @@ export function ExperiencePreview() {
                 return (
                   <Link
                     key={i}
-                    href={`/aktivnosti/${a.slug}`}
+                    href={a.href}
                     className="group flex-none"
                     style={{ width: cardW > 0 ? cardW : undefined }}
                     draggable={false}
