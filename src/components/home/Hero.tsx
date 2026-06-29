@@ -38,8 +38,8 @@ const SLIDES = [
     ctaLabel: "О территории",
   },
   {
-    image: "/images/lifestyle-couple-loft-bed.jpg",
-    position: "center 40%",
+    image: "/images/exterior-couple-window.jpg",
+    position: "center 35%",
     label: "Коттедж WILD",
     title: "A-frame\nс мансардой",
     subtitle: "Два этажа, мансардные окна, дровяной камин — всё для полного уединения.",

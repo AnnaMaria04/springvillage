@@ -5,12 +5,13 @@ import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
+// Grid layout: 3 columns. Wide items span 2 cols.
+// Row pattern to fill every row with no gaps:
+// [wide+1] [1+wide] [1+1+1] [1+1+1] [wide+1] [1+1+1] [1+wide] [1+1+1]
 const photos = [
-  // Exterior
   { src: "/images/exterior-couple-window.jpg", label: "Коттедж", wide: true, position: "center 40%" },
   { src: "/images/exterior-sunset-front.jpg", label: "Коттедж на закате", position: "center 50%" },
   { src: "/images/exterior-spring-front.jpg", label: "Весна", position: "center 50%" },
-  // Lifestyle
   { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true, position: "center 25%" },
   { src: "/images/lifestyle-couple-lake.jpg", label: "На озере", position: "center 20%" },
   { src: "/images/lifestyle-woman-dock.jpg", label: "На пирсе", position: "center 15%" },
@@ -18,15 +19,13 @@ const photos = [
   { src: "/images/lifestyle-couple-forest-walk.jpg", label: "Прогулка", position: "center 20%" },
   { src: "/images/lifestyle-couple-windows.jpg", label: "У окон", position: "center 20%" },
   { src: "/images/lifestyle-loft-bedroom.webp", label: "Спальня в лофте", position: "center 40%" },
-  // Interior
-  { src: "/images/interior-aframe-window.jpeg", label: "Панорамное окно А-фрейма", wide: true, position: "center 50%" },
+  { src: "/images/interior-aframe-window.jpeg", label: "Панорамное окно", wide: true, position: "center 50%" },
   { src: "/images/interior-loft-bedroom-hq.jpeg", label: "Спальня лофт", position: "center 40%" },
   { src: "/images/interior-bedroom-ground-hq.jpeg", label: "Спальня", position: "center 50%" },
   { src: "/images/interior-staircase-top.jpeg", label: "Лестница", position: "center 30%" },
-  // Nature & territory
-  { src: "/images/feature-lake-sunset.jpg", label: "Закат на озере", wide: true, position: "center 50%" },
-  { src: "/images/lake-panorama-autumn.jpeg", label: "Озеро осенью", position: "center 50%" },
   { src: "/images/dock-boat-dusk.jpeg", label: "Пирс вечером", position: "center 50%" },
+  { src: "/images/lake-panorama-autumn.jpeg", label: "Озеро осенью", position: "center 50%" },
+  { src: "/images/feature-lake-sunset.jpg", label: "Закат на озере", wide: true, position: "center 50%" },
   { src: "/images/territory-spring-steps.jpeg", label: "Финский родник", position: "center 40%" },
   { src: "/images/activity-boat-lake.jpeg", label: "На лодке", position: "center 50%" },
   { src: "/images/activity-forest-walk.jpg", label: "Лесная тропа", position: "center 30%" },
