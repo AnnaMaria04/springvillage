@@ -62,6 +62,14 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
     ],
     extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
   },
+  rodnik: {
+    photos: [
+      { src: "/images/territory-spring-water.jpeg", position: "center 50%" },
+      { src: "/images/territory-spring-steps.jpeg", position: "center 50%" },
+      { src: "/images/lifestyle-couple-stone-steps.jpg", position: "center 40%" },
+    ],
+    extraText: "Каменные ступени ведут вниз к обустроенному бассейну с ключевой водой. Вода холодная и чистая — можно пить прямо из бамбукового желоба. Место спокойное, хорошо для утренней медитации или просто зайти окунуться после бани.",
+  },
 };
 
 export function generateStaticParams() {
