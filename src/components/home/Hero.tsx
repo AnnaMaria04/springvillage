@@ -28,8 +28,8 @@ const SLIDES = [
     ctaLabel: "Все активности",
   },
   {
-    image: "/images/exterior-dusk-path.jpg",
-    position: "center 45%",
+    image: "/images/territory-spring-steps.jpeg",
+    position: "center 50%",
     label: "Природа",
     title: "Сосновый лес\nи финский родник",
     subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",

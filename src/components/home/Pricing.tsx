@@ -13,7 +13,7 @@ function fmt(n: number) {
 export function Pricing() {
   const { openBooking } = useBooking();
   return (
-    <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
       {/* Price list */}
       <div className="space-y-3 mb-16">
         {PRICE_TIERS.map((tier) => (

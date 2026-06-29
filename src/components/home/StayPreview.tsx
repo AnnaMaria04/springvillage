@@ -28,6 +28,7 @@ export function StayPreview() {
               fill
               alt="Лофт коттеджа"
               style={{ objectFit: "cover", objectPosition: "center center" }}
+              className="transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>

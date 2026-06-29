@@ -40,6 +40,11 @@ export const metadata: Metadata = {
     "отдых Михалёвское озеро",
     "снять коттедж Ленинградская область",
     "Spring Village коттедж",
+    "A-frame коттедж",
+    "рыбалка Ленинградская область",
+    "семейный отдых у озера",
+    "выходные у озера Петербург",
+    "Михалёвское озеро отдых",
   ],
   alternates: {
     canonical: "/",
@@ -50,13 +55,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_RU",
     siteName: "Spring Village",
-    images: [{ url: "/images/hero.jpg", width: 1200, height: 630, alt: "Коттедж WILD — Spring Village" }],
+    images: [{ url: "/images/exterior-winter-snow.jpg", width: 1200, height: 630, alt: "Коттедж WILD — Spring Village" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Spring Village — Коттедж WILD у Михалёвского озера",
     description: "A-frame 60 м² в карельском лесу. Пирс, лодки. 127 км от СПб.",
-    images: ["/images/hero.jpg"],
+    images: ["/images/exterior-winter-snow.jpg"],
   },
   robots: { index: true, follow: true },
 };

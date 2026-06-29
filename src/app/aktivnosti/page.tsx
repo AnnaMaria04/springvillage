@@ -37,7 +37,7 @@ export default function AktivnostiPage() {
             <span className="text-white/80">Активности</span>
           </nav>
           <p className="text-white/55 text-xs font-semibold uppercase tracking-[0.25em] mb-5">
-            Впечатления
+            Озеро и лес круглый год
           </p>
           <h1
             className="font-display font-bold text-white leading-[1.02] tracking-tight"

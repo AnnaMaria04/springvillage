@@ -17,8 +17,6 @@ function getCardsPerView(w: number): number {
 const TERRITORY_TILES = [
   { title: "Финский родник", photo: "/images/territory-spring-steps.jpeg", href: "/dom#territory" },
   { title: "Пирс и водная станция", photo: "/images/dock-boat-dusk.jpeg", href: "/aktivnosti" },
-  { title: "Мангальная зона с дровами", photo: "/images/territory-firewood-shed-night.jpeg", href: "/aktivnosti/mangal" },
-  { title: "Лесные тропы", photo: "/images/activity-forest-walk.jpg", href: "/aktivnosti/priroda" },
 ];
 
 export function ExperiencePreview() {
