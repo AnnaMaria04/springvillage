@@ -180,8 +180,8 @@ export function Hero() {
         </div>
       ))}
 
-      {/* Dots */}
-      <div className="absolute bottom-6 right-6 lg:right-12 z-30 flex items-center">
+      {/* Dots — pushed above mobile booking bar */}
+      <div className="absolute bottom-[74px] sm:bottom-6 right-6 lg:right-12 z-30 flex items-center">
         {SLIDES.map((_, i) => (
           <button
             key={i}

@@ -30,10 +30,10 @@ export function Footer() {
               <span className="font-display text-2xl font-bold block leading-none">{SITE.name}</span>
               <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-white/45 block mt-0.5">{SITE.houseName}</span>
             </Link>
-            <p className="text-white/55 text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-white/65 text-sm leading-relaxed max-w-xs mb-6">
               {SITE.description}
             </p>
-            <div className="flex flex-col gap-2.5 text-sm text-white/55">
+            <div className="flex flex-col gap-2.5 text-sm text-white/65">
               <a href={`tel:${CONTACT.phoneDial}`} className="flex items-center gap-2 hover:text-white transition-colors">
                 <Phone className="w-3.5 h-3.5 shrink-0" /> {CONTACT.phone}
               </a>
@@ -58,7 +58,7 @@ export function Footer() {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-white/55 hover:text-white transition-colors">
+                    <Link href={link.href} className="text-sm text-white/65 hover:text-white transition-colors">
                       {link.label}
                     </Link>
                   </li>

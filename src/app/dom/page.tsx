@@ -92,7 +92,7 @@ export default function DomPage() {
       </section>
 
       {/* Heritage — horizontal timeline */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-0 pb-20 lg:pb-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <div className="text-center mb-8">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
             {HERITAGE.sectionLabel}

@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export function TurbazaTeaser() {
   return (
-    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
+    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 lg:py-16">
       <Link
         href="/turbaza"
         className="group relative flex flex-col sm:flex-row items-center gap-6 rounded-3xl overflow-hidden bg-pine p-8 sm:p-10 hover:bg-pine/90 transition-colors"

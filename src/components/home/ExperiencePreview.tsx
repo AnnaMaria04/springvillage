@@ -7,6 +7,7 @@ import { ACTIVITIES } from "@/content/activities";
 
 const GAP = 16;
 const CLONES = 3;
+const AUTOPLAY_MS = 4000;
 
 function getCardsPerView(w: number): number {
   if (w >= 1024) return 3;
@@ -37,6 +38,8 @@ export function ExperiencePreview() {
   const dragStartY = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
   const preventClickRef = useRef(false);
+  const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -89,7 +92,18 @@ export function ExperiencePreview() {
     }
   }, [animated]);
 
+  // Autoplay: advance every AUTOPLAY_MS ms unless paused or locked
+  useEffect(() => {
+    if (containerW === 0) return;
+    if (autoplayRef.current) clearTimeout(autoplayRef.current);
+    autoplayRef.current = setTimeout(() => {
+      if (!pausedRef.current && !lockedRef.current) go("next");
+    }, AUTOPLAY_MS);
+    return () => { if (autoplayRef.current) clearTimeout(autoplayRef.current); };
+  }, [pos, containerW, go]);
+
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    pausedRef.current = true;
     dragStartX.current = e.clientX;
     dragStartY.current = e.clientY;
     isDraggingRef.current = false;
@@ -116,12 +130,14 @@ export function ExperiencePreview() {
     dragStartY.current = null;
     if (isDraggingRef.current && Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
     isDraggingRef.current = false;
+    pausedRef.current = false;
   }
 
   function onPointerCancel() {
     dragStartX.current = null;
     dragStartY.current = null;
     isDraggingRef.current = false;
+    pausedRef.current = false;
   }
 
   function onClickCapture(e: React.MouseEvent) {
@@ -154,11 +170,15 @@ export function ExperiencePreview() {
           </Link>
         </div>
 
-        <div className="relative">
+        <div
+          className="relative"
+          onMouseEnter={() => { pausedRef.current = true; }}
+          onMouseLeave={() => { pausedRef.current = false; }}
+        >
           <button
             onClick={() => go("prev")}
             aria-label="Предыдущее"
-            className="absolute left-0 lg:-translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+            className="hidden lg:flex absolute left-0 lg:-translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md items-center justify-center hover:bg-cream transition-all duration-200 cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
           </button>
@@ -198,7 +218,7 @@ export function ExperiencePreview() {
                       />
                       <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)] pointer-events-none" />
                       <div className="absolute bottom-5 left-5 right-5 z-20" style={{ transform: "translateZ(0)" }}>
-                        <p className="font-display text-xl font-bold text-white leading-tight">{a.title}</p>
+                        <h3 className="font-display text-xl font-bold text-white leading-tight">{a.title}</h3>
                       </div>
                     </div>
                   </Link>
@@ -210,7 +230,7 @@ export function ExperiencePreview() {
           <button
             onClick={() => go("next")}
             aria-label="Следующее"
-            className="absolute right-0 lg:translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+            className="hidden lg:flex absolute right-0 lg:translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md items-center justify-center hover:bg-cream transition-all duration-200 cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 text-foreground" />
           </button>

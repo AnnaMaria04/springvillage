@@ -41,7 +41,7 @@ export function StayPreview() {
 
             <Link
               href="/dom"
-              className="inline-flex items-center self-start gap-2 mb-8 px-5 py-2.5 rounded-full border border-pine/30 text-sm font-semibold text-pine hover:bg-pine hover:text-white hover:border-pine transition-all duration-200 group/more"
+              className="inline-flex items-center self-start gap-2 mb-8 px-5 py-2.5 rounded-full border border-pine/30 text-sm font-semibold text-pine hover:bg-pine hover:text-white hover:border-pine transition-all duration-200 group/more cursor-pointer"
             >
               Подробнее о коттедже
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/more:translate-x-0.5" />
