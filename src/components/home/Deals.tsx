@@ -65,6 +65,11 @@ export function Deals() {
             ))}
           </div>
 
+          {/* Family pricing note */}
+          <p className="text-center text-white/50 text-sm mb-8">
+            Семейный отдых: до 3 детей не увеличивают стоимость при 2 взрослых. Доплата только за каждого дополнительного взрослого.
+          </p>
+
           <div className="flex justify-center">
             <button
               onClick={() => openBooking()}

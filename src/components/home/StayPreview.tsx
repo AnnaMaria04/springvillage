@@ -51,7 +51,7 @@ export function StayPreview() {
               <div className="w-10 h-10 rounded-full bg-pine flex items-center justify-center shrink-0">
                 <Users className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg text-foreground">до {HOUSE.capacity} гостей: взрослые и дети</span>
+              <span className="text-lg text-foreground">до {HOUSE.capacity} гостей · до 3 детей в стоимость</span>
             </div>
 
             {/* Features */}

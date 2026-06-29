@@ -28,8 +28,8 @@ const SLIDES = [
     ctaLabel: "Все активности",
   },
   {
-    image: "/images/feature-pond-spring.jpeg",
-    position: "center 50%",
+    image: "/images/exterior-dusk-path.jpg",
+    position: "center 45%",
     label: "Природа",
     title: "Сосновый лес\nи финский родник",
     subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",
@@ -38,8 +38,8 @@ const SLIDES = [
     ctaLabel: "О территории",
   },
   {
-    image: "/images/exterior-couple-window.jpg",
-    position: "center 35%",
+    image: "/images/exterior-sunset-front.jpg",
+    position: "center 40%",
     label: "Коттедж WILD",
     title: "A-frame\nс мансардой",
     subtitle: "Два этажа, мансардные окна, дровяной камин — всё для полного уединения.",

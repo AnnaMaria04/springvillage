@@ -4,7 +4,6 @@ import { BookingBar } from "@/components/home/BookingBar";
 import { StayPreview } from "@/components/home/StayPreview";
 import { Deals } from "@/components/home/Deals";
 import { ExperiencePreview } from "@/components/home/ExperiencePreview";
-import { TerritoryPreview } from "@/components/home/TerritoryPreview";
 import { Reviews } from "@/components/home/Reviews";
 import { LocationPreview } from "@/components/home/LocationPreview";
 import { TurbazaTeaser } from "@/components/home/TurbazaTeaser";
@@ -24,7 +23,6 @@ export default function HomePage() {
       <Reveal><StayPreview /></Reveal>
       <Deals />
       <ExperiencePreview />
-      <TerritoryPreview />
       <TurbazaTeaser />
       <Reviews />
       <LocationPreview />
