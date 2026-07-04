@@ -38,6 +38,16 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
+    image: "/images/territory-spring-water.jpeg",
+    position: "center 55%",
+    label: "Природа",
+    title: "Сосновый лес\nи финский родник",
+    subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",
+    book: false as const,
+    href: "/aktivnosti/rodnik",
+    ctaLabel: "О роднике",
+  },
+  {
     image: "/images/exterior-couple-window.jpg",
     position: "center 35%",
     label: "Коттедж WILD",
