@@ -9,10 +9,8 @@ import { Reveal } from "@/components/ui/Reveal";
 // Row pattern to fill every row with no gaps:
 // [wide+1] [1+wide] [1+1+1] [1+1+1] [wide+1] [1+1+1] [1+wide] [1+1+1]
 const photos = [
-  { src: "/images/exterior-night-glow.jpeg", label: "Вечер у коттеджа", wide: true, position: "center 50%" },
   { src: "/images/exterior-night-deck.jpeg", label: "Ночная терраса", position: "center 50%" },
   { src: "/images/exterior-couple-window.jpg", label: "Коттедж", wide: true, position: "center 40%" },
-  { src: "/images/exterior-sunset-front.jpg", label: "Коттедж на закате", position: "center 50%" },
   { src: "/images/exterior-spring-front.jpg", label: "Весна", position: "center 50%" },
   { src: "/images/lifestyle-couple-loft.jpg", label: "Лофт", wide: true, position: "center 25%" },
   { src: "/images/lifestyle-couple-lake.jpg", label: "На озере", position: "center 20%" },
