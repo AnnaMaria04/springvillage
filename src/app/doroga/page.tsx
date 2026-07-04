@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Car, Train, MapPin, Clock, Wind } from "lucide-react";
+import { Car, Train, MapPin, Clock, Wind, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
 
@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function DorogaPage() {
   return (
-    <div className="pt-16 min-h-screen bg-background">
-      <div className="bg-pine py-14 px-6 sm:px-8 lg:px-12">
+    <div className="min-h-screen bg-background">
+      <div className="bg-pine pt-28 pb-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50 mb-3">Навигация</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/50 mb-3">Навигация</p>
           <h1 className="font-display text-4xl sm:text-5xl font-bold text-white mb-2">
             Как добраться
           </h1>
@@ -23,17 +23,29 @@ export default function DorogaPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-16 space-y-12">
-        {/* Map */}
-        <div className="rounded-3xl overflow-hidden border border-border shadow-sm h-[400px]">
+        {/* Map — click anywhere to open in Yandex Maps */}
+        <a
+          href={LOCATION.yandexMapLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative rounded-3xl overflow-hidden border border-border shadow-sm h-[400px] block group"
+          aria-label="Открыть Spring Village на Яндекс Картах"
+        >
           <iframe
             src={LOCATION.yandexMapUrl}
             width="100%"
             height="100%"
             style={{ border: 0 }}
+            className="pointer-events-none"
             loading="lazy"
-            title="Маршрут до Spring Village"
+            title="Spring Village на Михалёвском озере"
+            tabIndex={-1}
+            aria-hidden
           />
-        </div>
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-foreground text-xs font-medium px-3 py-1.5 rounded-full shadow-sm group-hover:bg-white transition-colors">
+            Открыть в Яндекс Картах <ArrowRight className="w-3 h-3" />
+          </span>
+        </a>
 
         {/* Coords + address */}
         <div className="bg-muted rounded-2xl p-6 border border-border">
