@@ -39,7 +39,7 @@ export default function DomPage() {
             { icon: Bath, value: `${HOUSE.bathrooms} санузел` },
             { icon: Maximize2, value: `${HOUSE.area} м²` },
             { icon: null, value: HOUSE.type },
-            { icon: null, value: "200 м берега · пирс, лодка, SUP включены" },
+            { icon: null, value: "200 м берега · пирс, лодка с электромотором, SUP включены" },
           ].map((s) => {
             const Icon = s.icon;
             return (

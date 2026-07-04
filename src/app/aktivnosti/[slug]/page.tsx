@@ -31,13 +31,16 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
       { src: "/images/lifestyle-dog-boat-lake.jpeg" },
     ],
     fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
-    fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без моторных лодок. Рыбачить можно с пирса или с лодки прямо с территории — снасти в наличии.",
+    fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без бензиновых лодок. Рыбачить можно с пирса или с лодки с электромотором прямо с территории — снасти в наличии.",
   },
   priroda: {
     photos: [
       { src: "/images/activity-forest-walk.jpg" },
       { src: "/images/lifestyle-couple-forest-walk.jpg" },
       { src: "/images/lifestyle-couple-stone-path.jpg" },
+      { src: "/images/lifestyle-couple-kiss-forest.jpg", position: "center 25%" },
+      { src: "/images/lifestyle-dog-pine-rock.jpg", position: "center 50%" },
+      { src: "/images/territory-pond-autumn.jpeg", position: "center 50%" },
     ],
   },
   mangal: {
@@ -52,6 +55,7 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
       { src: "/images/activity-sports-court-night.jpeg" },
       { src: "/images/activity-knife-target.jpeg" },
       { src: "/images/activity-sports-court-day.jpeg" },
+      { src: "/images/activity-basketball-court.jpeg", position: "center 30%" },
     ],
     extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
   },
