@@ -3,7 +3,7 @@ import { Navigation, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
-  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=193725846598&ll=29.422227%2C60.983791&z=15&pt=29.422227%2C60.983791%2Cpm2rdl&lang=ru_RU`;
+  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=193725846598&ll=29.422575%2C60.983645&z=16&pt=29.422227%2C60.983791%2Cpm2rdl&lang=ru_RU`;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">

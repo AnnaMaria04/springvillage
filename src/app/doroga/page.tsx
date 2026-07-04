@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Car, Train, MapPin, Clock } from "lucide-react";
+import { Car, Train, MapPin, Clock, Wind } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
 
@@ -24,7 +24,7 @@ export default function DorogaPage() {
 
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-16 space-y-12">
         {/* Map */}
-        <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-[360px]">
+        <div className="rounded-3xl overflow-hidden border border-border shadow-sm h-[400px]">
           <iframe
             src={LOCATION.yandexMapUrl}
             width="100%"
@@ -103,6 +103,30 @@ export default function DorogaPage() {
             ].map((s) => (
               <div key={s.step} className="flex gap-4">
                 <div className="font-display text-2xl font-bold text-lake/30 w-10 shrink-0 leading-none pt-1">{s.step}</div>
+                <p className="text-foreground leading-relaxed">{s.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* By helicopter */}
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-wood/10 flex items-center justify-center">
+              <Wind className="w-5 h-5 text-wood" />
+            </div>
+            <div>
+              <h2 className="font-display text-2xl font-bold text-foreground">На вертолёте</h2>
+              <p className="text-sm text-muted-foreground">Посадочная площадка на территории</p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { step: "01", text: "На территории коттеджа есть площадка для посадки вертолёта — договоритесь с пилотом заранее." },
+              { step: "02", text: "По вопросам посадки и координации свяжитесь с нами по телефону, указанному на странице контактов." },
+            ].map((s) => (
+              <div key={s.step} className="flex gap-4">
+                <div className="font-display text-2xl font-bold text-wood/30 w-10 shrink-0 leading-none pt-1">{s.step}</div>
                 <p className="text-foreground leading-relaxed">{s.text}</p>
               </div>
             ))}

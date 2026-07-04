@@ -2,9 +2,9 @@ export const LOCATION = {
   coords: { lat: 60.983791, lng: 29.422227 },
   yandexMapOid: "193725846598",
   yandexMapUrl:
-    "https://yandex.ru/map-widget/v1/?oid=193725846598&ll=29.422227%2C60.983791&z=15&pt=29.422227%2C60.983791%2Cpm2rdl&lang=ru_RU",
+    "https://yandex.ru/map-widget/v1/?oid=193725846598&ll=29.422575%2C60.983645&z=16&pt=29.422227%2C60.983791%2Cpm2rdl&lang=ru_RU",
   yandexMapLink:
-    "https://yandex.ru/maps/org/spring_village/193725846598?si=4c7pcqqhf7aja4d56vg9ukraa0",
+    "https://yandex.com/maps/org/house_by_the_lake/193725846598/related/?ll=29.422367%2C60.985057&z=16",
   distanceFromSpb: "127 км",
   driveTime: "~2 часа",
   address: "пос. Михалёво, Выборгский район, Ленинградская область",
