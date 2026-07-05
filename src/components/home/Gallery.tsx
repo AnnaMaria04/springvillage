@@ -76,7 +76,7 @@ export function Gallery() {
                 alt={p.label}
                 style={{ objectFit: "cover", objectPosition: p.position }}
                 className="transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes={p.wide ? "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 67vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"}
                 loading="lazy"
               />
               <span className="absolute bottom-3 left-3 z-10 text-xs font-medium text-white/85 bg-black/30 rounded-full px-2.5 py-1 backdrop-blur-sm">

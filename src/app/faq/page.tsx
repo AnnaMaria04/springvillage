@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Faq } from "@/components/home/Faq";
+import { FAQ } from "@/content/faq";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export const metadata: Metadata = {
   title: "Частые вопросы — коттедж WILD, Spring Village",
@@ -17,6 +28,10 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <PageHero eyebrow="Информация" title="Частые вопросы" />
       <Faq />
     </>

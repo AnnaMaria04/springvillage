@@ -95,6 +95,8 @@ export function Header() {
               scrolled ? "text-foreground hover:bg-muted" : "text-white hover:bg-white/10"
             )}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -102,7 +104,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-white border-t border-border">
+        <div id="mobile-nav" className="lg:hidden bg-white border-t border-border">
           <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
             {navLinks.map((link) => (
               <Link
