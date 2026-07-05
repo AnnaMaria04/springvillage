@@ -17,12 +17,13 @@ export function Pricing() {
       {/* Price list */}
       <div className="space-y-3 mb-16">
         {PRICE_TIERS.map((tier) => (
-          <div
+          <button
             key={tier.label}
+            onClick={() => openBooking({ nights: tier.nightsCount })}
             className={cn(
-              "group flex items-center justify-between gap-6 rounded-3xl border px-6 py-6 sm:px-8 transition-all duration-300 hover:shadow-[0_18px_40px_-22px_rgba(30,35,31,0.35)]",
+              "group w-full flex items-center justify-between gap-6 rounded-3xl border px-6 py-6 sm:px-8 transition-all duration-300 hover:shadow-[0_18px_40px_-22px_rgba(30,35,31,0.35)] cursor-pointer text-left",
               tier.highlighted
-                ? "border-wood bg-cream"
+                ? "border-wood bg-cream hover:bg-wood/5"
                 : "border-border bg-white hover:border-foreground/20"
             )}
           >
@@ -41,8 +42,11 @@ export function Pricing() {
               <p className="text-sm text-muted-foreground mt-2">
                 {tier.nights}
                 {tier.discount && (
-                  <span className="text-wood font-medium"> · экономия {tier.discount.replace("−", "")}</span>
+                  <span className="text-wood font-semibold"> · экономия {tier.discount.replace("−", "")}</span>
                 )}
+              </p>
+              <p className="text-xs text-muted-foreground/0 group-hover:text-muted-foreground transition-colors mt-1">
+                Нажмите, чтобы выбрать этот пакет →
               </p>
             </div>
 
@@ -53,7 +57,7 @@ export function Pricing() {
               </div>
               <div className="text-sm text-muted-foreground mt-2">{fmt(tier.perNight)} ₽ / ночь</div>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
@@ -80,8 +84,14 @@ export function Pricing() {
         className="rounded-3xl border border-border bg-white p-8 sm:p-12 text-center"
       >
         <h2 className="font-display text-3xl font-bold text-foreground mb-3">Выбрать даты</h2>
-        <p className="text-muted-foreground mb-8">
-          Онлайн-бронирование с мгновенным подтверждением.
+        <p className="text-muted-foreground mb-2">
+          Основное бронирование — онлайн на сайте картой или по безналичному счёту.
+        </p>
+        <p className="text-muted-foreground text-sm mb-2">
+          Без предоплаты даты не фиксируются.
+        </p>
+        <p className="text-muted-foreground text-sm mb-8">
+          Оплата на месте (терминал или чек) — только для продления или дополнительных услуг.
         </p>
         <button
           onClick={() => openBooking()}

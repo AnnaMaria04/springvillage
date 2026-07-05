@@ -5,7 +5,7 @@ import { Pricing } from "@/components/home/Pricing";
 export const metadata: Metadata = {
   title: "Цены и бронирование — от 50 000 ₽ за 3 ночи",
   description:
-    "Стоимость аренды коттеджа WILD: 3 ночи от 50 000 ₽, неделя от 85 000 ₽. Онлайн-бронирование через Bnovo. Spring Village, Михалёво.",
+    "Стоимость аренды коттеджа WILD: 3 ночи от 50 000 ₽, неделя от 85 000 ₽. Онлайн-бронирование на сайте картой или по безналичному счёту. Spring Village, Михалёво.",
   alternates: { canonical: "/tseny" },
 };
 

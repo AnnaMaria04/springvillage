@@ -25,7 +25,7 @@ export const PRICE_TIERS: PriceTier[] = [
     nightsCount: 4,
     totalPrice: 60_000,
     perNight: 15_000,
-    discount: "−10%",
+    discount: "−25%",
     highlighted: false,
   },
   {
@@ -34,7 +34,7 @@ export const PRICE_TIERS: PriceTier[] = [
     nightsCount: 7,
     totalPrice: 85_000,
     perNight: 12_143,
-    discount: "−27%",
+    discount: "−39%",
     highlighted: true,
   },
   {
@@ -43,7 +43,7 @@ export const PRICE_TIERS: PriceTier[] = [
     nightsCount: 9,
     totalPrice: 100_000,
     perNight: 11_111,
-    discount: "−33%",
+    discount: "−44%",
     highlighted: false,
   },
   {
@@ -52,7 +52,7 @@ export const PRICE_TIERS: PriceTier[] = [
     nightsCount: 30,
     totalPrice: 250_000,
     perNight: 8_333,
-    discount: "−50%",
+    discount: "−58%",
     highlighted: false,
   },
 ];

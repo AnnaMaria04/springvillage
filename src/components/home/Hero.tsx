@@ -169,7 +169,7 @@ export function Hero() {
                 <>
                   <button
                     onClick={() => openBooking()}
-                    className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 inline-flex items-center cursor-pointer"
+                    className="btn-lux h-14 px-10 rounded-full bg-wood text-white text-base font-semibold hover:bg-wood/90 inline-flex items-center cursor-pointer shadow-lg"
                   >
                     Забронировать
                   </button>

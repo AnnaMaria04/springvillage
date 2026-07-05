@@ -82,7 +82,7 @@ export function Header() {
             </a>
             <button
               onClick={() => openBooking()}
-              className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer shadow-sm"
             >
               Забронировать
             </button>
@@ -117,7 +117,7 @@ export function Header() {
             <div className="pt-4 pb-2">
               <button
                 onClick={() => { setOpen(false); openBooking(); }}
-                className="flex items-center justify-center w-full h-11 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
+                className="flex items-center justify-center w-full h-12 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer"
               >
                 Забронировать
               </button>

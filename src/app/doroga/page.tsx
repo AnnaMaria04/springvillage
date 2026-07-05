@@ -63,9 +63,9 @@ export default function DorogaPage() {
           </div>
         </div>
 
-        {/* By car */}
+        {/* By car — Route 1 (primary) */}
         <div>
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <Car className="w-5 h-5 text-primary" />
             </div>
@@ -78,20 +78,42 @@ export default function DorogaPage() {
             </div>
           </div>
 
-          <div className="space-y-4">
-            {[
-              { step: "01", text: "По трассе А-181 «Скандинавия» в сторону Выборга — около 100 км." },
-              { step: "02", text: "Съезд на Михалёво / Рощино, далее через посёлок по главной дороге." },
-              { step: "03", text: "Последние 2 км — грунтовая дорога вдоль берега. Проедет обычный легковой авто." },
-              { step: "04", text: "Координаты: 60.983791, 29.422227. Парковка у коттеджа." },
-            ].map((s) => (
-              <div key={s.step} className="flex gap-4">
-                <div className="font-display text-2xl font-bold text-primary/20 w-10 shrink-0 leading-none pt-1">{s.step}</div>
-                <p className="text-foreground leading-relaxed">{s.text}</p>
-              </div>
-            ))}
+          {/* Route 1 */}
+          <div className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4 mt-6">
+              Основной маршрут — трасса «Сортавала»
+            </p>
+            <div className="space-y-4">
+              {[
+                { step: "01", text: "По трассе A-121 «Сортавала» в сторону Приозерска." },
+                { step: "02", text: "Поворот за посёлком Сапёрный — следовать на Михалёво. Дорога отличная на всём протяжении." },
+                { step: "03", text: "Координаты для навигатора: 60.983791, 29.422227. Парковка у коттеджа." },
+              ].map((s) => (
+                <div key={s.step} className="flex gap-4">
+                  <div className="font-display text-2xl font-bold text-primary/20 w-10 shrink-0 leading-none pt-1">{s.step}</div>
+                  <p className="text-foreground leading-relaxed">{s.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
+          {/* Route 2 */}
+          <div className="border-t border-border pt-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-4">
+              Запасной маршрут — через «Скандинавию»
+            </p>
+            <div className="space-y-4">
+              {[
+                { step: "01", text: "По трассе A-181 «Скандинавия» → съезд на Каменногорск." },
+                { step: "02", text: "Далее на Михалёво. Маршрут немного длиннее, местами грунтовка — на обычной легковой проедете." },
+              ].map((s) => (
+                <div key={s.step} className="flex gap-4">
+                  <div className="font-display text-2xl font-bold text-muted-foreground/20 w-10 shrink-0 leading-none pt-1">{s.step}</div>
+                  <p className="text-foreground leading-relaxed">{s.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* By train */}
@@ -128,14 +150,14 @@ export default function DorogaPage() {
             </div>
             <div>
               <h2 className="font-display text-2xl font-bold text-foreground">На вертолёте</h2>
-              <p className="text-sm text-muted-foreground">Посадочная площадка на территории</p>
+              <p className="text-sm text-muted-foreground">Рядом есть подходящее место для посадки</p>
             </div>
           </div>
 
           <div className="space-y-4">
             {[
-              { step: "01", text: "На территории коттеджа есть площадка для посадки вертолёта — договоритесь с пилотом заранее." },
-              { step: "02", text: "По вопросам посадки и координации свяжитесь с нами по телефону, указанному на странице контактов." },
+              { step: "01", text: "В окрестностях коттеджа есть подходящие места для посадки вертолёта. Мы не организуем перелёты." },
+              { step: "02", text: "Если вам нужны контакты операторов — свяжитесь с нами заранее, подскажем." },
             ].map((s) => (
               <div key={s.step} className="flex gap-4">
                 <div className="font-display text-2xl font-bold text-wood/30 w-10 shrink-0 leading-none pt-1">{s.step}</div>
