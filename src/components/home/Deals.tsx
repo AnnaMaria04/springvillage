@@ -48,13 +48,13 @@ export function Deals() {
                     : "bg-white/8 border-white/15 hover:bg-white/15"
                 }`}
               >
-                <p className="text-white/60 text-sm mb-2">{tier.nights}</p>
-                <p className="font-display text-2xl font-bold text-white leading-none">
+                <p className="text-white/60 text-sm mb-2.5">{tier.nights}</p>
+                <p className="font-display text-3xl font-bold text-white leading-none">
                   {fmt(tier.totalPrice)} ₽
                 </p>
-                <p className="text-white/55 text-sm mt-1.5">{fmt(tier.perNight)} ₽/ночь</p>
+                <p className="text-white/55 text-base mt-2">{fmt(tier.perNight)} ₽/ночь</p>
                 {tier.discount && (
-                  <span className="inline-block mt-2 text-[11px] font-semibold text-wood bg-wood/20 rounded-full px-2 py-0.5">
+                  <span className="inline-block mt-2.5 text-xs font-semibold text-wood bg-wood/20 rounded-full px-2.5 py-1">
                     {tier.discount}
                   </span>
                 )}
