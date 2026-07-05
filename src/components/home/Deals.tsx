@@ -54,7 +54,7 @@ export function Deals() {
                 </p>
                 <p className="text-white/55 text-base mt-2">{fmt(tier.perNight)} ₽/ночь</p>
                 {tier.discount && (
-                  <span className="inline-block mt-2.5 text-sm font-bold text-wood bg-wood/20 rounded-full px-3 py-1">
+                  <span className="inline-block mt-2.5 text-sm font-bold text-amber-200 bg-wood/50 border border-wood/40 rounded-full px-3 py-1">
                     {tier.discount}
                   </span>
                 )}
