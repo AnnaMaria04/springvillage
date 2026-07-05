@@ -5,6 +5,7 @@ import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { DomGallery } from "@/components/home/DomGallery";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 export default function DomPage() {
   return (
     <article>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Коттедж WILD", url: "/dom" }])) }} />
       <PageHero
         eyebrow="Размещение"
         title={HOUSE.name}

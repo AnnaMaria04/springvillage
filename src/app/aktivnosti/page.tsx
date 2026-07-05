@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Activities } from "@/components/home/Activities";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Активности — SUP, рыбалка у Михалёвского озера",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 export default function AktivnostiPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Активности", url: "/aktivnosti" }])) }} />
       <header className="relative bg-pine overflow-hidden min-h-[320px] flex flex-col justify-end">
         <Image
           src="/images/feature-lake-sunset.jpg"

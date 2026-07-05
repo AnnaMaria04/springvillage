@@ -61,6 +61,13 @@ export const metadata: Metadata = {
     images: ["/images/exterior-winter-snow.jpg"],
   },
   robots: { index: true, follow: true },
+  other: {
+    "yandex": "all",
+    "geo.region": "RU-LEN",
+    "geo.placename": "пос. Михалёво, Выборгский район, Ленинградская область",
+    "geo.position": "60.983791;29.422227",
+    "ICBM": "60.983791, 29.422227",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
