@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://www.springvillage.ru";
 
-const ACTIVITY_SLUGS = ["bajdarki", "rybalka", "priroda", "mangal", "igry"];
+const ACTIVITY_SLUGS = ["bajdarki", "rybalka", "priroda", "mangal", "igry", "rodnik"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

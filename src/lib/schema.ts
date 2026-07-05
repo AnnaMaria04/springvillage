@@ -11,7 +11,7 @@ export function lodgingBusinessSchema() {
     url: "https://www.springvillage.ru",
     telephone: CONTACT.phone,
     email: CONTACT.email,
-    image: "https://www.springvillage.ru/images/hero.jpg",
+    image: "https://www.springvillage.ru/images/exterior-winter-snow.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Песчаный проезд, 5а",

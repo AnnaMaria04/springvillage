@@ -46,9 +46,6 @@ export const metadata: Metadata = {
     "выходные у озера Петербург",
     "Михалёвское озеро отдых",
   ],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Spring Village — Коттедж WILD у Михалёвского озера",
     description: "A-frame 60 м² в карельском лесу. Пирс, лодки. 127 км от СПб.",

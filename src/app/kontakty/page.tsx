@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Контакты — Spring Village, Михалёво",
   description: "Телефон, WhatsApp, Telegram Spring Village. Адрес: пос. Михалёво, Выборгский район, Ленинградская область. Как связаться для бронирования.",
   alternates: { canonical: "/kontakty" },
+  openGraph: {
+    title: "Контакты — Spring Village, коттедж WILD",
+    description: "Телефон, WhatsApp, Telegram. Пос. Михалёво, Выборгский район — 127 км от Петербурга.",
+    images: [{ url: "/images/exterior-night-deck.jpeg", width: 1200, height: 630, alt: "Коттедж WILD — Spring Village" }],
+  },
 };
 
 export default function KontaktyPage() {

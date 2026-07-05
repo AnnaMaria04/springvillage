@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   description:
     "Заезд и выезд, вместимость, животные, оплата, отмена, парковка — ответы на частые вопросы о Коттедже WILD.",
   alternates: { canonical: "/faq" },
+  openGraph: {
+    title: "Частые вопросы — Spring Village, коттедж WILD",
+    description: "Заезд и выезд, вместимость, животные, оплата, отмена бронирования — все ответы здесь.",
+    images: [{ url: "/images/interior-aframe-window.jpeg", width: 1200, height: 630, alt: "Интерьер коттеджа WILD — Spring Village" }],
+  },
 };
 
 export default function FaqPage() {

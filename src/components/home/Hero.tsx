@@ -134,10 +134,11 @@ export function Hero() {
         <div
           key={i}
           aria-hidden={i !== cur}
-          className={`absolute inset-0 z-20 flex items-end transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 z-20 transition-opacity duration-700 ease-in-out ${
             i === cur ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
+          <div className="absolute inset-x-0 bottom-0">
           <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 lg:pb-20">
             <p className="text-white/70 text-[11px] font-semibold uppercase tracking-[0.25em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
               {CONTACT.addressShort} · {slide.label}
@@ -148,7 +149,7 @@ export function Hero() {
                 style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
               >
                 {slide.title.split("\n").map((line, j, arr) => (
-                  <span key={j}>{line}{j < arr.length - 1 && <br className="hidden sm:block" />}</span>
+                  <span key={j}>{line}{j < arr.length - 1 && <>{" "}<br className="hidden sm:block" /></>}</span>
                 ))}
               </h1>
             ) : (
@@ -157,7 +158,7 @@ export function Hero() {
                 style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
               >
                 {slide.title.split("\n").map((line, j, arr) => (
-                  <span key={j}>{line}{j < arr.length - 1 && <br className="hidden sm:block" />}</span>
+                  <span key={j}>{line}{j < arr.length - 1 && <>{" "}<br className="hidden sm:block" /></>}</span>
                 ))}
               </p>
             )}
@@ -186,6 +187,7 @@ export function Hero() {
                 </Link>
               )}
             </div>
+          </div>
           </div>
         </div>
       ))}
