@@ -100,7 +100,7 @@ export function Pricing() {
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-wood shrink-0" />
                 <p className="text-foreground font-medium">
-                  Без предоплаты даты не фиксируются.
+                  Для подтверждения бронирования необходима оплата полной стоимости.
                 </p>
               </li>
               <li className="flex items-start gap-3">
