@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/content/site";
@@ -19,6 +20,8 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { openBooking } = useBooking();
+  const pathname = usePathname();
+  const transparent = pathname === "/" && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -30,9 +33,9 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 header-transition",
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
-          : "bg-transparent"
+        transparent
+          ? "bg-transparent"
+          : "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
       )}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -40,13 +43,13 @@ export function Header() {
           <Link href="/" className="group">
             <span className={cn(
               "font-display text-2xl font-bold transition-colors leading-none block",
-              scrolled ? "text-foreground" : "text-white"
+              transparent ? "text-white" : "text-foreground"
             )}>
               Spring Village
             </span>
             <span className={cn(
               "text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors leading-none block mt-0.5",
-              scrolled ? "text-muted-foreground" : "text-white/70"
+              transparent ? "text-white/70" : "text-muted-foreground"
             )}>
               Коттедж WILD
             </span>
@@ -59,9 +62,9 @@ export function Header() {
                 href={link.href}
                 className={cn(
                   "px-3.5 py-2 rounded-lg text-[15px] font-medium transition-all duration-150",
-                  scrolled
-                    ? "text-muted-foreground hover:text-foreground hover:bg-muted"
-                    : "text-white/75 hover:text-white hover:bg-white/10"
+                  transparent
+                    ? "text-white/75 hover:text-white hover:bg-white/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 {link.label}
@@ -74,7 +77,7 @@ export function Header() {
               href={`tel:${CONTACT.phoneDial}`}
               className={cn(
                 "flex items-center gap-2 text-[15px] font-medium transition-colors",
-                scrolled ? "text-foreground hover:text-primary" : "text-white/85 hover:text-white"
+                transparent ? "text-white/85 hover:text-white" : "text-foreground hover:text-primary"
               )}
             >
               <Phone className="w-4 h-4" />
@@ -92,7 +95,7 @@ export function Header() {
             onClick={() => setOpen(!open)}
             className={cn(
               "lg:hidden p-2 rounded-lg transition-colors",
-              scrolled ? "text-foreground hover:bg-muted" : "text-white hover:bg-white/10"
+              transparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-muted"
             )}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={open}
