@@ -98,13 +98,13 @@ export function Hero() {
   }, [cur]);
 
   return (
-    <section className="relative h-screen min-h-[640px] overflow-hidden bg-pine">
+    <section className="relative h-screen min-h-[640px] overflow-hidden bg-[#0c110e]">
       {/* Background images — cross-fade with Ken Burns zoom per slide */}
       {SLIDES.map((slide, i) => (
         <div
           key={i}
           aria-hidden={i !== cur}
-          className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 overflow-hidden bg-[#0c110e] transition-opacity duration-700 ease-in-out ${
             i === cur ? "opacity-100" : "opacity-0"
           }`}
         >
