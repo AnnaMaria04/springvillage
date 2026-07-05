@@ -79,26 +79,59 @@ export function Pricing() {
       </div>
 
       {/* Booking CTA */}
-      <div
-        id="booking-widget"
-        className="rounded-3xl border border-border bg-white p-8 sm:p-12 text-center"
-      >
-        <h2 className="font-display text-3xl font-bold text-foreground mb-3">Выбрать даты</h2>
-        <p className="text-muted-foreground mb-2">
-          Основное бронирование — онлайн на сайте картой или по безналичному счёту.
-        </p>
-        <p className="text-muted-foreground text-sm mb-2">
-          Без предоплаты даты не фиксируются.
-        </p>
-        <p className="text-muted-foreground text-sm mb-8">
-          Оплата на месте (терминал или чек) — только для продления или дополнительных услуг.
-        </p>
-        <button
-          onClick={() => openBooking()}
-          className="btn-lux h-13 px-10 rounded-full bg-pine text-white text-base font-semibold hover:bg-pine/90 transition-colors cursor-pointer"
-        >
-          Открыть календарь
-        </button>
+      <div id="booking-widget" className="rounded-3xl border border-pine/20 bg-cream overflow-hidden">
+        <div className="flex flex-col lg:flex-row items-stretch">
+
+          {/* Left: info */}
+          <div className="flex-1 p-8 sm:p-10 lg:p-12">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-3">
+              Бронирование
+            </p>
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-pine mb-8">
+              Выбрать даты
+            </h2>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-wood shrink-0" />
+                <p className="text-foreground">
+                  Оплата онлайн — картой или по безналичному счёту.
+                </p>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-wood shrink-0" />
+                <p className="text-foreground font-medium">
+                  Без предоплаты даты не фиксируются.
+                </p>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-muted-foreground/40 shrink-0" />
+                <p className="text-muted-foreground text-sm">
+                  Оплата на месте (терминал или чек) — только для продления или дополнительных услуг.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          {/* Right: CTA */}
+          <div className="lg:w-72 flex flex-col items-center justify-center gap-5 p-8 sm:p-10 lg:p-12 bg-pine/[0.04] border-t lg:border-t-0 lg:border-l border-pine/15">
+            <div className="text-center">
+              <p className="font-display text-3xl font-bold text-pine leading-none">
+                от 16 667 ₽
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">за ночь</p>
+            </div>
+            <button
+              onClick={() => openBooking()}
+              className="btn-lux w-full h-13 px-8 rounded-full bg-wood text-white text-base font-semibold hover:bg-wood/90 transition-colors cursor-pointer"
+            >
+              Забронировать
+            </button>
+            <p className="text-xs text-muted-foreground text-center">
+              Мгновенное подтверждение
+            </p>
+          </div>
+
+        </div>
       </div>
     </section>
   );
