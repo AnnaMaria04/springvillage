@@ -94,19 +94,19 @@ export function Pricing() {
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-wood shrink-0" />
                 <p className="text-foreground">
-                  Оплата онлайн — картой или по безналичному счёту.
+                  Основное бронирование — онлайн на сайте картой или по безналичному счёту.
                 </p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-wood shrink-0" />
                 <p className="text-foreground font-medium">
-                  Для подтверждения бронирования необходима оплата полной стоимости.
+                  Без предоплаты даты не фиксируются.
                 </p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-muted-foreground/40 shrink-0" />
                 <p className="text-muted-foreground text-sm">
-                  Оплата на месте (терминал или чек) — только для продления или дополнительных услуг.
+                  Оплата на месте (терминал или чек) — только для продления или допуслуг.
                 </p>
               </li>
             </ul>
