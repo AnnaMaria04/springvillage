@@ -50,9 +50,9 @@ export const PRICE_TIERS: PriceTier[] = [
     label: "Длительно",
     nights: "30 ночей",
     nightsCount: 30,
-    totalPrice: 250_000,
-    perNight: 8_333,
-    discount: "−58%",
+    totalPrice: 300_000,
+    perNight: 10_000,
+    discount: "−50%",
     highlighted: false,
   },
 ];
