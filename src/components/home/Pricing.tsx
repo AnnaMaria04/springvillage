@@ -116,9 +116,10 @@ export function Pricing() {
           <div className="lg:w-72 flex flex-col items-center justify-center gap-5 p-8 sm:p-10 lg:p-12 bg-pine/[0.04] border-t lg:border-t-0 lg:border-l border-pine/15">
             <div className="text-center">
               <p className="font-display text-3xl font-bold text-pine leading-none">
-                от 50 000 ₽
+                от 20 000 ₽
               </p>
-              <p className="text-sm text-muted-foreground mt-1">за 3 ночи · минимальный срок</p>
+              <p className="text-sm text-muted-foreground mt-1">за ночь</p>
+              <p className="text-xs text-wood font-medium mt-2">Дольше — дешевле</p>
             </div>
             <button
               onClick={() => openBooking()}
