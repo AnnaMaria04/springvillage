@@ -98,7 +98,7 @@ export function Hero() {
   }, [cur]);
 
   return (
-    <section className="relative h-screen min-h-[640px] overflow-hidden bg-[#0c110e]">
+    <section className="relative h-screen min-h-[100svh] overflow-hidden bg-[#0c110e]">
       {/* Background images — cross-fade with Ken Burns zoom per slide */}
       {SLIDES.map((slide, i) => (
         <div
@@ -140,7 +140,7 @@ export function Hero() {
         >
           <div className="absolute inset-x-0 bottom-0">
           <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 lg:pb-20">
-            <p className="text-white/70 text-[11px] font-semibold uppercase tracking-[0.25em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
+            <p className="text-white/70 text-[13px] font-semibold uppercase tracking-[0.25em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
               {CONTACT.addressShort} · {slide.label}
             </p>
             {i === 0 ? (
@@ -174,7 +174,7 @@ export function Hero() {
                   >
                     Забронировать
                   </button>
-                  <Link href="/dom" className="text-white/80 hover:text-white text-sm font-medium link-underline">
+                  <Link href="/dom" className="text-white/80 hover:text-white text-sm font-medium link-underline py-2 px-1 -mx-1">
                     О коттедже
                   </Link>
                 </>

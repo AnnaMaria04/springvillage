@@ -49,7 +49,7 @@ export function BookingModal({ trigger, source = "modal" }: Props) {
             <Dialog.Title className="font-display text-xl font-bold text-foreground">
               Запрос на бронирование
             </Dialog.Title>
-            <Dialog.Close className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors">
+            <Dialog.Close className="w-11 h-11 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors">
               <X className="w-4 h-4" />
             </Dialog.Close>
           </div>

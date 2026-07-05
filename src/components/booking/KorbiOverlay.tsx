@@ -138,7 +138,7 @@ export function KorbiOverlay() {
         ref={shellRef}
         className={[
           "relative z-10 flex flex-col overflow-hidden",
-          "w-full h-screen",
+          "w-full h-[100dvh]",
           "md:max-w-[1200px] md:h-[calc(100vh-6vh)] md:rounded-2xl",
           "shadow-[0_32px_80px_rgba(0,0,0,0.55)]",
         ].join(" ")}

@@ -227,10 +227,12 @@ export function TerritoryPreview() {
                 setPos(CLONES + i);
               }}
               aria-label={`Слайд ${i + 1}`}
-              className={`rounded-full transition-all duration-300 cursor-pointer ${
+              className="w-8 h-8 flex items-center justify-center cursor-pointer"
+            >
+              <span className={`rounded-full transition-all duration-300 block ${
                 i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
-              }`}
-            />
+              }`} />
+            </button>
           ))}
         </div>
       </div>

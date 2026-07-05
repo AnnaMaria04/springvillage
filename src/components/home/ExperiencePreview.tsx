@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ACTIVITIES } from "@/content/activities";
 
@@ -193,9 +194,13 @@ export function ExperiencePreview() {
                     draggable={false}
                   >
                     <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
-                      <div
-                        className="media-img absolute inset-0 bg-stone-300 bg-cover bg-center"
-                        style={{ backgroundImage: `url('${a.photo}')` }}
+                      <Image
+                        src={a.photo}
+                        fill
+                        alt={a.title}
+                        className="media-img object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
                       />
                       <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.7),transparent)] pointer-events-none" />
                       <div className="absolute bottom-5 left-5 right-5 z-20" style={{ transform: "translateZ(0)" }}>
@@ -228,10 +233,12 @@ export function ExperiencePreview() {
                 setPos(CLONES + i);
               }}
               aria-label={`Слайд ${i + 1}`}
-              className={`rounded-full transition-all duration-300 cursor-pointer ${
+              className="w-8 h-8 flex items-center justify-center cursor-pointer"
+            >
+              <span className={`rounded-full transition-all duration-300 block ${
                 i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/40 w-2 h-2 hover:bg-foreground/60"
-              }`}
-            />
+              }`} />
+            </button>
           ))}
         </div>
       </div>

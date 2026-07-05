@@ -94,7 +94,7 @@ export function Header() {
           <button
             onClick={() => setOpen(!open)}
             className={cn(
-              "lg:hidden p-2 rounded-lg transition-colors",
+              "lg:hidden p-3 rounded-lg transition-colors",
               transparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-muted"
             )}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}

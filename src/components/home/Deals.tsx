@@ -49,7 +49,7 @@ export function Deals() {
                 }`}
               >
                 <p className="text-white/60 text-sm mb-2.5">{tier.nights}</p>
-                <p className="font-display text-3xl font-bold text-white leading-none">
+                <p className="font-display text-2xl sm:text-3xl font-bold text-white leading-none">
                   {fmt(tier.totalPrice)} ₽
                 </p>
                 <p className="text-white/55 text-base mt-2">{fmt(tier.perNight)} ₽/ночь</p>

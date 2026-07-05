@@ -69,7 +69,7 @@ export function DomGallery() {
               alt={p.label}
               style={{ objectFit: "cover", objectPosition: p.position }}
               className="transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 1024px) 50vw, 33vw"
+              sizes={p.wide ? "(max-width: 1024px) 100vw, 67vw" : "(max-width: 1024px) 50vw, 33vw"}
               loading="lazy"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
