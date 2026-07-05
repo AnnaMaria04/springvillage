@@ -16,7 +16,7 @@ export const PRICE_TIERS: PriceTier[] = [
     nightsCount: 3,
     totalPrice: 50_000,
     perNight: 16_667,
-    discount: null,
+    discount: "−17%",
     highlighted: false,
   },
   {
