@@ -137,17 +137,7 @@ export default function TurbazaPage() {
 
           <p className="text-center text-sm text-muted-foreground mt-8">
             Цены пробные, актуальны по состоянию на текущий сезон.
-            <br />Для уточнения — звоните.
           </p>
-          <div className="flex justify-center mt-6">
-            <a
-              href={`tel:${CONTACT.phoneDial}`}
-              className="inline-flex items-center gap-2 h-12 px-8 rounded-full bg-pine text-white font-semibold text-sm hover:bg-pine/90 transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              {CONTACT.phone}
-            </a>
-          </div>
         </div>
       </section>
 
