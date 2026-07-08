@@ -104,6 +104,53 @@ export default function TurbazaPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section className="bg-cream py-16 lg:py-20">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4 text-center">
+            Услуги и цены
+          </p>
+          <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+            Что у нас есть
+          </h2>
+
+          <div className="space-y-3">
+            {[
+              { name: "Слип для лодок, байдарок и SUP", price: "Бесплатно", free: true },
+              { name: "Организация места для автомобиля", price: "1 000 ₽ / сутки" },
+              { name: "Место под палатку у воды", price: "1 000 ₽ / сутки" },
+              { name: "Костровая зона с мангалом", price: "1 000 ₽" },
+              { name: "Понтон", price: "1 000 ₽" },
+              { name: "Прокат лодки", price: "1 000 ₽ / день" },
+            ].map((item) => (
+              <div
+                key={item.name}
+                className="flex items-center justify-between gap-4 bg-white rounded-2xl px-6 py-4 border border-border"
+              >
+                <span className="text-foreground font-medium">{item.name}</span>
+                <span className={`shrink-0 font-bold font-display text-lg ${item.free ? "text-moss" : "text-pine"}`}>
+                  {item.price}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-sm text-muted-foreground mt-8">
+            Цены пробные, актуальны по состоянию на текущий сезон.
+            <br />Для уточнения — звоните.
+          </p>
+          <div className="flex justify-center mt-6">
+            <a
+              href={`tel:${CONTACT.phoneDial}`}
+              className="inline-flex items-center gap-2 h-12 px-8 rounded-full bg-pine text-white font-semibold text-sm hover:bg-pine/90 transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              {CONTACT.phone}
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Special offer */}
       <section className="bg-pine py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
