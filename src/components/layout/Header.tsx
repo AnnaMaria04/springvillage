@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/aktivnosti", label: "Активности" },
   { href: "/tseny",      label: "Цены" },
   { href: "/galereya",   label: "Галерея" },
+  { href: "/turbaza",    label: "Турбаза" },
   { href: "/kontakty",   label: "Контакты" },
 ];
 
