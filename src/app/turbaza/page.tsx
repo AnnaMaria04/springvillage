@@ -135,60 +135,94 @@ export default function TurbazaPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
           Услуги и цены
         </p>
-        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-10">
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-3">
           Что у нас есть
         </h2>
+        <p className="text-muted-foreground mb-12">
+          Каждая услуга доступна отдельно или всё сразу по выгодной цене.
+        </p>
 
-        {/* Free services */}
-        <div className="space-y-3 mb-6">
+        {/* All individual services */}
+        <div className="space-y-3 mb-8">
           {[
-            { name: "Слип для лодок, байдарок и SUP" },
-            { name: "Неподготовленное место под палатку" },
+            { name: "Слип для лодок, байдарок и SUP", detail: "Спуск с берега", price: "Бесплатно", free: true },
+            { name: "Неподготовленное место под палатку", detail: "Место у воды, без оборудования", price: "Бесплатно", free: true },
+            { name: "Организация места для автомобиля", detail: "Охраняемая стоянка на территории", price: "1 000 ₽ / сутки", free: false },
+            { name: "Понтон", detail: "Доступ к плавучему понтону", price: "1 000 ₽ / сутки", free: false },
+            { name: "Костровая зона с мангалом", detail: "Оборудованное место, дрова", price: "1 000 ₽ / сутки", free: false },
+            { name: "Прокат лодки", detail: "Деревянная лодка на день", price: "1 000 ₽ / день", free: false },
+            { name: "Место под палатку (подготовленное)", detail: "Ровная площадка с розеткой", price: "1 000 ₽ / сутки", free: false },
           ].map((item) => (
             <div
               key={item.name}
-              className="flex items-center justify-between gap-6 rounded-3xl border border-border bg-white px-6 py-6 sm:px-8"
+              className="group flex items-center justify-between gap-6 rounded-3xl border border-border bg-white px-6 py-5 sm:px-8"
             >
-              <span className="text-foreground font-medium text-lg">{item.name}</span>
-              <span className="shrink-0 font-display text-2xl sm:text-3xl font-bold text-moss">Бесплатно</span>
+              <div className="min-w-0">
+                <p className="text-foreground font-medium text-lg leading-tight">{item.name}</p>
+                <p className="text-muted-foreground text-sm mt-0.5">{item.detail}</p>
+              </div>
+              <span className={`shrink-0 font-display text-xl sm:text-2xl font-bold ${item.free ? "text-moss" : "text-pine"}`}>
+                {item.price}
+              </span>
             </div>
           ))}
         </div>
 
-        {/* Bundle */}
-        <div className="rounded-3xl border-2 border-wood bg-cream px-6 py-8 sm:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
-            <div className="flex-1">
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-wood mb-3 block">
-                Комплект услуг
-              </span>
-              <ul className="space-y-2">
+        {/* Bundle deal */}
+        <div className="rounded-3xl border border-wood bg-cream overflow-hidden">
+          <div className="flex flex-col lg:flex-row items-stretch">
+
+            {/* Left: what's included */}
+            <div className="flex-1 p-8 sm:p-10 lg:p-12">
+              <div className="flex items-center gap-3 mb-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-wood">
+                  Комплект — всё включено
+                </p>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-wood bg-wood/12 rounded-full px-2.5 py-1">
+                  Выгодно
+                </span>
+              </div>
+              <h3 className="font-display text-2xl font-bold text-foreground mb-6">
+                5 услуг в одном пакете
+              </h3>
+              <ul className="space-y-3">
                 {[
                   "Организация места для автомобиля",
                   "Понтон",
                   "Костровая зона с мангалом",
                   "Прокат лодки",
                   "Место под палатку (подготовленное)",
-                ].map((s, i) => (
-                  <li key={i} className="flex items-center gap-3 text-foreground font-medium">
-                    <span className="w-5 h-5 rounded-full bg-wood/15 flex items-center justify-center shrink-0 text-xs font-bold text-wood">
-                      {i + 1}
-                    </span>
-                    {s}
+                ].map((s) => (
+                  <li key={s} className="flex items-center gap-3">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-wood shrink-0" />
+                    <span className="text-foreground font-medium">{s}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="shrink-0 text-right sm:text-right">
-              <div className="font-display text-4xl sm:text-5xl font-bold text-pine leading-none">3 000 ₽</div>
-              <div className="text-sm text-muted-foreground mt-2">вместо 5 000 ₽</div>
-              <div className="text-xs text-wood font-semibold mt-1">за всё сразу</div>
+
+            {/* Right: price CTA */}
+            <div className="lg:w-72 flex flex-col items-center justify-center gap-5 p-8 sm:p-10 lg:p-12 bg-wood/[0.06] border-t lg:border-t-0 lg:border-l border-wood/20">
+              <div className="text-center">
+                <p className="font-display text-4xl font-bold text-pine leading-none">3 000 ₽</p>
+                <p className="text-sm text-muted-foreground mt-2">за всё / сутки</p>
+                <p className="text-xs text-muted-foreground/60 mt-1 line-through">5 000 ₽ по отдельности</p>
+                <p className="text-xs text-wood font-semibold mt-2">экономия 2 000 ₽</p>
+              </div>
+              <a
+                href={`tel:${CONTACT.phoneDial}`}
+                className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                Позвонить
+              </a>
             </div>
+
           </div>
         </div>
 
         <p className="text-sm text-muted-foreground mt-6">
-          Цены пробные, актуальны по состоянию на текущий сезон. Каждая услуга также доступна отдельно — 1 000 ₽.
+          Цены пробные, актуальны по состоянию на текущий сезон.
         </p>
       </section>
 
