@@ -104,8 +104,34 @@ export default function TurbazaPage() {
         </div>
       </section>
 
+      {/* Special offer */}
+      <section className="bg-pine py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+          <div className="inline-flex items-center gap-2 text-wood font-semibold text-sm uppercase tracking-wider mb-4">
+            <Flame className="w-4 h-4" />
+            Специальное предложение
+          </div>
+          <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">
+            Забронируйте на 3 дня —<br className="hidden sm:block" /> аренда лодки в подарок
+          </h2>
+          <p className="text-white/65 text-lg mb-8 max-w-xl mx-auto">
+            Один день аренды лодки (до 4 часов) бесплатно при бронировании от 3 ночей. Новые лодки с полным комплектом снаряжения. Уточняйте наличие и даты по телефону.
+          </p>
+          <a
+            href={`tel:${CONTACT.phoneDial}`}
+            className="inline-flex items-center gap-3 h-14 px-10 rounded-full bg-white text-pine font-semibold text-base hover:bg-white/90 transition-colors"
+          >
+            <Phone className="w-5 h-5" />
+            {CONTACT.phone}
+          </a>
+          <p className="text-white/40 text-sm mt-6">
+            Отдельная территория от коттеджа WILD · 1,5 км · 135 км от Петербурга
+          </p>
+        </div>
+      </section>
+
       {/* Pricing */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
           Услуги и цены
         </p>
@@ -137,32 +163,6 @@ export default function TurbazaPage() {
         <p className="text-sm text-muted-foreground mt-6">
           Цены пробные, актуальны по состоянию на текущий сезон.
         </p>
-      </section>
-
-      {/* Special offer */}
-      <section className="bg-pine py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <div className="inline-flex items-center gap-2 text-wood font-semibold text-sm uppercase tracking-wider mb-4">
-            <Flame className="w-4 h-4" />
-            Специальное предложение
-          </div>
-          <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">
-            Забронируйте на 3 дня —<br className="hidden sm:block" /> аренда лодки в подарок
-          </h2>
-          <p className="text-white/65 text-lg mb-8 max-w-xl mx-auto">
-            Один день аренды лодки (до 4 часов) бесплатно при бронировании от 3 ночей. Новые лодки с полным комплектом снаряжения. Уточняйте наличие и даты по телефону.
-          </p>
-          <a
-            href={`tel:${CONTACT.phoneDial}`}
-            className="inline-flex items-center gap-3 h-14 px-10 rounded-full bg-white text-pine font-semibold text-base hover:bg-white/90 transition-colors"
-          >
-            <Phone className="w-5 h-5" />
-            {CONTACT.phone}
-          </a>
-          <p className="text-white/40 text-sm mt-6">
-            Отдельная территория от коттеджа WILD · 1,5 км · 135 км от Петербурга
-          </p>
-        </div>
       </section>
 
     </article>
