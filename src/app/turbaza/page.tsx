@@ -105,40 +105,38 @@ export default function TurbazaPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
-            Услуги и цены
-          </p>
-          <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-10">
-            Что у нас есть
-          </h2>
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+          Услуги и цены
+        </p>
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-10">
+          Что у нас есть
+        </h2>
 
-          <div className="space-y-2">
-            {[
-              { name: "Слип для лодок, байдарок и SUP", price: "Бесплатно", free: true },
-              { name: "Организация места для автомобиля", price: "1 000 ₽ / сутки" },
-              { name: "Место под палатку у воды", price: "1 000 ₽ / сутки" },
-              { name: "Костровая зона с мангалом", price: "1 000 ₽" },
-              { name: "Понтон", price: "1 000 ₽" },
-              { name: "Прокат лодки", price: "1 000 ₽ / день" },
-            ].map((item) => (
-              <div
-                key={item.name}
-                className="flex items-center justify-between gap-6 rounded-3xl border border-border bg-white px-6 py-5 sm:px-8"
-              >
-                <span className="text-foreground font-medium">{item.name}</span>
-                <span className={`shrink-0 font-display text-xl font-bold ${item.free ? "text-moss" : "text-pine"}`}>
-                  {item.price}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-sm text-muted-foreground mt-6">
-            Цены пробные, актуальны по состоянию на текущий сезон.
-          </p>
+        <div className="space-y-3">
+          {[
+            { name: "Слип для лодок, байдарок и SUP", price: "Бесплатно", free: true },
+            { name: "Организация места для автомобиля", price: "1 000 ₽ / сутки" },
+            { name: "Место под палатку у воды", price: "1 000 ₽ / сутки" },
+            { name: "Костровая зона с мангалом", price: "1 000 ₽" },
+            { name: "Понтон", price: "1 000 ₽" },
+            { name: "Прокат лодки", price: "1 000 ₽ / день" },
+          ].map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center justify-between gap-6 rounded-3xl border border-border bg-white px-6 py-6 sm:px-8"
+            >
+              <span className="text-foreground font-medium text-lg">{item.name}</span>
+              <span className={`shrink-0 font-display text-2xl sm:text-3xl font-bold ${item.free ? "text-moss" : "text-pine"}`}>
+                {item.price}
+              </span>
+            </div>
+          ))}
         </div>
+
+        <p className="text-sm text-muted-foreground mt-6">
+          Цены пробные, актуальны по состоянию на текущий сезон.
+        </p>
       </section>
 
       {/* Special offer */}
