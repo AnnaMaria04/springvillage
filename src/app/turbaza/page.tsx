@@ -139,29 +139,56 @@ export default function TurbazaPage() {
           Что у нас есть
         </h2>
 
-        <div className="space-y-3">
+        {/* Free services */}
+        <div className="space-y-3 mb-6">
           {[
-            { name: "Слип для лодок, байдарок и SUP", price: "Бесплатно", free: true },
-            { name: "Организация места для автомобиля", price: "1 000 ₽ / сутки" },
-            { name: "Место под палатку у воды", price: "1 000 ₽ / сутки" },
-            { name: "Костровая зона с мангалом", price: "1 000 ₽" },
-            { name: "Понтон", price: "1 000 ₽" },
-            { name: "Прокат лодки", price: "1 000 ₽ / день" },
+            { name: "Слип для лодок, байдарок и SUP" },
+            { name: "Неподготовленное место под палатку" },
           ].map((item) => (
             <div
               key={item.name}
               className="flex items-center justify-between gap-6 rounded-3xl border border-border bg-white px-6 py-6 sm:px-8"
             >
               <span className="text-foreground font-medium text-lg">{item.name}</span>
-              <span className={`shrink-0 font-display text-2xl sm:text-3xl font-bold ${item.free ? "text-moss" : "text-pine"}`}>
-                {item.price}
-              </span>
+              <span className="shrink-0 font-display text-2xl sm:text-3xl font-bold text-moss">Бесплатно</span>
             </div>
           ))}
         </div>
 
+        {/* Bundle */}
+        <div className="rounded-3xl border-2 border-wood bg-cream px-6 py-8 sm:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
+            <div className="flex-1">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-wood mb-3 block">
+                Комплект услуг
+              </span>
+              <ul className="space-y-2">
+                {[
+                  "Организация места для автомобиля",
+                  "Понтон",
+                  "Костровая зона с мангалом",
+                  "Прокат лодки",
+                  "Место под палатку (подготовленное)",
+                ].map((s, i) => (
+                  <li key={i} className="flex items-center gap-3 text-foreground font-medium">
+                    <span className="w-5 h-5 rounded-full bg-wood/15 flex items-center justify-center shrink-0 text-xs font-bold text-wood">
+                      {i + 1}
+                    </span>
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="shrink-0 text-right sm:text-right">
+              <div className="font-display text-4xl sm:text-5xl font-bold text-pine leading-none">3 000 ₽</div>
+              <div className="text-sm text-muted-foreground mt-2">вместо 5 000 ₽</div>
+              <div className="text-xs text-wood font-semibold mt-1">за всё сразу</div>
+            </div>
+          </div>
+        </div>
+
         <p className="text-sm text-muted-foreground mt-6">
-          Цены пробные, актуальны по состоянию на текущий сезон.
+          Цены пробные, актуальны по состоянию на текущий сезон. Каждая услуга также доступна отдельно — 1 000 ₽.
         </p>
       </section>
 
