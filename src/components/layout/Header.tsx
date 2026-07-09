@@ -2,25 +2,30 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, TreePine } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CONTACT } from "@/content/site";
+import { useBooking } from "@/context/booking-context";
 
 const navLinks = [
-  { href: "/cottages", label: "Коттеджи" },
-  { href: "/pricing", label: "Цены" },
-  { href: "/gallery", label: "Галерея" },
-  { href: "/reviews", label: "Отзывы" },
-  { href: "/about", label: "О нас" },
-  { href: "/contact", label: "Контакты" },
+  { href: "/dom",        label: "Коттедж" },
+  { href: "/aktivnosti", label: "Активности" },
+  { href: "/tseny",      label: "Цены" },
+  { href: "/galereya",   label: "Галерея" },
+  { href: "/turbaza",    label: "Турбаза" },
+  { href: "/kontakty",   label: "Контакты" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { openBooking } = useBooking();
+  const pathname = usePathname();
+  const transparent = pathname === "/" && !scrolled;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -28,40 +33,39 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[--border]"
-          : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 header-transition",
+        transparent
+          ? "bg-transparent"
+          : "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-[--primary] flex items-center justify-center group-hover:bg-[--primary]/90 transition-colors">
-              <TreePine className="w-5 h-5 text-white" />
-            </div>
-            <span
-              className={cn(
-                "font-serif text-xl font-bold transition-colors",
-                scrolled ? "text-[--primary]" : "text-white"
-              )}
-            >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-[68px] lg:h-[84px]">
+          <Link href="/" className="group">
+            <span className={cn(
+              "font-display text-2xl font-bold transition-colors leading-none block",
+              transparent ? "text-white" : "text-foreground"
+            )}>
               Spring Village
+            </span>
+            <span className={cn(
+              "text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors leading-none block mt-0.5",
+              transparent ? "text-white/70" : "text-muted-foreground"
+            )}>
+              Коттедж WILD
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-white/10",
-                  scrolled
-                    ? "text-[--foreground] hover:bg-[--muted] hover:text-[--primary]"
-                    : "text-white/90 hover:text-white"
+                  "px-3.5 py-2 rounded-lg text-[15px] font-medium transition-all duration-150",
+                  transparent
+                    ? "text-white/75 hover:text-white hover:bg-white/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 {link.label}
@@ -69,47 +73,60 @@ export function Header() {
             ))}
           </nav>
 
-          {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button asChild size="default">
-              <Link href="/booking">Забронировать</Link>
-            </Button>
+            <a
+              href={`tel:${CONTACT.phoneDial}`}
+              className={cn(
+                "flex items-center gap-2 text-[15px] font-medium transition-colors",
+                transparent ? "text-white/85 hover:text-white" : "text-foreground hover:text-primary"
+              )}
+            >
+              <Phone className="w-4 h-4" />
+              {CONTACT.phone}
+            </a>
+            <button
+              onClick={() => openBooking()}
+              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer shadow-sm"
+            >
+              Забронировать
+            </button>
           </div>
 
-          {/* Mobile menu toggle */}
           <button
-            className={cn(
-              "lg:hidden p-2 rounded-lg transition-colors",
-              scrolled ? "text-[--foreground] hover:bg-[--muted]" : "text-white hover:bg-white/10"
-            )}
             onClick={() => setOpen(!open)}
-            aria-label="Меню"
+            className={cn(
+              "lg:hidden p-3 rounded-lg transition-colors",
+              transparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-muted"
+            )}
+            aria-label={open ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
           >
-            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden bg-white border-t border-[--border] shadow-lg">
-          <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+        <div id="mobile-nav" className="lg:hidden bg-white border-t border-border">
+          <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="px-4 py-3 rounded-lg text-sm font-medium text-[--foreground] hover:bg-[--muted] hover:text-[--primary] transition-colors"
+                className="px-3 py-3.5 text-sm font-medium text-foreground hover:text-primary border-b border-border last:border-0 transition-colors"
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 border-t border-[--border] mt-2">
-              <Button asChild className="w-full" size="lg">
-                <Link href="/booking" onClick={() => setOpen(false)}>
-                  Забронировать
-                </Link>
-              </Button>
+            <div className="pt-4 pb-2">
+              <button
+                onClick={() => { setOpen(false); openBooking(); }}
+                className="flex items-center justify-center w-full h-12 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer"
+              >
+                Забронировать
+              </button>
             </div>
           </nav>
         </div>

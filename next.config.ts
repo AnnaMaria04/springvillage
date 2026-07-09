@@ -6,6 +6,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.supabase.co" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/politika-konfidentsialnosti",
+        destination: "/privacy",
+        permanent: true,
+      },
+      {
+        source: "/contacts",
+        destination: "/#contacts",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
@@ -19,12 +33,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widget.reservationsteps.ru",
-              "frame-src https://yandex.ru https://widget.reservationsteps.ru",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widget.reservationsteps.ru https://mc.yandex.ru",
+              "frame-src https://yandex.ru https://widget.reservationsteps.ru https://reservationsteps.ru",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://widget.reservationsteps.ru",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https:",
-              "connect-src 'self' https://*.supabase.co https://widget.reservationsteps.ru",
+              "connect-src 'self' https://*.supabase.co https://widget.reservationsteps.ru https://mc.yandex.ru",
             ].join("; "),
           },
         ],

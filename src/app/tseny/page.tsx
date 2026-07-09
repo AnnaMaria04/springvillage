@@ -1,0 +1,25 @@
+import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/PageHero";
+import { Pricing } from "@/components/home/Pricing";
+import { breadcrumbSchema } from "@/lib/schema";
+
+export const metadata: Metadata = {
+  title: "Цены и бронирование — от 50 000 ₽ за 3 ночи",
+  description:
+    "Стоимость аренды коттеджа WILD: 3 ночи от 50 000 ₽, неделя от 85 000 ₽. Онлайн-бронирование на сайте картой или по безналичному счёту. Spring Village, Михалёво.",
+  alternates: { canonical: "/tseny" },
+};
+
+export default function TsenyPage() {
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Цены и бронирование", url: "/tseny" }])) }} />
+      <PageHero
+        eyebrow="Бронирование"
+        title="Цены и даты"
+        subtitle="Чем дольше, тем дешевле за сутки. Без скрытых платежей."
+      />
+      <Pricing />
+    </>
+  );
+}

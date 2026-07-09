@@ -1,93 +1,212 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, Star, Users, Calendar } from "lucide-react";
+
+import { CONTACT } from "@/content/site";
+import { useBooking } from "@/context/booking-context";
+
+
+const SLIDES = [
+  {
+    image: "/images/exterior-winter-snow.jpg",
+    position: "center 60%",
+    label: "A-frame коттедж",
+    title: "Тихая вода,\nкарельский лес",
+    subtitle: "Частный A-frame на берегу Михалёвского озера. Два часа от Петербурга.",
+    book: true as const,
+  },
+  {
+    image: "/images/dock-boat-dusk.jpeg",
+    position: "center 55%",
+    label: "Вода и активности",
+    title: "Пирс, лодки\nи чистое озеро",
+    subtitle: "Купание, рыбалка, SUP и прогулки на лодке — прямо с вашего берега.",
+    book: false as const,
+    href: "/aktivnosti",
+    ctaLabel: "Все активности",
+  },
+  {
+    image: "/images/exterior-night-glow.jpeg",
+    position: "center 50%",
+    label: "Вечер у коттеджа",
+    title: "Огни в темноте\nкарельского леса",
+    subtitle: "A-frame освещён, ужин готов, озеро в ста метрах. Именно так выглядит вечер здесь.",
+    book: false as const,
+    href: "/dom",
+    ctaLabel: "О коттедже",
+  },
+  {
+    image: "/images/territory-spring-steps.jpeg",
+    position: "center 40%",
+    label: "Природа",
+    title: "Сосновый лес\nи финский родник",
+    subtitle: "Грибы, ягоды, лесные тропы. Полное единение с карельской природой.",
+    book: false as const,
+    href: "/aktivnosti/rodnik",
+    ctaLabel: "О роднике",
+  },
+  {
+    image: "/images/exterior-couple-window.jpg",
+    position: "center 35%",
+    label: "Коттедж WILD",
+    title: "A-frame\nс мансардой",
+    subtitle: "Два этажа, мансардные окна, дровяной камин — всё для полного уединения.",
+    book: false as const,
+    href: "/dom",
+    ctaLabel: "О коттедже",
+  },
+  {
+    image: "/images/hero-fireplace.jpg",
+    position: "center 40%",
+    label: "Уют и комфорт",
+    title: "Камин\nи панорамные окна",
+    subtitle: "Дровяной камин, тёплые полы, панорамный вид на воду — всё для отдыха.",
+    book: false as const,
+    href: "/dom",
+    ctaLabel: "О коттедже",
+  },
+  {
+    image: "/images/territory-glamping-tent.jpg",
+    position: "center 40%",
+    label: "Тур база рядом",
+    title: "Тур база\nМихалёвское",
+    subtitle: "В 1,5 км: 500 м берега с песчаным пляжем, кемпинг у воды, аренда лодок.",
+    book: false as const,
+    href: "/turbaza",
+    ctaLabel: "Узнать подробнее",
+  },
+];
+
+const AUTOPLAY_MS = 7000;
 
 export function Hero() {
+  const [cur, setCur] = useState(0);
+  const [animTick, setAnimTick] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { openBooking } = useBooking();
+
+  useEffect(() => {
+    const t = setTimeout(() => setCur((c) => (c + 1) % SLIDES.length), AUTOPLAY_MS);
+    return () => clearTimeout(t);
+  }, [cur]);
+
+  // Increment animTick each time the active slide changes to restart the zoom animation
+  useEffect(() => {
+    setAnimTick(t => t + 1);
+  }, [cur]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient (placeholder until real photo) */}
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-[#1a3009] via-[#2d5016] to-[#3d6b20]"
-        aria-hidden="true"
-      />
-
-      {/* Subtle texture overlay */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Light rays effect */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-emerald-400/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-800/20 rounded-full blur-3xl" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm text-white/90 mb-8">
-          <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
-          <span>Более 500 довольных гостей</span>
+    <section className="relative h-screen min-h-[100svh] overflow-hidden bg-[#0c110e]">
+      {/* Background images — cross-fade with Ken Burns zoom per slide */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          aria-hidden={i !== cur}
+          className={`absolute inset-0 overflow-hidden bg-[#0c110e] transition-opacity duration-700 ease-in-out ${
+            i === cur ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {/* Inner div remounts when slide activates, restarting the zoom animation */}
+          <div
+            key={i === cur ? `${i}-${animTick}` : i}
+            className="absolute inset-0"
+            style={{ animation: "hero-zoom 5s ease-out forwards" }}
+          >
+            <Image
+              src={slide.image}
+              fill
+              alt={slide.label}
+              style={{ objectFit: "cover", objectPosition: slide.position }}
+              priority={i <= 1}
+              sizes="100vw"
+            />
+          </div>
         </div>
+      ))}
 
-        {/* Headline */}
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight mb-6">
-          Ваш отдых
-          <br />
-          <span className="text-emerald-300">в природе</span>
-        </h1>
+      {/* Dark scrim — strong at bottom where text lives, fades to top */}
+      <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(12,18,14,0.96)_0%,rgba(12,18,14,0.75)_30%,rgba(12,18,14,0.35)_60%,transparent_100%)]" />
 
-        <p className="text-lg sm:text-xl text-white/75 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Уютные коттеджи в окружении леса. Тишина, свежий воздух и всё необходимое
-          для незабываемого отдыха — всего в 50 км от Москвы.
-        </p>
-
-        {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-          <Button asChild size="xl" className="bg-white text-[--primary] hover:bg-white/90 shadow-xl">
-            <Link href="/booking">
-              <Calendar className="w-5 h-5" />
-              Забронировать
-            </Link>
-          </Button>
-          <Button asChild size="xl" variant="outline" className="border-2 border-white/40 text-white hover:bg-white/10 hover:text-white hover:border-white/60">
-            <Link href="/cottages">
-              <Users className="w-5 h-5" />
-              Смотреть коттеджи
-            </Link>
-          </Button>
-        </div>
-
-        {/* Stats strip */}
-        <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto">
-          {[
-            { value: "12", label: "коттеджей" },
-            { value: "500+", label: "гостей" },
-            { value: "4.9", label: "рейтинг" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold font-serif text-white">{stat.value}</div>
-              <div className="text-sm text-white/60 mt-1">{stat.label}</div>
+      {/* Slide content */}
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          aria-hidden={i !== cur}
+          className={`absolute inset-0 z-20 transition-opacity duration-700 ease-in-out ${
+            i === cur ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="absolute inset-x-0 bottom-0">
+          <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 lg:pb-20">
+            <p className="text-white/70 text-[13px] font-semibold uppercase tracking-[0.25em] mb-3" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
+              {CONTACT.addressShort} · {slide.label}
+            </p>
+            {i === 0 ? (
+              <h1
+                className="font-display font-bold text-white leading-[0.93] tracking-tight mb-4"
+                style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
+              >
+                {slide.title.split("\n").map((line, j, arr) => (
+                  <span key={j}>{line}{j < arr.length - 1 && <>{" "}<br className="hidden sm:block" /></>}</span>
+                ))}
+              </h1>
+            ) : (
+              <p
+                className="font-display font-bold text-white leading-[0.93] tracking-tight mb-4"
+                style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.75rem)" }}
+              >
+                {slide.title.split("\n").map((line, j, arr) => (
+                  <span key={j}>{line}{j < arr.length - 1 && <>{" "}<br className="hidden sm:block" /></>}</span>
+                ))}
+              </p>
+            )}
+            <p className="text-white/80 text-base leading-relaxed max-w-md mb-7" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}>
+              {slide.subtitle}
+            </p>
+            <div className="flex items-center gap-5">
+              {slide.book ? (
+                <>
+                  <button
+                    onClick={() => openBooking()}
+                    className="btn-lux h-14 px-10 rounded-full bg-wood text-white text-base font-semibold hover:bg-wood/90 inline-flex items-center cursor-pointer shadow-lg"
+                  >
+                    Забронировать
+                  </button>
+                  <Link href="/dom" className="text-white/80 hover:text-white text-sm font-medium link-underline py-2 px-1 -mx-1">
+                    О коттедже
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  href={slide.href}
+                  className="btn-lux h-12 px-8 rounded-full bg-white text-pine text-sm font-semibold hover:bg-white/90 inline-flex items-center"
+                >
+                  {slide.ctaLabel}
+                </Link>
+              )}
             </div>
-          ))}
+          </div>
+          </div>
         </div>
-      </div>
+      ))}
 
-      {/* Scroll hint */}
-      <button
-        onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-white/80 transition-colors animate-bounce"
-        aria-label="Прокрутить вниз"
-      >
-        <ChevronDown className="w-7 h-7" />
-      </button>
+      {/* Dots — pushed above mobile booking bar */}
+      <div className="absolute bottom-[74px] sm:bottom-6 right-6 lg:right-12 z-30 flex items-center">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { if (timerRef.current) clearTimeout(timerRef.current); setCur(i); }}
+            aria-label={`Слайд ${i + 1}`}
+            className="flex items-center justify-center w-11 h-11 cursor-pointer"
+          >
+            <span className={`rounded-full transition-all duration-300 block ${
+              i === cur ? "bg-white w-6 h-2" : "bg-white/50 w-2 h-2 hover:bg-white/70"
+            }`} />
+          </button>
+        ))}
+      </div>
     </section>
   );
 }

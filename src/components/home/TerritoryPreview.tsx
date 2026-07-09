@@ -1,0 +1,241 @@
+"use client";
+
+import { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const GAP = 16;
+const CLONES = 3;
+
+const tiles = [
+  { title: "Финский родник", sub: "Питьевая вода на территории", photo: "/images/territory-spring-steps.jpeg" },
+  { title: "Пирс и водная станция", sub: "Лодки, SUP, рыбалка", photo: "/images/dock-boat-dusk.jpeg" },
+  { title: "Мангальная зона", sub: "Дрова и решётка включены", photo: "/images/territory-firewood-shed-night.jpeg" },
+  { title: "Лесные тропы", sub: "Грибы, ягоды, сосновый лес", photo: "/images/activity-forest-walk.jpg" },
+];
+
+function getCardsPerView(w: number): number {
+  if (w >= 1024) return 3;
+  if (w >= 640) return 2;
+  return 1;
+}
+
+export function TerritoryPreview() {
+  const N = tiles.length;
+  const extended = [...tiles.slice(-CLONES), ...tiles, ...tiles.slice(0, CLONES)];
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerW, setContainerW] = useState(0);
+  const [pos, setPos] = useState(CLONES);
+  const [animated, setAnimated] = useState(true);
+  const lockedRef = useRef(false);
+  const firstMeasureRef = useRef(true);
+  const dragStartX = useRef<number | null>(null);
+  const dragStartY = useRef<number | null>(null);
+  const isDraggingRef = useRef(false);
+  const preventClickRef = useRef(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => {
+      setContainerW(e.contentRect.width);
+      if (firstMeasureRef.current) {
+        firstMeasureRef.current = false;
+        setAnimated(false); // snap to correct position on first measurement, no slide-in animation
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const cpv = getCardsPerView(containerW);
+  const cardW = containerW > 0 ? (containerW - (cpv - 1) * GAP) / cpv : 0;
+  const step = cardW + GAP;
+  const trackX = containerW > 0 ? (containerW - cardW) / 2 - pos * step : 0;
+
+  const go = useCallback((dir: "prev" | "next") => {
+    if (lockedRef.current) return;
+    lockedRef.current = true;
+    setAnimated(true);
+    setPos(p => p + (dir === "next" ? 1 : -1));
+  }, []);
+
+  function onTransitionEnd(e: React.TransitionEvent<HTMLDivElement>) {
+    // Ignore transitionend bubbled up from inner card opacity/transform transitions
+    if (e.target !== e.currentTarget) return;
+    if (pos >= N + CLONES) {
+      setAnimated(false);
+      setPos(p => p - N);
+    } else if (pos < CLONES) {
+      setAnimated(false);
+      setPos(p => p + N);
+    } else {
+      lockedRef.current = false;
+    }
+  }
+
+  // Re-enable animation and unlock after the silent position snap
+  useEffect(() => {
+    if (!animated) {
+      const raf = requestAnimationFrame(() => requestAnimationFrame(() => {
+        setAnimated(true);
+        lockedRef.current = false;
+      }));
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [animated]);
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+    dragStartY.current = e.clientY;
+    isDraggingRef.current = false;
+    preventClickRef.current = false;
+  }
+
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null || dragStartY.current === null || isDraggingRef.current) return;
+    const dx = Math.abs(e.clientX - dragStartX.current);
+    const dy = Math.abs(e.clientY - dragStartY.current);
+    if (dx > 4 || dy > 4) preventClickRef.current = true;
+    if (dy > dx) return;
+    if (dx > 10) {
+      isDraggingRef.current = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+  }
+
+  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null) return;
+    const diff = e.clientX - dragStartX.current;
+    dragStartX.current = null;
+    dragStartY.current = null;
+    if (isDraggingRef.current && Math.abs(diff) > 48) go(diff < 0 ? "next" : "prev");
+    isDraggingRef.current = false;
+  }
+
+  function onPointerCancel() {
+    dragStartX.current = null;
+    dragStartY.current = null;
+    isDraggingRef.current = false;
+  }
+
+  function onClickCapture(e: React.MouseEvent) {
+    if (preventClickRef.current) {
+      preventClickRef.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  const realIdx = ((pos - CLONES) % N + N) % N;
+
+  return (
+    <section className="bg-background py-20 lg:py-28 overflow-x-clip">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+              Территория
+            </p>
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+              Большой лесной участок
+            </h2>
+          </div>
+          <Link
+            href="/dom#territory"
+            className="shrink-0 text-foreground font-medium link-underline inline-flex items-center gap-2"
+          >
+            Подробнее о коттедже
+          </Link>
+        </div>
+
+        <div className="relative">
+          <button
+            onClick={() => go("prev")}
+            aria-label="Назад"
+            className="absolute left-0 lg:-translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+          >
+            <ChevronLeft className="w-5 h-5 text-foreground" />
+          </button>
+
+          <div
+            ref={containerRef}
+            className={`overflow-hidden transition-opacity duration-300 ${containerW > 0 ? "opacity-100" : "opacity-0"}`}
+            style={{ touchAction: "pan-y" }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerCancel}
+            onClickCapture={onClickCapture}
+          >
+            <div
+              className="flex select-none"
+              style={{
+                gap: GAP,
+                transform: containerW > 0 ? `translateX(${trackX}px)` : undefined,
+                transition: animated && containerW > 0 ? "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)" : "none",
+              }}
+              onTransitionEnd={onTransitionEnd}
+            >
+              {extended.map((t, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="flex-none"
+                    style={{ width: cardW > 0 ? cardW : undefined }}
+                  >
+                    <div className="media relative aspect-[3/4] rounded-3xl overflow-hidden">
+                      <Image
+                        src={t.photo}
+                        fill
+                        alt={t.title}
+                        style={{ objectFit: "cover" }}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 z-10 bg-[linear-gradient(to_top,rgba(20,28,22,0.65),transparent)] pointer-events-none" />
+                      <div className="absolute bottom-5 left-5 right-5 z-20" style={{ transform: "translateZ(0)" }}>
+                        <p className="font-display text-xl font-bold text-white leading-tight">{t.title}</p>
+                        <p className="text-white/65 text-sm mt-1">{t.sub}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            onClick={() => go("next")}
+            aria-label="Вперёд"
+            className="absolute right-0 lg:translate-x-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-cream transition-colors cursor-pointer"
+          >
+            <ChevronRight className="w-5 h-5 text-foreground" />
+          </button>
+        </div>
+
+        <div className="flex justify-center gap-2 mt-8">
+          {tiles.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (lockedRef.current) return;
+                lockedRef.current = true;
+                setAnimated(true);
+                setPos(CLONES + i);
+              }}
+              aria-label={`Слайд ${i + 1}`}
+              className="w-8 h-8 flex items-center justify-center cursor-pointer"
+            >
+              <span className={`rounded-full transition-all duration-300 block ${
+                i === realIdx ? "bg-foreground w-6 h-2" : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
+              }`} />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
