@@ -1,9 +1,12 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState } from "react";
+import { usePathname } from "next/navigation";
 import { KorbiOverlay } from "@/components/booking/KorbiOverlay";
+import { AFRAME_UID, TURBAZA_UID } from "@/content/booking";
 
 export type BookingOpts = {
+  uid?: string;
   nights?: number;
   dfrom?: string;
   dto?: string;
@@ -14,6 +17,7 @@ export type BookingOpts = {
 
 type BookingCtx = {
   isOpen: boolean;
+  uid: string;
   nights: number | undefined;
   dfrom: string | undefined;
   dto: string | undefined;
@@ -33,7 +37,10 @@ export function useBooking(): BookingCtx {
 }
 
 export function BookingProvider({ children: childrenProp }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
   const [isOpen,        setIsOpen]        = useState(false);
+  const [uid,           setUid]           = useState<string>(AFRAME_UID);
   const [nights,        setNights]        = useState<number | undefined>();
   const [dfrom,         setDfrom]         = useState<string | undefined>();
   const [dto,           setDto]           = useState<string | undefined>();
@@ -42,6 +49,8 @@ export function BookingProvider({ children: childrenProp }: { children: React.Re
   const [childrenAges,  setChildrenAges]  = useState<number[] | undefined>();
 
   const openBooking = useCallback((opts?: BookingOpts) => {
+    const resolved = opts?.uid ?? (pathname?.startsWith("/turbaza") ? TURBAZA_UID : AFRAME_UID);
+    setUid(resolved);
     setNights(opts?.nights);
     setDfrom(opts?.dfrom);
     setDto(opts?.dto);
@@ -49,12 +58,12 @@ export function BookingProvider({ children: childrenProp }: { children: React.Re
     setChildren(opts?.children);
     setChildrenAges(opts?.childrenAges);
     setIsOpen(true);
-  }, []);
+  }, [pathname]);
 
   const closeBooking = useCallback(() => setIsOpen(false), []);
 
   return (
-    <BookingContext.Provider value={{ isOpen, nights, dfrom, dto, adults, children, childrenAges, openBooking, closeBooking }}>
+    <BookingContext.Provider value={{ isOpen, uid, nights, dfrom, dto, adults, children, childrenAges, openBooking, closeBooking }}>
       {childrenProp}
       <KorbiOverlay />
     </BookingContext.Provider>

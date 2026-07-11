@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Phone, MapPin, Flame } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
+import { BookingBar } from "@/components/home/BookingBar";
 import { CONTACT } from "@/content/site";
+import { TURBAZA_UID } from "@/content/booking";
 
 export const metadata: Metadata = {
   title: "Тур база Михалёвское — 500 м берега, песчаный пляж, аренда лодок",
@@ -103,6 +105,11 @@ export default function TurbazaPage() {
           </div>
         </div>
       </section>
+
+      {/* Booking bar — turbaza Bnovo module */}
+      <div className="hidden md:block">
+        <BookingBar uid={TURBAZA_UID} />
+      </div>
 
       {/* Special offer */}
       <section className="bg-pine py-16 lg:py-20">

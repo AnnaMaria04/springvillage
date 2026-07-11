@@ -179,7 +179,7 @@ function fieldStyle(active: boolean, wide = false): React.CSSProperties {
 
 type Panel = "calendar" | "guests" | null;
 
-export function BookingBar() {
+export function BookingBar({ uid }: { uid?: string } = {}) {
   const { openBooking } = useBooking();
 
   const today = useMemo(() => { const d = new Date(); d.setHours(0,0,0,0); return d; }, []);
@@ -236,7 +236,7 @@ export function BookingBar() {
 
   function handleSubmit() {
     if (!dfrom || !dto) { setPanel("calendar"); return; }
-    openBooking({ dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults, children, childrenAges: children > 0 ? ages : undefined });
+    openBooking({ uid, dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults, children, childrenAges: children > 0 ? ages : undefined });
   }
 
   const DD_TR = `opacity 250ms ${EASE}, transform 250ms ${EASE}`;
