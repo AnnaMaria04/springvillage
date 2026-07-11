@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { useBooking } from "@/context/booking-context";
-import { buildBookingUrl } from "@/content/booking";
+import { buildBookingUrl, TURBAZA_UID } from "@/content/booking";
 
 function formatDateDMY(date: Date): string {
   const d = String(date.getDate()).padStart(2, "0");
@@ -146,7 +146,7 @@ export function KorbiOverlay() {
         {/* Chrome bar */}
         <div className="flex items-center shrink-0 px-5 py-3" style={{ background: "#2F3E34" }}>
           <p className="text-sm font-semibold leading-none" style={{ color: "#F4EFE4" }}>
-            Бронирование · Коттедж WILD
+            {uid === TURBAZA_UID ? "Бронирование · Турбаза Михалёвское" : "Бронирование · Коттедж WILD"}
           </p>
           <button
             ref={closeRef}
