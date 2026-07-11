@@ -257,8 +257,8 @@ export function BookingBar({ uid }: { uid?: string } = {}) {
         ref={wrapRef}
         style={{
           position: "relative", zIndex: 30,
-          maxWidth: 1120, margin: "0 auto",
-          padding: "13px clamp(18px,4vw,40px)",
+          maxWidth: 1280, margin: "0 auto",
+          padding: "13px clamp(24px,4vw,48px)",
           display: "flex", alignItems: "center",
           gap: "clamp(14px,2vw,28px)", flexWrap: "wrap",
         }}
