@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CONTACT } from "@/lib/data";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Правила проживания",
@@ -37,6 +38,7 @@ const rules = [
 export default function RulesPage() {
   return (
     <div className="pt-16 min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Правила проживания", url: "/rules" }])) }} />
       <div className="bg-muted border-b border-border py-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-3xl mx-auto">
           <h1 className="font-display text-4xl sm:text-5xl font-bold text-foreground mb-3">

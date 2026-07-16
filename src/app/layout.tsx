@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Onest, Cormorant } from "next/font/google";
 import "./globals.css";
-import { lodgingBusinessSchema } from "@/lib/schema";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/global/WhatsAppButton";
@@ -74,10 +73,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={`${onest.variable} ${cormorant.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessSchema()) }}
-        />
         {/* Yandex Metrica */}
         <script
           dangerouslySetInnerHTML={{

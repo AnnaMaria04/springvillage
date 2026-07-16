@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Gallery } from "@/components/home/Gallery";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Фотогалерея — коттедж WILD у озера",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function GalereyaPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Галерея", url: "/galereya" }])) }} />
       <PageHero eyebrow="Spring Village" title="Галерея" image="/images/exterior-frost-dawn.jpeg" />
       <Gallery />
     </>

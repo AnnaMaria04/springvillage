@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Faq } from "@/components/home/Faq";
 import { FAQ } from "@/content/faq";
+import { breadcrumbSchema } from "@/lib/schema";
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -32,6 +33,7 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Частые вопросы", url: "/faq" }])) }} />
       <PageHero eyebrow="Информация" title="Частые вопросы" />
       <Faq />
     </>

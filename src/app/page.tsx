@@ -8,6 +8,7 @@ import { Reviews } from "@/components/home/Reviews";
 import { LocationPreview } from "@/components/home/LocationPreview";
 import { TurbazaTeaser } from "@/components/home/TurbazaTeaser";
 import { Reveal } from "@/components/ui/Reveal";
+import { lodgingBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Spring Village — A-Frame коттедж у Михалёвского озера",
@@ -19,6 +20,10 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessSchema()) }}
+      />
       <Hero />
       <BookingBar />
       <Reveal><StayPreview /></Reveal>

@@ -77,6 +77,41 @@ export function lodgingBusinessSchema() {
   };
 }
 
+export function campgroundSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Campground",
+    name: "Турбаза Михалёвское",
+    description:
+      "Кемпинг у воды на Михалёвском озере: 500 метров берега с песчаным пляжем, аренда лодок, слип для спуска SUP-досок и байдарок. Отдельная территория в 1,5 км от коттеджа WILD.",
+    url: `${BASE}/turbaza`,
+    telephone: CONTACT.phone,
+    email: CONTACT.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "пос. Михалёво",
+      addressRegion: "Ленинградская область",
+      addressCountry: "RU",
+    },
+    // TODO(Phase 3): турбаза находится ~1,5 км от коттеджа и имеет собственные
+    // координаты — добавить GeoCoordinates после подтверждения. НЕ копировать
+    // координаты коттеджа.
+    containedInPlace: {
+      "@type": "LakeBodyOfWater",
+      name: "Михалёвское озеро",
+    },
+    amenityFeature: [
+      "Песчаный пляж",
+      "500 м береговой линии",
+      "Кемпинг у воды",
+      "Аренда лодок",
+      "Слип для спуска SUP-досок и байдарок",
+    ].map((name) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
+    // TODO(Phase 3): добавить sameAs → собственный Yandex-профиль турбазы (другой oid)
+    availableLanguage: { "@type": "Language", name: "Russian", alternateName: "ru" },
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",

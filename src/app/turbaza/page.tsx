@@ -6,6 +6,7 @@ import { BookingBar } from "@/components/home/BookingBar";
 import { BookingButton } from "@/components/booking/BookingButton";
 import { CONTACT } from "@/content/site";
 import { TURBAZA_UID } from "@/content/booking";
+import { campgroundSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Тур база Михалёвское — 500 м берега, песчаный пляж, аренда лодок",
@@ -39,6 +40,21 @@ const highlights = [
 export default function TurbazaPage() {
   return (
     <article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(campgroundSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Главная", url: "/" },
+              { name: "Турбаза Михалёвское", url: "/turbaza" },
+            ]),
+          ),
+        }}
+      />
       <PageHero
         eyebrow="В 1,5 км от коттеджа WILD"
         title="Тур база Михалёвское"

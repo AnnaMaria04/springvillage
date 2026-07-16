@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ACTIVITIES } from "@/content/activities";
 import { BookingBar } from "@/components/home/BookingBar";
+import { breadcrumbSchema } from "@/lib/schema";
 
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
 
@@ -103,6 +104,18 @@ export default async function ActivityPage({
 
   return (
     <article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Главная", url: "/" },
+              { name: "Активности", url: "/aktivnosti" },
+              { name: activity!.title, url: `/aktivnosti/${slug}` },
+            ]),
+          ),
+        }}
+      />
       {/* Hero — dark green, no background image */}
       <section className="relative bg-pine flex flex-col justify-end min-h-[50vh] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-14">

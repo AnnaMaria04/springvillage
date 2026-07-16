@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Contacts } from "@/components/home/Contacts";
 import { LOCATION } from "@/content/location";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Контакты — Spring Village, Михалёво",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function KontaktyPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Контакты", url: "/kontakty" }])) }} />
       <PageHero
         eyebrow="Связь"
         title="Контакты"

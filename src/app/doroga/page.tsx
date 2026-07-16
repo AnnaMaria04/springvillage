@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Car, Train, MapPin, Clock, Wind, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Как добраться до Spring Village — из Петербурга 127 км",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function DorogaPage() {
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Как добраться", url: "/doroga" }])) }} />
       <div className="bg-pine pt-28 pb-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/50 mb-3">Навигация</p>
