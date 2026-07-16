@@ -26,7 +26,7 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.springvillage.ru"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.springvillage.ru"),
   title: {
     default: "Spring Village — Коттедж WILD у Михалёвского озера",
     template: "%s | Spring Village",

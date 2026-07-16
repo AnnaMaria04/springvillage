@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://www.springvillage.ru";
+export const dynamic = "force-static";
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.springvillage.ru";
 
 const ACTIVITY_SLUGS = ["bajdarki", "rybalka", "priroda", "mangal", "igry", "rodnik"];
 

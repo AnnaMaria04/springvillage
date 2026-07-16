@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
+import { corsHeaders, corsOptionsResponse } from "@/lib/cors";
 
 const schema = z.object({
   name: z.string().min(1).max(100),
@@ -20,7 +21,12 @@ async function notifyTelegram(text: string) {
   }).catch(() => {});
 }
 
+export async function OPTIONS(req: NextRequest) {
+  return corsOptionsResponse(req.headers.get("origin"));
+}
+
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   let body: unknown;
   try {
     body = await req.json();
@@ -65,5 +71,5 @@ export async function POST(req: NextRequest) {
     `\n📍 Источник: ${source ?? "website"}`,
   );
 
-  return NextResponse.json({ ok: true }, { status: 201 });
+  return NextResponse.json({ ok: true }, { status: 201, headers: corsHeaders(origin) });
 }
