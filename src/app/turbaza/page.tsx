@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Phone, MapPin, Flame } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
+import { BookingBar } from "@/components/home/BookingBar";
+import { BookingButton } from "@/components/booking/BookingButton";
 import { CONTACT } from "@/content/site";
+import { TURBAZA_UID } from "@/content/booking";
 
 export const metadata: Metadata = {
   title: "Тур база Михалёвское — 500 м берега, песчаный пляж, аренда лодок",
@@ -42,6 +45,26 @@ export default function TurbazaPage() {
         subtitle="Кемпинг у озера в карельском лесу. Отдельная территория в 1,5 км от коттеджа WILD."
         image="/images/territory-glamping-tent.jpg"
       />
+
+      {/* Booking — desktop bar / mobile buttons */}
+      <div className="hidden md:block">
+        <BookingBar uid={TURBAZA_UID} />
+      </div>
+      <div className="md:hidden flex flex-col sm:flex-row gap-3 px-6 py-8 max-w-lg mx-auto w-full">
+        <BookingButton
+          opts={{ uid: TURBAZA_UID }}
+          className="flex-1 h-13 rounded-full bg-pine text-white font-semibold text-base transition-colors hover:bg-pine/90 cursor-pointer"
+        >
+          Забронировать место
+        </BookingButton>
+        <a
+          href={`tel:${CONTACT.phoneDial}`}
+          className="flex-1 h-13 flex items-center justify-center gap-2 rounded-full border border-pine text-pine font-semibold text-base transition-colors hover:bg-pine/5"
+        >
+          <Phone className="w-4 h-4" />
+          Позвонить
+        </a>
+      </div>
 
       {/* Main content */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">

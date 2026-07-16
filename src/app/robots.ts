@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.springvillage.ru";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -7,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Yandex", allow: "/", disallow: ["/api/"] },
       { userAgent: "YandexImages", allow: "/images/" },
     ],
-    sitemap: "https://www.springvillage.ru/sitemap.xml",
-    host: "https://www.springvillage.ru",
+    sitemap: `${BASE}/sitemap.xml`,
+    host: BASE,
   };
 }

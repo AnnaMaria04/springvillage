@@ -1,7 +1,7 @@
 import { SITE, CONTACT } from "@/content/site";
 import { HOUSE } from "@/content/house";
 
-const BASE = "https://www.springvillage.ru";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.springvillage.ru";
 
 export function lodgingBusinessSchema() {
   return {

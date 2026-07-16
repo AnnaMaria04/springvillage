@@ -1,12 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
+import { corsHeaders, corsOptionsResponse } from "@/lib/cors";
 
 const schema = z.object({
   email: z.string().email("Введите корректный e-mail"),
 });
 
+export async function OPTIONS(req: NextRequest) {
+  return corsOptionsResponse(req.headers.get("origin"));
+}
+
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   let body: unknown;
   try {
     body = await req.json();
@@ -33,5 +39,5 @@ export async function POST(req: NextRequest) {
       .upsert({ email }, { onConflict: "email", ignoreDuplicates: true });
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true }, { headers: corsHeaders(origin) });
 }

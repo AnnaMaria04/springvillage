@@ -1,5 +1,5 @@
-const UID = "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16";
-const BASE = `https://reservationsteps.ru/rooms/index/${UID}`;
+export const AFRAME_UID   = "12e2e2c5-b04f-4f43-ab36-3eff3f10dc16";
+export const TURBAZA_UID  = "5c361e30-619d-4e12-85f0-f65c2e24b6d5";
 
 function offsetDate(days: number): string {
   const d = new Date();
@@ -7,7 +7,16 @@ function offsetDate(days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-export function buildBookingUrl(opts?: { dfrom?: string; dto?: string; adults?: number; children?: number; childrenAges?: number[] }): string {
+export function buildBookingUrl(opts?: {
+  uid?: string;
+  dfrom?: string;
+  dto?: string;
+  adults?: number;
+  children?: number;
+  childrenAges?: number[];
+}): string {
+  const uid  = opts?.uid ?? AFRAME_UID;
+  const base = `https://reservationsteps.ru/rooms/index/${uid}`;
   const params = new URLSearchParams({
     lang: "ru",
     insidePopup: "1",
@@ -23,9 +32,9 @@ export function buildBookingUrl(opts?: { dfrom?: string; dto?: string; adults?: 
   } else if (opts?.children && opts.children > 0) {
     params.set("children", JSON.stringify(Array(opts.children).fill(0)));
   }
-  return `${BASE}?${params}`;
+  return `${base}?${params}`;
 }
 
 export const BOOKING = {
-  uid: UID,
+  uid: AFRAME_UID,
 } as const;

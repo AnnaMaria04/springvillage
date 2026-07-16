@@ -1,0 +1,108 @@
+name: Deploy static export to REG.RU
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-reg-ru
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Remove server-only files (incompatible with static export)
+        run: rm -rf src/app/api
+
+      - name: Build static export
+        env:
+          STATIC_EXPORT: "1"
+          NEXT_PUBLIC_SITE_URL: "https://www.springvillage.ru"
+          NEXT_PUBLIC_API_BASE: "https://springvillage.vercel.app"
+        run: npm run build
+
+      - name: Emit .htaccess
+        run: |
+          cat > out/.htaccess << 'HTACCESS'
+          Options -Indexes
+          DirectoryIndex index.html
+          ErrorDocument 404 /404.html
+
+          RewriteEngine On
+
+          # Pass ACME challenges through (Let's Encrypt auto-renewal)
+          RewriteRule ^\.well-known/ - [L]
+
+          # http → https
+          # REG.RU GOTCHA: TLS terminates on upstream nginx, so Apache always sees
+          # plain HTTP. Checking only %{HTTPS} !=on causes an infinite redirect loop
+          # in Safari. Must also check X-Forwarded-Proto.
+          RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+          RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+          # bare → www canonical (www.springvillage.ru)
+          RewriteCond %{HTTP_HOST} ^springvillage\.ru$ [NC]
+          RewriteRule ^ https://www.springvillage.ru%{REQUEST_URI} [R=301,L]
+          HTACCESS
+
+      - name: Install sshpass and rsync
+        run: sudo apt-get install -y sshpass rsync
+
+      - name: Normalize REG_PATH
+        id: path
+        run: |
+          P="${{ secrets.REG_PATH }}"
+          # SSH paths are relative to home — strip leading slash if present
+          P="${P#/}"
+          # Ensure exactly one trailing slash
+          P="${P%/}/"
+          echo "path=$P" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy via rsync
+        env:
+          SSHPASS: ${{ secrets.REG_PASSWORD }}
+        run: |
+          rsync -az --delete \
+            --exclude '.well-known/' \
+            --exclude 'cgi-bin/' \
+            --exclude 'error_docs/' \
+            -e "sshpass -e ssh -p ${{ secrets.REG_PORT }} -o StrictHostKeyChecking=no" \
+            out/ \
+            ${{ secrets.REG_USERNAME }}@${{ secrets.REG_HOST }}:${{ steps.path.outputs.path }}
+
+      - name: Verify — SSH listing + index.html head
+        env:
+          SSHPASS: ${{ secrets.REG_PASSWORD }}
+        run: |
+          sshpass -e ssh \
+            -p ${{ secrets.REG_PORT }} \
+            -o StrictHostKeyChecking=no \
+            ${{ secrets.REG_USERNAME }}@${{ secrets.REG_HOST }} \
+            "echo '=== pwd ===' && pwd \
+             && echo '=== docroot listing ===' \
+             && ls -la ${{ steps.path.outputs.path }} \
+             && echo '=== index.html (first 300 bytes) ===' \
+             && head -c 300 ${{ steps.path.outputs.path }}index.html"
+
+      - name: Verify — HTTP status codes
+        continue-on-error: true
+        run: |
+          echo "--- HTTP status (http://www.springvillage.ru/) ---"
+          curl -o /dev/null -s -w "%{http_code}\n" http://www.springvillage.ru/ || echo "(connection error)"
+          echo "--- HTTP status (https://www.springvillage.ru/) ---"
+          curl -o /dev/null -s -w "%{http_code}\n" https://www.springvillage.ru/ || echo "(TLS not yet issued — expected)"

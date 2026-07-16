@@ -23,7 +23,7 @@ export function BookingModal({ trigger, source = "modal" }: Props) {
     if (!consent) return;
     setState("loading");
     try {
-      const res = await fetch("/api/lead", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE ?? ""}/api/lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone, message, source }),

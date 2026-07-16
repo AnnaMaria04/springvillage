@@ -1,50 +1,56 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.STATIC_EXPORT === "1";
+
 const nextConfig: NextConfig = {
+  ...(isStaticExport && { output: "export", trailingSlash: true }),
   images: {
+    ...(isStaticExport && { unoptimized: true }),
     remotePatterns: [
       { protocol: "https", hostname: "**.supabase.co" },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/politika-konfidentsialnosti",
-        destination: "/privacy",
-        permanent: true,
-      },
-      {
-        source: "/contacts",
-        destination: "/#contacts",
-        permanent: true,
-      },
-    ];
-  },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN",
-          },
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widget.reservationsteps.ru https://mc.yandex.ru",
-              "frame-src https://yandex.ru https://widget.reservationsteps.ru https://reservationsteps.ru",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://widget.reservationsteps.ru",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: https:",
-              "connect-src 'self' https://*.supabase.co https://widget.reservationsteps.ru https://mc.yandex.ru",
-            ].join("; "),
-          },
-        ],
-      },
-    ];
-  },
+  ...(!isStaticExport && {
+    async redirects() {
+      return [
+        {
+          source: "/politika-konfidentsialnosti",
+          destination: "/privacy",
+          permanent: true,
+        },
+        {
+          source: "/contacts",
+          destination: "/#contacts",
+          permanent: true,
+        },
+      ];
+    },
+    async headers() {
+      return [
+        {
+          source: "/(.*)",
+          headers: [
+            {
+              key: "X-Frame-Options",
+              value: "SAMEORIGIN",
+            },
+            {
+              key: "Content-Security-Policy",
+              value: [
+                "default-src 'self'",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widget.reservationsteps.ru https://mc.yandex.ru",
+                "frame-src https://yandex.ru https://widget.reservationsteps.ru https://reservationsteps.ru",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://widget.reservationsteps.ru",
+                "font-src 'self' https://fonts.gstatic.com",
+                "img-src 'self' data: https:",
+                "connect-src 'self' https://*.supabase.co https://widget.reservationsteps.ru https://mc.yandex.ru",
+              ].join("; "),
+            },
+          ],
+        },
+      ];
+    },
+  }),
 };
 
 export default nextConfig;

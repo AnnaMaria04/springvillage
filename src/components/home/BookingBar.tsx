@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useBooking } from "@/context/booking-context";
+import { TURBAZA_UID } from "@/content/booking";
 
 // ─── Locale ───────────────────────────────────────────────────────────────────
 
@@ -179,7 +180,7 @@ function fieldStyle(active: boolean, wide = false): React.CSSProperties {
 
 type Panel = "calendar" | "guests" | null;
 
-export function BookingBar() {
+export function BookingBar({ uid }: { uid?: string } = {}) {
   const { openBooking } = useBooking();
 
   const today = useMemo(() => { const d = new Date(); d.setHours(0,0,0,0); return d; }, []);
@@ -236,7 +237,7 @@ export function BookingBar() {
 
   function handleSubmit() {
     if (!dfrom || !dto) { setPanel("calendar"); return; }
-    openBooking({ dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults, children, childrenAges: children > 0 ? ages : undefined });
+    openBooking({ uid, dfrom: fmtDMY(dfrom), dto: fmtDMY(dto), adults, children, childrenAges: children > 0 ? ages : undefined });
   }
 
   const DD_TR = `opacity 250ms ${EASE}, transform 250ms ${EASE}`;
@@ -244,7 +245,7 @@ export function BookingBar() {
     position: "absolute", top: "calc(100% + 10px)", zIndex: 50,
     background: "#FBF8F2", borderRadius: 16,
     boxShadow: "0 24px 60px -18px rgba(20,30,25,.45)", color: "#1F2A24",
-    pointerEvents: panel ? "auto" : "none", transition: DD_TR,
+    transition: DD_TR,
   };
 
   const calOpen    = panel === "calendar";
@@ -257,8 +258,8 @@ export function BookingBar() {
         ref={wrapRef}
         style={{
           position: "relative", zIndex: 30,
-          maxWidth: 1120, margin: "0 auto",
-          padding: "13px clamp(18px,4vw,40px)",
+          maxWidth: 1280, margin: "0 auto",
+          padding: "13px clamp(24px,4vw,48px)",
           display: "flex", alignItems: "center",
           gap: "clamp(14px,2vw,28px)", flexWrap: "wrap",
         }}
@@ -329,6 +330,7 @@ export function BookingBar() {
             left: "clamp(18px,4vw,40px)", right: "clamp(18px,4vw,40px)",
             margin: "0 auto", width: "min(680px, 100%)",
             opacity: calOpen ? 1 : 0, transform: calOpen ? "none" : "translateY(-6px)",
+            pointerEvents: calOpen ? "auto" : "none",
           }}
         >
           <div style={{ padding: "20px 22px 16px" }}>
@@ -362,12 +364,13 @@ export function BookingBar() {
             ...ddBase,
             right: "clamp(18px,4vw,40px)", width: 330, maxWidth: "calc(100vw - 36px)",
             opacity: guestsOpen ? 1 : 0, transform: guestsOpen ? "none" : "translateY(-6px)",
+            pointerEvents: guestsOpen ? "auto" : "none",
           }}
         >
           <div style={{ padding: "20px 22px" }}>
             <h3 className="font-display font-semibold mb-1" style={{ fontSize: "1.15rem", margin: "0 0 4px" }}>Количество гостей</h3>
             <p style={{ fontSize: ".68rem", letterSpacing: ".1em", textTransform: "uppercase", color: "#6E776F", borderBottom: "1px solid #e7e0d2", paddingBottom: 11, marginBottom: 15 }}>
-              Коттедж WILD · до 5 гостей + дети
+              {uid === TURBAZA_UID ? "Турбаза Михалёвское" : "Коттедж WILD · до 5 гостей + дети"}
             </p>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 15, gap: 12 }}>

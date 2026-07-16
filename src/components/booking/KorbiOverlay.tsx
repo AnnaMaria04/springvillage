@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { useBooking } from "@/context/booking-context";
-import { buildBookingUrl } from "@/content/booking";
+import { buildBookingUrl, TURBAZA_UID } from "@/content/booking";
 
 function formatDateDMY(date: Date): string {
   const d = String(date.getDate()).padStart(2, "0");
@@ -25,7 +25,7 @@ function nightsLabel(n: number): string {
 
 export function KorbiOverlay() {
   const {
-    isOpen, nights,
+    isOpen, uid, nights,
     dfrom: ctxDfrom, dto: ctxDto,
     adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges,
     closeBooking,
@@ -57,7 +57,7 @@ export function KorbiOverlay() {
     }
     if (ctxDfrom && ctxDto) {
       setIframeSrc(buildBookingUrl({
-        dfrom: ctxDfrom, dto: ctxDto,
+        uid, dfrom: ctxDfrom, dto: ctxDto,
         adults: ctxAdults, children: ctxChildren, childrenAges: ctxChildrenAges,
       }));
       setStep("booking");
@@ -68,11 +68,11 @@ export function KorbiOverlay() {
       setTimeout(() => dateInputRef.current?.focus(), 80);
     } else {
       // Plain open — load default URL
-      setIframeSrc(buildBookingUrl());
+      setIframeSrc(buildBookingUrl({ uid }));
       setStep("booking");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren, ctxChildrenAges]);
+  }, [isOpen, uid, nights, ctxDfrom, ctxDto, ctxAdults, ctxChildren, ctxChildrenAges]);
 
   // Lock body scroll
   useEffect(() => {
@@ -110,7 +110,7 @@ export function KorbiOverlay() {
     const [y, m, d] = val.split("-").map(Number);
     const dfrom = `${String(d).padStart(2, "0")}-${String(m).padStart(2, "0")}-${y}`;
     const checkout = new Date(y, m - 1, d + nights);
-    setIframeSrc(buildBookingUrl({ dfrom, dto: formatDateDMY(checkout) }));
+    setIframeSrc(buildBookingUrl({ uid, dfrom, dto: formatDateDMY(checkout) }));
     setStep("booking");
   }
 
@@ -146,7 +146,7 @@ export function KorbiOverlay() {
         {/* Chrome bar */}
         <div className="flex items-center shrink-0 px-5 py-3" style={{ background: "#2F3E34" }}>
           <p className="text-sm font-semibold leading-none" style={{ color: "#F4EFE4" }}>
-            Бронирование · Коттедж WILD
+            {uid === TURBAZA_UID ? "Бронирование · Турбаза Михалёвское" : "Бронирование · Коттедж WILD"}
           </p>
           <button
             ref={closeRef}
@@ -192,7 +192,7 @@ export function KorbiOverlay() {
             />
 
             <button
-              onClick={() => { setIframeSrc(buildBookingUrl()); setStep("booking"); }}
+              onClick={() => { setIframeSrc(buildBookingUrl({ uid })); setStep("booking"); }}
               className="text-sm transition-colors cursor-pointer mt-1"
               style={{ color: "rgba(244,239,228,.35)" }}
               onMouseEnter={e => (e.currentTarget.style.color = "rgba(244,239,228,.7)")}
