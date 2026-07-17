@@ -40,13 +40,16 @@ jobs:
         # unoptimized:"true" in static export means REG.RU serves the raw originals
         # (some 5-11 MB). Re-encode in place: cap at 2048px long edge, JPEG q80,
         # progressive, strip EXIF. Only touches out/ — source + Vercel untouched.
+        # -auto-orient MUST come before -strip: it bakes the EXIF rotation into the
+        # pixels, otherwise stripping the orientation tag flips rotated photos
+        # (14 shot at orientation=3 / one at 6) upside-down.
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
           echo "Before: $(du -sh out/images | cut -f1)"
           find out/images -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) -print0 \
-            | xargs -0 -P4 -I{} mogrify -strip -resize '2048x2048>' -quality 80 -interlace Plane -sampling-factor 4:2:0 {}
+            | xargs -0 -P4 -I{} mogrify -auto-orient -strip -resize '2048x2048>' -quality 80 -interlace Plane -sampling-factor 4:2:0 {}
           find out/images -type f -iname '*.png' -print0 \
-            | xargs -0 -r -P4 -I{} mogrify -strip -resize '2048x2048>' {}
+            | xargs -0 -r -P4 -I{} mogrify -auto-orient -strip -resize '2048x2048>' {}
           echo "After:  $(du -sh out/images | cut -f1)"
 
       - name: Emit .htaccess

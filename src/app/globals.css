@@ -68,6 +68,9 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Stop elastic rubber-band from revealing content above the fixed header
+       (esp. in mobile in-app browsers) */
+    overscroll-behavior-y: none;
   }
 
   h1, h2, h3, h4, h5, h6 {

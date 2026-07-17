@@ -98,7 +98,7 @@ export function Hero() {
   }, [cur]);
 
   return (
-    <section className="relative h-screen min-h-[100svh] overflow-hidden bg-[#0c110e]">
+    <section className="relative h-[100svh] overflow-hidden bg-[#0c110e]">
       {/* Background images — cross-fade with Ken Burns zoom per slide */}
       {SLIDES.map((slide, i) => (
         <div
