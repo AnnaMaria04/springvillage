@@ -143,6 +143,35 @@ export default function TurbazaPage() {
         </div>
       </section>
 
+      {/* Camp gallery — real photos of the base */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+          Как это выглядит
+        </p>
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-10">
+          Кемпинг у воды
+        </h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {[
+            { src: "/images/turbaza-ponton-boat.jpg",   alt: "Понтон, катамаран и палатка у берега Михалёвского озера", pos: "center 45%" },
+            { src: "/images/turbaza-tent-interior.jpg", alt: "Внутри палатки — две кровати с бельём",                    pos: "center 40%" },
+            { src: "/images/turbaza-tent-platform.jpg", alt: "Палатка на деревянной платформе в сосновом лесу",         pos: "center 40%" },
+            { src: "/images/turbaza-rental-boats.jpg",  alt: "Лодки напрокат на песчаном берегу озера",                 pos: "center 55%" },
+          ].map((img) => (
+            <div key={img.src} className="relative aspect-[3/4] rounded-3xl overflow-hidden">
+              <Image
+                src={img.src}
+                fill
+                alt={img.alt}
+                style={{ objectFit: "cover", objectPosition: img.pos }}
+                sizes="(max-width: 1024px) 50vw, 25vw"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Special offer */}
       <section className="bg-pine py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
