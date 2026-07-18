@@ -1,8 +1,9 @@
 export const LOCATION = {
   coords: { lat: 60.983791, lng: 29.422227 },
   yandexMapOid: "193725846598",
+  // mode=search → collapsed labeled pin (not the expanded business card)
   yandexMapUrl:
-    "https://yandex.ru/map-widget/v1/?oid=193725846598&ll=29.422575%2C60.983645&z=16&pt=29.422227%2C60.983791%2Cpm2rdl&lang=ru_RU",
+    "https://yandex.ru/map-widget/v1/?mode=search&ol=biz&oid=193725846598&ll=29.422227%2C60.983791&z=16&lang=ru_RU",
   yandexMapLink:
     "https://yandex.ru/maps/org/house_by_the_lake/193725846598/?display-text=%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%B3%20%D0%B2%D0%B8%D0%BB%D0%BB%D0%B0%D0%B4%D0%B6&ll=29.422367%2C60.985057&mode=search&sll=29.422367%2C60.985057&sspn=0.013947%2C0.007193&text=%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%B3%20%D0%B2%D0%B8%D0%BB%D0%BB%D0%B0%D0%B4%D0%B6&z=16",
   distanceFromSpb: "127 км",

@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tseny", priority: 0.9, freq: "weekly" },
     { path: "/aktivnosti", priority: 0.8, freq: "monthly" },
     ...ACTIVITY_SLUGS.map((s) => ({ path: `/aktivnosti/${s}`, priority: 0.7, freq: "monthly" as const })),
+    { path: "/ozero", priority: 0.8, freq: "monthly" },
     { path: "/turbaza", priority: 0.7, freq: "monthly" },
     { path: "/galereya", priority: 0.6, freq: "monthly" },
     { path: "/doroga", priority: 0.6, freq: "yearly" },

@@ -159,6 +159,13 @@ export default async function ActivityPage({
             {gallery.fishText && (
               <p className="text-muted-foreground">{gallery.fishText}</p>
             )}
+            <Link
+              href="/ozero"
+              className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-pine hover:gap-3 transition-all"
+            >
+              Всё о Михалёвском озере — глубина, рыба, природа
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         )}
 

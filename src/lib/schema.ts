@@ -112,6 +112,27 @@ export function campgroundSchema() {
   };
 }
 
+export function lakeSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LakeBodyOfWater",
+    name: "Михалёвское озеро",
+    alternateName: "Juoksemajärvi",
+    description:
+      "Озеро на Карельском перешейке в Выборгском районе Ленинградской области: около 11,5 км в длину, до 21 м глубиной. Хвойные берега, скалы, острова, рыбалка и чистая вода.",
+    url: `${BASE}/ozero`,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: CONTACT.coords.lat,
+      longitude: CONTACT.coords.lng,
+    },
+    containedInPlace: {
+      "@type": "AdministrativeArea",
+      name: "Выборгский район, Ленинградская область",
+    },
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",

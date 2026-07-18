@@ -3,7 +3,7 @@ import { Navigation, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
-  const mapWidget = `https://yandex.ru/map-widget/v1/?oid=193725846598&ll=29.422575%2C60.983645&z=16&pt=29.422227%2C60.983791%2Cpm2rdl&lang=ru_RU`;
+  const mapWidget = CONTACT.yandexMapUrl;
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
@@ -40,9 +40,16 @@ export function LocationPreview() {
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">
               Михалёвское озеро, Выборгский район Ленобласти. Два часа на машине по трассе «Скандинавия».
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               Ближайший населённый пункт — Михалёво. Последние 2 км по лесной дороге.
             </p>
+            <Link
+              href="/ozero"
+              className="inline-flex items-center gap-2 mb-8 text-sm font-semibold text-pine hover:gap-3 transition-all"
+            >
+              Подробнее о Михалёвском озере
+              <ArrowRight className="w-4 h-4" />
+            </Link>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
