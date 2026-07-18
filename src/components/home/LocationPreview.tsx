@@ -3,7 +3,10 @@ import { Navigation, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
-  const mapWidget = CONTACT.yandexMapUrl;
+  // Landing page: plain placemark pin — never auto-opens the business card.
+  // (Other pages keep the interactive org widget via LOCATION.yandexMapUrl.)
+  const mapWidget =
+    "https://yandex.ru/map-widget/v1/?ll=29.422227%2C60.983791&z=15&pt=29.422227%2C60.983791%2Cpm2rdm&lang=ru_RU";
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
