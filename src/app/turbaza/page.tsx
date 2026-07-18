@@ -4,6 +4,7 @@ import { Phone, MapPin, Flame } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { BookingButton } from "@/components/booking/BookingButton";
+import { TurbazaGallery } from "@/components/turbaza/TurbazaGallery";
 import { CONTACT } from "@/content/site";
 import { TURBAZA_UID } from "@/content/booking";
 import { campgroundSchema, breadcrumbSchema } from "@/lib/schema";
@@ -151,25 +152,14 @@ export default function TurbazaPage() {
         <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-10">
           Кемпинг у воды
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {[
+        <TurbazaGallery
+          images={[
             { src: "/images/turbaza-ponton-boat.jpg",   alt: "Понтон, катамаран и палатка у берега Михалёвского озера", pos: "center 45%" },
             { src: "/images/turbaza-tent-interior.jpg", alt: "Внутри палатки — две кровати с бельём",                    pos: "center 40%" },
             { src: "/images/turbaza-tent-platform.jpg", alt: "Палатка на деревянной платформе в сосновом лесу",         pos: "center 40%" },
             { src: "/images/turbaza-rental-boats.jpg",  alt: "Лодки напрокат на песчаном берегу озера",                 pos: "center 55%" },
-          ].map((img) => (
-            <div key={img.src} className="relative aspect-[3/4] rounded-3xl overflow-hidden">
-              <Image
-                src={img.src}
-                fill
-                alt={img.alt}
-                style={{ objectFit: "cover", objectPosition: img.pos }}
-                sizes="(max-width: 1024px) 50vw, 25vw"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
+          ]}
+        />
       </section>
 
       {/* Special offer */}
@@ -277,13 +267,12 @@ export default function TurbazaPage() {
                 <p className="text-xs text-muted-foreground/60 mt-1 line-through">5 000 ₽ по отдельности</p>
                 <p className="text-xs text-wood font-semibold mt-2">экономия 2 000 ₽</p>
               </div>
-              <a
-                href={`tel:${CONTACT.phoneDial}`}
-                className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors"
+              <BookingButton
+                opts={{ uid: TURBAZA_UID }}
+                className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer"
               >
-                <Phone className="w-4 h-4" />
-                Позвонить
-              </a>
+                Забронировать
+              </BookingButton>
             </div>
 
           </div>
