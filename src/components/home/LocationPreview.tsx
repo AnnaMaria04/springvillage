@@ -9,25 +9,16 @@ export function LocationPreview() {
     <section className="py-24 lg:py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: map — click anywhere opens the org page */}
-          <a
-            href={CONTACT.yandexOrgUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200 block group"
-            aria-label="Открыть Spring Village на Яндекс Картах"
-          >
+          {/* Left: interactive map */}
+          <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200">
             <iframe
               src={mapWidget}
-              className="w-full h-full border-0 pointer-events-none"
+              className="w-full h-full border-0"
               title="Spring Village на Михалёвском озере"
-              tabIndex={-1}
-              aria-hidden
+              loading="lazy"
+              allowFullScreen
             />
-            <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-foreground text-xs font-medium px-3 py-1.5 rounded-full shadow-sm group-hover:bg-white transition-colors">
-              Открыть в Яндекс Картах <ArrowRight className="w-3 h-3" />
-            </span>
-          </a>
+          </div>
 
           {/* Right: text */}
           <div>
