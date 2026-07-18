@@ -3,11 +3,11 @@ import { Navigation, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
 
 export function LocationPreview() {
-  // Landing page: load as a SEARCH ("1 result") so the org shows as a collapsed
-  // LABELED pin (Дом у озера) instead of the auto-expanded business card that
-  // opening by oid produces. Other pages keep LOCATION.yandexMapUrl.
+  // Landing page: the official Yandex widget you provided, verbatim (its sctx
+  // search-context blob resolves to the org and shows a collapsed labeled pin).
+  // Other pages keep LOCATION.yandexMapUrl.
   const mapWidget =
-    "https://yandex.ru/map-widget/v1/?mode=search&text=%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%B3%20%D0%B2%D0%B8%D0%BB%D0%BB%D0%B0%D0%B4%D0%B6&oid=193725846598&ll=29.422227%2C60.983791&z=15&lang=ru_RU";
+    "https://yandex.com/map-widget/v1/?display-text=%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%B3%20%D0%B2%D0%B8%D0%BB%D0%BB%D0%B0%D0%B4%D0%B6&ll=29.477317%2C60.978670&mode=search&oid=193725846598&ol=biz&sctx=ZAAAAAgBEAAaKAoSCd7oYz4gbD1AERLZB1kWfk5AEhIJJ7wEpz6QjD8R%2BnspPGh2fT8iBgABAgMEBSgKOABAvoIGSAFqAnJ1nQHNzMw9oAEAqAEAvQFIXW1twgEGxqjX19EFggIb0YHQv9GA0LjQvdCzINCy0LjQu9C70LDQtNC2igIAkgIAmgIMZGVza3RvcC1tYXBz&sll=29.477317%2C60.978670&sspn=0.199386%2C0.070367&tab=related&text=%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%B3%20%D0%B2%D0%B8%D0%BB%D0%BB%D0%B0%D0%B4%D0%B6&z=12.71";
 
   return (
     <section className="py-24 lg:py-32 bg-cream">
