@@ -30,6 +30,7 @@ export function StayPreview() {
               style={{ objectFit: "cover", objectPosition: "center 40%" }}
               className="transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
             />
           </div>
 
