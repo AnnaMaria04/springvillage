@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Контакты — Spring Village, коттедж WILD",
     description: "Телефон, WhatsApp, Telegram. Пос. Михалёво, Выборгский район — 127 км от Петербурга.",
-    images: [{ url: "/images/exterior-night-deck.jpeg", width: 1200, height: 630, alt: "Коттедж WILD — Spring Village" }],
+    images: [{ url: "/images/exterior/exterior-night-deck.jpeg", width: 1200, height: 630, alt: "Коттедж WILD — Spring Village" }],
   },
 };
 

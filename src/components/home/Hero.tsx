@@ -10,7 +10,7 @@ import { useBooking } from "@/context/booking-context";
 
 const SLIDES = [
   {
-    image: "/images/exterior-winter-snow.jpg",
+    image: "/images/exterior/exterior-winter-snow.jpg",
     position: "center 60%",
     label: "A-frame коттедж",
     title: "Тихая вода,\nкарельский лес",
@@ -18,7 +18,7 @@ const SLIDES = [
     book: true as const,
   },
   {
-    image: "/images/dock-boat-dusk.jpeg",
+    image: "/images/lake/dock-boat-dusk.jpeg",
     position: "center 55%",
     label: "Вода и активности",
     title: "Пирс, лодки\nи чистое озеро",
@@ -28,7 +28,7 @@ const SLIDES = [
     ctaLabel: "Все активности",
   },
   {
-    image: "/images/exterior-night-glow.jpeg",
+    image: "/images/exterior/exterior-night-glow.jpeg",
     position: "center 50%",
     label: "Вечер у коттеджа",
     title: "Огни в темноте\nкарельского леса",
@@ -38,7 +38,7 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/territory-spring-steps.jpeg",
+    image: "/images/territory/territory-spring-steps.jpeg",
     position: "center 40%",
     label: "Природа",
     title: "Сосновый лес\nи финский родник",
@@ -48,7 +48,7 @@ const SLIDES = [
     ctaLabel: "О роднике",
   },
   {
-    image: "/images/exterior-couple-window.jpg",
+    image: "/images/exterior/exterior-couple-window.jpg",
     position: "center 35%",
     label: "Коттедж WILD",
     title: "A-frame\nс мансардой",
@@ -58,7 +58,7 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/hero-fireplace.jpg",
+    image: "/images/interior/hero-fireplace.jpg",
     position: "center 40%",
     label: "Уют и комфорт",
     title: "Камин\nи панорамные окна",
@@ -68,7 +68,7 @@ const SLIDES = [
     ctaLabel: "О коттедже",
   },
   {
-    image: "/images/territory-glamping-tent.jpg",
+    image: "/images/territory/territory-glamping-tent.jpg",
     position: "center 40%",
     label: "Тур база рядом",
     title: "Тур база\nМихалёвское",

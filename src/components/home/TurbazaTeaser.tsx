@@ -30,7 +30,7 @@ export function TurbazaTeaser() {
         {/* Background image accent */}
         <div className="absolute inset-0 opacity-15">
           <Image
-            src="/images/territory-glamping-tent.jpg"
+            src="/images/territory/territory-glamping-tent.jpg"
             fill
             alt=""
             style={{ objectFit: "cover", objectPosition: "center 30%" }}

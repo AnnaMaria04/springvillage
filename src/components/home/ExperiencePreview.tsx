@@ -16,7 +16,7 @@ function getCardsPerView(w: number): number {
 }
 
 const TERRITORY_TILES = [
-  { title: "Пирс и водная станция", photo: "/images/dock-boat-dusk.jpeg", href: "/aktivnosti" },
+  { title: "Пирс и водная станция", photo: "/images/lake/dock-boat-dusk.jpeg", href: "/aktivnosti" },
 ];
 
 export function ExperiencePreview() {

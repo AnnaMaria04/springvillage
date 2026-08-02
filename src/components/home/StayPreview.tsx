@@ -24,7 +24,7 @@ export function StayPreview() {
           {/* Photo */}
           <div className="media relative min-h-[340px] lg:min-h-[560px] overflow-hidden">
             <Image
-              src="/images/exterior-night-deck.jpeg"
+              src="/images/exterior/exterior-night-deck.jpeg"
               fill
               alt="Коттедж WILD ночью"
               style={{ objectFit: "cover", objectPosition: "center 40%" }}

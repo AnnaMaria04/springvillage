@@ -7,6 +7,7 @@ import { ExperiencePreview } from "@/components/home/ExperiencePreview";
 import { Reviews } from "@/components/home/Reviews";
 import { LocationPreview } from "@/components/home/LocationPreview";
 import { TurbazaTeaser } from "@/components/home/TurbazaTeaser";
+import { FishingTeaser } from "@/components/partners/FishingTeaser";
 import { Reveal } from "@/components/ui/Reveal";
 import { lodgingBusinessSchema } from "@/lib/schema";
 
@@ -30,6 +31,7 @@ export default function HomePage() {
       <Deals />
       <ExperiencePreview />
       <TurbazaTeaser />
+      <FishingTeaser />
       <Reviews />
       <LocationPreview />
     </>

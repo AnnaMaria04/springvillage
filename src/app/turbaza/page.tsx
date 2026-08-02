@@ -5,6 +5,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { BookingButton } from "@/components/booking/BookingButton";
 import { TurbazaGallery } from "@/components/turbaza/TurbazaGallery";
+import { FishingPartner } from "@/components/partners/FishingPartner";
 import { CONTACT } from "@/content/site";
 import { TURBAZA_UID } from "@/content/booking";
 import { campgroundSchema, breadcrumbSchema } from "@/lib/schema";
@@ -12,12 +13,12 @@ import { campgroundSchema, breadcrumbSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Тур база Михалёвское — 500 м берега, песчаный пляж, аренда лодок",
   description:
-    "500 метров берега с песчаным пляжем у Михалёвского озера. Кемпинг у воды, аренда лодок, слип для сапов. 1,5 км от коттеджа WILD. 135 км от Петербурга.",
+    "500 метров берега с песчаным пляжем у Михалёвского озера. Кемпинг у воды, аренда лодок, слип для сапов, трофейная рыбалка с гидом. 1,5 км от коттеджа WILD. 135 км от Петербурга.",
   alternates: { canonical: "/turbaza" },
   openGraph: {
     title: "Тур база Михалёвское — 500 м берега с пляжем",
     description: "500 м берега, песчаный пляж, аренда лодок, кемпинг у воды. 1,5 км от коттеджа WILD.",
-    images: [{ url: "/images/turbaza-dock-boats.jpg", width: 1200, height: 630, alt: "Пирс и лодки на Михалёвском озере" }],
+    images: [{ url: "/images/turbaza/turbaza-dock-boats.jpg", width: 1200, height: 630, alt: "Пирс и лодки на Михалёвском озере" }],
   },
 };
 
@@ -60,7 +61,7 @@ export default function TurbazaPage() {
         eyebrow="В 1,5 км от коттеджа WILD"
         title="Тур база Михалёвское"
         subtitle="Кемпинг у озера в карельском лесу. Отдельная территория в 1,5 км от коттеджа WILD."
-        image="/images/territory-glamping-tent.jpg"
+        image="/images/territory/territory-glamping-tent.jpg"
       />
 
       {/* Booking — desktop bar / mobile buttons */}
@@ -121,7 +122,7 @@ export default function TurbazaPage() {
           <div className="space-y-8">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
               <Image
-                src="/images/turbaza-dock-boats.jpg"
+                src="/images/turbaza/turbaza-dock-boats.jpg"
                 fill
                 alt="Пирс и лодки на Михалёвском озере"
                 style={{ objectFit: "cover", objectPosition: "center 50%" }}
@@ -154,13 +155,16 @@ export default function TurbazaPage() {
         </h2>
         <TurbazaGallery
           images={[
-            { src: "/images/turbaza-ponton-boat.jpg",   alt: "Понтон, катамаран и палатка у берега Михалёвского озера", pos: "center 45%" },
-            { src: "/images/turbaza-tent-interior.jpg", alt: "Внутри палатки — две кровати с бельём",                    pos: "center 40%" },
-            { src: "/images/turbaza-tent-platform.jpg", alt: "Палатка на деревянной платформе в сосновом лесу",         pos: "center 40%" },
-            { src: "/images/turbaza-rental-boats.jpg",  alt: "Лодки напрокат на песчаном берегу озера",                 pos: "center 55%" },
+            { src: "/images/turbaza/turbaza-ponton-boat.jpg",   alt: "Понтон, катамаран и палатка у берега Михалёвского озера", pos: "center 45%" },
+            { src: "/images/turbaza/turbaza-tent-interior.jpg", alt: "Внутри палатки — две кровати с бельём",                    pos: "center 40%" },
+            { src: "/images/turbaza/turbaza-tent-platform.jpg", alt: "Палатка на деревянной платформе в сосновом лесу",         pos: "center 40%" },
+            { src: "/images/turbaza/turbaza-rental-boats.jpg",  alt: "Лодки напрокат на песчаном берегу озера",                 pos: "center 55%" },
           ]}
         />
       </section>
+
+      {/* Fishing guide partner */}
+      <FishingPartner tone="cream" />
 
       {/* Special offer */}
       <section className="bg-pine py-16 lg:py-20">

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Фотогалерея — Spring Village, коттедж WILD",
     description: "Смотрите фотографии A-frame коттеджа, Михалёвского озера, пирса и карельской природы.",
-    images: [{ url: "/images/lake-panorama-autumn.jpeg", width: 1200, height: 630, alt: "Михалёвское озеро — Spring Village" }],
+    images: [{ url: "/images/lake/lake-panorama-autumn.jpeg", width: 1200, height: 630, alt: "Михалёвское озеро — Spring Village" }],
   },
 };
 
@@ -18,7 +18,7 @@ export default function GalereyaPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Галерея", url: "/galereya" }])) }} />
-      <PageHero eyebrow="Spring Village" title="Галерея" image="/images/exterior-frost-dawn.jpeg" />
+      <PageHero eyebrow="Spring Village" title="Галерея" image="/images/exterior/exterior-frost-dawn.jpeg" />
       <Gallery />
     </>
   );

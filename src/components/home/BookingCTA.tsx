@@ -17,7 +17,7 @@ export function BookingCTA() {
   return (
     <section
       className="relative bg-pine bg-cover bg-center py-20 lg:py-28"
-      style={{ backgroundImage: "url('/images/booking.jpg')" }}
+      style={{ backgroundImage: "url('/images/lake/dock-boat-dusk.jpeg')" }}
     >
       <div className="absolute inset-0 bg-pine/80" />
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">

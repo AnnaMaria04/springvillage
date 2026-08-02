@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Михалёвское озеро — Карельский перешеек, Ленинградская область",
     description:
       "11,5 км чистой воды на Карельском перешейке: глубина до 21 м, острова, рыбалка. Всё об озере и как оказаться на его берегу.",
-    images: [{ url: "/images/lake-panorama-autumn.jpeg", width: 1200, height: 630, alt: "Михалёвское озеро осенью" }],
+    images: [{ url: "/images/lake/lake-panorama-autumn.jpeg", width: 1200, height: 630, alt: "Михалёвское озеро осенью" }],
   },
 };
 
@@ -53,7 +53,7 @@ export default function OzeroPage() {
         eyebrow="Карельский перешеек · Выборгский район"
         title="Михалёвское озеро"
         subtitle="Одно из самых чистых и глубоких озёр Карельского перешейка. Старое финское название — Juoksemajärvi. Наш коттедж и турбаза стоят прямо на его берегу."
-        image="/images/lake-panorama-autumn.jpeg"
+        image="/images/lake/lake-panorama-autumn.jpeg"
       />
 
       {/* Intro + facts */}
@@ -101,7 +101,7 @@ export default function OzeroPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden order-2 lg:order-1">
               <Image
-                src="/images/activity-fishing-catch.jpeg"
+                src="/images/activities/activity-fishing-catch.jpeg"
                 fill
                 alt="Рыбалка на Михалёвском озере"
                 style={{ objectFit: "cover", objectPosition: "center 40%" }}
@@ -132,13 +132,22 @@ export default function OzeroPage() {
                   </span>
                 ))}
               </div>
-              <Link
-                href="/aktivnosti/rybalka"
-                className="inline-flex items-center gap-2 text-white font-semibold text-sm hover:gap-3 transition-all"
-              >
-                Рыбалка у коттеджа WILD
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
+                <Link
+                  href="/aktivnosti/rybalka"
+                  className="inline-flex items-center gap-2 text-white font-semibold text-sm hover:gap-3 transition-all"
+                >
+                  Рыбалка у коттеджа WILD
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/aktivnosti/rybalka#fishing-guide"
+                  className="inline-flex items-center gap-2 text-wood font-semibold text-sm hover:gap-3 transition-all"
+                >
+                  Трофейная рыбалка с гидом — партнёр
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -158,9 +167,9 @@ export default function OzeroPage() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { src: "/images/dock-boat-dusk.jpeg", alt: "Пирс и лодка на Михалёвском озере на закате", pos: "center 55%" },
-            { src: "/images/territory-pond-autumn.jpeg", alt: "Осенний берег озера", pos: "center 50%" },
-            { src: "/images/lifestyle-dog-boat-lake.jpeg", alt: "Прогулка на лодке по озеру", pos: "center 45%" },
+            { src: "/images/lake/dock-boat-dusk.jpeg", alt: "Пирс и лодка на Михалёвском озере на закате", pos: "center 55%" },
+            { src: "/images/territory/territory-pond-autumn.jpeg", alt: "Осенний берег озера", pos: "center 50%" },
+            { src: "/images/lifestyle/lifestyle-dog-boat-lake.jpeg", alt: "Прогулка на лодке по озеру", pos: "center 45%" },
           ].map((img) => (
             <div key={img.src} className="relative aspect-[4/3] rounded-3xl overflow-hidden">
               <Image

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ACTIVITIES } from "@/content/activities";
 import { BookingBar } from "@/components/home/BookingBar";
+import { FishingPartner } from "@/components/partners/FishingPartner";
 import { breadcrumbSchema } from "@/lib/schema";
 
 const allActivities = [...ACTIVITIES.summer, ...ACTIVITIES.winter];
@@ -20,51 +21,51 @@ type ActivityGallery = {
 const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
   bajdarki: {
     photos: [
-      { src: "/images/activity-sup-dog.jpeg" },
-      { src: "/images/activity-sup-gear.jpeg" },
-      { src: "/images/dock-boat-dusk.jpeg" },
+      { src: "/images/activities/activity-sup-dog.jpeg" },
+      { src: "/images/activities/activity-sup-gear.jpeg" },
+      { src: "/images/lake/dock-boat-dusk.jpeg" },
     ],
   },
   rybalka: {
     photos: [
-      { src: "/images/activity-fishing-catch.jpeg", position: "center 30%" },
-      { src: "/images/activity-rental-boats.jpeg" },
-      { src: "/images/lifestyle-dog-boat-lake.jpeg" },
+      { src: "/images/activities/activity-fishing-catch.jpeg", position: "center 30%" },
+      { src: "/images/activities/activity-rental-boats.jpeg" },
+      { src: "/images/lifestyle/lifestyle-dog-boat-lake.jpeg" },
     ],
     fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
     fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без бензиновых лодок. Рыбачить можно с пирса или с лодки с электромотором прямо с территории — снасти в наличии.",
   },
   priroda: {
     photos: [
-      { src: "/images/activity-forest-walk.jpg" },
-      { src: "/images/lifestyle-couple-forest-walk.jpg" },
-      { src: "/images/lifestyle-couple-stone-path.jpg" },
-      { src: "/images/lifestyle-couple-kiss-forest.jpg", position: "center 25%" },
-      { src: "/images/lifestyle-dog-pine-rock.jpg", position: "center 50%" },
-      { src: "/images/territory-pond-autumn.jpeg", position: "center 50%" },
+      { src: "/images/activities/activity-forest-walk.jpg" },
+      { src: "/images/lifestyle/lifestyle-couple-forest-walk.jpg" },
+      { src: "/images/lifestyle/lifestyle-couple-stone-path.jpg" },
+      { src: "/images/lifestyle/lifestyle-couple-kiss-forest.jpg", position: "center 25%" },
+      { src: "/images/lifestyle/lifestyle-dog-pine-rock.jpg", position: "center 50%" },
+      { src: "/images/territory/territory-pond-autumn.jpeg", position: "center 50%" },
     ],
   },
   mangal: {
     photos: [
-      { src: "/images/territory-firewood-shed-hq.jpeg" },
-      { src: "/images/territory-firewood-shed-night.jpeg" },
+      { src: "/images/territory/territory-firewood-shed-hq.jpeg" },
+      { src: "/images/territory/territory-firewood-shed-night.jpeg" },
     ],
   },
   igry: {
     photos: [
-      { src: "/images/activity-petanque.jpg" },
-      { src: "/images/activity-sports-court-night.jpeg" },
-      { src: "/images/activity-knife-target.jpeg" },
-      { src: "/images/activity-sports-court-day.jpeg" },
-      { src: "/images/activity-basketball-court.jpeg", position: "center 30%" },
+      { src: "/images/activities/activity-petanque.jpg" },
+      { src: "/images/activities/activity-sports-court-night.jpeg" },
+      { src: "/images/activities/activity-knife-target.jpeg" },
+      { src: "/images/activities/activity-sports-court-day.jpeg" },
+      { src: "/images/activities/activity-basketball-court.jpeg", position: "center 30%" },
     ],
     extraText: "Петанк, метание ножей, баскетбол, настольные игры. Всё оборудование предоставляется.",
   },
   rodnik: {
     photos: [
-      { src: "/images/territory-spring-water.jpeg", position: "center 50%" },
-      { src: "/images/territory-spring-steps.jpeg", position: "center 50%" },
-      { src: "/images/lifestyle-couple-stone-steps.jpg", position: "center 40%" },
+      { src: "/images/territory/territory-spring-water.jpeg", position: "center 50%" },
+      { src: "/images/territory/territory-spring-steps.jpeg", position: "center 50%" },
+      { src: "/images/lifestyle/lifestyle-couple-stone-steps.jpg", position: "center 40%" },
     ],
     extraText: "Каменные ступени ведут вниз к обустроенному бассейну с ключевой водой. Вода холодная и чистая — можно пить прямо из бамбукового желоба. Место спокойное, хорошо для утренней медитации или просто зайти окунуться после бани.",
   },
@@ -193,6 +194,9 @@ export default async function ActivityPage({
         )}
 
       </section>
+
+      {/* Fishing guide partner — rybalka page only */}
+      {slug === "rybalka" && <FishingPartner id="fishing-guide" />}
 
       {/* Related activities */}
       {related.length > 0 && (

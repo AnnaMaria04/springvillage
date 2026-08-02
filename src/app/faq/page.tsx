@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Частые вопросы — Spring Village, коттедж WILD",
     description: "Заезд и выезд, вместимость, животные, оплата, отмена бронирования — все ответы здесь.",
-    images: [{ url: "/images/interior-aframe-window.jpeg", width: 1200, height: 630, alt: "Интерьер коттеджа WILD — Spring Village" }],
+    images: [{ url: "/images/interior/interior-aframe-window.jpeg", width: 1200, height: 630, alt: "Интерьер коттеджа WILD — Spring Village" }],
   },
 };
 

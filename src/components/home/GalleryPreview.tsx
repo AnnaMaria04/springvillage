@@ -2,9 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const photos = [
-  "/images/exterior-dusk-triangles.jpg",
-  "/images/interior-loft-bedroom-wide.jpeg",
-  "/images/lake-evening-golden.jpg",
+  "/images/exterior/exterior-dusk-triangles.jpg",
+  "/images/interior/interior-loft-bedroom-wide.jpeg",
+  "/images/lake/lake-evening-golden.jpg",
 ];
 
 export function GalleryPreview() {

@@ -5,6 +5,7 @@ import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { DomGallery } from "@/components/home/DomGallery";
+import { FishingTeaser } from "@/components/partners/FishingTeaser";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Коттедж WILD — Spring Village",
     description: "A-frame 60 м², пирс, лодки. Михалёво, Ленобласть.",
-    images: [{ url: "/images/stay.jpg", width: 1200, height: 630, alt: "Коттедж WILD" }],
+    images: [{ url: "/images/exterior/exterior-night-deck.jpeg", width: 1200, height: 630, alt: "Коттедж WILD" }],
   },
 };
 
@@ -28,7 +29,7 @@ export default function DomPage() {
         eyebrow="Размещение"
         title={HOUSE.name}
         subtitle={HOUSE.longDescription}
-        image="/images/exterior-winter-snow.jpg"
+        image="/images/exterior/exterior-winter-snow.jpg"
       />
       <BookingBar />
 
@@ -125,6 +126,9 @@ export default function DomPage() {
           </div>
         </div>
       </section>
+
+      {/* Partner cross-sell — fishing with a guide */}
+      <FishingTeaser />
 
     </article>
   );

@@ -14,11 +14,11 @@ export function lodgingBusinessSchema() {
     telephone: CONTACT.phone,
     email: CONTACT.email,
     image: [
-      `${BASE}/images/exterior-winter-snow.jpg`,
-      `${BASE}/images/exterior-night-deck.jpeg`,
-      `${BASE}/images/dock-boat-dusk.jpeg`,
-      `${BASE}/images/interior-aframe-window.jpeg`,
-      `${BASE}/images/lake-panorama-autumn.jpeg`,
+      `${BASE}/images/exterior/exterior-winter-snow.jpg`,
+      `${BASE}/images/exterior/exterior-night-deck.jpeg`,
+      `${BASE}/images/lake/dock-boat-dusk.jpeg`,
+      `${BASE}/images/interior/interior-aframe-window.jpeg`,
+      `${BASE}/images/lake/lake-panorama-autumn.jpeg`,
     ],
     address: {
       "@type": "PostalAddress",

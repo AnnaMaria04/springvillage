@@ -14,7 +14,7 @@ export function Deals() {
     <>
       <section
         className="relative bg-pine bg-cover bg-center py-24 lg:py-32"
-        style={{ backgroundImage: "url('/images/deals.jpg')" }}
+        style={{ backgroundImage: "url('/images/exterior/exterior-night-glow.jpeg')" }}
       >
         <div className="absolute inset-0 bg-pine/80" />
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Активности в Spring Village — SUP, рыбалка, природа",
     description: "Пирс, лодки, SUP, рыбалка, мангал — летний отдых у Михалёвского озера.",
-    images: [{ url: "/images/feature-lake-sunset.jpg", width: 1200, height: 630, alt: "Михалёвское озеро — Spring Village" }],
+    images: [{ url: "/images/territory/feature-lake-sunset.jpg", width: 1200, height: 630, alt: "Михалёвское озеро — Spring Village" }],
   },
 };
 
@@ -22,7 +22,7 @@ export default function AktivnostiPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Активности", url: "/aktivnosti" }])) }} />
       <header className="relative bg-pine overflow-hidden min-h-[320px] flex flex-col justify-end">
         <Image
-          src="/images/feature-lake-sunset.jpg"
+          src="/images/territory/feature-lake-sunset.jpg"
           fill
           alt=""
           aria-hidden="true"
