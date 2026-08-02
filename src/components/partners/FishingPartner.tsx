@@ -50,21 +50,21 @@ export function FishingPartner({ id, tone = "white" }: { id?: string; tone?: "wh
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8">
               <a
                 href={TELEGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-pine text-white text-sm font-semibold hover:bg-pine/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-pine text-white text-sm font-semibold hover:bg-pine/90 transition-colors whitespace-nowrap"
               >
                 <Send className="w-4 h-4" />
-                Записаться в Telegram — @mos1k
+                Записаться в Telegram
               </a>
               <a
                 href={VK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-pine text-pine text-sm font-semibold hover:bg-pine/5 transition-colors"
+                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-pine text-pine text-sm font-semibold hover:bg-pine/5 transition-colors whitespace-nowrap"
               >
                 <ExternalLink className="w-4 h-4" />
                 ВКонтакте
@@ -73,7 +73,7 @@ export function FishingPartner({ id, tone = "white" }: { id?: string; tone?: "wh
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-pine text-pine text-sm font-semibold hover:bg-pine/5 transition-colors"
+                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-pine text-pine text-sm font-semibold hover:bg-pine/5 transition-colors whitespace-nowrap"
               >
                 <ExternalLink className="w-4 h-4" />
                 Instagram*
