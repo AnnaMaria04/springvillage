@@ -2,41 +2,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+/**
+ * Turbaza card — first of the "Рядом с коттеджем" pair on the landing.
+ * Mirrors FishingTeaser's split-card geometry (photo panel on the opposite
+ * side) so the two read as one deliberate editorial pair.
+ */
 export function TurbazaTeaser() {
   return (
-    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 lg:py-16">
+    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 lg:pt-16 pb-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
+        Рядом с коттеджем
+      </p>
       <Link
         href="/turbaza"
-        className="group relative flex flex-col sm:flex-row items-center gap-6 rounded-3xl overflow-hidden bg-pine p-8 sm:p-10 hover:bg-pine/90 transition-colors"
+        className="group grid grid-cols-1 sm:grid-cols-[1fr_280px] rounded-3xl overflow-hidden bg-pine hover:bg-pine/95 transition-colors"
       >
-        {/* Text */}
-        <div className="flex-1 z-10">
-          <p className="text-white/60 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
+        {/* Content */}
+        <div className="p-7 sm:p-9">
+          <p className="text-white/60 text-xs font-semibold uppercase tracking-[0.25em] mb-3">
             В 1,5 км от коттеджа
           </p>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-2">
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-3">
             Тур база Михалёвское
           </h2>
-          <p className="text-white/70 text-sm leading-relaxed max-w-md">
+          <p className="text-white/70 text-sm leading-relaxed max-w-xl mb-6">
             500 м берега с песчаным пляжем. Кемпинг у воды, аренда лодок, слип для сапов,
             трофейная рыбалка с гидом.
           </p>
+          <span className="inline-flex items-center gap-2 h-11 px-7 rounded-full bg-white text-pine text-sm font-semibold group-hover:bg-white/90 transition-colors">
+            Узнать подробнее
+            <ArrowRight className="w-4 h-4" />
+          </span>
         </div>
 
-        {/* CTA */}
-        <div className="shrink-0 flex items-center gap-2 text-white font-semibold text-sm group-hover:gap-3 transition-all">
-          Узнать подробнее <ArrowRight className="w-4 h-4" />
-        </div>
-
-        {/* Background image accent */}
-        <div className="absolute inset-0 opacity-15">
+        {/* Photo panel */}
+        <div className="relative min-h-[200px] sm:min-h-full order-first sm:order-none">
           <Image
-            src="/images/territory/territory-glamping-tent.jpg"
+            src="/images/turbaza/turbaza-ponton-boat.jpg"
             fill
-            alt=""
-            style={{ objectFit: "cover", objectPosition: "center 30%" }}
-            sizes="100vw"
-            aria-hidden
+            alt="Понтон и лодка у берега турбазы Михалёвское"
+            style={{ objectFit: "cover", objectPosition: "center 55%" }}
+            sizes="(max-width: 640px) 100vw, 280px"
           />
         </div>
       </Link>

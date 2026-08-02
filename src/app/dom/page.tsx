@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
 import { HOUSE } from "@/content/house";
-import { HERITAGE } from "@/content/heritage";
 import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { DomGallery } from "@/components/home/DomGallery";
@@ -90,39 +89,6 @@ export default function DomPage() {
                 По запросу: {HOUSE.extras.join(" · ")}.
               </p>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* Heritage — horizontal timeline */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-        <div className="text-center mb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
-            {HERITAGE.sectionLabel}
-          </p>
-          <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight">
-            Финское наследие карельского леса
-          </h2>
-        </div>
-        {/* Horizontal timeline */}
-        <div className="relative">
-          {/* Single full-width connector line behind all dots */}
-          <div className="hidden sm:block absolute top-[5px] left-[5px] right-[5px] h-px bg-border" />
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
-            {HERITAGE.items.map((item, i) => (
-              <div key={item.title} className="relative flex flex-col sm:pr-8">
-                <div className="flex items-center gap-3 mb-4 relative z-10">
-                  <div className="w-2.5 h-2.5 rounded-full bg-wood shrink-0" />
-                  <p className="text-xs font-semibold text-wood uppercase tracking-wider">{item.period}</p>
-                </div>
-                <p className="font-semibold text-foreground mb-2">{item.title}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-                {/* Mobile vertical connector */}
-                {i < HERITAGE.items.length - 1 && (
-                  <div className="sm:hidden w-px h-8 bg-border ml-[4px] mt-6 mb-2" />
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </section>
