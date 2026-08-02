@@ -12,11 +12,8 @@ export function Deals() {
 
   return (
     <>
-      <section
-        className="relative bg-pine bg-cover bg-center py-24 lg:py-32"
-        style={{ backgroundImage: "url('/images/exterior/exterior-night-glow.jpeg')" }}
-      >
-        <div className="absolute inset-0 bg-pine/80" />
+      {/* Flat pine background by design — no photo behind the pricing tiers */}
+      <section className="relative bg-pine py-24 lg:py-32">
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 bg-amber-400/25 border border-amber-300/25 rounded-full px-4 py-1.5 mb-5">

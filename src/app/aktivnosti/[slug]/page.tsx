@@ -145,24 +145,29 @@ export default async function ActivityPage({
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
         {/* Fish info for rybalka */}
         {gallery.fishInfo && (
-          <div className="mb-12 p-6 rounded-3xl bg-cream border border-border">
-            <h2 className="font-display text-xl font-bold text-foreground mb-4">
-              Какая рыба водится в Михалёвском озере:
+          <div className="mb-14 max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+              Рыба в озере
+            </p>
+            <h2 className="font-display text-2xl lg:text-3xl font-bold text-foreground mb-4">
+              Какая рыба водится в Михалёвском озере
             </h2>
-            <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-              {gallery.fishInfo.map((fish) => (
-                <li key={fish} className="flex items-center gap-2 text-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-moss shrink-0" />
-                  {fish}
-                </li>
-              ))}
-            </ul>
             {gallery.fishText && (
-              <p className="text-muted-foreground">{gallery.fishText}</p>
+              <p className="text-muted-foreground leading-relaxed mb-6">{gallery.fishText}</p>
             )}
+            <div className="flex flex-wrap gap-2.5 mb-6">
+              {gallery.fishInfo.map((fish) => (
+                <span
+                  key={fish}
+                  className="text-sm text-foreground bg-white border border-border rounded-full px-4 py-1.5"
+                >
+                  {fish}
+                </span>
+              ))}
+            </div>
             <Link
               href="/ozero"
-              className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-pine hover:gap-3 transition-all"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-pine hover:gap-3 transition-all"
             >
               Всё о Михалёвском озере — глубина, рыба, природа
               <span aria-hidden="true">→</span>
