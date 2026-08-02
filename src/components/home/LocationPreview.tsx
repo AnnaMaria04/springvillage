@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Navigation, ArrowRight } from "lucide-react";
 import { CONTACT } from "@/content/site";
+import { LazyMap } from "@/components/ui/LazyMap";
 
 export function LocationPreview() {
   // Landing page: custom Yandex Constructor map (labeled "Дом у озера" pin that
@@ -13,16 +14,12 @@ export function LocationPreview() {
     <section className="py-24 lg:py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: interactive map */}
-          <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200">
-            <iframe
-              src={mapWidget}
-              className="w-full h-full border-0"
-              title="Spring Village на Михалёвском озере"
-              loading="lazy"
-              allowFullScreen
-            />
-          </div>
+          {/* Left: interactive map (deferred until scrolled near) */}
+          <LazyMap
+            src={mapWidget}
+            title="Spring Village на Михалёвском озере"
+            className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-stone-200"
+          />
 
           {/* Right: text */}
           <div>

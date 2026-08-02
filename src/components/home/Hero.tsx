@@ -87,6 +87,10 @@ export function Hero() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { openBooking } = useBooking();
 
+  // Only mount slide images that have been shown (or are up next) — otherwise
+  // the browser downloads all 7 full-width photos on first paint.
+  const [mounted, setMounted] = useState<Set<number>>(() => new Set([0]));
+
   useEffect(() => {
     const t = setTimeout(() => setCur((c) => (c + 1) % SLIDES.length), AUTOPLAY_MS);
     return () => clearTimeout(t);
@@ -95,6 +99,15 @@ export function Hero() {
   // Increment animTick each time the active slide changes to restart the zoom animation
   useEffect(() => {
     setAnimTick(t => t + 1);
+  }, [cur]);
+
+  // Keep current + next slide mounted; next preloads ~7s before it's shown
+  useEffect(() => {
+    const next = (cur + 1) % SLIDES.length;
+    setMounted((prev) => {
+      if (prev.has(cur) && prev.has(next)) return prev;
+      const s = new Set(prev); s.add(cur); s.add(next); return s;
+    });
   }, [cur]);
 
   return (
@@ -114,14 +127,16 @@ export function Hero() {
             className="absolute inset-0"
             style={{ animation: "hero-zoom 5s ease-out forwards" }}
           >
-            <Image
-              src={slide.image}
-              fill
-              alt={slide.label}
-              style={{ objectFit: "cover", objectPosition: slide.position }}
-              priority={i <= 1}
-              sizes="100vw"
-            />
+            {mounted.has(i) && (
+              <Image
+                src={slide.image}
+                fill
+                alt={slide.label}
+                style={{ objectFit: "cover", objectPosition: slide.position }}
+                priority={i === 0}
+                sizes="100vw"
+              />
+            )}
           </div>
         </div>
       ))}

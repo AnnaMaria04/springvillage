@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Car, Train, MapPin, Clock, Wind } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
+import { LazyMap } from "@/components/ui/LazyMap";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -25,18 +26,12 @@ export default function DorogaPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-16 space-y-12">
-        {/* Interactive map */}
-        <div className="relative rounded-3xl overflow-hidden border border-border shadow-sm h-[400px]">
-          <iframe
-            src={LOCATION.yandexMapUrl}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            loading="lazy"
-            title="Spring Village на Михалёвском озере"
-            allowFullScreen
-          />
-        </div>
+        {/* Interactive map (deferred until scrolled near) */}
+        <LazyMap
+          src={LOCATION.yandexMapUrl}
+          title="Spring Village на Михалёвском озере"
+          className="relative rounded-3xl overflow-hidden border border-border shadow-sm h-[400px]"
+        />
 
         {/* Coords + address */}
         <div className="bg-muted rounded-2xl p-6 border border-border">
