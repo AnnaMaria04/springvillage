@@ -33,7 +33,7 @@ const ACTIVITY_GALLERIES: Record<string, ActivityGallery> = {
       { src: "/images/lifestyle/lifestyle-dog-boat-lake.jpeg" },
     ],
     fishInfo: ["Щука", "Окунь", "Плотва", "Лещ", "Налим", "Судак", "Линь", "Ряпушка"],
-    fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода, без бензиновых лодок. Рыбачить можно с пирса или с лодки с электромотором прямо с территории — снасти в наличии.",
+    fishText: "Михалёвское озеро — 11,5 км в длину, глубина до 21 м. Чистая вода. Рыбачить можно с пирса или с лодки с электромотором прямо с территории — снасти в наличии.",
   },
   priroda: {
     photos: [
@@ -117,9 +117,19 @@ export default async function ActivityPage({
           ),
         }}
       />
-      {/* Hero — dark green, no background image */}
+      {/* Hero — activity photo + scrim, same language as the other page heroes */}
       <section className="relative bg-pine flex flex-col justify-end min-h-[50vh] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-14">
+        <Image
+          src={activity!.photo}
+          fill
+          alt=""
+          aria-hidden="true"
+          priority
+          style={{ objectFit: "cover", objectPosition: "center 50%" }}
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(12,18,14,0.94)_0%,rgba(12,18,14,0.6)_45%,rgba(12,18,14,0.35)_100%)]" />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-14">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-white/50 text-sm mb-6">
             <Link href="/" className="hover:text-white transition-colors">Главная</Link>

@@ -1,30 +1,45 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Fish, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-/** Slim cross-sell strip — links to the full partner block on the fishing page. */
+/** Invitation card for the guided-fishing partner — used on the landing and /dom. */
 export function FishingTeaser() {
   return (
     <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-12 lg:pb-16">
-      <Link
-        href="/aktivnosti/rybalka#fishing-guide"
-        className="group flex items-center gap-4 sm:gap-5 rounded-3xl border border-border bg-white px-6 py-5 sm:px-8 hover:border-pine/30 transition-colors"
-      >
-        <span className="w-11 h-11 rounded-full bg-pine/10 flex items-center justify-center shrink-0">
-          <Fish className="w-5 h-5 text-pine" />
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-foreground font-semibold leading-tight">
-            Трофейная рыбалка с гидом
-          </span>
-          <span className="block text-muted-foreground text-sm mt-0.5">
-            Катер с сонаром LiveScope, крупная щука. Организует партнёр Spring Village.
-          </span>
-        </span>
-        <span className="shrink-0 flex items-center gap-2 text-pine font-semibold text-sm group-hover:gap-3 transition-all">
-          <span className="hidden sm:inline">Подробнее</span>
-          <ArrowRight className="w-4 h-4" />
-        </span>
-      </Link>
+      <div className="grid grid-cols-1 sm:grid-cols-[280px_1fr] rounded-3xl overflow-hidden border border-border bg-white">
+        {/* Trophy photo */}
+        <div className="relative min-h-[200px] sm:min-h-full">
+          <Image
+            src="/images/partners/fishing-trophy-1.jpg"
+            fill
+            alt="Трофейная щука — рыбалка с гидом на Михалёвском озере"
+            style={{ objectFit: "cover", objectPosition: "center 30%" }}
+            sizes="(max-width: 640px) 100vw, 280px"
+            loading="lazy"
+          />
+        </div>
+
+        {/* Invitation */}
+        <div className="p-7 sm:p-9">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-wood mb-3">
+            Партнёр Spring Village
+          </p>
+          <h3 className="font-display text-2xl font-bold text-foreground leading-tight mb-3">
+            Сделайте отдых ещё ярче — трофейная рыбалка с гидом
+          </h3>
+          <p className="text-muted-foreground text-sm leading-relaxed max-w-xl mb-6">
+            Выход за крупной щукой на катере с сонаром Garmin LiveScope: профессиональный гид,
+            все снасти и приманки уже включены. Организует наш партнёр — запись напрямую.
+          </p>
+          <Link
+            href="/aktivnosti/rybalka#fishing-guide"
+            className="inline-flex items-center gap-2 h-11 px-7 rounded-full bg-pine text-white text-sm font-semibold hover:bg-pine/90 transition-colors"
+          >
+            Подробнее о рыбалке
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }
