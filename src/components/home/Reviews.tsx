@@ -99,7 +99,7 @@ export function Reviews() {
   }, [smoothScroll]);
 
   return (
-    <section className="bg-cream py-20 lg:py-28 overflow-x-clip">
+    <section className="bg-cream pt-12 lg:pt-16 pb-10 lg:pb-14 overflow-x-clip">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>

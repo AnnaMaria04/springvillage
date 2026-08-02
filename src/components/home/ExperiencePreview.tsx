@@ -137,7 +137,7 @@ export function ExperiencePreview() {
   const realIdx = ((pos - CLONES) % N + N) % N;
 
   return (
-    <section className="py-24 lg:py-32 bg-background overflow-x-clip">
+    <section className="pt-24 lg:pt-32 pb-12 lg:pb-16 bg-background overflow-x-clip">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>

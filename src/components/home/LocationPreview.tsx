@@ -11,7 +11,7 @@ export function LocationPreview() {
     "https://yandex.ru/map-widget/v1/?um=constructor%3Ac080c4f00f894bd7e65aa3b3f0e7f1ee279f3371f28d8d3591cc7263b27eb863&source=constructor";
 
   return (
-    <section className="py-24 lg:py-32 bg-cream">
+    <section className="pt-10 lg:pt-14 pb-24 lg:pb-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: interactive map (deferred until scrolled near) */}

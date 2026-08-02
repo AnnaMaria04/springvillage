@@ -4,7 +4,6 @@ import { HOUSE } from "@/content/house";
 import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { DomGallery } from "@/components/home/DomGallery";
-import { FishingTeaser } from "@/components/partners/FishingTeaser";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -55,13 +54,15 @@ export default function DomPage() {
       </div>
 
       {/* Gallery */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 lg:pt-28 pb-10 lg:pb-14">
         <DomGallery />
       </section>
 
-      {/* Equipment + amenities, clean lists */}
+      {/* Equipment + amenities, clean lists.
+          cream ≈ page ivory, so the seam is invisible — keep the combined gap
+          to one section-break (~112px), not two stacked py-28 paddings. */}
       <section className="bg-cream">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-10 lg:pt-14 pb-20 lg:pb-28 grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
             <h2 className="font-display text-3xl font-bold text-foreground mb-8">Удобства</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-foreground">
@@ -92,9 +93,6 @@ export default function DomPage() {
           </div>
         </div>
       </section>
-
-      {/* Partner cross-sell — fishing with a guide */}
-      <FishingTeaser />
 
     </article>
   );

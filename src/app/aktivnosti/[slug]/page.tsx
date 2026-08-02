@@ -152,7 +152,7 @@ export default async function ActivityPage({
       <BookingBar />
 
       {/* Content */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-24 pb-10 lg:pb-14">
         {/* Fish info for rybalka */}
         {gallery.fishInfo && (
           <div className="mb-14 max-w-3xl">
@@ -215,7 +215,7 @@ export default async function ActivityPage({
 
       {/* Related activities */}
       {related.length > 0 && (
-        <section className="bg-cream py-16 lg:py-20">
+        <section className="bg-cream pt-8 lg:pt-10 pb-16 lg:pb-20">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <h2 className="font-display text-2xl font-bold text-foreground mb-8">
               Другие активности

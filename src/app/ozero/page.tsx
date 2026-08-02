@@ -154,7 +154,7 @@ export default function OzeroPage() {
       </section>
 
       {/* Nature */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 lg:pt-28 pb-10 lg:pb-14">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
           Природа
         </p>
@@ -186,7 +186,7 @@ export default function OzeroPage() {
       </section>
 
       {/* Where to stay — connects to the business */}
-      <section className="bg-cream py-20 lg:py-28">
+      <section className="bg-cream pt-12 lg:pt-16 pb-20 lg:pb-28">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
           <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Остановиться на берегу

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Send, ExternalLink } from "lucide-react";
 
 const TELEGRAM_URL = "https://t.me/mos1k";
+const VK_URL = "https://vk.com/Maksim_TripFish";
 const INSTAGRAM_URL = "https://www.instagram.com/maksim_tripfish?utm_source=qr";
 
 const POINTS = [
@@ -21,7 +22,7 @@ const PHOTOS = [
 export function FishingPartner({ id, tone = "white" }: { id?: string; tone?: "white" | "cream" }) {
   return (
     <section id={id} className={tone === "cream" ? "bg-cream" : "bg-background"}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-10 lg:pt-14 pb-16 lg:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* Text */}
@@ -60,13 +61,22 @@ export function FishingPartner({ id, tone = "white" }: { id?: string; tone?: "wh
                 Записаться в Telegram — @mos1k
               </a>
               <a
+                href={VK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-pine text-pine text-sm font-semibold hover:bg-pine/5 transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                ВКонтакте
+              </a>
+              <a
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-pine text-pine text-sm font-semibold hover:bg-pine/5 transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />
-                Instagram* гида
+                Instagram*
               </a>
             </div>
 

@@ -146,7 +146,7 @@ export default function TurbazaPage() {
       </section>
 
       {/* Camp gallery — real photos of the base */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 lg:pb-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-10 lg:pb-14">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
           Как это выглядит
         </p>
