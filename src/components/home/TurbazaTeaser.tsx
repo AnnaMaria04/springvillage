@@ -28,16 +28,16 @@ export function TurbazaTeaser() {
           Узнать подробнее <ArrowRight className="w-4 h-4" />
         </div>
 
-        {/* Background photo — visible on the right, pine gradient keeps text readable */}
-        <div className="absolute inset-0" aria-hidden="true">
+        {/* Background image accent */}
+        <div className="absolute inset-0 opacity-15">
           <Image
-            src="/images/turbaza/turbaza-ponton-boat.jpg"
+            src="/images/territory/territory-glamping-tent.jpg"
             fill
             alt=""
-            style={{ objectFit: "cover", objectPosition: "center 55%" }}
+            style={{ objectFit: "cover", objectPosition: "center 30%" }}
             sizes="100vw"
+            aria-hidden
           />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(47,62,52,0.97)_0%,rgba(47,62,52,0.88)_40%,rgba(47,62,52,0.45)_75%,rgba(47,62,52,0.25)_100%)]" />
         </div>
       </Link>
     </section>
