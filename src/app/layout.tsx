@@ -88,9 +88,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </div>
         </noscript>
+        <a
+          href="#content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[200] focus:bg-pine focus:text-white focus:px-5 focus:py-3 focus:rounded-full text-sm font-semibold"
+        >
+          Перейти к содержанию
+        </a>
         <BookingProvider>
           <Header />
-          <main className="flex-1 pb-[58px] md:pb-0">
+          <main id="content" className="flex-1 pb-[58px] md:pb-0">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

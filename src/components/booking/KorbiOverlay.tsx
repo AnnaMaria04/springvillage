@@ -151,7 +151,7 @@ export function KorbiOverlay() {
           <button
             ref={closeRef}
             onClick={closeBooking}
-            className="ml-auto flex items-center gap-1.5 text-sm font-medium rounded-md px-2 py-1 transition-colors cursor-pointer"
+            className="ml-auto flex items-center gap-1.5 text-sm font-medium rounded-md px-3 py-2.5 transition-colors cursor-pointer"
             style={{ color: "rgba(244,239,228,.5)" }}
             onMouseEnter={e => (e.currentTarget.style.color = "#C2A06B")}
             onMouseLeave={e => (e.currentTarget.style.color = "rgba(244,239,228,.5)")}
