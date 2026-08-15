@@ -158,6 +158,13 @@
   /* 3.25rem control height for hero CTAs */
   .h-13 { height: 3.25rem; }
 
+  /* Focus ring for dark surfaces and photography — the global pine ring
+     disappears against pine sections and dark images. */
+  .focus-ring-sand:focus-visible {
+    outline: 2px solid var(--wood);
+    outline-offset: 3px;
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--moss) 0%, var(--lake) 100%);
     -webkit-background-clip: text;
