@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Fish, Waves, Ruler, Mountain, Trees, ArrowRight } from "lucide-react";
+import { Fish, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { lakeSchema, breadcrumbSchema } from "@/lib/schema";
 
@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 };
 
 const facts = [
-  { icon: Ruler, label: "≈ 11,5 км", detail: "длина озера с юго-востока на северо-запад" },
-  { icon: Waves, label: "до 21 м", detail: "максимальная глубина, средняя — более 7 м" },
-  { icon: Mountain, label: "≈ 7 км²", detail: "площадь водного зеркала, ширина до 1,1 км" },
-  { icon: Trees, label: "10+ островов", detail: "два крупных; берега — скалы и хвойный лес" },
+  { label: "11,5 км", detail: "длина озера с юго-востока на северо-запад" },
+  { label: "21 м", detail: "максимальная глубина, средняя — более 7 м" },
+  { label: "7 км²", detail: "площадь зеркала, ширина до 1,1 км" },
+  { label: "10+", detail: "островов, два из них крупные" },
 ];
 
 const fish = [
@@ -83,14 +83,24 @@ export default function OzeroPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {facts.map((f) => (
-              <div key={f.label} className="bg-cream rounded-3xl p-6 flex flex-col">
-                <f.icon className="w-6 h-6 text-moss mb-4" />
-                <p className="font-display text-2xl font-bold text-pine leading-none mb-2">{f.label}</p>
-                <p className="text-muted-foreground text-sm leading-snug">{f.detail}</p>
-              </div>
-            ))}
+          {/* Depth-gauge strip: waterline with ruler ticks, measurements beneath —
+              the lake's numbers presented like marks on a sounding line */}
+          <div>
+            <div className="h-px bg-lake/40" aria-hidden="true" />
+            <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-8">
+              {facts.map((f) => (
+                <div key={f.label} className="relative pt-7 pb-6">
+                  <span className="absolute top-0 left-0 w-px h-4 bg-lake/40" aria-hidden="true" />
+                  <p className="font-display text-4xl lg:text-5xl font-bold text-pine leading-none mb-2">
+                    {f.label}
+                  </p>
+                  <p className="text-muted-foreground text-sm leading-snug max-w-[24ch]">{f.detail}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs uppercase tracking-[0.25em] text-lake/70 mt-2">
+              Juoksemajärvi · промеры озера
+            </p>
           </div>
         </div>
       </section>

@@ -92,6 +92,9 @@
     outline: 2px solid var(--pine);
     outline-offset: 3px;
   }
+
+  /* Anchored sections land below the fixed header */
+  [id] { scroll-margin-top: 96px; }
 }
 
 /* ─── Tailwind v4 theme mapping ──────────────────────────────── */
