@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { StayPreview } from "@/components/home/StayPreview";
-import { CottageStory } from "@/components/home/CottageStory";
 import { DayStory } from "@/components/home/DayStory";
 import { Deals } from "@/components/home/Deals";
 import { ExperiencePreview } from "@/components/home/ExperiencePreview";
@@ -29,7 +28,6 @@ export default function HomePage() {
       />
       <Hero />
       <BookingBar />
-      <CottageStory />
       <Reveal><StayPreview /></Reveal>
       <DayStory />
       <Deals />
