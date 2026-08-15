@@ -3,6 +3,7 @@ import { Hero } from "@/components/home/Hero";
 import { BookingBar } from "@/components/home/BookingBar";
 import { StayPreview } from "@/components/home/StayPreview";
 import { CottageStory } from "@/components/home/CottageStory";
+import { DayStory } from "@/components/home/DayStory";
 import { Deals } from "@/components/home/Deals";
 import { ExperiencePreview } from "@/components/home/ExperiencePreview";
 import { Reviews } from "@/components/home/Reviews";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <BookingBar />
       <CottageStory />
       <Reveal><StayPreview /></Reveal>
+      <DayStory />
       <Deals />
       <ExperiencePreview />
       <TurbazaTeaser />
