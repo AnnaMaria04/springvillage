@@ -144,6 +144,10 @@ export function Hero() {
       {/* Dark scrim — strong at bottom where text lives, fades to top */}
       <div className="absolute inset-0 z-10 bg-[linear-gradient(to_top,rgba(12,18,14,0.96)_0%,rgba(12,18,14,0.75)_30%,rgba(12,18,14,0.35)_60%,transparent_100%)]" />
 
+      {/* Top scrim — the transparent header sits here; without it the white
+          wordmark washes out against bright slides (snow, sky) */}
+      <div className="absolute inset-x-0 top-0 h-40 z-10 bg-[linear-gradient(to_bottom,rgba(12,18,14,0.55)_0%,rgba(12,18,14,0.25)_55%,transparent_100%)]" />
+
       {/* Slide content */}
       {SLIDES.map((slide, i) => (
         <div
