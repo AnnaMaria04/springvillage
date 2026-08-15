@@ -125,7 +125,7 @@ export function CottageStory() {
 
       {/* ── Desktop: restrained sticky zoom sequence (~170vh) ── */}
       {!reduce && (
-        <div ref={container} className="hidden lg:block relative h-[170vh] mt-16">
+        <div ref={container} className="hidden lg:block relative h-[150vh] mt-16">
           <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center pt-[84px]">
             {/* Focal image — large and stable */}
             <motion.div
@@ -162,7 +162,7 @@ export function CottageStory() {
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {SATELLITES.map((p) => (
+          {SATELLITES.slice(0, 2).map((p) => (
             <div key={p.src} className="relative aspect-[4/3] rounded-2xl overflow-hidden">
               <Image
                 src={p.src}

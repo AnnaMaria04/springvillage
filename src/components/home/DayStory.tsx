@@ -108,7 +108,7 @@ export function DayStory() {
               className="sticky mb-6"
               style={{ top: `${104 + i * 20}px` }}
             >
-              <article className="relative h-[78vh] rounded-3xl overflow-hidden">
+              <article className="relative h-[70vh] rounded-3xl overflow-hidden">
                 <CardBody item={item} />
               </article>
             </div>
