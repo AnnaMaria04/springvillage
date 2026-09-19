@@ -27,7 +27,9 @@ export function CookieBanner() {
       <div className="max-w-2xl mx-auto bg-ink text-white rounded-2xl shadow-2xl p-5 flex flex-col lg:flex-row items-start lg:items-center gap-4">
         <p className="text-sm text-white/80 leading-relaxed flex-1">
           Мы используем файлы cookie: технически необходимые — для работы сайта и формы
-          бронирования, аналитические — для обезличенной статистики посещаемости. Подробнее в{" "}
+          бронирования, аналитические — для обезличенной статистики посещаемости. Продолжая
+          пользоваться сайтом, вы соглашаетесь с аналитическими cookie; отказаться можно
+          кнопкой «Только необходимые». Подробнее в{" "}
           <Link href="/cookies" className="underline text-white hover:text-white/70 transition-colors">
             разделе о cookie
           </Link>{" "}
