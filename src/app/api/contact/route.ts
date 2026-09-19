@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
 import { corsHeaders, corsOptionsResponse } from "@/lib/cors";
 
 const schema = z.object({
@@ -13,15 +12,20 @@ const schema = z.object({
   consent: z.literal(true, { message: "Требуется согласие на обработку персональных данных" }),
 });
 
-async function notifyTelegram(text: string) {
+async function notifyTelegram(text: string): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return;
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
-  }).catch(() => {});
+  if (!token || !chatId) return false;
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 export async function OPTIONS(req: Request) {
@@ -47,14 +51,10 @@ export async function POST(req: Request) {
 
   const { name, phone, email, subject, message } = parsed.data;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (url && key) {
-    const supabase = createClient(url, key);
-    await supabase.from("contacts").insert({ name, phone, email, subject, message });
-  }
-
-  await notifyTelegram(
+  // Обращение только пересылается владельцу и нигде не складывается в базу.
+  // Раньше здесь был insert в Supabase (Франкфурт / Огайо), а ч. 5 ст. 18 152-ФЗ
+  // требует первичную базу с ПД граждан РФ на территории России.
+  const delivered = await notifyTelegram(
     `📩 <b>Новое сообщение с сайта</b>\n\n` +
     `👤 ${name}\n` +
     `📧 ${email}\n` +
@@ -63,6 +63,13 @@ export async function POST(req: Request) {
     `✅ Согласие на обработку ПД: да\n` +
     `\n${message}`,
   );
+
+  if (!delivered) {
+    return NextResponse.json(
+      { error: "Не удалось отправить сообщение. Пожалуйста, позвоните нам." },
+      { status: 502, headers: corsHeaders(origin) },
+    );
+  }
 
   return NextResponse.json({ success: true }, { headers: corsHeaders(origin) });
 }

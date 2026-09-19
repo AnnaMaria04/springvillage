@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
 import { corsHeaders, corsOptionsResponse } from "@/lib/cors";
 
 const schema = z.object({
@@ -12,15 +11,20 @@ const schema = z.object({
   consent: z.literal(true, { message: "Требуется согласие на обработку персональных данных" }),
 });
 
-async function notifyTelegram(text: string) {
+async function notifyTelegram(text: string): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return;
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
-  }).catch(() => {});
+  if (!token || !chatId) return false;
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 export async function OPTIONS(req: NextRequest) {
@@ -46,26 +50,12 @@ export async function POST(req: NextRequest) {
 
   const { name, phone, message, source } = parsed.data;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) {
-    return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
-  }
-
-  const supabase = createClient(url, key);
-  const { error } = await supabase.from("leads").insert({
-    name,
-    phone,
-    message: message ?? null,
-    source: source ?? "website",
-  });
-
-  if (error) {
-    console.error("Supabase lead insert error:", error.message);
-    return NextResponse.json({ error: "Failed to save lead" }, { status: 500 });
-  }
-
-  await notifyTelegram(
+  // Заявка только пересылается владельцу и нигде не складывается в базу.
+  // Раньше здесь был insert в Supabase — проекты расположены во Франкфурте и Огайо,
+  // а ч. 5 ст. 18 152-ФЗ требует, чтобы первичная база с ПД граждан РФ находилась
+  // в России. Если понадобится хранить заявки — подключайте российскую БД
+  // и не забудьте описать её в политике на /privacy.
+  const delivered = await notifyTelegram(
     `🏠 <b>Новая заявка на бронирование</b>\n\n` +
     `👤 ${name}\n` +
     `📞 ${phone}\n` +
@@ -73,6 +63,15 @@ export async function POST(req: NextRequest) {
     `\n📍 Источник: ${source ?? "website"}\n` +
     `✅ Согласие на обработку ПД: да`,
   );
+
+  if (!delivered) {
+    // Честная ошибка лучше ложного «заявка отправлена»: гость увидит сообщение
+    // формы и сможет позвонить напрямую.
+    return NextResponse.json(
+      { error: "Не удалось отправить заявку. Пожалуйста, позвоните нам." },
+      { status: 502, headers: corsHeaders(origin) },
+    );
+  }
 
   return NextResponse.json({ ok: true }, { status: 201, headers: corsHeaders(origin) });
 }

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
 import { corsHeaders, corsOptionsResponse } from "@/lib/cors";
 
 const schema = z.object({
@@ -33,14 +32,12 @@ export async function POST(req: NextRequest) {
 
   const { email } = parsed.data;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (url && key) {
-    const supabase = createClient(url, key);
-    await supabase
-      .from("subscribers")
-      .upsert({ email }, { onConflict: "email", ignoreDuplicates: true });
-  }
+  // ⚠️ Подписки сейчас никуда не сохраняются. Раньше e-mail складывался в Supabase
+  // (Франкфурт / Огайо) — это нарушало ч. 5 ст. 18 152-ФЗ о размещении первичной базы
+  // с ПД граждан РФ в России. Форма подписки на сайте не выведена, поэтому маршрут
+  // фактически не используется. Прежде чем включать рассылку: завести список у
+  // российского провайдера, описать его в политике на /privacy и в /soglasie.
+  void email;
 
   return NextResponse.json({ ok: true }, { headers: corsHeaders(origin) });
 }
