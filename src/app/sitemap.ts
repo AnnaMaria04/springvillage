@@ -20,8 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/doroga", priority: 0.6, freq: "yearly" },
     { path: "/faq", priority: 0.5, freq: "yearly" },
     { path: "/kontakty", priority: 0.5, freq: "yearly" },
-    { path: "/privacy", priority: 0.3, freq: "yearly" },
     { path: "/rules", priority: 0.3, freq: "yearly" },
+    { path: "/oferta", priority: 0.3, freq: "yearly" },
+    { path: "/privacy", priority: 0.3, freq: "yearly" },
+    { path: "/soglasie", priority: 0.2, freq: "yearly" },
+    { path: "/soglasie-rasprostranenie", priority: 0.2, freq: "yearly" },
+    { path: "/cookies", priority: 0.2, freq: "yearly" },
   ];
   return pages.map((p) => ({
     url: `${BASE_URL}${p.path}`,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Car, Train, MapPin, Clock, Wind } from "lucide-react";
+import { Car, Train, MapPin, Clock, Wind, Phone } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { LOCATION } from "@/content/location";
 import { LazyMap } from "@/components/ui/LazyMap";
@@ -7,7 +7,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Как добраться до Spring Village — из Петербурга 127 км",
-  description: "Маршрут на машине и электричке из Санкт-Петербурга до коттеджа Spring Village в пос. Михалёво, Выборгский район. Координаты и карта.",
+  description: "Маршрут на машине и электричке из Санкт-Петербурга до коттеджа Spring Village в пос. Михалёво, Выборгский район. Площадка для вертолёта, координаты и карта.",
   alternates: { canonical: "/doroga" },
 };
 
@@ -136,14 +136,15 @@ export default function DorogaPage() {
             </div>
             <div>
               <h2 className="font-display text-2xl font-bold text-foreground">На вертолёте</h2>
-              <p className="text-sm text-muted-foreground">Рядом есть подходящее место для посадки</p>
+              <p className="text-sm text-muted-foreground">Поможем с посадкой на территории</p>
             </div>
           </div>
 
           <div className="space-y-4">
             {[
-              { step: "01", text: "В окрестностях коттеджа есть подходящие места для посадки вертолёта. Мы не организуем перелёты." },
-              { step: "02", text: "Если вам нужны контакты операторов — свяжитесь с нами заранее, подскажем." },
+              { step: "01", text: "На территории есть площадка для вертолёта — поможем с организацией посадки." },
+              { step: "02", text: "Позвоните заранее: согласуем площадку, время прилёта и встречу гостей." },
+              { step: "03", text: "Сами перелёты мы не выполняем — если нужны контакты операторов, подскажем." },
             ].map((s) => (
               <div key={s.step} className="flex gap-4">
                 <div className="font-display text-2xl font-bold text-wood/30 w-10 shrink-0 leading-none pt-1">{s.step}</div>
@@ -151,6 +152,14 @@ export default function DorogaPage() {
               </div>
             ))}
           </div>
+
+          <a
+            href={`tel:${CONTACT.phoneDial}`}
+            className="mt-6 inline-flex items-center gap-2.5 h-12 px-6 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors"
+          >
+            <Phone className="w-4 h-4 shrink-0" />
+            Обсудить посадку · {CONTACT.phone}
+          </a>
         </div>
       </div>
     </div>

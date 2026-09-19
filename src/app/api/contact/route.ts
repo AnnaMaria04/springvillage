@@ -9,6 +9,8 @@ const schema = z.object({
   email: z.string().email(),
   subject: z.string().max(100).optional(),
   message: z.string().min(5).max(2000),
+  // Согласие на обработку ПД обязательно (152-ФЗ): без него обращение не принимаем.
+  consent: z.literal(true, { message: "Требуется согласие на обработку персональных данных" }),
 });
 
 async function notifyTelegram(text: string) {
@@ -58,6 +60,7 @@ export async function POST(req: Request) {
     `📧 ${email}\n` +
     (phone ? `📞 ${phone}\n` : "") +
     (subject ? `📌 ${subject}\n` : "") +
+    `✅ Согласие на обработку ПД: да\n` +
     `\n${message}`,
   );
 

@@ -8,6 +8,8 @@ const schema = z.object({
   phone: z.string().min(7).max(20),
   message: z.string().max(500).optional(),
   source: z.string().max(50).optional(),
+  // Согласие на обработку ПД обязательно (152-ФЗ): без него заявку не принимаем.
+  consent: z.literal(true, { message: "Требуется согласие на обработку персональных данных" }),
 });
 
 async function notifyTelegram(text: string) {
@@ -68,7 +70,8 @@ export async function POST(req: NextRequest) {
     `👤 ${name}\n` +
     `📞 ${phone}\n` +
     (message ? `💬 ${message}\n` : "") +
-    `\n📍 Источник: ${source ?? "website"}`,
+    `\n📍 Источник: ${source ?? "website"}\n` +
+    `✅ Согласие на обработку ПД: да`,
   );
 
   return NextResponse.json({ ok: true }, { status: 201, headers: corsHeaders(origin) });

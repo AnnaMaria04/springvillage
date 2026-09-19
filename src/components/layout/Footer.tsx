@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { CONTACT, SITE } from "@/lib/data";
+import { LEGAL } from "@/content/legal";
 
 const footerLinks = {
   "Коттедж": [
@@ -14,8 +15,14 @@ const footerLinks = {
     { href: "/doroga",   label: "Как добраться" },
     { href: "/faq",      label: "Вопросы и ответы" },
     { href: "/kontakty", label: "Контакты" },
-    { href: "/privacy",  label: "Конфиденциальность" },
     { href: "/rules",    label: "Правила проживания" },
+  ],
+  "Документы": [
+    { href: "/oferta",                   label: "Публичная оферта" },
+    { href: "/privacy",                  label: "Обработка персональных данных" },
+    { href: "/soglasie",                 label: "Согласие на обработку ПД" },
+    { href: "/soglasie-rasprostranenie", label: "Согласие на распространение ПД" },
+    { href: "/cookies",                  label: "Cookie и аналитика" },
   ],
 };
 
@@ -23,7 +30,7 @@ export function Footer() {
   return (
     <footer className="bg-pine text-white pb-[58px] md:pb-0">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="mb-5 block">
@@ -70,12 +77,23 @@ export function Footer() {
 
         <Separator className="mt-8 mb-6 bg-white/10" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/35">
+        <div className="space-y-3 text-xs text-white/35">
+          <p className="leading-relaxed">
+            {LEGAL.entityFull} · ИНН {LEGAL.inn} · ОГРНИП {LEGAL.ogrnip}
+            {LEGAL.registrationAddress ? ` · ${LEGAL.registrationAddress}` : ""}
+          </p>
+          <p className="leading-relaxed">
+            Информация на сайте не является публичной офертой, за исключением{" "}
+            <Link href="/oferta" className="underline hover:text-white/60 transition-colors">
+              публичной оферты
+            </Link>
+            . Бронирование означает согласие с её условиями и{" "}
+            <Link href="/rules" className="underline hover:text-white/60 transition-colors">
+              правилами проживания
+            </Link>
+            .
+          </p>
           <p>© {new Date().getFullYear()} {SITE.name}. Все права защищены.</p>
-          <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-white/60 transition-colors">Конфиденциальность</Link>
-            <Link href="/rules" className="hover:text-white/60 transition-colors">Правила</Link>
-          </div>
         </div>
       </div>
     </footer>

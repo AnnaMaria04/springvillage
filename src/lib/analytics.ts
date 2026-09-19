@@ -12,7 +12,7 @@ export function track(goal: string, params?: Record<string, unknown>): void {
   const ym = (window as unknown as { ym?: YmFn }).ym;
   if (typeof ym !== "function") return;
   try {
-    ym(SITE.yandexMetricaId, "reachGoal", goal, params);
+    ym(Number(SITE.yandexMetricaId), "reachGoal", goal, params);
   } catch {
     /* analytics must never break the booking flow */
   }

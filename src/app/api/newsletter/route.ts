@@ -5,6 +5,9 @@ import { corsHeaders, corsOptionsResponse } from "@/lib/cors";
 
 const schema = z.object({
   email: z.string().email("Введите корректный e-mail"),
+  // Рассылка — реклама: согласие обязательно и должно быть подтверждаемым
+  // (ст. 18 ФЗ «О рекламе», ст. 9 152-ФЗ).
+  consent: z.literal(true, { message: "Требуется согласие на получение рассылки" }),
 });
 
 export async function OPTIONS(req: NextRequest) {

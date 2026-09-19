@@ -4,13 +4,16 @@ import { useState } from "react";
 import { Phone, Mail, MessageCircle, Send, Clock } from "lucide-react";
 import { CONTACT } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { ConsentFields } from "@/components/legal/ConsentFields";
 
 export function Contacts() {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [err, setErr] = useState("");
+  const [consent, setConsent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!consent) return;
     setStatus("loading");
     const fd = new FormData(e.currentTarget);
     const body = {
@@ -18,6 +21,8 @@ export function Contacts() {
       email: fd.get("email"),
       phone: fd.get("phone"),
       message: fd.get("message"),
+      // согласие сохраняем вместе с обращением
+      consent,
     };
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE ?? ""}/api/contact`, {
@@ -122,8 +127,9 @@ export function Contacts() {
                 placeholder="Сообщение"
                 className="w-full rounded-2xl border border-border px-4 py-3 text-sm focus:outline-none focus:border-primary bg-background resize-none"
               />
+              <ConsentFields idPrefix="contact" consent={consent} onConsentChange={setConsent} />
               {status === "error" && <p className="text-xs text-red-500">{err}</p>}
-              <Button type="submit" size="lg" className="w-full" disabled={status === "loading"}>
+              <Button type="submit" size="lg" className="w-full" disabled={status === "loading" || !consent}>
                 {status === "loading" ? "Отправка…" : "Отправить"}
               </Button>
             </form>

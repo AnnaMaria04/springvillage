@@ -3,6 +3,7 @@
 import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, CheckCircle, Loader2 } from "lucide-react";
+import { ConsentFields } from "@/components/legal/ConsentFields";
 
 type Props = {
   trigger: React.ReactNode;
@@ -26,7 +27,8 @@ export function BookingModal({ trigger, source = "modal" }: Props) {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE ?? ""}/api/lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, message, source }),
+        // consent уходит на сервер, чтобы согласие можно было подтвердить
+        body: JSON.stringify({ name, phone, message, source, consent }),
       });
       if (!res.ok) throw new Error("server error");
       setState("success");
@@ -61,7 +63,8 @@ export function BookingModal({ trigger, source = "modal" }: Props) {
                 Заявка отправлена!
               </h3>
               <p className="text-sm text-muted-foreground">
-                Мы свяжемся с вами в течение нескольких часов.
+                Мы свяжемся с вами в течение нескольких часов, чтобы подтвердить даты и
+                стоимость. Это заявка — бронь фиксируется только после подтверждения и оплаты.
               </p>
               <Dialog.Close className="mt-6 h-10 px-6 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors inline-flex items-center">
                 Закрыть
@@ -107,22 +110,7 @@ export function BookingModal({ trigger, source = "modal" }: Props) {
                   className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition resize-none"
                 />
               </div>
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                  required
-                  className="mt-0.5 w-4 h-4 rounded border-border text-primary accent-primary"
-                />
-                <span className="text-xs text-muted-foreground leading-relaxed">
-                  Я соглашаюсь с{" "}
-                  <a href="/privacy" target="_blank" className="underline text-foreground">
-                    политикой конфиденциальности
-                  </a>{" "}
-                  и даю согласие на обработку персональных данных
-                </span>
-              </label>
+              <ConsentFields idPrefix="lead" consent={consent} onConsentChange={setConsent} />
               {state === "error" && (
                 <p className="text-xs text-red-600 bg-red-50 rounded-lg px-3 py-2">
                   Что-то пошло не так. Пожалуйста, напишите нам напрямую.
