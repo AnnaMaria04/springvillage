@@ -109,6 +109,10 @@ export function LegalRequisites({ bank = false }: { bank?: boolean }) {
     ["E-mail", CONTACT.email],
   ];
 
+  // Оба реквизита появляются автоматически, как только владелец заполнит их в legal.ts
+  if (LEGAL.registrar) {
+    rows.splice(3, 0, ["Зарегистрировавший орган", LEGAL.registrar]);
+  }
   if (LEGAL.registrationAddress) {
     rows.splice(3, 0, ["Адрес регистрации", LEGAL.registrationAddress]);
   }
