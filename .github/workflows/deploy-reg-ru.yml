@@ -37,7 +37,11 @@ jobs:
         env:
           STATIC_EXPORT: "1"
           NEXT_PUBLIC_SITE_URL: "https://www.springvillage.ru"
-          NEXT_PUBLIC_API_BASE: "https://springvillage.vercel.app"
+          # Пусто — формы шлют запрос на свой же домен, в out/api/send.php.
+          # Раньше здесь стоял Vercel: тот хост отвечает редиректом 307 на
+          # www.springvillage.ru, поэтому формы не работали, а персональные
+          # данные уходили за пределы РФ.
+          NEXT_PUBLIC_API_BASE: ""
         run: npm run build
 
       - name: Install image tooling
@@ -70,6 +74,11 @@ jobs:
 
           # Pass ACME challenges through (Let's Encrypt auto-renewal)
           RewriteRule ^\.well-known/ - [L]
+
+          # Формы сайта → PHP-обработчик на этом же сервере.
+          # Заявка уходит письмом владельцу; данные остаются в РФ.
+          RewriteRule ^api/lead/?$ /api/send.php?type=lead [L,QSA]
+          RewriteRule ^api/contact/?$ /api/send.php?type=contact [L,QSA]
 
           # http → https
           # REG.RU GOTCHA: TLS terminates on upstream nginx, so Apache always sees
