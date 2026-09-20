@@ -4,6 +4,7 @@ import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, CheckCircle, Loader2 } from "lucide-react";
 import { ConsentFields } from "@/components/legal/ConsentFields";
+import { CONTACT } from "@/lib/data";
 
 type Props = {
   trigger: React.ReactNode;
@@ -113,7 +114,8 @@ export function BookingModal({ trigger, source = "modal" }: Props) {
               <ConsentFields idPrefix="lead" consent={consent} onConsentChange={setConsent} />
               {state === "error" && (
                 <p className="text-xs text-red-600 bg-red-50 rounded-lg px-3 py-2">
-                  Что-то пошло не так. Пожалуйста, напишите нам напрямую.
+                  Не удалось отправить заявку. Позвоните нам: {CONTACT.phone} —
+                  забронируем по телефону.
                 </p>
               )}
               <button

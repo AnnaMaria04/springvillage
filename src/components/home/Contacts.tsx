@@ -34,11 +34,11 @@ export function Contacts() {
         setStatus("ok");
       } else {
         const d = await res.json();
-        setErr(d.error ?? "Ошибка");
+        setErr(d.error ?? `Не удалось отправить. Позвоните нам: ${CONTACT.phone}`);
         setStatus("error");
       }
     } catch {
-      setErr("Ошибка соединения");
+      setErr(`Не удалось отправить сообщение. Позвоните нам: ${CONTACT.phone}`);
       setStatus("error");
     }
   }

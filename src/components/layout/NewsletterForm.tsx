@@ -37,7 +37,7 @@ export function NewsletterForm() {
         setStatus("ok");
       }
     } catch {
-      setErrorMsg("Ошибка соединения. Попробуйте позже.");
+      setErrorMsg("Не удалось подписаться. Попробуйте позже.");
       setStatus("error");
     }
   }
