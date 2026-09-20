@@ -96,8 +96,7 @@ export function Deals() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={reduce ? undefined : { duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
                 className={`group relative flex flex-col text-left rounded-2xl p-5 sm:p-6 cursor-pointer
-                  transition-[background-color,border-color,transform] duration-300
-                  hover:-translate-y-1 motion-reduce:hover:translate-y-0
+                  tile-lux hover:-translate-y-1 motion-reduce:hover:translate-y-0
                   focus-ring-sand
                   ${
                     isSel
@@ -111,7 +110,7 @@ export function Deals() {
                   {tier.nights}
                 </span>
 
-                <span className="font-display text-[1.7rem] sm:text-3xl font-bold text-white leading-none mt-3 whitespace-nowrap">
+                <span className="num-lining font-display text-[1.7rem] sm:text-3xl font-bold text-white leading-none mt-3 whitespace-nowrap">
                   {money(tier.totalPrice)}
                 </span>
 

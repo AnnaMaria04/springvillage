@@ -81,6 +81,13 @@
     letter-spacing: -0.02em;
   }
 
+  /* Оптическая компенсация трекинга: крупный серифный заголовок должен стоять
+     плотнее, мелкий — свободнее. Один и тот же -0.02em на всех размерах
+     разваливает крупные строки и слепляет мелкие. */
+  h1 { letter-spacing: -0.03em; }
+  h2 { letter-spacing: -0.026em; }
+  h4, h5, h6 { letter-spacing: -0.008em; }
+
   img, video { display: block; max-width: 100%; }
 
   ::selection {
@@ -163,6 +170,27 @@
   .focus-ring-sand:focus-visible {
     outline: 2px solid var(--wood);
     outline-offset: 3px;
+  }
+
+  /* Плитки тарифов: те же токены движения, что и у остального сайта.
+     Раньше здесь стояли duration-300 и дефолтная кривая Tailwind — на фоне
+     900 ms reveal и 1.2 s зума фотографий это читалось торопливо. */
+  .tile-lux {
+    transition:
+      background-color var(--dur-hover) var(--ease),
+      border-color     var(--dur-hover) var(--ease),
+      transform        var(--dur-hover) var(--ease),
+      box-shadow       var(--dur-hover) var(--ease);
+  }
+  .tile-lux:hover {
+    box-shadow: 0 22px 44px -20px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Цены и крупные числа: маюскульные цифры одной высоты вместо минускульных,
+     которые Cormorant ставит по умолчанию, — ряд цен перестаёт «прыгать». */
+  .num-lining {
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: "lnum" 1, "tnum" 1;
   }
 
   .text-gradient {
