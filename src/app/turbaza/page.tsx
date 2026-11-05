@@ -24,11 +24,10 @@ export const metadata: Metadata = {
 
 
 const features = [
-  "Песчаный пляж — мягкое дно, заход без камней, вода прогревается к июлю",
-  "Ночёвка в палатке у самой воды: тишина, рассвет над озером, костёр",
-  "Слип для спуска SUP-досок, байдарок и лодок прямо с берега",
-  "Аренда лодок по предварительной записи — новые лодки с полным снаряжением",
-  "Закаты над Михалёвским озером — тишина и чистая вода",
+  { title: "Песчаный пляж", detail: "Мягкое дно и прямой выход к воде" },
+  { title: "Кемпинг у озера", detail: "Места для палаток на берегу" },
+  { title: "Слип", detail: "Для SUP, байдарок и лодок" },
+  { title: "Прокат лодок", detail: "По предварительной записи" },
 ];
 
 const highlights = [
@@ -85,41 +84,39 @@ export default function TurbazaPage() {
       </div>
 
       {/* Main content */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 lg:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
 
           {/* Left — story + features */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               О месте
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-6">
-              500 метров берега с песчаным пляжем
+            <h2 className="font-display text-3xl lg:text-4xl font-semibold text-foreground leading-tight mb-4">
+              Песчаный берег. Тихий отдых.
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Тур база Михалёвское — уединённое место на берегу Михалёвского озера, в 1,5 км от коттеджа WILD. Здесь 500 метров частной береговой линии с настоящим песчаным пляжем и прямым выходом к воде — значительно больше, чем у большинства мест на озере.
+            <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+              500 м частного берега Михалёвского озера, песчаный пляж и кемпинг у воды. Отдельная территория в 1,5 км от коттеджа WILD.
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Шесть лет назад здесь произошёл пожар, сейчас идёт восстановление территории. Пока реконструкция продолжается, мы предлагаем аренду кемпинговых мест прямо у воды.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-10">
-              Забронировать место можно онлайн или по телефону — как удобнее.
-            </p>
-
-            <ul className="space-y-4">
-              {features.map((f) => (
-                <li key={f} className="flex items-start gap-3">
-                  <span className="mt-1 w-5 h-5 rounded-full bg-pine/10 flex items-center justify-center shrink-0">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pine" />
-                  </span>
-                  <span className="text-foreground">{f}</span>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-4">
+              {features.map((feature) => (
+                <li key={feature.title} className="border-t border-border pt-3">
+                  <h3 className="font-body text-sm font-semibold text-pine tracking-normal">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground mt-1">{feature.detail}</p>
                 </li>
               ))}
             </ul>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-6 pl-4 border-l-2 border-wood/50">
+              Территория восстанавливается после пожара. На время реконструкции доступны кемпинговые места у воды.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5">
+              <BookingButton opts={{ uid: TURBAZA_UID }} className="inline-flex items-center h-11 px-6 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer">Выбрать место</BookingButton>
+              <a href={`tel:${CONTACT.phoneDial}`} className="text-sm text-pine py-3 link-underline">{CONTACT.phone}</a>
+            </div>
           </div>
 
           {/* Right — photo + highlights */}
-          <div className="space-y-8">
+          <div className="space-y-5">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
               <Image
                 src="/images/turbaza/turbaza-dock-boats.jpg"
@@ -131,7 +128,7 @@ export default function TurbazaPage() {
             </div>
 
             {/* Highlights */}
-            <div className="bg-cream rounded-3xl p-8">
+            <div className="bg-sand rounded-2xl p-5">
               <ul className="space-y-3">
                 {highlights.map((h) => (
                   <li key={h} className="flex items-start gap-3 text-foreground text-sm">
@@ -193,7 +190,7 @@ export default function TurbazaPage() {
       </section>
 
       {/* Pricing */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 lg:py-14">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
           Услуги и цены
         </p>

@@ -65,17 +65,17 @@ export function DayStory() {
   const rise = reduce ? {} : { initial: { opacity: 0, y: 12 }, whileInView: { opacity: 1, y: 0 } };
 
   return (
-    <section className="bg-background pt-16 lg:pt-24 pb-20 lg:pb-28">
+    <section className="bg-background pt-8 lg:pt-10 pb-12 lg:pb-16">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
 
         {/* ── Intro ── */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 lg:mb-14">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-7 lg:mb-8">
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               Один день вдали от города
             </p>
             <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-[1.1] tracking-tight">
-              Как проходит день в Spring Village.
+              День в Spring Village
             </h2>
           </div>
         </div>
@@ -118,7 +118,7 @@ export function DayStory() {
         </ol>
 
         {/* ── Route back into booking ── */}
-        <div ref={endRef} className="mt-14 lg:mt-16 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8">
+        <div ref={endRef} className="mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8">
           <h3 className="font-display text-2xl lg:text-3xl font-bold text-foreground leading-tight">
             Выберите свои даты у озера.
           </h3>

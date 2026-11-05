@@ -36,7 +36,7 @@ export function Header() {
         "fixed top-0 left-0 right-0 z-50 header-transition",
         transparent
           ? "bg-transparent"
-          : "bg-cream/95 backdrop-blur-md border-b border-border"
+          : "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
       )}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -88,7 +88,7 @@ export function Header() {
             </a>
             <button
               onClick={() => openBooking()}
-              className={cn("inline-flex items-center justify-center h-11 px-6 rounded-sm text-sm font-medium transition-colors cursor-pointer", transparent ? "bg-cream text-pine hover:bg-white" : "bg-pine text-white hover:bg-moss")}
+              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer"
             >
               Забронировать
             </button>
