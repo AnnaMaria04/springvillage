@@ -1,10 +1,15 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Images } from "lucide-react";
+import { PONTOON } from "@/content/pontoon";
+import "yet-another-react-lightbox/styles.css";
 
-const photos = [
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
+
+const housePhotos = [
   // Exterior — wide hero card
   { src: "/images/exterior/exterior-couple-window.jpg", label: "Коттедж WILD снаружи", wide: true, position: "center 35%" },
   { src: "/images/exterior/exterior-autumn-yellow.jpeg", label: "Осенью", position: "center 60%" },
@@ -22,100 +27,35 @@ const photos = [
   { src: "/images/interior/interior-sofa-colorful.jpeg", label: "Гостиная — диван", position: "center 50%" },
 ];
 
+const photos = [...housePhotos, ...PONTOON.photos.map((photo) => ({ src: photo.src, label: photo.alt, position: "center 60%" }))];
+// Five carefully chosen views on the page; the complete collection is one click away.
+const preview = [0, 2, 5, 8, 7];
+
 export function DomGallery() {
-  const [lightbox, setLightbox] = useState<number | null>(null);
-
-  const close = useCallback(() => setLightbox(null), []);
-  const prev = useCallback(
-    () => setLightbox((i) => (i === null ? null : (i - 1 + photos.length) % photos.length)),
-    []
-  );
-  const next = useCallback(
-    () => setLightbox((i) => (i === null ? null : (i + 1) % photos.length)),
-    []
-  );
-
-  useEffect(() => {
-    if (lightbox === null) return;
-    document.body.style.overflow = "hidden";
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowLeft") prev();
-      else if (e.key === "ArrowRight") next();
-    }
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [lightbox, close, prev, next]);
-
+  const [index, setIndex] = useState(-1);
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[220px] lg:auto-rows-[260px]">
-        {photos.map((p, i) => (
-          <div
-            key={i}
-            className="group relative rounded-3xl overflow-hidden cursor-pointer"
-            style={{
-              gridColumn: p.wide ? "span 2" : undefined,
-              gridRow: p.wide ? "span 2" : undefined,
-            }}
-            onClick={() => setLightbox(i)}
-          >
-            <Image
-              src={p.src}
-              fill
-              alt={p.label}
-              style={{ objectFit: "cover", objectPosition: p.position }}
-              className="transition-transform duration-700 group-hover:scale-105"
-              sizes={p.wide ? "(max-width: 1024px) 100vw, 67vw" : "(max-width: 1024px) 50vw, 33vw"}
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-            <span className="absolute bottom-3 left-3 z-10 text-xs font-medium text-white/80 bg-black/25 rounded-full px-2.5 py-1 backdrop-blur-sm">
-              {p.label}
-            </span>
-          </div>
-        ))}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+        {preview.map((photoIndex, i) => {
+          const photo = photos[photoIndex];
+          return (
+            <button key={photo.src} type="button" onClick={() => setIndex(photoIndex)} aria-label={`Открыть фото: ${photo.label}`}
+              className={`group relative overflow-hidden rounded-sm cursor-pointer ${i === 0 ? "col-span-2 lg:row-span-2 min-h-[280px] sm:min-h-[400px]" : "aspect-[4/3]"}`}>
+              <Image src={photo.src} alt={photo.label} fill sizes={i === 0 ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 1024px) 50vw, 25vw"} style={{ objectFit: "cover", objectPosition: photo.position }} className="transition-transform duration-700 motion-reduce:transition-none group-hover:scale-[1.03]" />
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-4 pt-10 pb-3 text-left text-xs text-white">{photo.label}</span>
+            </button>
+          );
+        })}
       </div>
-
-      {lightbox !== null && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Просмотр фото"
-          className="animate-fade-in fixed inset-0 z-[200] flex items-center justify-center px-4"
-          style={{ background: "rgba(12,17,14,0.92)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}
-          onClick={close}
-        >
-          <div
-            className="animate-lightbox relative max-w-5xl w-full rounded-2xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={photos[lightbox].src}
-              alt={photos[lightbox].label}
-              className="w-full block"
-              style={{ maxHeight: "80vh", objectFit: "contain", background: "#0c110e" }}
-            />
-            <div className="absolute bottom-0 left-0 right-0 px-6 py-4 bg-gradient-to-t from-black/65 to-transparent">
-              <p className="text-white font-medium text-sm">{photos[lightbox].label}</p>
-              <p className="text-white/45 text-xs mt-0.5">{lightbox + 1} / {photos.length}</p>
-            </div>
-          </div>
-
-          <button onClick={close} className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer" style={{ transition: "background-color 0.2s" }} aria-label="Закрыть">
-            <X className="w-5 h-5" />
-          </button>
-          <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer" style={{ transition: "background-color 0.2s" }} aria-label="Предыдущее фото">
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button onClick={(e) => { e.stopPropagation(); next(); }} className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer" style={{ transition: "background-color 0.2s" }} aria-label="Следующее фото">
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      )}
+      <div className="mt-5 flex flex-wrap justify-between items-center gap-4">
+        <p className="text-xs text-muted-foreground">Две спальни · кухня · гостиная с камином · 1 санузел</p>
+        <button type="button" onClick={() => setIndex(0)} className="inline-flex items-center gap-2 text-sm text-pine py-2 border-b border-pine/30 hover:border-pine cursor-pointer">
+          <Images className="w-4 h-4" aria-hidden="true" /> Все {photos.length} фото <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+        </button>
+      </div>
+      {index >= 0 && <Lightbox open index={index} close={() => setIndex(-1)} slides={photos.map((photo) => ({ src: photo.src, alt: photo.label }))}
+        labels={{ Close: "Закрыть", Next: "Следующее фото", Previous: "Предыдущее фото" }}
+        render={{ slideFooter: ({ slide }) => <p className="absolute bottom-4 left-4 right-4 text-center text-white text-sm">{slide.alt}</p> }} />}
     </>
   );
 }

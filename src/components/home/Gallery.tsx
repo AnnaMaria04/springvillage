@@ -4,11 +4,13 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { PONTOON } from "@/content/pontoon";
 
 // Grid layout: 3 columns. Wide items span 2 cols.
 // Row pattern to fill every row with no gaps:
 // [wide+1] [1+wide] [1+1+1] [1+1+1] [wide+1] [1+1+1] [1+wide] [1+1+1]
 const photos = [
+  ...PONTOON.photos.map((photo) => ({ src: photo.src, label: photo.alt, position: "center 60%" })),
   { src: "/images/exterior/exterior-night-deck.jpeg", label: "Ночная терраса", position: "center 50%" },
   { src: "/images/exterior/exterior-couple-window.jpg", label: "Коттедж", wide: true, position: "center 40%" },
   { src: "/images/exterior/exterior-spring-front.jpg", label: "Весна", position: "center 50%" },

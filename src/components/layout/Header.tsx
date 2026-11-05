@@ -36,7 +36,7 @@ export function Header() {
         "fixed top-0 left-0 right-0 z-50 header-transition",
         transparent
           ? "bg-transparent"
-          : "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
+          : "bg-cream/95 backdrop-blur-md border-b border-border"
       )}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -61,11 +61,13 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(
-                  "px-3.5 py-2 rounded-lg text-[15px] font-medium transition-all duration-150",
+                  "mx-1.5 px-2 py-2 border-b text-sm font-medium transition-colors duration-200",
+                  pathname === link.href ? "border-pine text-pine" : "border-transparent",
                   transparent
-                    ? "text-white/75 hover:text-white hover:bg-white/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "text-white/85 hover:text-white hover:border-white/60"
+                    : "text-muted-foreground hover:text-pine hover:border-pine/40"
                 )}
               >
                 {link.label}
@@ -86,7 +88,7 @@ export function Header() {
             </a>
             <button
               onClick={() => openBooking()}
-              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer shadow-sm"
+              className={cn("inline-flex items-center justify-center h-11 px-6 rounded-sm text-sm font-medium transition-colors cursor-pointer", transparent ? "bg-cream text-pine hover:bg-white" : "bg-pine text-white hover:bg-moss")}
             >
               Забронировать
             </button>
@@ -114,6 +116,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={pathname === link.href ? "page" : undefined}
                 onClick={() => setOpen(false)}
                 className="px-3 py-3.5 text-sm font-medium text-foreground hover:text-primary border-b border-border last:border-0 transition-colors"
               >

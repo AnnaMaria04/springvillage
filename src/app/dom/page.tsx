@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Users, BedDouble, Bath, Maximize2 } from "lucide-react";
+import Image from "next/image";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { HOUSE } from "@/content/house";
-import { PageHero } from "@/components/layout/PageHero";
 import { BookingBar } from "@/components/home/BookingBar";
+import { BookingButton } from "@/components/booking/BookingButton";
+import { PontoonFeature } from "@/components/home/PontoonFeature";
 import { DomGallery } from "@/components/home/DomGallery";
 import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Коттедж WILD — A-Frame 60 м² у Михалёвского озера",
   description:
-    "Уединённый A-frame коттедж 60 м², 2 спальни, до 5 гостей. 200 м частного берега, пирс, лодка и SUP включены в стоимость. Михалёво, Выборгский район.",
+    "Коттедж WILD: A-frame 60 м², 2 спальни, до 5 гостей. 200 м частного берега и новый просторный понтон. Лодка и SUP включены. Михалёвское озеро.",
   alternates: { canonical: "/dom" },
   openGraph: {
     title: "Коттедж WILD — Spring Village",
-    description: "A-frame 60 м², пирс, лодки. Михалёво, Ленобласть.",
+    description: "Свой дом, свой берег и новый просторный понтон. A-frame у Михалёвского озера.",
     images: [{ url: "/images/exterior/exterior-night-deck.jpeg", width: 1200, height: 630, alt: "Коттедж WILD" }],
   },
 };
@@ -23,48 +25,56 @@ export default function DomPage() {
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Коттедж WILD", url: "/dom" }])) }} />
-      <PageHero
-        eyebrow="Размещение"
-        title={HOUSE.name}
-        subtitle={HOUSE.longDescription}
-        image="/images/exterior/exterior-winter-snow.jpg"
-      />
-      <BookingBar />
-
-      {/* Specs */}
-      <div className="border-b border-border bg-background">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 flex flex-wrap gap-x-10 gap-y-3">
-          {[
-            { icon: Users, value: `до ${HOUSE.capacity} гостей` },
-            { icon: BedDouble, value: `${HOUSE.bedrooms} спальни` },
-            { icon: Bath, value: `${HOUSE.bathrooms} санузел` },
-            { icon: Maximize2, value: `${HOUSE.area} м²` },
-            { icon: null, value: HOUSE.type },
-            { icon: null, value: "200 м берега · пирс, лодка с электромотором, SUP включены" },
-          ].map((s) => {
-            const Icon = s.icon;
-            return (
-              <div key={s.value} className="flex items-center gap-2 text-sm text-foreground">
-                {Icon && <Icon className="w-4 h-4 text-muted-foreground" />}
-                {s.value}
-              </div>
-            );
-          })}
+      <header className="pt-[68px] lg:pt-[84px] bg-cream">
+        <div className="max-w-[1600px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="px-6 sm:px-8 lg:pl-16 xl:pl-24 lg:pr-12 py-12 sm:py-16 lg:py-24 flex flex-col justify-center">
+            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground mb-7">Spring Village · частный дом у озера</p>
+            <h1 className="font-display text-[clamp(3.4rem,6vw,6rem)] font-medium leading-[0.95] text-pine">Коттедж<br />WILD</h1>
+            <p className="font-display text-2xl sm:text-3xl text-pine mt-7">Свой дом. Свой берег. Ваше время.</p>
+            <p className="text-muted-foreground mt-5 max-w-md leading-relaxed">Две спальни, камин и панорамные окна в карельский лес. Уединённый A-frame у Михалёвского озера — в 127 км от Петербурга.</p>
+            <div className="flex flex-wrap items-center gap-6 mt-8">
+              <BookingButton className="inline-flex items-center gap-4 px-7 h-13 bg-pine text-white rounded-sm text-sm font-medium hover:bg-moss transition-colors cursor-pointer">Выбрать даты <ArrowUpRight className="w-4 h-4" aria-hidden="true" /></BookingButton>
+              <a href="#pontoon" className="inline-flex items-center gap-2 py-3 text-sm text-pine border-b border-pine/30 hover:border-pine">Новый понтон <ArrowDown className="w-4 h-4" aria-hidden="true" /></a>
+            </div>
+          </div>
+          <div className="relative min-h-[340px] sm:min-h-[460px] lg:min-h-[640px]">
+            <Image src="/images/exterior/exterior-night-deck.jpeg" alt="Коттедж WILD с освещённой террасой среди деревьев" fill preload sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover object-[center_40%]" />
+            <span className="absolute bottom-6 left-6 text-white text-xs uppercase tracking-[0.2em]">A-frame · Михалёвское озеро</span>
+          </div>
         </div>
+      </header>
+
+      <div className="border-y border-border">
+        <dl className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 grid grid-cols-2 md:grid-cols-4 gap-y-6 py-8 lg:py-10">
+          {[{ value: `${HOUSE.area} м²`, label: "пространства для отдыха" }, { value: `${HOUSE.bedrooms} спальни`, label: `до ${HOUSE.capacity} гостей` }, { value: "200 м", label: "частного берега" }, { value: "Новый понтон", label: "ещё просторнее у воды" }].map((fact) => (
+            <div key={fact.value} className="pr-4 md:pl-6 md:border-l md:border-border md:first:pl-0 md:first:border-0">
+              <dt className="text-xs text-muted-foreground mb-2">{fact.label}</dt>
+              <dd className="font-display text-2xl sm:text-3xl text-pine font-semibold">{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
-      {/* Gallery */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 lg:pt-28 pb-10 lg:pb-14">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-20 mb-10 lg:mb-12">
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4">Внутри и снаружи</p>
+            <h2 className="font-display text-4xl lg:text-5xl font-medium text-pine">Дом, в котором<br />можно замедлиться.</h2>
+          </div>
+          <p className="text-muted-foreground leading-relaxed lg:self-end max-w-lg">Панорамные окна, тепло дровяного камина и две отдельные спальни — внизу и в мансарде. Полностью оборудованная кухня, тёплые полы и своя терраса. Всё для того, чтобы остаться подольше.</p>
+        </div>
         <DomGallery />
       </section>
+
+      <PontoonFeature />
 
       {/* Equipment + amenities, clean lists.
           cream ≈ page ivory, so the seam is invisible — keep the combined gap
           to one section-break (~112px), not two stacked py-28 paddings. */}
       <section className="bg-cream">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-10 lg:pt-14 pb-20 lg:pb-28 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <div>
-            <h2 className="font-display text-3xl font-bold text-foreground mb-8">Удобства</h2>
+            <h2 className="font-display text-3xl font-medium text-pine mb-8">Для вашего отдыха</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-foreground">
               {HOUSE.amenities.map((a) => (
                 <li key={a} className="border-b border-border pb-3 text-[15px]">
@@ -74,7 +84,7 @@ export default function DomPage() {
             </ul>
           </div>
           <div>
-            <h2 className="font-display text-3xl font-bold text-foreground mb-8">Оснащение</h2>
+            <h2 className="font-display text-3xl font-medium text-pine mb-8">Всё под рукой</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-foreground">
               {HOUSE.equipment.map((e) => (
                 <li key={e} className="border-b border-border pb-3 text-[15px]">
@@ -93,7 +103,7 @@ export default function DomPage() {
           </div>
         </div>
       </section>
-
+      <BookingBar />
     </article>
   );
 }

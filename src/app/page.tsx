@@ -15,7 +15,7 @@ import { lodgingBusinessSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Spring Village — A-Frame коттедж у Михалёвского озера",
   description:
-    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера, Ленобласть. Пирс, лодки, SUP. До 5 гостей. 127 км от Петербурга. Рейтинг 4.8 ★",
+    "Уединённый A-frame коттедж 60 м² на берегу Михалёвского озера, Ленобласть. Новый просторный понтон, лодка и SUP. До 5 гостей. 127 км от Петербурга. Рейтинг 4.8 ★",
   alternates: { canonical: "/" },
 };
 

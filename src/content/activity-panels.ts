@@ -17,13 +17,13 @@ export type ActivityPanel = {
 export const ACTIVITY_PANELS: ActivityPanel[] = [
   {
     id: "pier",
-    title: "Пирс и водная станция",
+    title: "Новый понтон",
     shortDescription:
-      "Частный выход к озеру, лодка с электромотором и SUP-доски — всё уже включено в отдых.",
-    image: "/images/lake/dock-boat-dusk.jpeg",
-    imageAlt: "Пирс и лодка на Михалёвском озере на закате",
-    href: "/aktivnosti",
-    eyebrow: "У воды",
+      "У коттеджа WILD теперь более просторный понтон. Больше места для отдыха у воды, рыбалки и выхода на SUP.",
+    image: "/images/lake/cottage-pontoon-lake-960.webp",
+    imageAlt: "Новый просторный понтон коттеджа WILD с лодкой и SUP",
+    href: "/dom#pontoon",
+    eyebrow: "У коттеджа WILD",
     includedInStay: true,
   },
   {

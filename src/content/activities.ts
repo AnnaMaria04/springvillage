@@ -14,7 +14,7 @@ export const ACTIVITIES: Record<Season, ActivityItem[]> = {
     {
       title: "SUP-доски",
       slug: "bajdarki",
-      description: "Выход с оборудованного пирса. Михалёвское озеро — спокойное. SUP-доски включены в стоимость проживания. Можно выходить на воду в любое время дня.",
+      description: "Выход с нового просторного понтона коттеджа WILD. Михалёвское озеро — спокойное. SUP-доски включены в стоимость проживания. Можно выходить на воду в любое время дня.",
       photo: "/images/activities/activity-sup-dog.jpeg",
       emoji: "",
     },
