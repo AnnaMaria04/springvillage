@@ -4,14 +4,14 @@ import { ActivityAccordion } from "@/components/home/ActivityAccordion";
 
 export function ExperiencePreview() {
   return (
-    <section className="pt-12 lg:pt-16 pb-6 lg:pb-8 bg-background overflow-x-clip">
+    <section className="pt-24 lg:pt-32 pb-12 lg:pb-16 bg-background overflow-x-clip">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-7">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">
               Развлечения
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground leading-tight">
               Озеро и лес
             </h2>
           </div>

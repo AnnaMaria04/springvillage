@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, Users, BedDouble, Maximize2, Waves } from "lucide-react";
 import { HOUSE } from "@/content/house";
 import { BookingBar } from "@/components/home/BookingBar";
 import { BookingButton } from "@/components/booking/BookingButton";
@@ -25,33 +25,32 @@ export default function DomPage() {
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Главная", url: "/" }, { name: "Коттедж WILD", url: "/dom" }])) }} />
-      <header className="pt-[68px] lg:pt-[84px] bg-cream">
-        <div className="max-w-[1600px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="px-6 sm:px-8 lg:pl-16 xl:pl-24 lg:pr-12 py-9 sm:py-10 lg:py-14 flex flex-col justify-center">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground mb-4">Spring Village · частный дом у озера</p>
-            <h1 className="font-display text-[clamp(2.6rem,4.3vw,4rem)] font-semibold leading-[1.02] text-pine">Коттедж<br />WILD</h1>
-            <p className="font-display text-xl sm:text-2xl text-pine mt-5">Свой дом. Свой берег. Ваше время.</p>
-            <p className="text-muted-foreground mt-5 max-w-md leading-relaxed">Две спальни, камин и панорамные окна в карельский лес. Уединённый A-frame у Михалёвского озера — в 127 км от Петербурга.</p>
-            <div className="flex flex-wrap items-center gap-6 mt-8">
-              <BookingButton className="inline-flex items-center gap-4 px-7 h-12 bg-wood text-white rounded-full text-sm font-medium hover:bg-wood/90 transition-colors cursor-pointer">Выбрать даты <ArrowUpRight className="w-4 h-4" aria-hidden="true" /></BookingButton>
-              <a href="#pontoon" className="inline-flex items-center gap-2 py-3 text-sm text-pine border-b border-pine/30 hover:border-pine">Новый понтон <ArrowDown className="w-4 h-4" aria-hidden="true" /></a>
+      <header className="pt-[68px] lg:pt-[84px] bg-pine">
+        <div className="relative min-h-[470px] sm:min-h-[500px] flex items-end overflow-hidden">
+          <Image src="/images/exterior/exterior-dusk-path.jpg" alt="Коттедж WILD среди сосен в мягком вечернем свете" fill preload sizes="100vw" className="object-cover object-center lg:object-[center_55%]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,18,14,0.8),rgba(12,18,14,0.36)_55%,rgba(12,18,14,0.08))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(12,18,14,0.55),transparent_75%)]" />
+          <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-9 lg:py-12 text-white">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/70 mb-3">Spring Village · Михалёвское озеро</p>
+            <h1 className="font-display text-[clamp(2.6rem,4.3vw,4rem)] font-semibold leading-[1.05]">Коттедж WILD</h1>
+            <p className="text-sm sm:text-base text-white/85 leading-relaxed mt-4 max-w-md">Свой дом у озера. Две спальни, дровяной камин и панорамные окна в карельский лес.</p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-6">
+              <BookingButton className="inline-flex items-center px-7 h-12 bg-wood text-white rounded-full text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer focus-ring-sand">Выбрать даты</BookingButton>
+              <a href="#pontoon" className="inline-flex items-center gap-2 py-3 text-sm text-white/90 hover:text-white link-underline focus-ring-sand">Новый понтон <ArrowDown className="w-4 h-4" aria-hidden="true" /></a>
             </div>
-          </div>
-          <div className="relative min-h-[280px] sm:min-h-[360px] lg:min-h-[480px]">
-            <Image src="/images/exterior/exterior-night-deck.jpeg" alt="Коттедж WILD с освещённой террасой среди деревьев" fill preload sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover object-[center_40%]" />
-            <span className="absolute bottom-6 left-6 text-white text-xs uppercase tracking-[0.2em]">A-frame · Михалёвское озеро</span>
           </div>
         </div>
       </header>
 
-      <div className="border-y border-border">
-        <dl className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 grid grid-cols-2 md:grid-cols-4 gap-y-6 py-5 lg:py-6">
-          {[{ value: `${HOUSE.area} м²`, label: "пространства для отдыха" }, { value: `${HOUSE.bedrooms} спальни`, label: `до ${HOUSE.capacity} гостей` }, { value: "200 м", label: "частного берега" }, { value: "Новый понтон", label: "ещё просторнее у воды" }].map((fact) => (
-            <div key={fact.value} className="pr-4 md:pl-6 md:border-l md:border-border md:first:pl-0 md:first:border-0">
-              <dt className="text-xs text-muted-foreground mb-2">{fact.label}</dt>
-              <dd className="font-display text-2xl sm:text-3xl text-pine font-semibold">{fact.value}</dd>
-            </div>
-          ))}
+      <div className="border-b border-border bg-sand/50">
+        <dl className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-5 py-5 lg:py-6">
+          {[{ icon: Maximize2, value: `${HOUSE.area} м²`, label: "A-frame, 2 этажа" }, { icon: BedDouble, value: `${HOUSE.bedrooms} спальни`, label: "верхняя и нижняя" }, { icon: Users, value: `до ${HOUSE.capacity} гостей`, label: "для семьи и друзей" }, { icon: Waves, value: "200 м берега", label: "понтон, лодка и SUP" }].map((fact) => {
+            const Icon = fact.icon;
+            return <div key={fact.value} className="flex items-start gap-3">
+              <Icon className="w-4 h-4 text-moss mt-1 shrink-0" aria-hidden="true" />
+              <div><dt className="text-sm font-semibold text-pine">{fact.value}</dt><dd className="text-xs text-muted-foreground mt-1">{fact.label}</dd></div>
+            </div>;
+          })}
         </dl>
       </div>
 

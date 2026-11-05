@@ -11,7 +11,7 @@ export function LocationPreview() {
     "https://yandex.ru/map-widget/v1/?um=constructor%3Ac080c4f00f894bd7e65aa3b3f0e7f1ee279f3371f28d8d3591cc7263b27eb863&source=constructor";
 
   return (
-    <section className="pt-10 lg:pt-14 pb-12 lg:pb-16 bg-cream">
+    <section className="pt-10 lg:pt-14 pb-24 lg:pb-32 bg-cream">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: interactive map (deferred until scrolled near) */}
@@ -26,7 +26,7 @@ export function LocationPreview() {
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
               Как добраться
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-pine leading-tight mb-6">
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-pine leading-tight mb-6">
               127 км от Петербурга
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">

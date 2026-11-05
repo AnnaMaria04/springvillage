@@ -52,21 +52,21 @@ export function Deals() {
   const rise = reduce ? {} : { initial: { opacity: 0, y: 12 }, whileInView: { opacity: 1, y: 0 } };
 
   return (
-    <section ref={sectionRef} className="bg-pine py-12 lg:py-16">
+    <section ref={sectionRef} className="bg-pine py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
 
         {/* ── Header ── */}
-        <div className="text-center max-w-2xl mx-auto mb-8 lg:mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-14 lg:mb-16">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-wood mb-5">
             Лето 2026
           </p>
           <h2
             className="font-display font-bold text-white leading-[1.05] tracking-tight mb-5"
-            style={{ fontSize: "clamp(2rem, 3.5vw, 2.5rem)" }}
+            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
           >
             Аренда с умом
           </h2>
-          <p className="text-white/70 text-base leading-relaxed">
+          <p className="text-white/60 text-lg leading-relaxed">
             Чем дольше вы остаётесь, тем спокойнее становится отдых — и ниже стоимость одной ночи.
           </p>
         </div>
@@ -160,7 +160,7 @@ export function Deals() {
         </div>
 
         {/* ── Family note ── */}
-        <div className="mt-8 pt-6 border-t border-white/10 max-w-2xl mx-auto text-center">
+        <div className="mt-14 pt-8 border-t border-white/10 max-w-2xl mx-auto text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40 mb-3">
             Семейный отдых
           </p>

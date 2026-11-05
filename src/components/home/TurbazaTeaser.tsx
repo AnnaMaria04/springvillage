@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react";
  */
 export function TurbazaTeaser() {
   return (
-    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-6 lg:pt-8 pb-5">
+    <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 lg:pt-16 pb-5">
       <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
         Рядом с коттеджем
       </p>
@@ -23,7 +23,7 @@ export function TurbazaTeaser() {
             В 1,5 км от коттеджа
           </p>
           <h2 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-3">
-            Турбаза Михалёвское
+            Тур база Михалёвское
           </h2>
           <p className="text-white/70 text-sm leading-relaxed max-w-xl mb-6">
             500 м берега с песчаным пляжем. Кемпинг у воды, аренда лодок, слип для сапов,

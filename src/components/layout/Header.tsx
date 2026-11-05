@@ -60,14 +60,13 @@ export function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
+                href={link.href}
                 className={cn(
-                  "mx-1.5 px-2 py-2 border-b text-sm font-medium transition-colors duration-200",
-                  pathname === link.href ? "border-pine text-pine" : "border-transparent",
+                  "px-3.5 py-2 rounded-lg text-[15px] font-medium transition-all duration-150",
                   transparent
-                    ? "text-white/85 hover:text-white hover:border-white/60"
-                    : "text-muted-foreground hover:text-pine hover:border-pine/40"
+                    ? "text-white/75 hover:text-white hover:bg-white/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 {link.label}
@@ -88,7 +87,7 @@ export function Header() {
             </a>
             <button
               onClick={() => openBooking()}
-              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-wood text-white text-sm font-semibold hover:bg-wood/90 transition-colors cursor-pointer shadow-sm"
             >
               Забронировать
             </button>
@@ -115,8 +114,8 @@ export function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
+                href={link.href}
                 onClick={() => setOpen(false)}
                 className="px-3 py-3.5 text-sm font-medium text-foreground hover:text-primary border-b border-border last:border-0 transition-colors"
               >
